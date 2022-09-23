@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/iLx11/resource/img/favicon.png">
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/iLx11/resource/css/reset.css">
+
+    
+<link rel="stylesheet" href="/iLx11/resource/css/style.css">
+
+    
+<link rel="stylesheet" href="/iLx11/resource/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/iLx11/resource/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <div class="bgimg"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/iLx11/resource/">iLx1</a>
+    <a class="go-home" href="/iLx11/resource/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+
+    
+        <div class="post-main-title">
+            Linux笔记
+        </div>
+        <div class="post-meta">
+            2022-08-16
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <h2 id="Linux笔记"><a href="#Linux笔记" class="headerlink" title="Linux笔记"></a>Linux笔记</h2><p>Linux版本18</p>
+<p>VMware中安装tools</p>
+<p>将安装包提取到某个位置，在该位置打开终端执行</p>
+<p>出现错误时复制后再提取执行</p>
+<pre><code>sudo ./vmware-install.pl
+</code></pre>
+<p>之后有Y选Y，再将虚拟机重启</p>
+<h2 id="ubuntu-docker安装"><a href="#ubuntu-docker安装" class="headerlink" title="ubuntu docker安装"></a>ubuntu docker安装</h2><pre><code>curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+</code></pre>
+<p>国内 daocloud 一键安装命令：</p>
+<pre><code>curl -sSL https://get.daocloud.io/docker | sh
+</code></pre>
+<h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><h3 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h3><p>Docker 的旧版本被称为 docker，docker.io 或 docker-engine 。如果已安装，请卸载它们：</p>
+<pre><code>$ sudo apt-get remove docker docker-engine docker.io containerd runc
+</code></pre>
+<p>当前称为 Docker Engine-Community 软件包 docker-ce 。</p>
+<p>安装 Docker Engine-Community，以下介绍两种方式。</p>
+<h3 id="使用-Docker-仓库进行安装"><a href="#使用-Docker-仓库进行安装" class="headerlink" title="使用 Docker 仓库进行安装"></a>使用 Docker 仓库进行安装</h3><p>在新主机上首次安装 Docker Engine-Community 之前，需要设置 Docker 仓库。之后，您可以从仓库安装和更新 Docker 。</p>
+<h3 id="设置仓库"><a href="#设置仓库" class="headerlink" title="设置仓库"></a>设置仓库</h3><p>更新 apt 包索引。</p>
+<pre><code>$ sudo apt-get update
+</code></pre>
+<p>安装 apt 依赖包，用于通过HTTPS来获取仓库:</p>
+<p>$ <strong>sudo</strong> <strong>apt-get install</strong> <br>  apt-transport-https <br>  ca-certificates <br>  curl <br>  gnupg-agent <br>  software-properties-common</p>
+<p>添加 Docker 的官方 GPG 密钥：</p>
+<pre><code>$ curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+</code></pre>
+<p>9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88 通过搜索指纹的后8个字符，验证您现在是否拥有带有指纹的密钥。</p>
+<p>$ <strong>sudo</strong> <strong>apt-key</strong> fingerprint 0EBFCD88</p>
+<p>pub  rsa4096 2017-02-22 <strong>[<strong>SCEA</strong>]</strong><br>   9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88<br>uid      <strong>[</strong> unknown**]** Docker Release <strong>(<strong>CE deb</strong>)</strong> <strong>&lt;**docker**@**docker.com**&gt;</strong><br>sub  rsa4096 2017-02-22 <strong>[<strong>S</strong>]</strong></p>
+<p>使用以下指令设置稳定版仓库</p>
+<p>$ <strong>sudo</strong> add-apt-repository <br>  “deb [arch=amd64] <a target="_blank" rel="noopener" href="https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/">https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/</a> **\</p>
+<p>** $(lsb_release -cs) **\</p>
+<p>** stable”</p>
+<h3 id="安装-Docker-Engine-Community"><a href="#安装-Docker-Engine-Community" class="headerlink" title="安装 Docker Engine-Community"></a>安装 Docker Engine-Community</h3><p>更新 apt 包索引。</p>
+<pre><code>$ sudo apt-get update
+</code></pre>
+<p>安装最新版本的 Docker Engine-Community 和 containerd ，或者转到下一步安装特定版本：</p>
+<pre><code>$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+</code></pre>
+<p>要安装特定版本的 Docker Engine-Community，请在仓库中列出可用版本，然后选择一种安装。列出您的仓库中可用的版本：</p>
+<p>$ <strong>apt-cache</strong> madison docker-ce</p>
+<p> docker-ce <strong>|</strong> 5:18.09.1<del>3-0</del>ubuntu-xenial <strong>|</strong> https:**//<strong>mirrors.ustc.edu.cn</strong>/<strong>docker-ce</strong>/<strong>linux</strong>/<strong>ubuntu  xenial</strong>/<strong>stable amd64 Packages<br> docker-ce <strong>|</strong> 5:18.09.0<del>3-0</del>ubuntu-xenial <strong>|</strong> https:</strong>//<strong>mirrors.ustc.edu.cn</strong>/<strong>docker-ce</strong>/<strong>linux</strong>/<strong>ubuntu  xenial</strong>/<strong>stable amd64 Packages<br> docker-ce <strong>|</strong> 18.06.1<del>ce</del>3-0~ubuntu    <strong>|</strong> https:</strong>//<strong>mirrors.ustc.edu.cn</strong>/<strong>docker-ce</strong>/<strong>linux</strong>/<strong>ubuntu  xenial</strong>/<strong>stable amd64 Packages<br> docker-ce <strong>|</strong> 18.06.0<del>ce</del>3-0~ubuntu    <strong>|</strong> https:</strong>//<strong>mirrors.ustc.edu.cn</strong>/<strong>docker-ce</strong>/<strong>linux</strong>/<strong>ubuntu  xenial</strong>/**stable amd64 Packages<br> …</p>
+<p>使用第二列中的版本字符串安装特定版本，例如 5:18.09.1<del>3-0</del>ubuntu-xenial。</p>
+<pre><code>$ sudo apt-get install docker-ce=&lt;VERSION_STRING&gt; docker-ce-cli=&lt;VERSION_STRING&gt; containerd.io
+</code></pre>
+<p>测试 Docker 是否安装成功，输入以下指令，打印出以下信息则安装成功:</p>
+<p>$ <strong>sudo</strong> docker run hello-world</p>
+<p>Unable to <strong>find</strong> image ‘hello-world:latest’ locally<br>latest: Pulling from library**/**hello-world</p>
+<p>…..</p>
+<h3 id="卸载-docker"><a href="#卸载-docker" class="headerlink" title="卸载 docker"></a>卸载 docker</h3><p>删除安装包：</p>
+<pre><code>sudo apt-get purge docker-ce
+</code></pre>
+<p>删除镜像、容器、配置文件等内容：</p>
+<pre><code>sudo rm -rf /var/lib/docker
+</code></pre>
+<h2 id="docker-安装-emqx"><a href="#docker-安装-emqx" class="headerlink" title="docker 安装 emqx"></a>docker 安装 emqx</h2><p>首次进入root要先设置密码</p>
+<pre><code>sudo passwd root
+</code></pre>
+<p>输入密码，并确认密码。</p>
+<pre><code>su root
+//linuxroot
+</code></pre>
+<p>切换为普通用户</p>
+<pre><code>su xyx
+</code></pre>
+<p> 在root下执行</p>
+<pre><code>[root@localhost ~]# docker pull emqx/emqx:4.2.11
+</code></pre>
+<pre><code>[root@localhost ~]# docker run -d --name emqx -p 1883:1883 -p 8081:8081 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx/emqx:4.2.11
+</code></pre>
+<h5 id="浏览器输入服务器的ip-18083端口访问-默认登录账号admin-密码public"><a href="#浏览器输入服务器的ip-18083端口访问-默认登录账号admin-密码public" class="headerlink" title="浏览器输入服务器的ip:18083端口访问,默认登录账号admin 密码public"></a>浏览器输入服务器的<em>ip:18083</em>端口访问,默认登录账号admin 密码public</h5><h3 id="在ubuntu中查询ip"><a href="#在ubuntu中查询ip" class="headerlink" title="在ubuntu中查询ip"></a>在ubuntu中查询ip</h3><p>右上角点有线设置，可以在设置中看到IP</p>
+<h5 id="主机的浏览器也可输入服务器的IP-18083"><a href="#主机的浏览器也可输入服务器的IP-18083" class="headerlink" title="主机的浏览器也可输入服务器的IP:18083"></a>主机的浏览器也可输入服务器的IP:18083</h5><pre><code>$ ifconfig -a
+</code></pre>
+<p>Command ‘ifconfig’ not found, but can be installed with:</p>
+<p>sudo apt install net-tools</p>
+<pre><code>$ sudo apt install net-tools
+</code></pre>
+<h2 id="执行PowerShell"><a href="#执行PowerShell" class="headerlink" title="执行PowerShell"></a>执行PowerShell</h2><p>1.在Windows 操作系统里，点击开始-&gt;运行-&gt;输入PowerShell，进入windows PowerShell。</p>
+<p>2.在任意文件夹按住[shift]键单击鼠标右键，选择[在此处打开PowerShell窗口(S)]</p>
+<p>3.按住[windows]+[R]键，输入powershell [16] </p>
+<p>4.在命令与指示符(cmd)中输入powershell，在cmd中实现powershell的功能</p>
+<h3 id="解决VSCODE”因为在此系统上禁止运行脚本”报错"><a href="#解决VSCODE”因为在此系统上禁止运行脚本”报错" class="headerlink" title="解决VSCODE”因为在此系统上禁止运行脚本”报错"></a>解决VSCODE”因为在此系统上禁止运行脚本”报错</h3><ol>
+<li>以管理员身份运行vscode;</li>
+<li>执行：get-ExecutionPolicy，显示Restricted，表示状态是禁止的;</li>
+<li>执行：set-ExecutionPolicy RemoteSigned;</li>
+<li>这时再执行get-ExecutionPolicy，就显示RemoteSigned;</li>
+</ol>
+<h3 id="启动已停止运行的容器"><a href="#启动已停止运行的容器" class="headerlink" title="启动已停止运行的容器"></a>启动已停止运行的容器</h3><p>查看所有的容器命令如下：</p>
+<pre><code>$ docker ps -a
+</code></pre>
+<p>启动id为–的容器</p>
+<pre><code>$ docker start b750bbbcfd88 
+</code></pre>
+<h3 id="停止一个容器"><a href="#停止一个容器" class="headerlink" title="停止一个容器"></a>停止一个容器</h3><p>停止容器的命令如下：</p>
+<pre><code>$ docker stop ID
+</code></pre>
+<p>停止的容器可以通过 docker restart 重启</p>
+<pre><code>$ docker restart ID
+</code></pre>
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><p>删除容器使用 <strong>docker rm</strong> 命令：</p>
+<pre><code>$ docker rm -f 1e560fca3906
+</code></pre>
+<p>下面的命令可以清理掉所有处于终止状态的容器。</p>
+<pre><code>$ docker container prune
+</code></pre>
+
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/iLx11/resource/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/iLx11/resource/css/nord.css">
+
+
+<script src="/iLx11/resource/js/highlight.min.js"></script>
+
+
+<script src="/iLx11/resource/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/iLx11/resource/js/memo.js"></script>
+
+</html>

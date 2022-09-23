@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/iLx11/resource/img/favicon.png">
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/iLx11/resource/css/reset.css">
+
+    
+<link rel="stylesheet" href="/iLx11/resource/css/style.css">
+
+    
+<link rel="stylesheet" href="/iLx11/resource/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/iLx11/resource/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <div class="bgimg"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/iLx11/resource/">iLx1</a>
+    <a class="go-home" href="/iLx11/resource/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+
+    
+        <div class="post-main-title">
+            后端笔记
+        </div>
+        <div class="post-meta">
+            2022-08-16
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <h1 id="Mybatis框架-noSpring"><a href="#Mybatis框架-noSpring" class="headerlink" title="Mybatis框架-noSpring"></a>Mybatis框架-noSpring</h1><h3 id="连接mysql数据库"><a href="#连接mysql数据库" class="headerlink" title="连接mysql数据库"></a>连接mysql数据库</h3><pre><code class="java">        //Mybatis
+        String resourse = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resourse);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        userMapper userMapper = sqlSession.getMapper(userMapper.class);
+        List&lt;User&gt; users = userMapper.selectAll();
+        System.out.println(users);
+        sqlSession.close();
+
+        //引入jar包后的原生
+        Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+        Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;useSSL=false&amp;serverTimezone=UTC&quot;,&quot;root&quot;,&quot;sql666&quot;);
+        String sql = &quot;insert into sqltest (name,age,school) value (&#39;sdf&#39;,23,&#39;45&#39;)&quot;;
+        Statement stmt = conn.createStatement();
+
+        System.out.println(stmt.executeUpdate(sql));
+        stmt.close();
+        conn.close();
+</code></pre>
+<h4 id="mybatis-config-xml"><a href="#mybatis-config-xml" class="headerlink" title="mybatis-config.xml"></a>mybatis-config.xml</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;configuration&gt;
+    &lt;environments default=&quot;development&quot;&gt;
+        &lt;environment id=&quot;development&quot;&gt;
+            &lt;transactionManager type=&quot;JDBC&quot;/&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/test?useSSL=false&amp;amp;serverTimezone=UTC&quot;/&gt;
+                &lt;property name=&quot;username&quot; value=&quot;root&quot;/&gt;
+                &lt;property name=&quot;password&quot; value=&quot;sql666&quot;/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource=&quot;com/test/userMapper.xml&quot;/&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;
+</code></pre>
+<h4 id="pom-xml配置文件"><a href="#pom-xml配置文件" class="headerlink" title="pom.xml配置文件"></a>pom.xml配置文件</h4><pre><code class="xml"> &lt;dependencies&gt;
+         &lt;!-- servlet依赖--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;4.0.1&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;!-- mybits依赖--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;3.5.5&lt;/version&gt;
+        &lt;/dependency&gt;
+     
+        &lt;!--mysql依赖--&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;8.0.16&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    &lt;!--json解析包--&gt;
+   &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;fastjson&lt;/artifactId&gt;
+            &lt;version&gt;1.2.54&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;build&gt;
+        &lt;resources&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/java&lt;/directory&gt;
+                &lt;includes&gt;
+                    &lt;include&gt;**/*.xml&lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;filtering&gt;true&lt;/filtering&gt;
+            &lt;/resource&gt;
+        &lt;/resources&gt;
+         &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+                &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.2&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;path&gt;/&lt;/path&gt;
+                    &lt;port&gt;80&lt;/port&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;14&lt;/source&gt;
+                    &lt;target&gt;14&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;13&lt;/source&gt;
+                    &lt;target&gt;13&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+</code></pre>
+<h4 id="Mapper-xml映射文件"><a href="#Mapper-xml映射文件" class="headerlink" title="-Mapper.xml映射文件"></a>-Mapper.xml映射文件</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+
+&lt;!--namespace 指向class映射文件(mapper接口)的位置--&gt;
+&lt;mapper namespace=&quot;com.test.userMapper&quot;&gt;
+    &lt;select id=&quot;selectAll&quot; resultType=&quot;com.test.User&quot;&gt;
+    select * from sqltest;
+  &lt;/select&gt;
+   &lt;select id=&quot;insertData&quot; resultType=&quot;com.test.User&quot;&gt;
+        insert into  sqltest (name,age) value ( #&#123;name&#125;,#&#123;age&#125;);
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+<h4 id="Tomcat插件"><a href="#Tomcat插件" class="headerlink" title="Tomcat插件"></a>Tomcat插件</h4><pre><code class="xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+    &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.2&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;path&gt;/&lt;/path&gt;
+        &lt;port&gt;80&lt;/port&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+<h4 id="servlet依赖"><a href="#servlet依赖" class="headerlink" title="servlet依赖"></a>servlet依赖</h4><pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;4.0.1&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.servlet.jsp-api&lt;/artifactId&gt;
+    &lt;version&gt;2.3.3&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h3 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h3><p>id 顺序排列</p>
+<pre><code class="sql">ALTER TABLE BN DROP COLUMN id;
+ALTER TABLE BN ADD id int NOT NULL PRIMARY KEY AUTO_INCREMENT FIRST;
+</code></pre>
+<pre><code class="sql">show databases;
+drop database if exists hardware_sys;
+#创建数据库并指定字符集
+create database if not exists question_bank default character set utf8 collate utf8_general_ci;
+
+use hardware_sys;
+
+drop table if exists hardware_sys.user_data;
+drop table if exists hardware_sys.hardware_data;
+create table if not exists user_data
+(
+    id       int primary key auto_increment,
+    name     varchar(20) not null ,
+    password varchar(50) not null ,
+    status   smallint,
+    mana     smallint
+    #默认字符集
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+select *
+from hardware_data;
+
+#数据库字符
+SHOW VARIABLES LIKE &#39;char%&#39;;
+set character_set_results =utf8;
+</code></pre>
+<h4 id="mysql区分大小写"><a href="#mysql区分大小写" class="headerlink" title="mysql区分大小写"></a>mysql区分大小写</h4><pre><code class="sql">创建时设置：
+CREATE TABLE T(
+A VARCHAR(10) BINARY
+);
+
+使用alter修改：
+ALTER TABLE `tablename` MODIFY COLUMN `cloname` VARCHAR(45) BINARY;
+
+mysql table editor中直接勾选BINARY项。
+</code></pre>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p><img src="https://gitee.com/iLx1/resource-img/raw/master/javaConstruction.jpg" alt="javaConstruction"></p>
+<h4 id="mapper文件"><a href="#mapper文件" class="headerlink" title="mapper文件"></a>mapper文件</h4><p>存放Mybatis的映射类，定义执行SQL语句的函数，传递对应的值</p>
+<h4 id="pojo文件"><a href="#pojo文件" class="headerlink" title="pojo文件"></a>pojo文件</h4><p>存放定义好的简单java对象</p>
+<h4 id="service文件"><a href="#service文件" class="headerlink" title="service文件"></a>service文件</h4><p>存放调用工具类具体执行SQL语句的接口，imp则对接口进行实现，在servlet中怎直接创建对象调用方法。</p>
+<h4 id="utils文件"><a href="#utils文件" class="headerlink" title="utils文件"></a>utils文件</h4><p>作为工具类，创建SqlSessitionFactory 工厂对象，因为此对象可以被复用，用static定义。</p>
+<h4 id="web-servlet文件"><a href="#web-servlet文件" class="headerlink" title="web.servlet文件"></a>web.servlet文件</h4><p>服务端文件，对Http请求进行响应，对应的实现与数据库的连接，数据交互。</p>
+<h4 id="resource文件"><a href="#resource文件" class="headerlink" title="resource文件"></a>resource文件</h4><p>包含数据库的映射文件，以及mybatis的配置文件</p>
+<h4 id="web-app"><a href="#web-app" class="headerlink" title="web-app"></a>web-app</h4><p>存放前端的页面文件</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="MYSQL安装"><a href="#MYSQL安装" class="headerlink" title="MYSQL安装"></a>MYSQL安装</h3><p>下载地址：</p>
+<p><a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/installer/">https://downloads.mysql.com/archives/installer/</a></p>
+<p>下载，解压，配置环境变量</p>
+<p>或许要cmd输入’services.msc’，启动服务</p>
+<p>验证环境变量是否配置好，按下“window+R”键弹出运行框，输入“cmd”进入window命令行，输入“mysql -u root -p”按下回车，再输入密码，按下回车。有welcome则成功。</p>
+<p>详细安装教程：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_50498482/article/details/124315351">https://blog.csdn.net/weixin_50498482/article/details/124315351</a></p>
+<p>登录参数</p>
+<pre><code class="sql">mysql -uxxx -pxxx -h127.0.0.1 -p 3306
+</code></pre>
+<h4 id="Navicat安装"><a href="#Navicat安装" class="headerlink" title="Navicat安装"></a>Navicat安装</h4><p>解压安装即可</p>
+<p>点击连接，输入主机端口，用户名，端口来连接到数据库</p>
+<h3 id="Maven安装"><a href="#Maven安装" class="headerlink" title="Maven安装"></a>Maven安装</h3><p>管理和构建java项目的工具</p>
+<p>提供标准项目结构，标准化构建流程，依赖管理机制。</p>
+<p>下载解压安装</p>
+<p>在maven-&gt;conf-&gt;settings.xml中配置阿里云的镜像，在mirrors节点下面添加子节点</p>
+<pre><code class="xml">&lt;mirror&gt;
+    &lt;id&gt;nexus-aliyun&lt;/id&gt;
+    &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+    &lt;name&gt;Nexus aliyun&lt;/name&gt;
+    &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;/url&gt;
+&lt;/mirror&gt;
+</code></pre>
+<p>浏览仓库内容</p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/mvn/guide">https://developer.aliyun.com/mvn/guide</a></p>
+<p>常用命令</p>
+<p>1.compile 编译  2. clean  3. test 4. package  5. install</p>
+<h5 id="IDEA配置maven"><a href="#IDEA配置maven" class="headerlink" title="IDEA配置maven"></a>IDEA配置maven</h5><p>settings -&gt; 搜索maven -&gt; 配置home path -&gt; 配置文件settings file -&gt; 选择对应文件</p>
+<h5 id="导入maven项目"><a href="#导入maven项目" class="headerlink" title="导入maven项目"></a>导入maven项目</h5><p>选择右侧maven面板 -&gt; 点击+ -&gt; 选择porn.xml文件 </p>
+<p>没有面板则 view -&gt; appearance -&gt; tool windows bar</p>
+<h3 id="Mybatis安装"><a href="#Mybatis安装" class="headerlink" title="Mybatis安装"></a>Mybatis安装</h3><p>持久层框架，简化JDBC开发</p>
+<p>持久层 -&gt; 将数据保存到数据库</p>
+<h5 id="配置文档"><a href="#配置文档" class="headerlink" title="配置文档"></a>配置文档</h5><p><a target="_blank" rel="noopener" href="https://mybatis.net.cn/getting-started.html">https://mybatis.net.cn/getting-started.html</a></p>
+<p>maven导入依赖 -&gt; 配置文件mybatis.xml -&gt; 映射文件mapper </p>
+<p>IDEA连接数据库</p>
+<p>右侧菜单 -&gt; datasource -&gt; mysql -&gt; 填写数据库信息</p>
+<h5 id="Mapper代理"><a href="#Mapper代理" class="headerlink" title="Mapper代理"></a>Mapper代理</h5><p>通过 SqlSession 的 getMapper 获取Mapper接口</p>
+<h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><p>下载安装</p>
+<p><a target="_blank" rel="noopener" href="https://tomcat.apache.org/download-80.cgi">https://tomcat.apache.org/download-80.cgi</a></p>
+<h5 id="解决控制台乱码"><a href="#解决控制台乱码" class="headerlink" title="解决控制台乱码"></a>解决控制台乱码</h5><p>conf -&gt; logging.properties -&gt; consoleHa… encodeing = GBK</p>
+<h5 id="server-xml-中可以更改端口"><a href="#server-xml-中可以更改端口" class="headerlink" title="server.xml 中可以更改端口"></a>server.xml 中可以更改端口</h5><p>connector port = “80”</p>
+<p>窗口一闪而过则是，java 环境配置错误</p>
+<h4 id="创建mavenWeb项目"><a href="#创建mavenWeb项目" class="headerlink" title="创建mavenWeb项目"></a>创建mavenWeb项目</h4><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20220831100450703.png" alt="image-20220831100450703" style="zoom:67%;" />
+
+
+
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20220831100720065.png" alt="image-20220831100720065"></p>
+<p>-&gt; 补全目录即可</p>
+<h4 id="IDEA中使用Tomcat"><a href="#IDEA中使用Tomcat" class="headerlink" title="IDEA中使用Tomcat"></a>IDEA中使用Tomcat</h4><p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20220831101047740.png" alt="image-20220831101047740"></p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220831101239030.png" alt="image-20220831101239030"></p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20220831101345311.png" alt="image-20220831101345311"></p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20220831101441429.png" alt="image-20220831101441429"></p>
+<h4 id="sevlet配置"><a href="#sevlet配置" class="headerlink" title="sevlet配置"></a>sevlet配置</h4><p>1.创建web项目，导入依赖</p>
+<p>2.定义类实现接口</p>
+<p>3.使用@Webservlet(“/path”)注解，配置访问路径</p>
+<p>4.浏览器访问</p>
+<h3 id="读写excel表格"><a href="#读写excel表格" class="headerlink" title="读写excel表格"></a>读写excel表格</h3><p>导入依赖</p>
+<pre><code class="xml">&lt;!-- EasyExcel --&gt;
+&lt;dependency&gt;
+     &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+     &lt;artifactId&gt;easyexcel&lt;/artifactId&gt;
+     &lt;version&gt;2.2.6&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;!--通过注解生成setter and getter--&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+     &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+     &lt;version&gt;1.18.22&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre>
+<p>创建对象</p>
+<pre><code class="java">//lombok能创建setter getter 方法
+@Setter
+@Getter
+@ToString
+public class question &#123;
+    //忽视对象中的此成员
+    @ExcelIgnore
+    private int id;
+    
+    //excel表格读取和储存的表头
+   @ExcelProperty(value = &quot;题目&quot;)
+    private String topic;
+
+   @ExcelProperty(value = &quot;选项1&quot;)
+    private String option_o;
+&#125;
+</code></pre>
+<pre><code class="java">//将数据写入list集合中
+List&lt;question&gt; ques = new ArrayList&lt;&gt;();
+        for (int i=0;i &lt; 10; i++) &#123;
+            question qu = new question();
+            qu.setId(i);
+            qu.setTopic(i);
+            qu.setOption_o(i);
+            ques.add(qu);
+        &#125;
+//写入excel表格
+EasyExcel.write(&quot;XXX/123.xlsx&quot;, //文件路径
+                question.class) //对象class
+                .sheet(&quot;题目&quot;)   //表名
+                .doWrite(ques); //写入集合
+
+
+//读取excel表格
+ String filePath = &quot;XXX/123.xlsx&quot;;
+ List&lt;question&gt; list = EasyExcel
+                      .read(filePath)
+                      .head(question.class) //根据class获取表头
+                         .sheet()
+                         .doReadSync();
+</code></pre>
+<h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h4 id="使用xml配置"><a href="#使用xml配置" class="headerlink" title="使用xml配置"></a>使用xml配置</h4><p>ApplicationContext.xml</p>
+<pre><code class="xml">&lt;bean id = &quot;userDao&quot; class=&quot;com.colorful.dao.userDaoImp&quot;&gt;
+&lt;!--        注入普通数据类型--&gt;
+        &lt;property name=&quot;string&quot; value=&quot;123&quot;/&gt;
+&lt;!--        注入集合数据类型--&gt;
+        &lt;property name=&quot;list&quot;&gt;
+            &lt;list&gt;
+                &lt;value&gt;345&lt;/value&gt;
+                &lt;value&gt;568&lt;/value&gt;
+            &lt;/list&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;map&quot;&gt;
+            &lt;map&gt;
+                &lt;entry key=&quot;name&quot; value=&quot;123&quot;/&gt;
+                &lt;entry key=&quot;password&quot; value=&quot;123&quot;/&gt;
+            &lt;/map&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;userDaoService&quot; class=&quot;com.colorful.service.userDaoService&quot;&gt;
+&lt;!--        注入引用数据类型(userDao对象)--&gt;
+        &lt;property name=&quot;userDao&quot; ref=&quot;userDao&quot;/&gt;
+    &lt;/bean&gt;
+
+&lt;!--    引入其他配置文件（分模块开发）--&gt;
+&lt;!--    &lt;import resource=&quot;ApplicationContext.xml&quot;/&gt;--&gt;
+</code></pre>
+<p>对应类中</p>
+<pre><code class="java">//需要有setter
+@Setter
+public class userDaoImp implements userDao &#123;
+    private String string;
+    private List&lt;String&gt; list;
+    private Map&lt;String, String&gt; map;
+&#125;
+
+    //测试
+        ApplicationContext ac = new ClassPathXmlApplicationContext(&quot;ApplicationContext.xml&quot;);
+        userDaoService service = (userDaoService) ac.getBean(&quot;userDaoService&quot;);
+        service.call();
+</code></pre>
+<h5 id="导入外部-properties配置文件"><a href="#导入外部-properties配置文件" class="headerlink" title="导入外部.properties配置文件"></a>导入外部.properties配置文件</h5><pre><code class="xml">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+&lt;!--    导入外部配置文件--&gt;
+    &lt;context:property-placeholder location=&quot;classpath:test.properties&quot;/&gt;
+
+        &lt;property name=&quot;string&quot; value=&quot;$&#123;value&#125;&quot;/&gt;
+</code></pre>
+<h4 id="注解配置"><a href="#注解配置" class="headerlink" title="注解配置"></a>注解配置</h4><pre><code class="java">@Setter
+@ToString
+//组件注解，配置id标识
+@Component(&quot;userDaoService&quot;)
+public class userDaoService &#123;
+    
+    //注入引用类型(ref)
+    //Resource(&quot;userDaoImp&quot;)
+    @Autowired
+    @Qualifier(&quot;userDaoImp&quot;)
+    private userDao userDao;
+    
+    public void call() &#123;
+        System.out.println(userDao);
+        userDao.call();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="在xml中加入组件扫描"><a href="#在xml中加入组件扫描" class="headerlink" title="在xml中加入组件扫描"></a>在xml中加入组件扫描</h5><pre><code class="xml">&lt;!--    组件扫描--&gt;
+    &lt;context:component-scan base-package=&quot;com.colorful&quot;/&gt;
+</code></pre>
+<h5 id="config配置类"><a href="#config配置类" class="headerlink" title="config配置类"></a>config配置类</h5><p>com -&gt; config -&gt; springConfiguration.class</p>
+<pre><code class="java">//相当于头部文件
+@Configurable
+//组件扫描
+@ComponentScan(&quot;com.colorful&quot;)
+//properties配置文件
+@PropertySource(&quot;test.properties&quot;)
+//加载其他配置
+@Import(&#123;class,class&#125;)
+public class springConfiguration &#123;
+    //第三方
+    /*@Bean(&quot;dataSource&quot;)
+    public data dateSource() &#123;
+        xxx = new xxx;
+        return xxx
+    &#125;*/
+
+&#125;
+</code></pre>
+<h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><pre><code class="java">ApplicationContext ac = new AnnotationConfigApplicationContext(springConfiguration.class);
+        userDaoService service = ac.getBean(userDaoService.class);
+        service.call();
+</code></pre>
+<h2 id="spirngMVC"><a href="#spirngMVC" class="headerlink" title="spirngMVC"></a>spirngMVC</h2><p>导入坐标</p>
+<h5 id="springMVC配置类"><a href="#springMVC配置类" class="headerlink" title="springMVC配置类"></a>springMVC配置类</h5><pre><code class="java">//springmvc配置类，本质上还是一个spring配置类
+@Configuration
+@ComponentScan(&quot;com.itheima.controller&quot;)
+public class SpringMvcConfig &#123;
+&#125;
+</code></pre>
+<h5 id="controller-gt-usercontroller-请求处理"><a href="#controller-gt-usercontroller-请求处理" class="headerlink" title="controller -&gt; usercontroller 请求处理"></a>controller -&gt; usercontroller 请求处理</h5><pre><code class="java">//定义表现层控制器bean
+@Controller
+ //设置操作返回结果为指定json数据（本质上是一个字符串信息）
+@ResponseBody
+public class userController &#123;
+
+    @RequestMapping(&quot;/user/save&quot;)
+    public String save() &#123;
+        System.out.println(&quot;save id running&quot;);
+           return &quot;springmvc&quot;;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="在启动服务器时加载mvc，设置请求拦截的路径"><a href="#在启动服务器时加载mvc，设置请求拦截的路径" class="headerlink" title="在启动服务器时加载mvc，设置请求拦截的路径"></a>在启动服务器时加载mvc，设置请求拦截的路径</h5><pre><code class="java">//web容器配置类
+public class ServletConfig extends AbstractDispatcherServletInitializer &#123;
+    //加载springmvc配置类，产生springmvc容器（本质还是spring容器）
+    protected WebApplicationContext createServletApplicationContext() &#123;
+        //初始化WebApplicationContext对象
+        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+        //加载指定配置类
+        ctx.register(SpringMvcConfig.class);
+        return ctx;
+    &#125;
+
+    //设置由springmvc控制器处理的请求映射路径
+    protected String[] getServletMappings() &#123;
+        return new String[]&#123;&quot;/&quot;&#125;;
+    &#125;
+
+    //加载spring配置类
+    protected WebApplicationContext createRootApplicationContext() &#123;
+        return null;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="controller加载"><a href="#controller加载" class="headerlink" title="controller加载"></a>controller加载</h4><h5 id="避免Spring错误的加载到SpringMVC的bean"><a href="#避免Spring错误的加载到SpringMVC的bean" class="headerlink" title="避免Spring错误的加载到SpringMVC的bean"></a>避免Spring错误的加载到SpringMVC的bean</h5><p>方式一 (springConfig)</p>
+<pre><code class="java">@Configuration
+@ComponentScan(value = &quot;com.itheima&quot;,
+               excludeFilters = @ComponentScan.Filter(
+                   type = FilterType.ANNOTATION,
+                   classes = Controller.class
+               )
+              )
+public class SpringConfig &#123;
+&#125;
+</code></pre>
+<p>方式二(设置精确加载)</p>
+<pre><code class="java">@ComponentScan(&#123;xxx,xxx&#125;)
+</code></pre>
+<h4 id="servletConfig加载springConfig"><a href="#servletConfig加载springConfig" class="headerlink" title="servletConfig加载springConfig"></a>servletConfig加载springConfig</h4><pre><code class="java">public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer &#123; 
+    //加载springMvcConfig
+    protected WebApplicationContext createServletApplicationContext() &#123; 
+        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+        ctx.register(SpringMvcConfig.class);
+        return ctx;  
+    &#125;
+    //加载springConfig
+    protected WebApplicationContext createRootApplicationContext() &#123;  
+        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();      
+        ctx.register(SpringConfig.class);        
+        return ctx;  
+    &#125;   
+    //配置拦截与访问路径
+    protected String[] getServletMappings() &#123; 
+        return new String[]&#123;&quot;/&quot;&#125;; 
+    &#125;
+&#125;
+</code></pre>
+<h5 id="可以进行简化"><a href="#可以进行简化" class="headerlink" title="可以进行简化"></a>可以进行简化</h5><pre><code class="java">public class ServletConfig extends AbstractAnnotationConfigDispatcherServletInitializer&#123;
+    //加载springMvcConfig
+    protected Class&lt;?&gt;[] getServletConfigClasses() &#123;
+        return new Class[]&#123;SpringMvcConfig.class&#125;
+    &#125;;
+    //配置拦截与访问路径
+    protected String[] getServletMappings() &#123;
+        return new String[]&#123;&quot;/&quot;&#125;;
+    &#125;
+    //加载springConfig
+    protected Class&lt;?&gt;[] getRootConfigClasses() &#123;
+        return new Class[]&#123;SpringConfig.class&#125;;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><h5 id="普通参数"><a href="#普通参数" class="headerlink" title="普通参数"></a>普通参数</h5><pre><code class="java">//http://xxx/user/call?aa=bb
+
+@RequestMapping(&quot;/call&quot;)
+    public String call(String aa) &#123;
+        System.out.println(aa);
+        return aa;
+    &#125;
+</code></pre>
+<h5 id="GET请求中文乱码问题解决："><a href="#GET请求中文乱码问题解决：" class="headerlink" title="GET请求中文乱码问题解决："></a>GET请求中文乱码问题解决：</h5><p>在pom.xml添加tomcat7插件处配置UTF-8字符集，解决GET请求中文乱码问题。</p>
+<pre><code class="xml">&lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+        &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.1&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;port&gt;80&lt;/port&gt;&lt;!--tomcat端口号--&gt;
+          &lt;path&gt;/&lt;/path&gt; &lt;!--虚拟目录--&gt;
+          &lt;uriEncoding&gt;UTF-8&lt;/uriEncoding&gt;&lt;!--访问路径编解码字符集--&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+</code></pre>
+<h5 id="POST请求普通参数"><a href="#POST请求普通参数" class="headerlink" title="POST请求普通参数"></a>POST请求普通参数</h5><p>请求参数与形参名相同即可</p>
+<pre><code class="java">@RequestMapping(&quot;/commonParam&quot;)
+@ResponseBody
+public String commonParam(String name ,int age)&#123;
+    System.out.println(&quot;普通参数传递 name ==&gt; &quot;+name);
+    System.out.println(&quot;普通参数传递 age ==&gt; &quot;+age);
+    return &quot;post&quot;;
+&#125;
+</code></pre>
+<p>不同时可用@RequestParam(“aa”)</p>
+<pre><code class="java">public String commonParam(@RequestParam(&quot;aa&quot;) String name ,int age)
+</code></pre>
+<h5 id="POST请求乱码"><a href="#POST请求乱码" class="headerlink" title="POST请求乱码"></a>POST请求乱码</h5><blockquote>
+<p>在加载SpringMVC配置的配置类中指定字符过滤器。</p>
+</blockquote>
+<pre><code class="java">//乱码处理
+    @Override
+    protected Filter[] getServletFilters() &#123;
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding(&quot;UTF-8&quot;);
+        return new Filter[]&#123;filter&#125;;
+    &#125;
+</code></pre>
+<h5 id="POJO参数"><a href="#POJO参数" class="headerlink" title="POJO参数"></a>POJO参数</h5><blockquote>
+<p>请求参数与形参对象中的属性对应即可完成参数传递</p>
+</blockquote>
+<pre><code class="java">@RequestMapping(&quot;/pojoParam&quot;)
+@ResponseBody
+public String pojoParam(User user)&#123;
+    System.out.println(&quot;pojo参数传递 user ==&gt; &quot;+user);
+    return &quot;pojo param&quot;;
+&#125;
+</code></pre>
+<h5 id="嵌套POJO类型参数"><a href="#嵌套POJO类型参数" class="headerlink" title="嵌套POJO类型参数"></a>嵌套POJO类型参数</h5><ul>
+<li>POJO对象中包含POJO对象</li>
+</ul>
+<pre><code class="java">public class User &#123;
+    private String name;
+    private int age;
+    private Address address;
+    //同学们自己添加getter/setter/toString()方法
+&#125;
+public class Address &#123;
+    private String province;
+    private String city;
+    private Address address;
+&#125;
+</code></pre>
+<blockquote>
+<p>嵌套POJO参数：请求参数名与形参对象属性名相同，按照对象层次结构关系即可接收嵌套POJO属性参数</p>
+</blockquote>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210805105505625.png" alt="image-20210805105505625"></p>
+<h5 id="数组类型参数"><a href="#数组类型参数" class="headerlink" title="数组类型参数"></a>数组类型参数</h5><ul>
+<li>数组参数：请求参数名与形参对象<strong>属性名相同</strong>且请求参数为<strong>多个</strong>，定义数组类型即可接收参数</li>
+</ul>
+<pre><code class="java">//数组参数：同名请求参数可以直接映射到对应名称的形参数组对象中
+@RequestMapping(&quot;/arrayParam&quot;)
+@ResponseBody
+public String arrayParam(String[] likes)&#123;
+    System.out.println(&quot;数组参数传递 likes ==&gt; &quot;+ Arrays.toString(likes));
+    return &quot;array param&#39;&quot;;
+&#125;
+</code></pre>
+<h5 id="集合类型参数"><a href="#集合类型参数" class="headerlink" title="集合类型参数"></a>集合类型参数</h5><pre><code class="java">//集合参数：同名请求参数可以使用@RequestParam注解映射到对应名称的集合对象中作为数据
+@RequestMapping(&quot;/listParam&quot;)
+@ResponseBody
+public String listParam(@RequestParam List&lt;String&gt; likes)&#123;
+    System.out.println(&quot;集合参数传递 likes ==&gt; &quot;+ likes);
+    return &quot;&#123;&#39;module&#39;:&#39;list param&#39;&#125;&quot;;
+&#125;
+</code></pre>
+<h2 id="JSON参数"><a href="#JSON参数" class="headerlink" title="JSON参数"></a>JSON参数</h2><p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210805110937684.png"></p>
+<p>添加坐标</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+    &lt;version&gt;2.9.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>开启自动转换json数据的支持</p>
+<pre><code class="java">@Configuration
+@ComponentScan(&quot;com.itheima.controller&quot;)
+//开启json数据类型自动转换
+@EnableWebMvc
+public class SpringMvcConfig &#123;
+&#125;
+</code></pre>
+<h4 id="在Controller中编写方法接收json参数"><a href="#在Controller中编写方法接收json参数" class="headerlink" title="在Controller中编写方法接收json参数"></a>在Controller中编写方法接收json参数</h4><h6 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h6><pre><code class="java">//集合参数：json格式(数组)
+//1.开启json数据格式的自动转换，在配置类中开启@EnableWebMvc
+//2.使用@RequestBody注解将外部传递的json数组数据映射到形参的集合对象中作为数据
+@RequestMapping(&quot;/listParamForJson&quot;)
+@ResponseBody
+public String listParamForJson(@RequestBody List&lt;String&gt; likes)&#123;
+    System.out.println(&quot;list common(json)参数传递 list ==&gt; &quot;+likes);
+    return &quot;&#123;&#39;module&#39;:&#39;list common for json param&#39;&#125;&quot;;
+&#125;
+</code></pre>
+<h6 id="pojo"><a href="#pojo" class="headerlink" title="pojo"></a>pojo</h6><pre><code class="java">//POJO参数：json格式(对象)
+//1.开启json数据格式的自动转换，在配置类中开启@EnableWebMvc
+//2.使用@RequestBody注解将外部传递的json数据映射到形参的实体类对象中，要求属性名称一一对应
+@RequestMapping(&quot;/pojoParamForJson&quot;)
+@ResponseBody
+public String pojoParamForJson(@RequestBody User user)&#123;
+    System.out.println(&quot;pojo(json)参数传递 user ==&gt; &quot;+user);
+    return &quot;&#123;&#39;module&#39;:&#39;pojo for json param&#39;&#125;&quot;;
+&#125;
+</code></pre>
+<h6 id="RequestBody注解介绍"><a href="#RequestBody注解介绍" class="headerlink" title="@RequestBody注解介绍"></a>@RequestBody注解介绍</h6><ul>
+<li><p>名称：@RequestBody</p>
+</li>
+<li><p>类型：==形参注解==</p>
+</li>
+<li><p>位置：SpringMVC控制器方法形参定义前面</p>
+</li>
+<li><p>作用：将请求中请求体所包含的数据传递给请求参数，此注解一个处理器方法只能使用一次</p>
+<blockquote>
+<p>@RequestParam用于接收url地址传参，表单传参【application/x-www-form-urlencoded】<br>@RequestBody用于接收json数据【application/json】</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="日期参数"><a href="#日期参数" class="headerlink" title="日期参数"></a>日期参数</h4><pre><code class="java">//日期参数 http://localhost:80/dataParam?date=2088/08/08&amp;date1=2088-08-18&amp;date2=2088/08/28 8:08:08
+//使用@DateTimeFormat注解设置日期类型数据格式，默认格式yyyy/MM/dd
+@RequestMapping(&quot;/dataParam&quot;)
+@ResponseBody
+public String dataParam(Date date,
+                  @DateTimeFormat(pattern=&quot;yyyy-MM-dd&quot;) Date date1,
+                  @DateTimeFormat(pattern=&quot;yyyy/MM/dd HH:mm:ss&quot;) Date date2)&#123;
+    System.out.println(&quot;参数传递 date ==&gt; &quot;+date);
+    System.out.println(&quot;参数传递 date1(yyyy-MM-dd) ==&gt; &quot;+date1);
+    System.out.println(&quot;参数传递 date2(yyyy/MM/dd HH:mm:ss) ==&gt; &quot;+date2);
+    return &quot;data param&quot;;
+&#125;
+</code></pre>
+<h2 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h2><h5 id="响应页面"><a href="#响应页面" class="headerlink" title="响应页面"></a>响应页面</h5><pre><code class="java">public String
+return &quot;index.jsp&quot;;
+</code></pre>
+<h4 id="响应json数据"><a href="#响应json数据" class="headerlink" title="响应json数据"></a>响应json数据</h4><pre><code class="java">//需要在SpringMvcConfig配置类中 @EnableWebMvc注解
+
+//pojo对象
+new pojo();
+setxxx();
+//pojo对象会自动转成JSON对象
+return pojo;
+
+//集合pojo对象
+list.add(pojo1);
+list.add(pojo2);
+//pojo集合会自动转为JSON集合
+return list;
+</code></pre>
+<h2 id="REST风格"><a href="#REST风格" class="headerlink" title="REST风格"></a>REST风格</h2><p>REST风格描述形式<br>    <a target="_blank" rel="noopener" href="http://localhost/users/1">http://localhost/users/1</a><br>    <a target="_blank" rel="noopener" href="http://localhost/users">http://localhost/users</a></p>
+<p>以加s形式描述</p>
+<p>优点：</p>
+<ul>
+<li>隐藏资源的访问行为，无法通过地址得知对资源是何种操作</li>
+<li>书写简化</li>
+</ul>
+<p>根据rest风格对资源进行访问称为restful</p>
+<pre><code class="java">//设置当前请求方法为POST，表示REST风格中的添加操作
+    @RequestMapping(value = &quot;/users&quot;,method = RequestMethod.POST)
+    @ResponseBody
+    public String save()&#123;
+        System.out.println(&quot;user save...&quot;);
+        return &quot;&#123;&#39;module&#39;:&#39;user save&#39;&#125;&quot;;
+    &#125;
+</code></pre>
+<pre><code class="java">//设置当前请求方法为DELETE，表示REST风格中的删除操作
+    //@PathVariable注解用于设置路径变量（路径参数），要求路径上设置对应的占位符，并且占位符名称与方法形参名称相同
+    @RequestMapping(value = &quot;/users/&#123;id&#125;&quot;,method = RequestMethod.DELETE)
+    @ResponseBody
+    public String delete(@PathVariable Integer id)&#123;
+        System.out.println(&quot;user delete...&quot; + id);
+        return &quot;&#123;&#39;module&#39;:&#39;user delete&#39;&#125;&quot;;
+    &#125;
+
+//设置当前请求方法为PUT，表示REST风格中的修改操作
+//设置当前请求方法为GET，表示REST风格中的查询操作
+</code></pre>
+<blockquote>
+<p>@RequestParam用于接收url地址传参或表单传参<br>@RequestBody用于接收json数据<br>@PathVariable用于接收路径参数，使用{参数名称}描述路径参数</p>
+</blockquote>
+<pre><code class="java">@PathVariable 形参与参数名要对应，不对应则写@PathVariable(&quot;aa&quot;)
+</code></pre>
+<h5 id="简化"><a href="#简化" class="headerlink" title="简化"></a>简化</h5><pre><code class="java">@RequestMapping(value=&quot;/&#123;xxx&#125;&quot;,method=RequestMethod.POST)
+
+-&gt; @POSTMapping(&quot;/&#123;xxx&#125;&quot;)
+</code></pre>
+<h5 id="设置对静态资源放行"><a href="#设置对静态资源放行" class="headerlink" title="设置对静态资源放行"></a>设置对静态资源放行</h5><pre><code class="java">@Configuration
+public class SpringMvcSupport extends WebMvcConfigurationSupport &#123;
+    //设置静态资源访问过滤，当前类需要设置为配置类，并被扫描加载
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) &#123;
+        //当访问/pages/????时候，从/pages目录下查找内
+        registry.addResourceHandler(&quot;/**&quot;).addResourceLocations(&quot;/&quot;);
+        registry.addResourceHandler(&quot;/pages/**&quot;)
+            .addResourceLocations(&quot;/pages/&quot;);
+        registry.addResourceHandler(&quot;/js/**&quot;)
+            .addResourceLocations(&quot;/js/&quot;);                
+        registry.addResourceHandler(&quot;/css/**&quot;)
+            .addResourceLocations(&quot;/css/&quot;);       
+        registry.addResourceHandler(&quot;/font/**&quot;)
+            .addResourceLocations(&quot;/font/&quot;);
+    &#125;
+&#125;
+</code></pre>
+<h4 id="Spring整合Mybatis"><a href="#Spring整合Mybatis" class="headerlink" title="Spring整合Mybatis"></a>Spring整合Mybatis</h4><h5 id="jdbc-properties"><a href="#jdbc-properties" class="headerlink" title="jdbc.properties"></a>jdbc.properties</h5><pre><code class="properties">jdbc.driver=com.mysql.cj.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/hardware_sys?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8
+jdbc.username=root
+jdbc.password=sql666
+</code></pre>
+
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/iLx11/resource/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/iLx11/resource/css/nord.css">
+
+
+<script src="/iLx11/resource/js/highlight.min.js"></script>
+
+
+<script src="/iLx11/resource/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/iLx11/resource/js/memo.js"></script>
+
+</html>
