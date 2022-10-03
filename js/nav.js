@@ -2,7 +2,14 @@ window.onload = function() {
     console.log(storage.retrieve("theme"))
     if(storage.retrieve("theme") == "dark") {
         document.documentElement.setAttribute("color-theme", "dark");
+        document.documentElement.setAttribute("bg-img", "2");
         document.querySelector('.themePage2').innerHTML = "Dark"
+    } else {
+        if (storage.retrieve("bimg") == "1") {
+            document.documentElement.setAttribute("bg-img", "1");
+        } else {
+            document.documentElement.setAttribute("bg-img", "0");
+        }
     }
 }
 document.querySelector('.themePage2').addEventListener('click', () =>{

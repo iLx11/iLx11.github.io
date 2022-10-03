@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
     <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
     <title>iLx1 | </title>
     
 <link rel="stylesheet" href="/css/reset.css">
-
-    
-<link rel="stylesheet" href="/css/style.css">
 
     
 <link rel="stylesheet" href="/css/markdown.css">
@@ -24,6 +23,7 @@
     <div class="paper">
         <div class="paper-main">
             <div class="bgimg"></div>
+            <div class="cover"></div>
             <!-- <div class="bgimgB"></div> -->
             
             <div class="post-header">
@@ -37,7 +37,6 @@
 </div>
             
             <div class="post-main">
-
     
         <div class="post-main-title">
             后端笔记
@@ -503,7 +502,7 @@ public class SpringConfig &#123;
 <p>方式二(设置精确加载)</p>
 <pre><code class="java">@ComponentScan(&#123;xxx,xxx&#125;)
 </code></pre>
-<h4 id="servletConfig加载springConfig"><a href="#servletConfig加载springConfig" class="headerlink" title="servletConfig加载springConfig"></a>servletConfig加载springConfig</h4><pre><code class="java">public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer &#123; 
+<h4 id="servletConfig加载springConfig"><a href="#servletConfig加载springConfig" class="headerlink" title="servletConfig加载springConfig"></a>servletConfig加载springConfig</h4><pre><code class="java">public class ServletConfig extends AbstractDispatcherServletInitializer &#123; 
     //加载springMvcConfig
     protected WebApplicationContext createServletApplicationContext() &#123; 
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
@@ -570,11 +569,11 @@ public String commonParam(String name ,int age)&#123;
     return &quot;post&quot;;
 &#125;
 </code></pre>
-<p>不同时可用@RequestParam(“aa”)</p>
+<p>不相同时可用@RequestParam(“aa”)</p>
 <pre><code class="java">public String commonParam(@RequestParam(&quot;aa&quot;) String name ,int age)
 </code></pre>
 <h5 id="POST请求乱码"><a href="#POST请求乱码" class="headerlink" title="POST请求乱码"></a>POST请求乱码</h5><blockquote>
-<p>在加载SpringMVC配置的配置类中指定字符过滤器。</p>
+<p>在运行加载SpringMVC配置的配置类中指定字符过滤器。</p>
 </blockquote>
 <pre><code class="java">//乱码处理
     @Override
@@ -766,10 +765,131 @@ public class SpringMvcSupport extends WebMvcConfigurationSupport &#123;
     &#125;
 &#125;
 </code></pre>
-<h4 id="Spring整合Mybatis"><a href="#Spring整合Mybatis" class="headerlink" title="Spring整合Mybatis"></a>Spring整合Mybatis</h4><h5 id="jdbc-properties"><a href="#jdbc-properties" class="headerlink" title="jdbc.properties"></a>jdbc.properties</h5><pre><code class="properties">jdbc.driver=com.mysql.cj.jdbc.Driver
+<h2 id="Spring整合Mybatis"><a href="#Spring整合Mybatis" class="headerlink" title="Spring整合Mybatis"></a>Spring整合Mybatis</h2><h5 id="jdbc-properties"><a href="#jdbc-properties" class="headerlink" title="jdbc.properties"></a>jdbc.properties</h5><pre><code class="properties">jdbc.driver=com.mysql.cj.jdbc.Driver
 jdbc.url=jdbc:mysql://localhost:3306/hardware_sys?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8
 jdbc.username=root
 jdbc.password=sql666
+</code></pre>
+<h5 id="SpringConfig中引入properties文件"><a href="#SpringConfig中引入properties文件" class="headerlink" title="SpringConfig中引入properties文件"></a>SpringConfig中引入properties文件</h5><pre><code class="java">@PropertySource(&quot;classpath:jdbc.properties&quot;)
+</code></pre>
+<h5 id="JdbcConfig"><a href="#JdbcConfig" class="headerlink" title="JdbcConfig"></a>JdbcConfig</h5><pre><code class="java">public class JdbcConfig &#123;
+    @Value(&quot;$&#123;jdbc.driver&#125;&quot;)
+    private String driver;
+
+    @Value(&quot;$&#123;jdbc.url&#125;&quot;)
+    private String url;
+
+    @Value(&quot;$&#123;jdbc.username&#125;&quot;)
+    private String username;
+
+    @Value(&quot;$&#123;jdbc.password&#125;&quot;)
+    private String password;
+    
+    //数据库连接池
+    @Bean
+    public DataSource dateSource() &#123;
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setDriverClassName(driver);
+        dataSource.setUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        return dataSource;
+    &#125;
+
+    //Spring事务管理需要平台事务管理器对象
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) &#123;
+        DataSourceTransactionManager ds = new DataSourceTransactionManager();
+        ds.setDataSource(dataSource);
+        return ds;
+    &#125;
+
+&#125;
+</code></pre>
+<h5 id="MybatisConfig"><a href="#MybatisConfig" class="headerlink" title="MybatisConfig"></a>MybatisConfig</h5><pre><code class="java">public class MyBatisConfig &#123;
+    @Bean
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception &#123;
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setTypeAliasesPackage(&quot;com.colorful.domain&quot;);
+
+        //开启驼峰命名转换
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        factoryBean.setConfiguration(configuration);
+
+        return factoryBean;
+    &#125;
+    
+    //映射文件扫描
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer() &#123;
+        MapperScannerConfigurer msc = new MapperScannerConfigurer();
+        msc.setBasePackage(&quot;com.colorful.dao&quot;);
+        return msc;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="SpringConfig中引入mybatis与jdbcconfig文件"><a href="#SpringConfig中引入mybatis与jdbcconfig文件" class="headerlink" title="SpringConfig中引入mybatis与jdbcconfig文件"></a>SpringConfig中引入mybatis与jdbcconfig文件</h5><pre><code class="java">@Import(&#123;JdbcConfig.class, MyBatisConfig.class&#125;)
+</code></pre>
+<h4 id="DAO层"><a href="#DAO层" class="headerlink" title="DAO层"></a>DAO层</h4><pre><code class="java">public interface UserDao &#123;
+
+    @Select(&quot;select * from user_data where name = #&#123;name&#125; and password = #&#123;password&#125;&quot;)
+    public User userVerify(@Param(&quot;name&quot;) String name, @Param(&quot;password&quot;) String password);
+&#125;
+</code></pre>
+<h4 id="DOMAIN"><a href="#DOMAIN" class="headerlink" title="DOMAIN"></a>DOMAIN</h4><pre><code class="java">@Getter
+@Setter
+@ToString
+public class User &#123;
+    private int id;
+    private String name;
+    private String password;
+    private boolean status;
+    private boolean mana;
+
+&#125;
+</code></pre>
+<h5 id="service配置dao"><a href="#service配置dao" class="headerlink" title="service配置dao"></a>service配置dao</h5><pre><code class="java">@Autowired
+private HardwareDao hardwareDao;
+</code></pre>
+<h2 id="表现层数据封装"><a href="#表现层数据封装" class="headerlink" title="表现层数据封装"></a>表现层数据封装</h2><h3 id="Result类定义响应结果"><a href="#Result类定义响应结果" class="headerlink" title="Result类定义响应结果"></a>Result类定义响应结果</h3><pre><code class="java">@Getter
+@Setter
+@ToString
+public class Result &#123;
+    private Integer code;
+    private Object data;
+    private String message;
+
+    public Result(Integer code, Object data) &#123;
+        this.code = code;
+        this.data = data;
+    &#125;
+
+    public Result(Integer code, Object data, String message) &#123;
+        this.code = code;
+        this.data = data;
+        this.message = message;
+    &#125;
+&#125;
+</code></pre>
+<h4 id="响应码"><a href="#响应码" class="headerlink" title="响应码"></a>响应码</h4><pre><code class="java">public class Code &#123;
+    public static final Integer POST_OK = 10011;
+    public static final Integer DEL_OK = 10021;
+    public static final Integer PUT_OK = 10031;
+    public static final Integer GET_OK = 10041;
+
+    public static final Integer POST_ERR = 10010;
+    public static final Integer DEL_ERR = 10020;
+    public static final Integer PUT_ERR = 10030;
+    public static final Integer GET_ERR = 10040;
+&#125;
+</code></pre>
+<h5 id="表现层数据封装返回Result对象"><a href="#表现层数据封装返回Result对象" class="headerlink" title="表现层数据封装返回Result对象"></a>表现层数据封装返回Result对象</h5><pre><code class="java">@PostMapping
+public Result addHardrware(@RequestBody Hardware hardware) &#123;
+    boolean flag = service.addHardware(hardware.getName(), hardware.getHardwareId(), hardware.getHardwarePort());
+    return new Result(flag ? Code.POST_OK: Code.POST_ERR,flag,&quot;添加&quot;);
+&#125;
 </code></pre>
 
     </div>

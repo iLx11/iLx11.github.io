@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
     <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
     <title>iLx1 | </title>
     
 <link rel="stylesheet" href="/css/reset.css">
-
-    
-<link rel="stylesheet" href="/css/style.css">
 
     
 <link rel="stylesheet" href="/css/markdown.css">
@@ -24,6 +23,7 @@
     <div class="paper">
         <div class="paper-main">
             <div class="bgimg"></div>
+            <div class="cover"></div>
             <!-- <div class="bgimgB"></div> -->
             
             <div class="post-header">
@@ -37,7 +37,6 @@
 </div>
             
             <div class="post-main">
-
     
         <div class="post-main-title">
             前端笔记
@@ -975,12 +974,21 @@ function md5(string) &#123;
      &#125;
 &#125;);
 </code></pre>
-<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>动态绑定属性/简写为:</p>
+<h4 id="v-clock-去除闪动问题"><a href="#v-clock-去除闪动问题" class="headerlink" title="v-clock(去除闪动问题)"></a>v-clock(去除闪动问题)</h4><pre><code class="css">[v-clock] &#123;
+    display: none;
+&#125;
+</code></pre>
+<pre><code class="html">&lt;div v-clock&gt;...&lt;/div&gt;
+</code></pre>
+<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>动态绑定属性/简写为“:”</p>
 <p>标签属性</p>
 <pre><code class="js"> &lt;a v-bind:href=&quot;变量&quot;&gt; &lt;img v-bind:src=&quot;变量&quot;&gt;&lt;/a&gt;
 </code></pre>
 <p>class属性</p>
 <pre><code class="js"> v-bind:class=&quot;&#123;类名1:boolean,类名2:boolean&#125;&quot; 
+
+//结合数组
+ v-bind:class=&quot;[类名,类名,&#123;类名1:boolean,类名2:boolean&#125;]&quot; 
 </code></pre>
 <p>style属性</p>
 <pre><code class="js"> //用驼峰命名，或是用单引号‘’
@@ -995,6 +1003,7 @@ function md5(string) &#123;
 </code></pre>
 <p>访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法</p>
 <pre><code class="js">@click=&quot;show(&#39;vue&#39;,$event)&quot;
+//作为最后一个参数显示传递，只用函数传递则默认传递事件
 
 //获取事件类型
 console.log(event.type)
@@ -1017,13 +1026,25 @@ console.log(event.target)
 &lt;h2 v-else&gt;&#123;&#123;变量&#125;&#125;&lt;/h2&gt;
 </code></pre>
 <p>v-show 与 v-if 差不多相同</p>
+<h5 id="v-if-与-v-show区别"><a href="#v-if-与-v-show区别" class="headerlink" title="v-if 与 v-show区别"></a>v-if 与 v-show区别</h5><blockquote>
+<p>v-if控制元素是否渲染</p>
+<p>v-show控制元素是否显示</p>
+</blockquote>
 <h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>遍历数组</p>
 <pre><code class="html"> &lt;ul v-for=&quot;(item,index) in 数组&quot;&gt;//(v,k)
         &lt;li&gt;&#123;&#123;item&#125;&#125; index=&#123;&#123;index&#125;&#125;&lt;/li&gt;
  &lt;/ul&gt;
 </code></pre>
-<p>数据变化则同时变化</p>
-<h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>表单和数据双向绑定</p>
+<p>:key的作用：帮助vue区分不同元素，以提高性能</p>
+<pre><code class="html">&lt;ul v-for=&quot;(item,index) in 数组&quot; :key=&quot;item.id&quot;&gt;//(v,k)&gt;&lt;/ul&gt;
+</code></pre>
+<p>遍历对象</p>
+<pre><code class="html">&lt;ul v-for=&#39;(v.k.i) in obj&#39;&gt;&lt;/ul&gt;
+</code></pre>
+<p>添加条件</p>
+<pre><code class="html">&lt;ul v-if=&#39;v==xx&#39; v-for=&#39;(v.k.i) in obj&#39;&gt;&lt;/ul&gt;
+</code></pre>
+<h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>表单和数据双向绑定，数据变化则同时变化</p>
 <pre><code class="js">msg&#123;&#123;msg&#125;&#125;
 
 v-model=&quot;msg&quot;
@@ -1041,10 +1062,35 @@ v-model=&quot;msg&quot;
 <p>.trim : 自动过滤用户输入的首尾空白字符</p>
 <pre><code class="html">&lt;input v-model.trim=&quot;msg&quot;&gt;
 </code></pre>
-<h3 id="Vue-组件"><a href="#Vue-组件" class="headerlink" title="Vue 组件"></a>Vue 组件</h3><h4 id="注册组件"><a href="#注册组件" class="headerlink" title="注册组件"></a>注册组件</h4><h5 id="全局组件（所有Vue实例化中都可以使用）"><a href="#全局组件（所有Vue实例化中都可以使用）" class="headerlink" title="全局组件（所有Vue实例化中都可以使用）"></a>全局组件（所有Vue实例化中都可以使用）</h5><pre><code class="js">Vue.component(&#39;组件名&#39;,&#123;//组件的名称
-    
+<h4 id="响应式数据"><a href="#响应式数据" class="headerlink" title="响应式数据"></a>响应式数据</h4><pre><code class="js">Vue.set(vm.list, 2, &quot;xxx&quot;);
+vm.$set(list, 1, &quot;xxx&quot;);
+</code></pre>
+<h4 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h4><pre><code class="js">data: &#123;
+    name:&#39;&#39;,
+&#125;,
+watch: &#123;
+   name: function() &#123;
+       console.log(&quot;aaa&quot;)
+   &#125;
+&#125;
+</code></pre>
+<h4 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h4><pre><code class="js">computed: &#123;
+    total() &#123;
+        return a + b;
+    &#125;
+&#125;
+//&#123;&#123;total&#125;&#125;
+</code></pre>
+<h3 id="Vue-组件"><a href="#Vue-组件" class="headerlink" title="Vue 组件"></a>Vue 组件</h3><h4 id="注册组件"><a href="#注册组件" class="headerlink" title="注册组件"></a>注册组件</h4><h5 id="全局组件（所有Vue实例化中都可以使用）"><a href="#全局组件（所有Vue实例化中都可以使用）" class="headerlink" title="全局组件（所有Vue实例化中都可以使用）"></a>全局组件（所有Vue实例化中都可以使用）</h5><pre><code class="js">//组件不支持驼峰
+
+Vue.component(&#39;组件名&#39;,&#123;//组件的名称
+    data: function() &#123;
+          return: &#123;&#125;  
+    &#125;,
      template:&#39;&lt;h2&gt;全局组件&lt;/h2&gt;&#39;//template是创建模板
-    
+    method: &#123;
+        
+    &#125;
 &#125;)
 /*
     或者
@@ -1103,18 +1149,110 @@ v-model=&quot;msg&quot;
 //使用时
 //&lt;father&gt;&lt;/father&gt;
 </code></pre>
-<h5 id="父传参数给子"><a href="#父传参数给子" class="headerlink" title="父传参数给子"></a>父传参数给子</h5><h5 id="props"><a href="#props" class="headerlink" title="props"></a>props</h5><pre><code class="js">data: &#123;
+<h5 id="父传参数给子（单向数据流）"><a href="#父传参数给子（单向数据流）" class="headerlink" title="父传参数给子（单向数据流）"></a>父传参数给子（单向数据流）</h5><h5 id="props"><a href="#props" class="headerlink" title="props"></a>props</h5><pre><code class="js">data: &#123;
     mag:mag,
 &#125;,
 components:&#123;
-     fu:&#123;
+     zi:&#123;
          template:&#39;&lt;div&gt;这是father组件... &lt;son&gt;&lt;/son&gt;&lt;/div&gt;&#39;, 
          props:[&#39;mag&#39;],//也可以传对象
       &#125;
 &#125;
 
 //使用时
-//&lt;fu :msg=&quot;mag&quot;&gt;&lt;/fu&gt;
+//&lt;zi :msg=&quot;mag&quot;&gt;&lt;/zi&gt;
+</code></pre>
+<h5 id="子传参数给父"><a href="#子传参数给父" class="headerlink" title="子传参数给父"></a>子传参数给父</h5><pre><code class="js">//&lt;zi @click=&quot;$emit(&#39;fudo&#39;, can)/zido()&quot;&gt;&lt;/zi&gt;
+method: &#123;
+    zido() &#123;
+       this.$emit(&#39;fudo&#39;, can);
+    &#125;
+&#125;
+//&lt;fu @fudo=&quot;fudo&quot;&gt;
+</code></pre>
+<h5 id="非父子组件传值"><a href="#非父子组件传值" class="headerlink" title="非父子组件传值"></a>非父子组件传值</h5><pre><code class="js">//事件中心
+var eventHub = new Vue();
+
+//监听与销毁事件
+eventHub.$on(&#39;add-do&#39;, do);
+eventHub.$off(&#39;add-do&#39;, do);
+
+//传递数据
+eventHub.$emit(&#39;add-do&#39;,传值/&#123;&#125;);
+
+//&lt;div @add-do=&#39;do($event)&#39;&gt;&lt;/&gt;
+</code></pre>
+<h4 id="父组件调用子组件"><a href="#父组件调用子组件" class="headerlink" title="父组件调用子组件"></a>父组件调用子组件</h4><pre><code class="js">/*
+    使用子组件内部的方法
+    &lt;!--给组件绑上一个ref属性，例如tree--&gt;
+    &lt;Tree :data=&quot;data2&quot; ref=&quot;tree&quot; show-checkbox&gt;&lt;/Tree&gt;
+*/
+
+//然后就可以使用组件里的方法获取返回值
+console.log(this.$refs.tree.getCheckedNodes())
+this.$refs.tree.show()
+</code></pre>
+<h4 id="子组件调用父组件方法"><a href="#子组件调用父组件方法" class="headerlink" title="子组件调用父组件方法"></a>子组件调用父组件方法</h4><blockquote>
+<p>1、this.$parent.event 来调用父组件的方法。</p>
+</blockquote>
+<p>父组件</p>
+<pre><code class="js"> methods: &#123;
+      fatherMethod() &#123;
+        console.log(&#39;调用父组件方法&#39;);
+      &#125;
+ &#125;
+</code></pre>
+<p>子组件</p>
+<pre><code class="js">//&lt;button @click=&quot;childClick()&quot;&gt;点击&lt;/button&gt;
+
+childClick() &#123;
+  this.$parent.fatherMethod();
+&#125;
+</code></pre>
+<blockquote>
+<p>2、在子组件里用 $emit向父组件触发一个事件，父组件监听这个事件。</p>
+</blockquote>
+<p>父组件</p>
+<pre><code class="js">//&lt;child @fatherMethod=&quot;fatherMethod&quot;&gt;&lt;/child&gt;
+
+
+methods: &#123;
+   fatherMethod() &#123;
+      console.log(&#39;调用父组件方法&#39;);
+   &#125;
+ &#125;
+</code></pre>
+<p>子组件</p>
+<pre><code class="js">//&lt;button @click=&quot;childClick()&quot;&gt;点击&lt;/button&gt;
+
+methods: &#123;
+      childClick() &#123;
+        this.$emit(&#39;fatherMethod&#39;);
+      &#125;
+ &#125;
+</code></pre>
+<blockquote>
+<p>3、父组件把方法传入子组件中，在子组件里直接调用这个方法。</p>
+</blockquote>
+<p>父组件</p>
+<pre><code class="html">  &lt;child :fatherMethod=&quot;fatherMethod&quot;&gt;&lt;/child&gt;
+</code></pre>
+<p>子组件</p>
+<pre><code class="js">//&lt;button @click=&quot;childClick()&quot;&gt;点击&lt;/button&gt;
+
+props: &#123;
+    fatherMethod: &#123;
+        type: Function,
+        default: null
+    &#125;
+&#125;,
+methods: &#123;
+    childClick() &#123;
+        if (this.fatherMethod) &#123;
+          this.fatherMethod();
+        &#125;
+    &#125;
+&#125;
 </code></pre>
 <h4 id="插槽"><a href="#插槽" class="headerlink" title="插槽"></a>插槽</h4><h5 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h5><pre><code class="html">&lt;template id=&quot;template&quot;&gt;
      &lt;div&gt;
@@ -1138,6 +1276,619 @@ components:&#123;
     &lt;/template&gt;
 &lt;zujian&gt;
 --&gt;
+</code></pre>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><p>处理异步任务</p>
+<pre><code class="js">var p = new Promise(function(resolve, reject) &#123;
+    let xml = new XMLHttpRequest();
+    //成功调用resolve(xml.responseText)否则reject(&#39;xxx&#39;)
+&#125;);
+p.then(function(ret) &#123;
+    //从resolve得到正常结果
+    &#125;,function()(ret) &#123;
+    //从reject得到错误结果
+     &#125;
+)
+/*
+     = 
+     .then(function() &#123;
+    &#125;)
+    .catch(function() &#123;
+
+    &#125;);
+*/
+.then(function() &#123;
+    console.log()
+&#125;)
+</code></pre>
+<h5 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h5><pre><code class="js">//并发处理异步任务，所有任务执行完后得到结果
+Promist.all([p1.p2.p3]).then((result) =&gt; &#123;
+    console.log(result)
+&#125;)
+
+//并发处理异步任务，只要有一个任务执行完后得到结果
+Promist.all([p1.p2.p3]).then((result) =&gt; &#123;    console.log(result)
+&#125;)
+</code></pre>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><pre><code class="js">fetch(&#39;url&#39;,&#123;
+    method: &#39;DELETE//&#39;,
+    body: &#39;=&amp;=&#39;,
+    headers: &#123;
+        &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39; 
+    &#125;
+&#125;)
+.then(function() &#123;
+&#125;)
+.then();
+</code></pre>
+<h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><pre><code class="js">axios.get(&#39;url&#39;,&#123;
+    params:&#123;
+        name: &quot;&quot;,
+    &#125;
+&#125;).then(function(res) &#123;
+        console.log(res.data)
+&#125;);
+
+axios.post(&#39;url&#39;,&#123;
+    //默认json格式
+    name:&quot;&quot;,
+&#125;)
+//传递表单参数
+const params = new URLSearchParams();
+params.append(&#39;param1&#39;,&#39;value1&#39;);
+axios.post(&#39;url&#39;, params).then()
+</code></pre>
+<h5 id="基准URL地址"><a href="#基准URL地址" class="headerlink" title="基准URL地址"></a>基准URL地址</h5><pre><code class="js">axios.defaults.baseURL = &#39;http://localhost:3000/&#39;;
+</code></pre>
+<h5 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h5><p>请求拦截器</p>
+<pre><code class="js">axios.interceptors.request.use(function(config) &#123;
+    config.headers.mytoken = &#39;nihao&#39;;
+    return config;
+&#125;, function(err) &#123;
+    console.log(err)
+&#125;)
+axios.get()
+</code></pre>
+<p>响应拦截器</p>
+<pre><code class="js">axios.interceptors.response.use(function(res) &#123;
+    return res.data
+&#125;,function()&#123;&#125;)
+</code></pre>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h4><pre><code class="js">//async返回值是Promise实例对象
+async function queryData() &#123;
+    let res = await.axios.get(&#39;data&#39;);
+    return res.data;
+&#125;
+
+queryData().then(function(data) &#123;
+    console.log(data)
+&#125;)
+</code></pre>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h5 id="监听window的onhashchange事件"><a href="#监听window的onhashchange事件" class="headerlink" title="监听window的onhashchange事件"></a>监听window的onhashchange事件</h5><pre><code class="js">window.onhashchange = function()&#123;
+    console.log(location.hash)
+&#125;
+</code></pre>
+<h3 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h3><h5 id="路由链接"><a href="#路由链接" class="headerlink" title="路由链接"></a>路由链接</h5><pre><code class="html">&lt;!--router-link默认会被渲染成a标签--&gt;
+&lt;!--to会被渲染成href属性--&gt;
+&lt;!--to属性值会被渲染为#开头的hash地址--&gt;
+&lt;router-link to=&quot;/user&quot; &gt;user&lt;/router-link&gt;
+</code></pre>
+<h5 id="路由占位"><a href="#路由占位" class="headerlink" title="路由占位"></a>路由占位</h5><pre><code class="html">&lt;router-view&gt;&lt;/router-view&gt;
+</code></pre>
+<h5 id="路由规则"><a href="#路由规则" class="headerlink" title="路由规则"></a>路由规则</h5><pre><code class="js">var router = new VueRouter(&#123;
+    //path表示当前路由规则的hash地址
+    //component表示路由规则对应展示的组件
+    routes: [
+        &#123;path:&#39;/user&#39;, component: User&#125;
+    ]
+&#125;)
+</code></pre>
+<h5 id="挂载路由实例对象"><a href="#挂载路由实例对象" class="headerlink" title="挂载路由实例对象"></a>挂载路由实例对象</h5><pre><code class="js">el: &#39;#app&#39;,
+router: router,
+</code></pre>
+<h5 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h5><pre><code class="js">routes: [
+    &#123;path: &#39;/&#39;, redirect: &#39;/user&#39;&#125;,
+]
+</code></pre>
+<h3 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h3><h5 id="子级路由模板"><a href="#子级路由模板" class="headerlink" title="子级路由模板"></a>子级路由模板</h5><pre><code class="js">template: `&lt;router-link to=&quot;/fu/zi1&quot;&gt;&lt;/router-link&gt;
+//子路由占位符
+&lt;router-view&gt;&lt;/&gt; `
+</code></pre>
+<h4 id="路由规则-1"><a href="#路由规则-1" class="headerlink" title="路由规则"></a>路由规则</h4><pre><code class="js">&#123;
+    path: &#39;/fu&#39;,
+    component: fu,
+    children: [
+        &#123;path: &#39;/fu/zi&#39;, component: zi&#125;,
+    ]
+&#125;
+</code></pre>
+<h4 id="动态匹配"><a href="#动态匹配" class="headerlink" title="动态匹配"></a>动态匹配</h4><pre><code class="js">routes: [
+    &#123;path: &#39;/user/:id&#39;, component: User&#125;
+]
+
+//组件中
+template:     `&lt;div&gt;User &#123;&#123;$route.params.id&#125;&#125;&lt;/div&gt;`
+
+//另一种
+routes: [
+    &#123;path: &#39;/user/:id&#39;, component: User, props: true&#125;
+]
+user = &#123;
+    props: [&#39;id&#39;],
+    template: `&#123;&#123;id&#125;&#125;`
+&#125;
+</code></pre>
+<h5 id="props指定类型"><a href="#props指定类型" class="headerlink" title="props指定类型"></a>props指定类型</h5><pre><code class="js">props: route =&gt; (&#123;xxx: &#39;xx&#39;, xx: &#39;xx&#39;, xx: route.params.xx&#125;)
+</code></pre>
+<h4 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h4><pre><code class="js">routes: [
+    &#123;
+        path:  &#39;&#39;,
+        name: &#39;user&#39;,
+    &#125;
+]
+</code></pre>
+<pre><code class="html">&lt;router-link :to=&quot;&#123;name :&#39;user&#39;, params:&#123;id;xx&#125;&#125;&quot;&gt;&lt;/router-link&gt;
+</code></pre>
+<h4 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h4><pre><code class="js">this.$route.push(&#39;/path&#39;)
+//命名路由带参数
+//.push(&#123;name: &#39;&#39;, params: &#123;id: xxx&#125;&#125;)
+
+//带查询参数  /xxx?id=xxx
+//.push(&#123;path: &#39;&#39;, query: &#123;id: xxx&#125;&#125;)
+this.$route.go()
+</code></pre>
+<h1 id="webpack-Vue"><a href="#webpack-Vue" class="headerlink" title="webpack + Vue"></a>webpack + Vue</h1><h3 id="下载yarn"><a href="#下载yarn" class="headerlink" title="下载yarn"></a>下载yarn</h3><p>下载地址:  <a target="_blank" rel="noopener" href="https://yarn.bootcss.com/docs/install/#windows-stable">https://yarn.bootcss.com/docs/install/#windows-stable</a> </p>
+<ul>
+<li><p>mac - 通过homebrew安装</p>
+<ul>
+<li><p>mac如果没安装过homeBrew先运行这个命令</p>
+<pre><code class="bash">/usr/bin/ruby -e &quot;$(curl -fsSL http://cdn.jsdelivr.net/gh/ineo6/homebrew-install/install)&quot;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>上面命令不行: 试试这个: curl -o- -L <a target="_blank" rel="noopener" href="https://yarnpkg.com/install.sh">https://yarnpkg.com/install.sh</a> | bash (直接安装yarn)</p>
+</li>
+</ul>
+<h3 id="使用yarn"><a href="#使用yarn" class="headerlink" title="使用yarn"></a>使用yarn</h3><p>与npm类似,</p>
+<pre><code class="bash"># 1. 初始化, 得到package.json文件(终端路径所在文件夹下)
+yarn init
+
+# 2. 添加依赖(下包)
+# 命令: yarn add [package]
+# 命令: yarn add [package]@[version]
+yarn add jquery
+yarn add jquery@3.5.1
+
+# 3. 移除包
+# 命令: yarn remove [package]
+yarn remove jquery
+             
+# 4. 安装项目全部依赖(一般拿到别人的项目时, 缺少node_modules)          
+yarn
+# 会根据当前项目package.json记录的包名和版本, 全部下载到当前工程中
+
+# 5. 全局
+# 安装: yarn global add [package]
+# 卸载: yarn global remove [package]
+# 注意: global一定在add左边
+yarn global add @vue/cli
+</code></pre>
+<h3 id="webpack基础使用"><a href="#webpack基础使用" class="headerlink" title="webpack基础使用"></a>webpack基础使用</h3><p>默认入口: ./src/index.js</p>
+<p>默认出口: ./dist/main.js</p>
+<p>==注意:路径上, 文件夹, 文件名不能叫webpack/其他已知的模块名==</p>
+<ol>
+<li><p>初始化包环境</p>
+<pre><code class="bash">yarn init
+</code></pre>
+</li>
+<li><p>安装依赖包</p>
+<pre><code class="bash">yarn add webpack webpack-cli -D
+</code></pre>
+</li>
+<li><p>配置scripts(自定义命令)</p>
+<pre><code class="bash">scripts: &#123;
+    &quot;build&quot;: &quot;webpack&quot;
+&#125;
+== &#123;
+    &quot;dev&quot; :&quot;webpack&quot;
+&#125;
+      #npm run dev
+</code></pre>
+</li>
+<li><p>新建目录src</p>
+</li>
+<li><p>新建src/add/add.js - 定义求和函数导出（按需导出和导入）</p>
+<pre><code class="js">export const addFn = (a, b) =&gt; a + b
+</code></pre>
+</li>
+<li><p>新建src/index.js导入使用</p>
+<pre><code class="js">import &#123;addFn&#125; from &#39;./add/add&#39;
+
+console.log(addFn(10, 20));
+
+//import &#123;addFn as &quot;别名&quot;&#125; from &#39;./add/add&#39;
+</code></pre>
+</li>
+<li><p>运行打包命令</p>
+<pre><code class="bash">yarn build
+#或者 npm run build
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>总结: src并列处, 生成默认dist目录和打包后默认main.js文件</p>
+</blockquote>
+<h3 id="webpack-入口和出口"><a href="#webpack-入口和出口" class="headerlink" title="webpack-入口和出口"></a>webpack-入口和出口</h3><blockquote>
+<p>目标: 告诉webpack从哪开始打包, 打包后输出到哪里</p>
+</blockquote>
+<p>默认入口: ./src/index.js</p>
+<p>默认出口: ./dist/main.js</p>
+<p>webpack配置 - webpack.config.js(默认)</p>
+<ol>
+<li>新建src并列处, webpack.config.js</li>
+<li>填入配置项</li>
+</ol>
+<pre><code class="js">const path = require(&quot;path&quot;)
+
+module.exports = &#123;
+    entry: &quot;./src/main.js&quot;, // 入口
+    output: &#123; 
+        path: path.join(__dirname, &quot;dist&quot;), // 出口路径
+        filename: &quot;bundle.js&quot; // 出口文件名
+    &#125;
+&#125;
+</code></pre>
+<p>在src/main.js引入jquery</p>
+<pre><code class="bash">yarn add jquery
+</code></pre>
+<p> 引入jquery</p>
+<pre><code class="js">import $ from &#39;jquery&#39;
+</code></pre>
+<p>html引用js （打包生成后的js)</p>
+<pre><code class="html">&lt;script src=&quot;../dist/bundle.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="加载器-处理css文件"><a href="#加载器-处理css文件" class="headerlink" title="加载器 - 处理css文件"></a>加载器 - 处理css文件</h3><blockquote>
+<p> loaders加载器, 可让webpack处理其他类型的文件, 打包到js中</p>
+</blockquote>
+<p>原因: webpack默认只认识 js 文件和 json文件</p>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/style-loader/">style-loader文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/css-loader/">css-loader文档</a></p>
+<ol>
+<li><p>安装依赖</p>
+<pre><code>yarn add style-loader css-loader -D
+</code></pre>
+</li>
+<li><p>webpack.config.js 配置</p>
+<pre><code class="js">const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;)
+
+module.exports = &#123;
+    // ...其他代码
+    module: &#123; 
+        rules: [ // loader的规则
+          &#123;
+            test: /\.css$/, // 匹配所有的css文件
+            // use数组里从右向左运行
+            // 先用 css-loader 让webpack能够识别 css 文件的内容并打包
+            // 再用 style-loader 将样式, 把css插入到dom中
+            use: [ &quot;style-loader&quot;, &quot;css-loader&quot;]
+          &#125;
+        ]
+    &#125;
+&#125;
+</code></pre>
+</li>
+<li><p>新建src/css/li.css - 去掉li默认样式</p>
+<pre><code class="css">ul, li&#123;
+    list-style: none;
+&#125;
+</code></pre>
+</li>
+<li><p>引入到main.js (因为这里是入口需要产生关系, 才会被webpack找到打包起来)</p>
+<pre><code class="js">import &quot;./css/index.css&quot;
+</code></pre>
+<blockquote>
+<p>引到入口, 才会被webpack打包, css打包进js中, 然后被嵌入在style标签插入dom上</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="加载器-处理less文件"><a href="#加载器-处理less文件" class="headerlink" title="加载器 - 处理less文件"></a>加载器 - 处理less文件</h3><blockquote>
+<p>目标: less-loader让webpack处理less文件, less模块翻译less代码</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/less-loader/">less-loader文档</a></p>
+<ol>
+<li><p>下载依赖包</p>
+<pre><code class="bash">yarn add less less-loader -D
+</code></pre>
+</li>
+<li><p>webpack.config.js 配置</p>
+<pre><code class="js">module: &#123;
+  rules: [ // loader的规则
+    // ...省略其他
+    &#123;
+        test: /\.less$/,
+        // 使用less-loader, 让webpack处理less文件, 内置还会用less翻译less代码成css内容
+        use: [ &quot;style-loader&quot;, &quot;css-loader&quot;, &#39;less-loader&#39;]
+    &#125;
+  ]
+&#125;
+</code></pre>
+</li>
+<li><p>src/less/index.less  - 设置li字体大小24px</p>
+<pre><code class="less">@size:24px;
+
+ul, li&#123;
+    font-size: @size
+&#125;
+</code></pre>
+</li>
+<li><p>引入到main.js中</p>
+<pre><code class="js">import &quot;./less/index.less&quot;
+</code></pre>
+</li>
+<li><p>打包运行dist/index.html 观察效果</p>
+</li>
+</ol>
+<blockquote>
+<p>总结: 只要找到对应的loader加载器, 就能让webpack处理不同类型文件</p>
+</blockquote>
+<h3 id="加载器-处理图片文件"><a href="#加载器-处理图片文件" class="headerlink" title="加载器 - 处理图片文件"></a>加载器 - 处理图片文件</h3><blockquote>
+<p>目标: 用asset module方式(webpack5版本新增)</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/guides/asset-modules/">asset module文档</a></p>
+<p>如果使用的是webpack5版本的, 直接配置在webpack.config.js - 的 rules里即可</p>
+<pre><code class="js">&#123;
+    test: /\.(png|jpg|gif|jpeg)$/i,
+    type: &#39;asset&#39;
+&#125;
+</code></pre>
+<p>如果你用的是webpack4及以前的, 请使用者里的配置</p>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/url-loader/">url-loader文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/file-loader/">file-loader文档</a></p>
+<ol>
+<li><p>下载依赖包</p>
+<pre><code class="bash">yarn add url-loader file-loader -D
+</code></pre>
+</li>
+<li><p>webpack.config.js 配置</p>
+<pre><code class="js">&#123;
+  test: /\.(png|jpg|gif|jpeg)$/i,
+  use: [
+    &#123;
+      loader: &#39;url-loader&#39;, // 匹配文件, 尝试转base64字符串打包到js中
+      // 配置limit, 超过8k, 不转, file-loader复制, 随机名, 输出文件
+      options: &#123;
+        limit: 8 * 1024,
+      &#125;,
+    &#125;,
+  ],
+&#125;
+</code></pre>
+<p>图片转成 base64 字符串</p>
+<ul>
+<li>好处就是浏览器不用发请求了，直接可以读取</li>
+<li>坏处就是如果图片太大，再转<code>base64</code>就会让图片的体积增大 30% 左右</li>
+</ul>
+</li>
+<li><p>src/assets/准备老师发的2个图文件</p>
+</li>
+<li><p>在css/less/index.less - 把小图片用做背景图</p>
+<pre><code class="less">body&#123;
+    background: url(../assets/logo_small.png) no-repeat center;
+&#125;
+</code></pre>
+</li>
+<li><p>在src/main.js - 把大图插入到创建的img标签上, 添加body上显示</p>
+<pre><code class="js">// 引入图片-使用
+import imgUrl from &#39;./assets/1.gif&#39;
+const theImg = document.createElement(&quot;img&quot;)
+theImg.src = imgUrl
+document.body.appendChild(theImg)
+</code></pre>
+</li>
+<li><p>打包运行dist/index.html观察2个图片区别</p>
+</li>
+</ol>
+<blockquote>
+<p>总结:  url-loader 把文件转base64 打包进js中, 会有30%的增大, file-loader 把文件直接复制输出</p>
+</blockquote>
+<h3 id="webpack加载文件优缺点"><a href="#webpack加载文件优缺点" class="headerlink" title="webpack加载文件优缺点"></a>webpack加载文件优缺点</h3><p>图片转成 base64 字符串</p>
+<ul>
+<li>好处就是浏览器不用发请求了，直接可以读取</li>
+<li>坏处就是如果图片太大，再转<code>base64</code>就会让图片的体积增大 30% 左右</li>
+</ul>
+<h3 id="加载器-处理字体文件"><a href="#加载器-处理字体文件" class="headerlink" title="加载器 - 处理字体文件"></a>加载器 - 处理字体文件</h3><blockquote>
+<p>目标: 用asset module技术, asset/resource直接输出到dist目录下</p>
+</blockquote>
+<p>webpack5使用这个配置</p>
+<pre><code class="js">&#123; // webpack5默认内部不认识这些文件, 所以当做静态资源直接输出即可
+    test: /\.(eot|svg|ttf|woff|woff2)$/,
+    type: &#39;asset/resource&#39;,
+    generator: &#123;
+        filename: &#39;font/[name].[hash:6][ext]&#39;
+    &#125;
+&#125;
+</code></pre>
+<p>webpack4及以前使用下面的配置</p>
+<ol>
+<li><p>webpack.config.js - 准备配置</p>
+<pre><code class="js"> &#123; // 处理字体图标的解析
+     test: /\.(eot|svg|ttf|woff|woff2)$/,
+         use: [
+             &#123;
+                 loader: &#39;url-loader&#39;,
+                 options: &#123;
+                     limit: 2 * 1024,
+                     // 配置输出的文件名
+                     name: &#39;[name].[ext]&#39;,
+                     // 配置输出的文件目录
+                     outputPath: &quot;fonts/&quot;
+                 &#125;
+             &#125;
+         ]
+ &#125;
+</code></pre>
+</li>
+<li><p>src/assets/ - 放入字体库fonts文件夹</p>
+</li>
+<li><p>在main.js引入iconfont.css</p>
+<pre><code class="js">// 引入字体图标文件
+import &#39;./assets/fonts/iconfont.css&#39;
+</code></pre>
+</li>
+<li><p>在public/index.html使用字体图标样式</p>
+<pre><code class="html">&lt;i class=&quot;iconfont icon-weixin&quot;&gt;&lt;/i&gt;
+</code></pre>
+</li>
+<li><p>执行打包命令-观察打包后网页效果</p>
+</li>
+</ol>
+<blockquote>
+<p>总结: url-loader和file-loader 可以打包静态资源文件</p>
+</blockquote>
+<h3 id="加载器-处理高版本js语法"><a href="#加载器-处理高版本js语法" class="headerlink" title="加载器 - 处理高版本js语法"></a>加载器 - 处理高版本js语法</h3><blockquote>
+<p>目标: 让webpack对高版本 的js代码, 降级处理后打包</p>
+</blockquote>
+<p>写代码演示: 高版本的js代码(箭头函数), 打包后, 直接原封不动打入了js文件中, 遇到一些低版本的浏览器就会报错</p>
+<p>原因: <strong>webpack 默认仅内置了 模块化的 兼容性处理</strong>   <code>import  export</code></p>
+<p>babel 的介绍 =&gt; 用于处理高版本 js语法 的兼容性  <a target="_blank" rel="noopener" href="https://www.babeljs.cn/">babel官网</a></p>
+<p>解决: 让webpack配合babel-loader 对js语法做处理</p>
+<p><a target="_blank" rel="noopener" href="https://webpack.docschina.org/loaders/babel-loader/">babel-loader文档</a></p>
+<ol>
+<li><p>安装包</p>
+<pre><code class="bash">yarn add -D babel-loader @babel/core @babel/preset-env
+</code></pre>
+</li>
+<li><p>配置规则</p>
+<pre><code class="js">module: &#123;
+  rules: [
+    &#123;
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: &#123;
+            loader: &#39;babel-loader&#39;,
+            options: &#123;
+                presets: [&#39;@babel/preset-env&#39;] // 预设:转码规则(用bable开发环境本来预设的)
+            &#125;
+        &#125;
+    &#125;
+  ]
+&#125;
+</code></pre>
+</li>
+<li><p>在main.js中使用箭头函数(高版本js)</p>
+<pre><code class="js">// 高级语法
+const fn = () =&gt; &#123;
+  console.log(&quot;你好babel&quot;);
+&#125;
+console.log(fn) // 这里必须打印不能调用/不使用, 不然webpack会精简成一句打印不要函数了/不会编译未使用的代码
+// 没有babel集成时, 原样直接打包进lib/bundle.js
+// 有babel集成时, 会翻译成普通函数打包进lib/bundle.js
+</code></pre>
+</li>
+<li><p>打包后观察lib/bundle.js - 被转成成普通函数使用了 - 这就是babel降级翻译的功能</p>
+</li>
+</ol>
+<blockquote>
+<p>总结: babel-loader 可以让webpack 对高版本js语法做降级处理后打包</p>
+</blockquote>
+<h3 id="webpack-dev-server自动刷新"><a href="#webpack-dev-server自动刷新" class="headerlink" title="webpack-dev-server自动刷新"></a>webpack-dev-server自动刷新</h3><blockquote>
+<p>目标: 启动本地服务, 可实时更新修改的代码, 打包<strong>变化代码</strong>到内存中, 然后直接提供端口和网页访问</p>
+</blockquote>
+<ol>
+<li><p>下载包</p>
+<pre><code class="bash">yarn add webpack-dev-server -D
+</code></pre>
+</li>
+<li><p>配置自定义命令</p>
+<pre><code class="js">scripts: &#123;
+    &quot;build&quot;: &quot;webpack&quot;,
+    &quot;serve&quot;: &quot;webpack serve&quot;
+&#125;
+</code></pre>
+</li>
+<li><p>运行命令-启动webpack开发服务器</p>
+<pre><code class="bash">yarn serve
+#或者 npm run serve
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>以后改了src下的资源代码, 就会直接更新到内存打包, 然后反馈到浏览器上了</p>
+</blockquote>
+<h3 id="webpack-dev-server配置"><a href="#webpack-dev-server配置" class="headerlink" title="webpack-dev-server配置"></a>webpack-dev-server配置</h3><ol>
+<li><p>在webpack.config.js中添加服务器配置</p>
+<p>更多配置参考这里: <a target="_blank" rel="noopener" href="https://webpack.docschina.org/configuration/dev-server/#devserverafter">https://webpack.docschina.org/configuration/dev-server/#devserverafter</a></p>
+<pre><code class="js">module.exports = &#123;
+    // ...其他配置
+    devServer: &#123;
+      port: 3000 // 端口号
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ol>
+<h1 id="vue-cli脚手架"><a href="#vue-cli脚手架" class="headerlink" title="vue/cli脚手架"></a>vue/cli脚手架</h1><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p>开箱即用</p>
+<p>0配置webpack</p>
+<p>babel支持</p>
+<p>css, less支持</p>
+<p>开发服务器支持</p>
+<h4 id="全局安装命令"><a href="#全局安装命令" class="headerlink" title="全局安装命令"></a>全局安装命令</h4><pre><code class="bash">yarn global add @vue/cli
+# OR
+npm install -g @vue/cli
+</code></pre>
+<h5 id="查看脚手架版本"><a href="#查看脚手架版本" class="headerlink" title="查看脚手架版本"></a>查看脚手架版本</h5><pre><code class="bash">vue -V
+</code></pre>
+<h3 id="vue-cli-创建项目启动服务"><a href="#vue-cli-创建项目启动服务" class="headerlink" title="@vue/cli 创建项目启动服务"></a>@vue/cli 创建项目启动服务</h3><blockquote>
+<p>目标: 使用vue命令, 创建脚手架项目</p>
+</blockquote>
+<p>==注意: 项目名不能带大写字母, 中文和特殊符号==</p>
+<ol>
+<li>创建项目</li>
+</ol>
+<pre><code class="bash"># vue和create是命令, vuecli-demo是文件夹名
+vue create vuecli-demo
+</code></pre>
+<ol start="2">
+<li><p>选择模板</p>
+<p>==可以上下箭头选择, 弄错了ctrl+c重来==</p>
+</li>
+</ol>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210116230221236.png" alt="image-20210116230221236"></p>
+<p>​         选择用什么方式下载脚手架项目需要的依赖包<img src="https://gitee.com/iLx1/resource-img/raw/master/Snipaste_2021-03-26_15-24-14.png" alt="Snipaste_2021-03-26_15-24-14"></p>
+<ol start="3">
+<li>回车等待生成项目文件夹+文件+下载必须的第三方包们</li>
+</ol>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210212174314768.png" alt="image-20210212174314768"></p>
+<ol start="4">
+<li>进入脚手架项目下, 启动内置的热更新本地服务器</li>
+</ol>
+<pre><code class="bash">cd vuecil-demo
+
+npm run serve
+# 或
+yarn serve
+</code></pre>
+<p>底层node+webpack热更新服务</p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210116231815543.png" alt="image-20210116231815543"></p>
+<p>打开浏览器输入上述地址</p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210116233035582.png" alt="image-20210116233035582"></p>
+<h3 id="目录和代码分析"><a href="#目录和代码分析" class="headerlink" title="目录和代码分析"></a>目录和代码分析</h3><pre><code class="bash"> vuecil-demo        # 项目目录
+    ├── node_modules # 项目依赖的第三方包
+    ├── public       # 静态文件目录
+      ├── favicon.ico# 浏览器小图标
+      └── index.html # 单页面的html文件(网页浏览的是它)
+    ├── src          # 业务文件夹
+      ├── assets     # 静态资源
+        └── logo.png # vue的logo图片
+      ├── components # 组件目录
+        └── HelloWorld.vue # 欢迎页面vue代码文件 
+      ├── App.vue    # 整个应用的根组件
+      └── main.js    # 入口js文件
+    ├── .gitignore   # git提交忽略配置
+    ├── babel.config.js  # babel配置
+    ├── package.json  # 依赖包列表
+    ├── README.md    # 项目说明
+    └── yarn.lock    # 项目包版本锁定和缓存地址
 </code></pre>
 
     </div>
