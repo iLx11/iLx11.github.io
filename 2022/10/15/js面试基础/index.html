@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <div class="bgimg"></div>
+            <div class="cover"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            js面试基础
+        </div>
+        <div class="post-meta">
+            2022-10-15
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <h2 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h2><p>六种类型，Undefined, Null, Boolean, String , Number,Object ,Symbol</p>
+<blockquote>
+<p>基本数据类型：Undefined, Null, Boolean, String , Number</p>
+</blockquote>
+<p>有固定长度，保存在栈上</p>
+<blockquote>
+<p>引用数据类型：Object</p>
+</blockquote>
+<p>不可预知长度，保存在堆中，栈中保存指向堆内存的地址</p>
+<p>js是动态类型（弱类型）</p>
+<h5 id="typeof来判断类型"><a href="#typeof来判断类型" class="headerlink" title="typeof来判断类型"></a>typeof来判断类型</h5><p>判断一个值是不是 null 类型</p>
+<pre><code class="js">function isNull(o) &#123;
+    return !o &amp;&amp;  typeof o === &quot;object&quot;
+&#125;
+</code></pre>
+<ul>
+<li>undefined 不是未定义，两者有区别。尝试去读一个未定义的变量的值其实会直接<code>Reference Error</code></li>
+<li>typeof 不能区分未定义，还是定义了但是没有值。两者都会都会返回undefined</li>
+<li>typeof 一个未定义的变量不会触发<code>Reference Error</code></li>
+</ul>
+<blockquote>
+<p>Array是一种容器类型</p>
+</blockquote>
+<p>本质上是对象</p>
+<blockquote>
+<p>number事实上是浮点数</p>
+</blockquote>
+<p>JavaScript 明确地使用了“双精度”（也就是“64位二进制”）格式。</p>
+<p>这部分常考的一个点是精度问题。</p>
+<pre><code class="js">0.1 + 0.2 === 0.3; // false
+</code></pre>
+<p> “错误舍入”值作为比较的 容差，这个很小的值经常被称为“机械极小值（machine epsilon）”， 对于 JavaScript 来说这种 number 通常为 Number.EPSILON。</p>
+<pre><code class="js">function numbersCloseEnoughToEqual(n1,n2) &#123;
+    return Math.abs( n1 - n2 ) &lt; Number.EPSILON;
+&#125;
+
+var a = 0.1 + 0.2;
+var b = 0.3;
+
+numbersCloseEnoughToEqual( a, b );                    // true
+numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
+</code></pre>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>即变量（变量作用域又称上下文）和函数生效（能被访问）的区域或集合</p>
+<p>包括</p>
+<ul>
+<li> 全局作用域 </li>
+<li> 函数作用域 </li>
+<li> 块级作用域 </li>
+</ul>
+<h4 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h4><p>又叫静态作用域，变量被创建时就确定好了，而非执行阶段确定的。也就是说我们写好代码时它的作用域就确定了，<code>JavaScript</code> 遵循的就是词法作用域</p>
+<blockquote>
+<p>作用域背后地原理是<code>词法环境</code></p>
+</blockquote>
+<p>词法环境由两部分组成：</p>
+<ol>
+<li>环境记录， 这其实就是JavaScript用来存变量地地方，一个key-value对在这里被成为一个binding。</li>
+<li>外部环境的引用</li>
+</ol>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包就是当一个函数即使是在它的词法作用域之外被调用时，也可以记住并访问它的词法作用域。</p>
+<p>在 <code>JavaScript</code>中，每当创建一个函数，闭包就会在函数创建的同时被创建出来，作为函数内部与外部连接起来的一座桥梁</p>
+<p>使用场景</p>
+<blockquote>
+<ul>
+<li><p>创建私有变量</p>
+</li>
+<li><p>延长变量的生命周期</p>
+<p>柯里化的目的在于避免频繁调用具有相同参数函数的同时，又能够轻松的重用</p>
+</li>
+</ul>
+</blockquote>
+<p>一般函数的词法环境在函数返回后就被销毁，但是闭包会保存对创建时所在词法环境的引用，即便创建时所在的执行上下文被销毁，但创建时所在词法环境依然存在，以达到延长变量的生命周期的目的</p>
+<h1 id="原型和继承"><a href="#原型和继承" class="headerlink" title="原型和继承"></a>原型和继承</h1><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承是一种代码复用的方式。在面向对象编程中，继承是一个很重要的点。</p>
+<h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p>在JS中继承背后的原理是原型<code>prototype</code>, 这种实现继承的方式，我们称之为原型继承。</p>
+<pre><code class="js">function Parent() &#123;
+    this.name = &#39;parent&#39;;
+  &#125;
+  function Child() &#123;
+    this.type = &#39;child&#39;;
+  &#125;
+  Child.prototype = new Parent();
+  console.log(new Child())
+</code></pre>
+<p>问题： 多个实例对象共用一个原型对象，会相互影响</p>
+<h3 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h3><pre><code class="js">function Child() &#123;
+       Parent.call(this)
+&#125;
+new Child();
+</code></pre>
+<p>问题： 父类原型对象自己定义的方法无法继承</p>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><pre><code class="js">function Child() &#123;
+    //第二次调用Parent
+    Parent.call(this)
+&#125; 
+//第一次调用Parent
+Child.prototype = new Parent();
+//手动挂载构造器，指向自己的构造函数
+Child.prototype.consturctor = Child;
+</code></pre>
+<p>问题： 增加了构造的性能开销</p>
+<h3 id="全局对象"><a href="#全局对象" class="headerlink" title="全局对象"></a>全局对象</h3><p>JS中一些全局内置函数，分别为Functon, Array, Object.</p>
+<pre><code class="js">console.log(Object); // -&gt; ƒ Object() &#123; [native code] &#125;
+console.log(Array); // -&gt; ƒ Array() &#123; [native code] &#125;
+console.log(Function); // -&gt; ƒ Function() &#123; [native code] &#125;Copy to clipboardErrorCopied
+</code></pre>
+<ul>
+<li>所有的数组对象，都是由全局内置函数Array创建的</li>
+<li>所有的object对象，都是由全局内置函数Object创建的</li>
+<li>所有的函数对象，都是由全局内置函数Function创建的</li>
+</ul>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a>proto</h2><p><strong>proto</strong> 是一个内部属性，不建议对其进行直接操作。 而是建议通过prototype来进行操作。</p>
+<blockquote>
+<p>每个函数都有一个特殊的属性叫作原型prototype</p>
+<p>一个对象的__proto__总是指向它的构造函数的prototype</p>
+</blockquote>
+<p>当我们访问一个对象的属性的时候，引擎首先会在当前对象进行查找，如果找不到就会访问该对象的<code>__proto__</code>， 如果<code>__proto__</code>有了，就返回，如果没有则递归执行上述过程，直到<code>__proto__</code> 为 <code>null</code>。</p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/images.jpg" alt="img"></p>
+<h1 id="this"><a href="#this" class="headerlink" title="this"></a>this</h1><blockquote>
+<p>this的设计目的就是指向函数运行时所在的环境</p>
+</blockquote>
+<h3 id="判定this指向"><a href="#判定this指向" class="headerlink" title="判定this指向"></a>判定this指向</h3><h4 id="一、默认绑定"><a href="#一、默认绑定" class="headerlink" title="一、默认绑定"></a>一、默认绑定</h4><p>1、严格模式下</p>
+<p>不能将全局对象<code>window</code>作为默认绑定，此时<code>this</code>会绑定到<code>undefined</code>，但是在严格模式下调用函数则不会影响默认绑定。</p>
+<p>2、非严格模式下</p>
+<p>this指向全局对象</p>
+<h4 id="二、隐式绑定"><a href="#二、隐式绑定" class="headerlink" title="二、隐式绑定"></a>二、隐式绑定</h4><p>当函数作为对象的属性存在，通过<strong>对象属性执行函数</strong>时，此时隐式绑定规则会将<code>this</code>绑定到对象上；</p>
+<blockquote>
+<p>赋值操作后执行函数，会应用默认绑定</p>
+</blockquote>
+<blockquote>
+<p>函数传参也是一种隐式赋值，此时在回调函数中会丢失this绑定。(函数定义位置不在对象内)</p>
+</blockquote>
+<h4 id="三、显式绑定"><a href="#三、显式绑定" class="headerlink" title="三、显式绑定"></a>三、显式绑定</h4><blockquote>
+<p>通过call apply bind绑定</p>
+</blockquote>
+<p><code>call</code>做了哪些事儿。</p>
+<ul>
+<li>将函数设为对象的属性</li>
+<li>指定函数的this，并进行传参</li>
+<li>执行&amp;删除函数</li>
+<li>判定如果没有指定要绑定的this，非严格模式下默认指向全局对象</li>
+</ul>
+<pre><code class="js">foo.call(obj); // Heternally  调用call方法后强行将foo函数的this指向来obj对象上
+
+foo.call(obj).call(obj1); // Heternally  多次调用call方法，以第一次为准
+
+foo.call();// zl 没有传入指定对象，所以this默认指向全局对象
+</code></pre>
+<h4 id="四、通过new绑定"><a href="#四、通过new绑定" class="headerlink" title="四、通过new绑定"></a>四、通过new绑定</h4><p><code>new</code>后，执行了什么操作：</p>
+<ul>
+<li>它创建（构造）了一个全新的对象</li>
+<li>它会被执行[[Prototype]]（也就是__proto__）链接</li>
+<li>它使this指向新创建的对象</li>
+<li>通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上</li>
+<li>如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用</li>
+</ul>
+<p>在使用<code>new</code>调用构造函数后，会构造一个新对象并将函数调用中的<code>this</code>绑定到新对象上。</p>
+<h4 id="箭头函数的this指向"><a href="#箭头函数的this指向" class="headerlink" title="箭头函数的this指向"></a>箭头函数的this指向</h4><blockquote>
+<p>根据它外层（函数/全局）作用域来决定</p>
+</blockquote>
+<p>箭头函数不能沿用以上的绑定this指向的方法</p>
+<h2 id="数组的操作方法"><a href="#数组的操作方法" class="headerlink" title="数组的操作方法"></a>数组的操作方法</h2><h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><blockquote>
+<ul>
+<li>push() 尾部添加，改变原数组，返回新长度</li>
+<li>unshift() 头部添加</li>
+<li>splice( 开始位置，删除个数（0），插入元素) 改变原数组</li>
+<li>concat(xx,[xx]) 返回新数组</li>
+</ul>
+</blockquote>
+<h4 id="删"><a href="#删" class="headerlink" title="删"></a>删</h4><blockquote>
+<ul>
+<li>pop() 删除尾部，返回被删除元素</li>
+<li>shift() 删除头部，返回删除元素</li>
+<li>splice(开始位置，元素数量)</li>
+<li>slice(删除位置（非索引）)</li>
+</ul>
+</blockquote>
+<h4 id="查"><a href="#查" class="headerlink" title="查"></a>查</h4><blockquote>
+<ul>
+<li>indexOf() 查找元素位置，没有返回-1</li>
+<li>includes() 查找元素位置，有则true，没有false</li>
+<li>find() 返回第一个匹配元素</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>reverse() 反转数组</p>
+<p>sort() 冒泡排序</p>
+</blockquote>
+<h4 id="转换数组"><a href="#转换数组" class="headerlink" title="转换数组"></a>转换数组</h4><blockquote>
+<p>join(“|”) 以字符串分割数组，返回字符串</p>
+</blockquote>
+<h4 id="数组迭代"><a href="#数组迭代" class="headerlink" title="数组迭代"></a>数组迭代</h4><p>传入执行函数</p>
+<blockquote>
+<ul>
+<li>some(value, key) 至少一个返回true， 则返回true</li>
+<li>every() 所有元素返回true， 则返回true</li>
+<li>forEach() 遍历数组</li>
+<li>filter() 返回元素为true的新数组</li>
+<li>map() 每一项运行传入函数</li>
+</ul>
+</blockquote>
+<h3 id="字符串方法"><a href="#字符串方法" class="headerlink" title="字符串方法"></a>字符串方法</h3><h4 id="增-1"><a href="#增-1" class="headerlink" title="增"></a>增</h4><blockquote>
+<p>concat() 拼接</p>
+<p>+/ ${}</p>
+</blockquote>
+<h4 id="截取"><a href="#截取" class="headerlink" title="截取"></a>截取</h4><blockquote>
+<ul>
+<li>slice(开始位置， 结束位置) </li>
+<li>substr(开始位置， 结束位置)</li>
+<li>substring( 开始位置， 截取长度)</li>
+</ul>
+</blockquote>
+<h4 id="改"><a href="#改" class="headerlink" title="改"></a>改</h4><blockquote>
+<ul>
+<li> trim()、trimLeft()、trimRight() </li>
+<li> repeat(次数) </li>
+<li> padStart(长度，填充字符)、padEnd() </li>
+<li> toLowerCase()、 toUpperCase() </li>
+</ul>
+</blockquote>
+<h4 id="查-1"><a href="#查-1" class="headerlink" title="查"></a>查</h4><blockquote>
+<ul>
+<li> chatAt(索引位置) 返回对应字符串  </li>
+<li> indexOf(字符) 返回字符位置 </li>
+<li> startWith(字符串) 包含与否返回布尔值 </li>
+<li> includes(字符串) 包含与否返回布尔值</li>
+</ul>
+</blockquote>
+<h4 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h4><blockquote>
+<p>split(“|”) 根据字符转换为数组</p>
+</blockquote>
+<h4 id="模板匹配"><a href="#模板匹配" class="headerlink" title="模板匹配"></a>模板匹配</h4><blockquote>
+<ul>
+<li>match() 匹配模板，返回数组</li>
+<li>search() 匹配模板，匹配失败返回-1</li>
+<li>replace(匹配内容， 替换元素) </li>
+</ul>
+</blockquote>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><h3 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h3><p>转换为布尔</p>
+<blockquote>
+<ul>
+<li>undefined</li>
+<li>null</li>
+<li>false</li>
+<li>+0</li>
+<li>-0</li>
+<li>NaN</li>
+<li>“”</li>
+</ul>
+<p>除了上面几种会被转化成<code>false</code>，其他都换被转化成<code>true</code></p>
+</blockquote>
+<h4 id="其他类型"><a href="#其他类型" class="headerlink" title="其他类型"></a>其他类型</h4><blockquote>
+<p>除了<code>+</code>有可能把运算子转为字符串，其他运算符都会把运算子自动转成数值</p>
+</blockquote>
+<h4 id="和"><a href="#和" class="headerlink" title="==和==="></a>==和===</h4><p>相等操作符（==）会做类型转换，再进行值的比较，全等运算符不会做类型转换</p>
+<h4 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h4><blockquote>
+<p>深拷贝</p>
+</blockquote>
+<p>开辟一个新的栈，两个对象属完成相同，但是对应两个不同的地址，修改一个对象的属性，不会改变另一个对象的属性</p>
+<ul>
+<li> _.cloneDeep() </li>
+<li> jQuery.extend() </li>
+<li> JSON.stringify() </li>
+<li> 手写循环递归 </li>
+</ul>
+<pre><code class="js">循环递归
+function deepClone(obj, hash = new WeakMap()) &#123;
+  if (obj === null) return obj; // 如果是null或者undefined我就不进行拷贝操作
+  if (obj instanceof Date) return new Date(obj);
+  if (obj instanceof RegExp) return new RegExp(obj);
+  // 可能是对象或者普通的值  如果是函数的话是不需要深拷贝
+  if (typeof obj !== &quot;object&quot;) return obj;
+  // 是对象的话就要进行深拷贝
+  if (hash.get(obj)) return hash.get(obj);
+  let cloneObj = new obj.constructor();
+  // 找到的是所属类原型上的constructor,而原型上的 constructor指向的是当前类本身
+  hash.set(obj, cloneObj);
+  for (let key in obj) &#123;
+    if (obj.hasOwnProperty(key)) &#123;
+      // 实现一个递归拷贝
+      cloneObj[key] = deepClone(obj[key], hash);
+    &#125;
+  &#125;
+  return cloneObj;
+&#125;
+</code></pre>
+<blockquote>
+<p>浅拷贝</p>
+</blockquote>
+<p>指的是创建新的数据，这个数据有着原始数据属性值的一份精确拷贝</p>
+<p>如果属性是基本类型，拷贝的就是基本类型的值。如果属性是引用类型，拷贝的就是内存地址</p>
+<pre><code class="js">function shallowClone(obj) &#123;
+    const newObj = &#123;&#125;;
+    for(let prop in obj) &#123;
+        if(obj.hasOwnProperty(prop))&#123;
+            newObj[prop] = obj[prop];
+        &#125;
+    &#125;
+    return newObj;
+&#125;
+</code></pre>
+<ul>
+<li><code>Object.assign</code></li>
+<li><code>Array.prototype.slice()</code>, <code>Array.prototype.concat()</code></li>
+</ul>
+
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/css/nord.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/js/memo.js"></script>
+
+</html>

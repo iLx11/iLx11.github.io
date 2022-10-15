@@ -167,6 +167,8 @@ li &#123;
 <td>从父元素继承此属性的值</td>
 </tr>
 </tbody></table>
+<h4 id="荧光效果"><a href="#荧光效果" class="headerlink" title="荧光效果"></a>荧光效果</h4><pre><code class="css">filter: drop-shadow(x, y, spread, color);
+</code></pre>
 <h3 id="keyframs"><a href="#keyframs" class="headerlink" title="@keyframs"></a>@keyframs</h3><pre><code class="css">@keyframes mymove
 &#123;
 0%   &#123;top:0px;&#125;
@@ -229,6 +231,23 @@ dom.addEventListener(&#39;transitionend&#39;, () =&gt;&#123;
 dom.addEventListener(&#39;animetionend&#39;, () =&gt;&#123;
     console.log(&quot;346476&quot;)
 &#125;);
+</code></pre>
+<h4 id="css计算属性"><a href="#css计算属性" class="headerlink" title="css计算属性"></a>css计算属性</h4><pre><code class="css">.box &#123;
+    --x: 2;
+    --y: 2;
+&#125;
+
+transform: translate(calc (6px * var(--x)), calc (6px * var(--x)))
+</code></pre>
+<h4 id="点击添加属性"><a href="#点击添加属性" class="headerlink" title="点击添加属性"></a>点击添加属性</h4><pre><code class="js">addEventListener(&#39;click&#39;)
+document.classList.toggle(&quot;类名&quot;)
+
+/*
+css
+.document.active &#123;
+    xxx: xxx;
+&#125;
+*/
 </code></pre>
 <h4 id="使用图标时-font"><a href="#使用图标时-font" class="headerlink" title="使用图标时(font)"></a>使用图标时(font)</h4><p>引入js标签</p>
 <pre><code class="html">&lt;script src=&quot;./font/iconfont.js&quot;&gt;&lt;/script&gt;
@@ -1149,7 +1168,7 @@ Vue.component(&#39;组件名&#39;,&#123;//组件的名称
 //使用时
 //&lt;father&gt;&lt;/father&gt;
 </code></pre>
-<h5 id="父传参数给子（单向数据流）"><a href="#父传参数给子（单向数据流）" class="headerlink" title="父传参数给子（单向数据流）"></a>父传参数给子（单向数据流）</h5><h5 id="props"><a href="#props" class="headerlink" title="props"></a>props</h5><pre><code class="js">data: &#123;
+<h2 id="组件之间传值"><a href="#组件之间传值" class="headerlink" title="组件之间传值"></a>组件之间传值</h2><h5 id="父传参数给子（单向数据流）"><a href="#父传参数给子（单向数据流）" class="headerlink" title="父传参数给子（单向数据流）"></a>父传参数给子（单向数据流）</h5><h5 id="props"><a href="#props" class="headerlink" title="props"></a>props</h5><pre><code class="js">data: &#123;
     mag:mag,
 &#125;,
 components:&#123;
@@ -1254,7 +1273,25 @@ methods: &#123;
     &#125;
 &#125;
 </code></pre>
-<h4 id="插槽"><a href="#插槽" class="headerlink" title="插槽"></a>插槽</h4><h5 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h5><pre><code class="html">&lt;template id=&quot;template&quot;&gt;
+<h3 id="provide-与-inject"><a href="#provide-与-inject" class="headerlink" title="provide 与 inject"></a>provide 与 inject</h3><ul>
+<li>在祖先组件定义<code>provide</code>属性，返回传递的值</li>
+<li>在后代组件通过<code>inject</code>接收组件传递过来的值</li>
+</ul>
+<p>祖先组件</p>
+<pre><code class="javascript">provide()&#123;  
+    return &#123;  
+        foo:&#39;foo&#39;  
+    &#125;  
+&#125;
+</code></pre>
+<p>后代组件</p>
+<pre><code class="javascript">inject:[&#39;foo&#39;] // 获取到祖先组件传递过来的值
+</code></pre>
+<h3 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h3><ul>
+<li> 适用场景: 复杂关系的组件数据传递 </li>
+<li> <code>Vuex</code>作用相当于一个用来存储共享变量的容器</li>
+</ul>
+<h3 id="插槽"><a href="#插槽" class="headerlink" title="插槽"></a>插槽</h3><h5 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h5><pre><code class="html">&lt;template id=&quot;template&quot;&gt;
      &lt;div&gt;
          &lt;slot name=&quot;slot1&quot;&gt;我是插槽&lt;/slot&gt;
      &lt;/div&gt;
@@ -1436,6 +1473,16 @@ user = &#123;
 //.push(&#123;path: &#39;&#39;, query: &#123;id: xxx&#125;&#125;)
 this.$route.go()
 </code></pre>
+<h3 id="减小入口文件体积"><a href="#减小入口文件体积" class="headerlink" title="减小入口文件体积"></a>减小入口文件体积</h3><p>常用的手段是路由懒加载，把不同路由对应的组件分割成不同的代码块，待路由被请求的时候会单独打包路由，使得入口文件变小，加载速度大大增加</p>
+<p><img src="https://static.vue-js.com/486cee90-3acc-11eb-ab90-d9ae814b240d.png" alt="img"></p>
+<p>在<code>vue-router</code>配置路由的时候，采用动态加载路由的形式</p>
+<pre><code class="javascript">routes:[ 
+    path: &#39;Blogs&#39;,
+    name: &#39;ShowBlogs&#39;,
+    component: () =&gt; import(&#39;./components/ShowBlogs.vue&#39;)
+]
+</code></pre>
+<p>以函数的形式加载路由，这样就可以把各自的路由文件分别打包，只有在解析给定的路由时，才会加载路由组件</p>
 <h1 id="webpack-Vue"><a href="#webpack-Vue" class="headerlink" title="webpack + Vue"></a>webpack + Vue</h1><h3 id="下载yarn"><a href="#下载yarn" class="headerlink" title="下载yarn"></a>下载yarn</h3><p>下载地址:  <a target="_blank" rel="noopener" href="https://yarn.bootcss.com/docs/install/#windows-stable">https://yarn.bootcss.com/docs/install/#windows-stable</a> </p>
 <ul>
 <li><p>mac - 通过homebrew安装</p>
@@ -1842,34 +1889,32 @@ npm install -g @vue/cli
 <p>目标: 使用vue命令, 创建脚手架项目</p>
 </blockquote>
 <p>==注意: 项目名不能带大写字母, 中文和特殊符号==</p>
-<ol>
-<li>创建项目</li>
-</ol>
-<pre><code class="bash"># vue和create是命令, vuecli-demo是文件夹名
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><pre><code class="bash"># vue和create是命令, vuecli-demo是文件夹名
 vue create vuecli-demo
+
+#手动选择需要的
+Manually select features
+
+#（*）空格选择
+# no history mode -&gt; hash模式
+# Standard config
+# lint in save
+# dedicated config files
+# Sava preset(模板)
 </code></pre>
-<ol start="2">
-<li><p>选择模板</p>
-<p>==可以上下箭头选择, 弄错了ctrl+c重来==</p>
-</li>
-</ol>
-<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210116230221236.png" alt="image-20210116230221236"></p>
-<p>​         选择用什么方式下载脚手架项目需要的依赖包<img src="https://gitee.com/iLx1/resource-img/raw/master/Snipaste_2021-03-26_15-24-14.png" alt="Snipaste_2021-03-26_15-24-14"></p>
-<ol start="3">
-<li>回车等待生成项目文件夹+文件+下载必须的第三方包们</li>
-</ol>
-<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210212174314768.png" alt="image-20210212174314768"></p>
-<ol start="4">
-<li>进入脚手架项目下, 启动内置的热更新本地服务器</li>
-</ol>
+<h4 id="图形化创建"><a href="#图形化创建" class="headerlink" title="图形化创建"></a>图形化创建</h4><pre><code class="bash">vue ui
+
+#选择手动配置
+#babel,router,linter/Formatter,使用配置文件
+#与以上相同
+</code></pre>
+<p>进入脚手架项目下, 启动内置的热更新本地服务器</p>
 <pre><code class="bash">cd vuecil-demo
 
 npm run serve
 # 或
 yarn serve
 </code></pre>
-<p>底层node+webpack热更新服务</p>
-<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210116231815543.png" alt="image-20210116231815543"></p>
 <p>打开浏览器输入上述地址</p>
 <p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210116233035582.png" alt="image-20210116233035582"></p>
 <h3 id="目录和代码分析"><a href="#目录和代码分析" class="headerlink" title="目录和代码分析"></a>目录和代码分析</h3><pre><code class="bash"> vuecil-demo        # 项目目录
@@ -1889,6 +1934,103 @@ yarn serve
     ├── package.json  # 依赖包列表
     ├── README.md    # 项目说明
     └── yarn.lock    # 项目包版本锁定和缓存地址
+</code></pre>
+<h3 id="vue-cli-自定义配置"><a href="#vue-cli-自定义配置" class="headerlink" title="@vue/cli 自定义配置"></a>@vue/cli 自定义配置</h3><blockquote>
+<p>目标：项目中没有webpack.config.js文件，因为@vue/cli用的vue.config.js</p>
+</blockquote>
+<p>src并列处新建vue.config.js</p>
+<pre><code class="jsx">/* 覆盖webpack的配置 */
+module.exports = &#123;
+  devServer: &#123; // 自定义服务配置
+    open: true, // 自动打开浏览器
+    port: 3000
+  &#125;
+&#125;
+</code></pre>
+<h3 id="Element-UI"><a href="#Element-UI" class="headerlink" title="Element-UI"></a>Element-UI</h3><p>安装依赖</p>
+<pre><code class="bash">yarn add element-ui -S
+</code></pre>
+<p>导入资源</p>
+<pre><code class="js">//组件库
+import ElementUI from &#39;element-ui&#39;;
+//导入样式
+import &#39;element-ui/lib/theme-chalk/index.css&#39;;
+//配置插件
+Vue.use(ElementUI)
+</code></pre>
+<p>图形化安装</p>
+<p>vue-cli-plugin-element</p>
+<h3 id="eslint"><a href="#eslint" class="headerlink" title="eslint"></a>eslint</h3><p>代码检查工具</p>
+<h5 id="暂时关闭"><a href="#暂时关闭" class="headerlink" title="暂时关闭"></a>暂时关闭</h5><p>方式1: 手动解决掉错误, 以后项目中会讲如何自动解决</p>
+<p>方式2: 暂时关闭eslint检查(因为现在主要精力在学习Vue语法上), 在vue.config.js中配置后重启服务</p>
+<pre><code class="js">module.exports = &#123;
+    lintOnSave: false,//关闭eslint检查
+&#125;
+</code></pre>
+<h5 id="安装less依赖"><a href="#安装less依赖" class="headerlink" title="安装less依赖"></a>安装less依赖</h5><p>less-loader -&gt; less</p>
+<h4 id="导入element表单"><a href="#导入element表单" class="headerlink" title="导入element表单"></a>导入element表单</h4><pre><code class="js">import &#123;Form, FormItem, Input&#125; from &#39;element-ui&#39;
+
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+</code></pre>
+<h4 id="导入弹框提示组件"><a href="#导入弹框提示组件" class="headerlink" title="导入弹框提示组件"></a>导入弹框提示组件</h4><pre><code class="js">import &#123;Message&#125; from &#39;element-ui&#39;
+
+//挂载到原型对象
+Vue.prototype.$message = Message
+
+this.$message.success(&quot;NIHAO&quot;)
+
+//解决空白弹窗问题
+import &#123; Message &#125; from &#39;element-ui&#39;
+
+Vue.component(Message.name, Message)
+              
+Vue.prototype.$message = Message
+</code></pre>
+<h3 id="配置axios"><a href="#配置axios" class="headerlink" title="配置axios"></a>配置axios</h3><pre><code class="js">import axios from &#39;axios&#39;
+
+axios.defaults.baseURL = &#39;127.0.0.1&#39;
+
+Vue.prototype.$http = axios
+
+//调用时
+async () =&gt; 
+//结构赋值
+const &#123;data: res&#125; = await this.$http.post(&#39;&#39;,data)
+</code></pre>
+<h5 id="编程式导航-1"><a href="#编程式导航-1" class="headerlink" title="编程式导航"></a>编程式导航</h5><pre><code class="js">this.$router.push(&#39;/&#39;)
+</code></pre>
+<h5 id="路由导航守卫"><a href="#路由导航守卫" class="headerlink" title="路由导航守卫"></a>路由导航守卫</h5><pre><code class="js">router.beforeEach((to, from, next) =&gt; &#123;
+    //to为访问的路径
+    //from为从哪个路径跳转
+    //next表示放行
+    if(to.path == &#39;/&#39;) return next() //next(&#39;/&#39;)
+&#125;)
+</code></pre>
+<h5 id="路由重定向-1"><a href="#路由重定向-1" class="headerlink" title="路由重定向"></a>路由重定向</h5><pre><code class="js">&#123;
+  path: &#39;/admin&#39;, redirect: &#39;/admin/control&#39;,
+&#125;,
+</code></pre>
+<h5 id="格式化文档"><a href="#格式化文档" class="headerlink" title="格式化文档"></a>格式化文档</h5><p>根目录创建”.prettierrc”（修改引号和分号）</p>
+<pre><code class="json">&#123;
+       &quot;semi&quot;: false,
+    &quot;singleQuete&quot;: true
+&#125;
+</code></pre>
+<h5 id="confirm闪退问题"><a href="#confirm闪退问题" class="headerlink" title="$confirm闪退问题"></a>$confirm闪退问题</h5><pre><code class="html">&lt;!--将a标签改为--&gt;
+&lt;a href=&quot;javascript:viod(0)&quot;&gt;&lt;/a&gt;
+</code></pre>
+<h4 id="访问其他组件成员"><a href="#访问其他组件成员" class="headerlink" title="访问其他组件成员"></a>访问其他组件成员</h4><pre><code class="js">import zujian = from &#39;/path&#39;
+
+zujian.data().成员
+</code></pre>
+<h4 id="打包好的VUE项目空白"><a href="#打包好的VUE项目空白" class="headerlink" title="打包好的VUE项目空白"></a>打包好的VUE项目空白</h4><p>vue.config.js文件</p>
+<pre><code class="js">module.exports = defineConfig(&#123;
+  assetsDir: &#39;static&#39;,
+  parallel: false,
+  publicPath: &#39;./&#39;,
+&#125;)
 </code></pre>
 
     </div>
