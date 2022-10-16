@@ -89,6 +89,21 @@ var b = 0.3;
 numbersCloseEnoughToEqual( a, b );                    // true
 numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
 </code></pre>
+<h2 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h2><blockquote>
+<p>全局上下文 ：window对象</p>
+<p>函数执行上下文：每当函数被调用一次，就创建一个函数执行上下文</p>
+</blockquote>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>创建 -&gt; 执行 -&gt; 回收</p>
+<p>创建阶段做了三件事：</p>
+<ul>
+<li>确定 this 的值，也被称为 <code>This Binding</code></li>
+<li>LexicalEnvironment（词法环境） 组件被创建</li>
+<li>VariableEnvironment（变量环境） 组件被创建</li>
+</ul>
+<p>执行阶段</p>
+<p>如果 <code>Javascript</code> 引擎在源代码中声明的实际位置找不到变量的值，那么将为其分配 <code>undefined</code> 值</p>
+<p>回收阶段</p>
+<p>执行上下文出栈等待虚拟机回收执行上下文</p>
 <h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>即变量（变量作用域又称上下文）和函数生效（能被访问）的区域或集合</p>
 <p>包括</p>
 <ul>
@@ -102,8 +117,12 @@ numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
 </blockquote>
 <p>词法环境由两部分组成：</p>
 <ol>
-<li>环境记录， 这其实就是JavaScript用来存变量地地方，一个key-value对在这里被成为一个binding。</li>
-<li>外部环境的引用</li>
+<li><p>环境记录， 这其实就是JavaScript用来存变量地地方，一个key-value对在这里被成为一个binding。</p>
+<p>是一个没有外部环境的词法环境，其外部环境引用为<code>null</code>，有一个全局对象，<code>this</code> 的值指向这个全局对象 </p>
+</li>
+<li><p>外部环境的引用</p>
+<p>用户在函数中定义的变量被存储在环境记录中，包含了<code>arguments</code> 对象，外部环境的引用可以是全局环境，也可以是包含内部函数的外部函数环境 </p>
+</li>
 </ol>
 <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包就是当一个函数即使是在它的词法作用域之外被调用时，也可以记住并访问它的词法作用域。</p>
 <p>在 <code>JavaScript</code>中，每当创建一个函数，闭包就会在函数创建的同时被创建出来，作为函数内部与外部连接起来的一座桥梁</p>
@@ -130,7 +149,12 @@ numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
   console.log(new Child())
 </code></pre>
 <p>问题： 多个实例对象共用一个原型对象，会相互影响</p>
-<h3 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h3><pre><code class="js">function Child() &#123;
+<h3 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h3><pre><code class="js">function Parent() &#123;
+    this.name = &#39;parent&#39;;
+&#125;
+Parent.prototype.method = function()&#123;&#125;
+
+function Child() &#123;
        Parent.call(this)
 &#125;
 new Child();
@@ -146,6 +170,46 @@ Child.prototype = new Parent();
 Child.prototype.consturctor = Child;
 </code></pre>
 <p>问题： 增加了构造的性能开销</p>
+<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><p>借助Object.create实现普通对象继承</p>
+<pre><code class="js">  let Child = Object.create(Parent);
+  Child.name = &quot;xxx&quot;;
+</code></pre>
+<p>问题： 实现的是浅拷贝，引用数据类型指向相同的内存</p>
+<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><pre><code class="js">function clone(original) &#123;
+    let clone = Object.create(original);
+    clone.getFriends = function() &#123;
+        return this.friends;
+    &#125;;
+    return clone;
+&#125;
+
+let Child = clone(parent);
+</code></pre>
+<h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><pre><code class="JS">function clone (parent, child) &#123;
+    // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
+    child.prototype = Object.create(parent.prototype);
+    child.prototype.constructor = child;
+&#125;
+
+function Parent6() &#123;
+    this.name = &#39;parent6&#39;;
+    this.play = [1, 2, 3];
+&#125;
+Parent6.prototype.getName = function () &#123;
+    return this.name;
+&#125;
+function Child6() &#123;
+    Parent6.call(this);
+    this.friends = &#39;child5&#39;;
+&#125;
+
+clone(Parent6, Child6);
+
+Child6.prototype.getFriends = function () &#123;
+    return this.friends;
+&#125;
+</code></pre>
+<p>这种继承方式是目前最优的继承方式，ES6中的extents 关键字也是采用这种方式</p>
 <h3 id="全局对象"><a href="#全局对象" class="headerlink" title="全局对象"></a>全局对象</h3><p>JS中一些全局内置函数，分别为Functon, Array, Object.</p>
 <pre><code class="js">console.log(Object); // -&gt; ƒ Object() &#123; [native code] &#125;
 console.log(Array); // -&gt; ƒ Array() &#123; [native code] &#125;
@@ -206,7 +270,7 @@ foo.call();// zl 没有传入指定对象，所以this默认指向全局对象
 <p>根据它外层（函数/全局）作用域来决定</p>
 </blockquote>
 <p>箭头函数不能沿用以上的绑定this指向的方法</p>
-<h2 id="数组的操作方法"><a href="#数组的操作方法" class="headerlink" title="数组的操作方法"></a>数组的操作方法</h2><h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><blockquote>
+<h1 id="数组的操作方法"><a href="#数组的操作方法" class="headerlink" title="数组的操作方法"></a>数组的操作方法</h1><h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><blockquote>
 <ul>
 <li>push() 尾部添加，改变原数组，返回新长度</li>
 <li>unshift() 头部添加</li>
@@ -349,6 +413,52 @@ function deepClone(obj, hash = new WeakMap()) &#123;
 <ul>
 <li><code>Object.assign</code></li>
 <li><code>Array.prototype.slice()</code>, <code>Array.prototype.concat()</code></li>
+</ul>
+<h2 id="事件与事件流"><a href="#事件与事件流" class="headerlink" title="事件与事件流"></a>事件与事件流</h2><p><code>javascript</code>中的事件，可以理解就是在<code>HTML</code>文档或者浏览器中发生的一种交互操作，使得网页具备互动性， 常见的有加载事件、鼠标事件、自定义事件等</p>
+<p>由于<code>DOM</code>是一个树结构，如果在父子节点绑定事件时候，当触发子节点的时候，就存在一个顺序问题，这就涉及到了事件流的概念</p>
+<p>事件流都会经历三个阶段：</p>
+<blockquote>
+<ul>
+<li>事件捕获阶段(capture phase)</li>
+<li>处于目标阶段(target phase)</li>
+<li>事件冒泡阶段(bubbling phase)</li>
+</ul>
+</blockquote>
+<p><img src="D:\Users\Administrator\Desktop\images" alt="img"></p>
+<p>事件冒泡是一种从下往上的传播方式，由最具体的元素（触发节点）然后逐渐向上传播到DOM中最高层的父节点</p>
+<p>事件捕获与事件冒泡相反，事件最开始由不太具体的节点最早接受事件, 而最具体的节点（触发节点）最后接受事件</p>
+<h3 id="原始事件模型"><a href="#原始事件模型" class="headerlink" title="原始事件模型"></a>原始事件模型</h3><blockquote>
+<ul>
+<li><p>行内绑定</p>
+</li>
+<li><p>js代码绑定</p>
+</li>
+</ul>
+</blockquote>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><ul>
+<li>绑定速度快</li>
+</ul>
+<p><code>DOM0</code>级事件具有很好的跨浏览器优势，会以最快的速度绑定，但由于绑定速度太快，可能页面还未完全加载出来，以至于事件可能无法正常运行</p>
+<ul>
+<li> 只支持冒泡，不支持捕获 </li>
+<li> 同一个类型的事件只能绑定一次 </li>
+</ul>
+<p>删除 <code>DOM0</code> 级事件处理程序只要将对应事件属性置为<code>null</code>即可</p>
+<h3 id="标准事件模型"><a href="#标准事件模型" class="headerlink" title="标准事件模型"></a>标准事件模型</h3><p>在该事件模型中，一次事件共有三个过程:</p>
+<blockquote>
+<ul>
+<li>事件捕获阶段：事件从<code>document</code>一直向下传播到目标元素, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行</li>
+<li>事件处理阶段：事件到达目标元素, 触发目标元素的监听函数</li>
+<li>事件冒泡阶段：事件从目标元素冒泡到<code>document</code>, 依次检查经过的节点是否绑定了事件监听函数，如果有则执行</li>
+</ul>
+</blockquote>
+<pre><code class="js">addEventListener(eventType, handler, useCapture)
+</code></pre>
+<p>参数如下：</p>
+<ul>
+<li><code>eventType</code>指定事件类型(不要加on)</li>
+<li><code>handler</code>是事件处理函数</li>
+<li><code>useCapture</code>是一个<code>boolean</code>用于指定是否在捕获阶段进行处理，一般设置为<code>false</code>与IE浏览器保持一致</li>
 </ul>
 
     </div>
