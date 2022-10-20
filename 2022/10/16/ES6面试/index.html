@@ -303,6 +303,289 @@ p.then(null, function (s) &#123;
 </code></pre>
 <h3 id="Generator函数"><a href="#Generator函数" class="headerlink" title="Generator函数"></a>Generator函数</h3><p>异步编程解决方法</p>
 <p>执行 <code>Generator</code> 函数会返回一个遍历器对象，可以依次遍历 <code>Generator</code> 函数内部的每一个状态</p>
+<p>形式上，<code>Generator</code>函数是一个普通函数，但是有两个特征：</p>
+<blockquote>
+<ul>
+<li><code>function</code>关键字与函数名之间有一个星号</li>
+<li>函数体内部使用<code>yield</code>表达式，定义不同的内部状态</li>
+</ul>
+</blockquote>
+<pre><code class="js">function* helloWorldGenerator() &#123;
+  yield &#39;hello&#39;;
+  yield &#39;world&#39;;
+  return &#39;ending&#39;;
+&#125;
+</code></pre>
+<p><code>Generator</code> 函数会返回一个遍历器对象，即具有<code>Symbol.iterator</code>属性，并且返回给自己</p>
+<pre><code class="js">g[Symbol.iterator] === g
+</code></pre>
+<p>yield 关键字可以暂停返回遍历器对象的状态</p>
+<p>通过<code>next</code>方法才会遍历到下一个内部状态，其运行逻辑如下：</p>
+<ul>
+<li>遇到<code>yield</code>表达式，就暂停执行后面的操作，并将紧跟在<code>yield</code>后面的那个表达式的值，作为返回的对象的<code>value</code>属性值。</li>
+<li>下一次调用<code>next</code>方法时，再继续往下执行，直到遇到下一个<code>yield</code>表达式</li>
+<li>如果没有再遇到新的<code>yield</code>表达式，就一直运行到函数结束，直到<code>return</code>语句为止，并将<code>return</code>语句后面的表达式的值，作为返回的对象的<code>value</code>属性值。</li>
+<li>如果该函数没有<code>return</code>语句，则返回的对象的<code>value</code>属性值为<code>undefined</code></li>
+</ul>
+<pre><code class="js">function* helloWorldGenerator() &#123;
+  yield &#39;hello&#39;;
+  yield &#39;world&#39;;
+  return &#39;ending&#39;;
+&#125;
+var hw = helloWorldGenerator();
+
+hw.next() 
+//&#123;value: hello, done: false&#125;
+
+hw.next() 
+//&#123;value: undefine, done: true&#125;
+</code></pre>
+<p>返回的iterator对象可以用 for of 遍历</p>
+<p><code>yield</code>表达式可以暂停函数执行，<code>next</code>方法用于恢复函数执行，这使得<code>Generator</code>函数非常适合将异步任务同步化</p>
+<pre><code class="js">const gen = function* () &#123;
+  const f1 = yield readFile(&#39;/etc/fstab&#39;);
+  const f2 = yield readFile(&#39;/etc/shells&#39;);
+  console.log(f1.toString());
+  console.log(f2.toString());
+&#125;;
+</code></pre>
+<h3 id="anysc-await异步最终解决方案"><a href="#anysc-await异步最终解决方案" class="headerlink" title="anysc/await异步最终解决方案"></a>anysc/await异步最终解决方案</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><p>async是一个加在函数前的修饰符，被async定义的函数会默认返回一个Promise对象resolve的值。因此对async函数可以直接then，返回值就是then方法传入的函数。</p>
+<h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><p>await 也是一个修饰符，只能放在async定义的函数内。</p>
+<p>await 修饰的如果是Promise对象：可以获取Promise中返回的内容（resolve或reject的参数），且取到值后语句才会往下执行；</p>
+<p>如果不是Promise对象：把这个非promise的东西当做await表达式的结果。</p>
+<h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><p><strong>定义：</strong> 用于定义基本操作的自定义行为</p>
+<p><strong>本质：</strong> 修改的是程序默认形为，就形同于在编程语言层面上做修改，属于元编程<code>(meta programming)</code></p>
+<p>元编程（Metaprogramming，又译超编程，是指某类计算机程序的编写，这类计算机程序编写或者操纵其它程序（或者自身）作为它们的数据，或者在运行时完成部分本应在编译时完成的工作</p>
+<p>用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）</p>
+<blockquote>
+<p>用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）</p>
+</blockquote>
+<p>Proxy为 构造函数，用来生成 Proxy实例</p>
+<pre><code class="js">var proxy = new Proxy(target, handler)
+</code></pre>
+<h3 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h3><blockquote>
+<p><code>target</code>表示所要拦截的目标对象（任何类型的对象，包括原生数组，函数，甚至另一个代理））</p>
+<p><code>handler</code>通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 <code>p</code> 的行为</p>
+</blockquote>
+<h3 id="handler解析"><a href="#handler解析" class="headerlink" title="handler解析"></a>handler解析</h3><p>关于<code>handler</code>拦截属性，有如下：</p>
+<ul>
+<li>get(target,propKey,receiver)：拦截对象属性的读取</li>
+<li>set(target,propKey,value,receiver)：拦截对象属性的设置</li>
+<li>has(target,propKey)：拦截<code>propKey in proxy</code>的操作，返回一个布尔值</li>
+<li>deleteProperty(target,propKey)：拦截<code>delete proxy[propKey]</code>的操作，返回一个布尔值</li>
+<li>ownKeys(target)：拦截<code>Object.keys(proxy)</code>、<code>for...in</code>等循环，返回一个数组</li>
+<li>getOwnPropertyDescriptor(target, propKey)：拦截<code>Object.getOwnPropertyDescriptor(proxy, propKey)</code>，返回属性的描述对象</li>
+<li>defineProperty(target, propKey, propDesc)：拦截<code>Object.defineProperty(proxy, propKey, propDesc）</code>，返回一个布尔值</li>
+<li>preventExtensions(target)：拦截<code>Object.preventExtensions(proxy)</code>，返回一个布尔值</li>
+<li>getPrototypeOf(target)：拦截<code>Object.getPrototypeOf(proxy)</code>，返回一个对象</li>
+<li>isExtensible(target)：拦截<code>Object.isExtensible(proxy)</code>，返回一个布尔值</li>
+<li>setPrototypeOf(target, proto)：拦截<code>Object.setPrototypeOf(proxy, proto)</code>，返回一个布尔值</li>
+<li>apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作</li>
+<li>construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作</li>
+</ul>
+<h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><p>若需要在<code>Proxy</code>内部调用对象的默认行为，建议使用<code>Reflect</code>，其是<code>ES6</code>中操作对象而提供的新 <code>API</code></p>
+<p>基本特点：</p>
+<ul>
+<li>只要<code>Proxy</code>对象具有的代理方法，<code>Reflect</code>对象全部具有，以静态方法的形式存在</li>
+<li>修改某些<code>Object</code>方法的返回结果，让其变得更合理（定义不存在属性行为的时候不报错而是返回<code>false</code>）</li>
+<li>让<code>Object</code>操作都变成函数行为</li>
+</ul>
+<blockquote>
+<p><code>get</code>能够对数组增删改查进行拦截，下面是试下数组读取负数的索引</p>
+</blockquote>
+<pre><code class="js">function() createArray(...el) &#123;
+    lel handler = &#123;
+        get(target, propKey, receiver) &#123;
+            let index = Number(propKey) 
+            if(index &lt; 0) &#123;
+                propKey = String(target.length + index);   
+            &#125;
+            return Reflect get(target, propKey, receiver);
+        &#125;
+    &#125;
+       ler target = [];
+    target.push(...el);
+    return new proxy(target, handler;
+&#125;
+</code></pre>
+<h3 id="set"><a href="#set" class="headerlink" title="set()"></a>set()</h3><p><code>set</code>方法用来拦截某个属性的赋值操作，可以接受四个参数，依次为目标对象、属性名、属性值和 <code>Proxy</code> 实例本身</p>
+<p>假定<code>Person</code>对象有一个<code>age</code>属性，该属性应该是一个不大于 200 的整数，那么可以使用<code>Proxy</code>保证<code>age</code>的属性值符合要求</p>
+<pre><code class="javascript">let validator = &#123;
+  set: function(obj, prop, value) &#123;
+    if (prop === &#39;age&#39;) &#123;
+      if (!Number.isInteger(value)) &#123;
+        throw new TypeError(&#39;The age is not an integer&#39;);
+      &#125;
+      if (value &gt; 200) &#123;
+        throw new RangeError(&#39;The age seems invalid&#39;);
+      &#125;
+    &#125;
+
+    // 对于满足条件的 age 属性以及其他属性，直接保存
+    obj[prop] = value;
+  &#125;
+&#125;;
+
+let person = new Proxy(&#123;&#125;, validator);
+
+person.age = 100;
+
+person.age // 100
+person.age = &#39;young&#39; // 报错
+person.age = 300 // 报错
+</code></pre>
+<p>如果目标对象自身的某个属性，不可写且不可配置，那么<code>set</code>方法将不起作用</p>
+<p>如果目标对象自身的某个属性，不可写且不可配置，那么<code>set</code>方法将不起作用</p>
+<pre><code class="js">Object.defineProperty(obj, &#39;foo&#39;, &#123;
+    value: &#39;bar&#39;,
+    writable: false
+&#125;)
+</code></pre>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p><code>Proxy</code>其功能非常类似于设计模式中的代理模式，常用功能如下：</p>
+<ul>
+<li>拦截和监视外部对对象的访问</li>
+<li>降低函数或类的复杂度</li>
+<li>在复杂操作前对操作进行校验或对所需资源进行管理</li>
+</ul>
+<p>使用 <code>Proxy</code> 保障数据类型的准确性</p>
+<pre><code class="javascript">let numericDataStore = &#123; count: 0, amount: 1234, total: 14 &#125;;
+numericDataStore = new Proxy(numericDataStore, &#123;
+    set(target, key, value, proxy) &#123;
+        if (typeof value !== &#39;number&#39;) &#123;
+            throw Error(&quot;属性只能是number类型&quot;);
+        &#125;
+        return Reflect.set(target, key, value, proxy);
+    &#125;
+&#125;);
+
+numericDataStore.count = &quot;foo&quot;
+// Error: 属性只能是number类型
+
+numericDataStore.count = 333
+// 赋值成功
+</code></pre>
+<p>声明了一个私有的 <code>apiKey</code>，便于 <code>api</code> 这个对象内部的方法调用，但不希望从外部也能够访问 <code>api._apiKey</code></p>
+<pre><code class="javascript">let api = &#123;
+    _apiKey: &#39;123abc456def&#39;,
+    getUsers: function()&#123; &#125;,
+    getUser: function(userId)&#123; &#125;,
+    setUser: function(userId, config)&#123; &#125;
+&#125;;
+const RESTRICTED = [&#39;_apiKey&#39;];
+api = new Proxy(api, &#123;
+    get(target, key, proxy) &#123;
+        if(RESTRICTED.indexOf(key) &gt; -1) &#123;
+            throw Error(`$&#123;key&#125; 不可访问.`);
+        &#125; return Reflect.get(target, key, proxy);
+    &#125;,
+    set(target, key, value, proxy) &#123;
+        if(RESTRICTED.indexOf(key) &gt; -1) &#123;
+            throw Error(`$&#123;key&#125; 不可修改`);
+        &#125; return Reflect.get(target, key, value, proxy);
+    &#125;
+&#125;);
+
+console.log(api._apiKey)
+api._apiKey = &#39;987654321&#39;
+// 上述都抛出错误
+</code></pre>
+<p>还能通过使用<code>Proxy</code>实现观察者模式</p>
+<p>观察者模式（Observer mode）指的是函数自动观察数据对象，一旦对象有变化，函数就会自动执行</p>
+<p><code>observable</code>函数返回一个原始对象的 <code>Proxy</code> 代理，拦截赋值操作，触发充当观察者的各个函数</p>
+<pre><code class="javascript">const queuedObservers = new Set();
+
+const observe = fn =&gt; queuedObservers.add(fn);
+const observable = obj =&gt; new Proxy(obj, &#123;set&#125;);
+
+function set(target, key, value, receiver) &#123;
+  const result = Reflect.set(target, key, value, receiver);
+  queuedObservers.forEach(observer =&gt; observer());
+  return result;
+&#125;
+</code></pre>
+<p>观察者函数都放进<code>Set</code>集合，当修改<code>obj</code>的值，在会<code>set</code>函数中拦截，自动执行<code>Set</code>所有的观察者</p>
+<h2 id="ES6模块"><a href="#ES6模块" class="headerlink" title="ES6模块"></a>ES6模块</h2><h4 id="为什么需要模块化"><a href="#为什么需要模块化" class="headerlink" title="为什么需要模块化"></a>为什么需要模块化</h4><ul>
+<li>代码抽象</li>
+<li>代码封装</li>
+<li>代码复用</li>
+<li>依赖管理</li>
+</ul>
+<p>模块化的机制：</p>
+<ul>
+<li>CommonJs (典型代表：node.js早期)</li>
+<li>AMD (典型代表：require.js)</li>
+<li>CMD (典型代表：sea.js)</li>
+</ul>
+<p>（自动采用严格模式）模块功能主要由两个命令构成：</p>
+<blockquote>
+<ul>
+<li><code>export</code>：用于规定模块的对外接口</li>
+<li><code>import</code>：用于输入其他模块提供的功能</li>
+</ul>
+</blockquote>
+<pre><code class="js">//export 
+let year = &#39;year&#39;
+let mouth = &#39;mouth&#39;
+let day = &#39;day&#39;
+export &#123;
+year as Year, //重命名
+mouth,
+day
+&#125;
+
+//import
+import &#123;Year as nian, mouth, day&#125; from &#39;./js&#39;
+
+//导入整个模块
+import * as all from &#39;./js&#39;
+
+//如果只有一个模块名，需要有配置文件，告诉引擎模块的位置
+import &#123; myMethod &#125; from &#39;util&#39;;
+</code></pre>
+<p>在编译阶段，<code>import</code>会提升到整个模块的头部，首先执行</p>
+<p>多次重复执行同样的导入，只会执行一次</p>
+<p>如果不需要知道变量名或函数就完成加载，就要用到<code>export default</code>命令，为模块指定默认输出</p>
+<pre><code class="javascript">// export-default.js
+export default function () &#123;
+    console.log(&#39;foo&#39;);
+&#125;
+</code></pre>
+<p>加载该模块的时候，<code>import</code>命令可以为该函数指定任意名字</p>
+<pre><code class="javascript">// import-default.js
+import customName from &#39;./export-default&#39;;
+customName(); // &#39;foo&#39;
+</code></pre>
+<h3 id="动态加载"><a href="#动态加载" class="headerlink" title="动态加载"></a>动态加载</h3><p>允许您仅在需要时动态加载模块，而不必预先加载所有模块，这存在明显的性能优势</p>
+<p>这个新功能允许您将import()作为函数调用，将其作为参数传递给模块的路径。 它返回一个 promise，它用一个模块对象来实现，让你可以访问该对象的导出</p>
+<pre><code class="js">import(&#39;/modules/myModule.mjs&#39;)
+  .then((module) =&gt; &#123;
+    // Do something with the module.
+  &#125;);
+</code></pre>
+<h1 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h1><p>简单来讲，装饰者模式就是一种在不改变原类和使用继承的情况下，动态地扩展对象功能的设计理论。</p>
+<blockquote>
+<ul>
+<li>代码可读性变强了，装饰器命名相当于一个注释</li>
+<li>在不改变原有代码情况下，对原来功能进行扩展</li>
+</ul>
+</blockquote>
+<pre><code class="js">//这里定义一个士兵，这时候他什么装备都没有
+class soldier&#123; 
+&#125;
+
+//定义一个得到 AK 装备的函数，即装饰器
+function strong(target)&#123;
+    target.AK = true
+&#125;
+
+//使用该装饰器对士兵进行增强
+@strong
+class soldier&#123;
+&#125;
+
+//这时候士兵就有武器了
+soldier.AK // true
+</code></pre>
 
     </div>
     <div class="menu">

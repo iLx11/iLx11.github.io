@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <div class="bgimg"></div>
+            <div class="cover"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            Vue面试
+        </div>
+        <div class="post-meta">
+            2022-10-18
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <h3 id="数据驱动（MVVM"><a href="#数据驱动（MVVM" class="headerlink" title="数据驱动（MVVM)"></a>数据驱动（MVVM)</h3><pre><code>MVVM`表示的是 `Model-View-ViewModel
+</code></pre>
+<ul>
+<li>Model：模型层，负责处理业务逻辑以及和服务器端进行交互</li>
+<li>View：视图层：负责将数据模型转化为UI展示出来，可以简单的理解为HTML页面</li>
+<li>ViewModel：视图模型层，用来连接Model和View，是Model和View之间的通信桥梁</li>
+</ul>
+<h3 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h3><p>1.什么是组件化一句话来说就是把图形、非图形的各种逻辑均抽象为一个统一的概念（组件）来实现开发的模式，在<code>Vue</code>中每一个<code>.vue</code>文件都可以视为一个组件2.组件化的优势</p>
+<ul>
+<li>降低整个系统的耦合度，在保持接口不变的情况下，我们可以替换不同的组件快速完成需求，例如输入框，可以替换为日历、时间、范围等组件作具体的实现</li>
+<li>调试方便，由于整个系统是通过组件组合起来的，在出现问题的时候，可以用排除法直接移除组件，或者根据报错的组件快速定位问题，之所以能够快速定位，是因为每个组件之间低耦合，职责单一，所以逻辑会比分析整个系统要简单</li>
+<li>提高可维护性，由于每个组件的职责单一，并且组件在系统中是被复用的，所以对代码进行优化可获得系统的整体升级</li>
+</ul>
+<h3 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h3><p>解释：指令 (Directives) 是带有 v- 前缀的特殊属性作用：当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM</p>
+<h2 id="SPA"><a href="#SPA" class="headerlink" title="SPA"></a>SPA</h2><p>SPA（single-page application），翻译过来就是单页应用<code>SPA</code>是一种网络应用程序或网站的模型，它通过动态重写当前页面来与用户交互，这种方法避免了页面之间切换打断用户体验在单页应用中，所有必要的代码（<code>HTML</code>、<code>JavaScript</code>和<code>CSS</code>）都通过单个页面的加载而检索，或者根据需要（通常是为响应用户操作）动态装载适当的资源并添加到页面页面在任何时间点都不会重新加载，也不会将控制转移到其他页面</p>
+<h4 id="单页应用与多页应用的区别"><a href="#单页应用与多页应用的区别" class="headerlink" title="单页应用与多页应用的区别"></a>单页应用与多页应用的区别</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>单页面应用（SPA）</th>
+<th>多页面应用（MPA）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组成</td>
+<td>一个主页面和多个页面片段</td>
+<td>多个主页面</td>
+</tr>
+<tr>
+<td>刷新方式</td>
+<td>局部刷新</td>
+<td>整页刷新</td>
+</tr>
+<tr>
+<td>url模式</td>
+<td>哈希模式</td>
+<td>历史模式</td>
+</tr>
+<tr>
+<td>SEO搜索引擎优化</td>
+<td>难实现，可使用SSR方式改善</td>
+<td>容易实现</td>
+</tr>
+<tr>
+<td>数据传递</td>
+<td>容易</td>
+<td>通过url、cookie、localStorage等传递</td>
+</tr>
+<tr>
+<td>页面切换</td>
+<td>速度快，用户体验良好</td>
+<td>切换加载资源，速度慢，用户体验差</td>
+</tr>
+<tr>
+<td>维护成本</td>
+<td>相对容易</td>
+<td>相对复杂</td>
+</tr>
+</tbody></table>
+<h4 id="单页应用优缺点"><a href="#单页应用优缺点" class="headerlink" title="单页应用优缺点"></a>单页应用优缺点</h4><p>优点：</p>
+<blockquote>
+<ul>
+<li>具有桌面应用的即时性、网站的可移植性和可访问性</li>
+<li>用户体验好、快，内容的改变不需要重新加载整个页面</li>
+<li>良好的前后端分离，分工更明确</li>
+</ul>
+</blockquote>
+<p>缺点：</p>
+<blockquote>
+<ul>
+<li>不利于搜索引擎的抓取</li>
+<li>首次渲染速度相对较慢</li>
+</ul>
+</blockquote>
+<h2 id="实现一个SPA"><a href="#实现一个SPA" class="headerlink" title="实现一个SPA"></a>实现一个SPA</h2><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><h5 id="hash模式"><a href="#hash模式" class="headerlink" title="hash模式"></a>hash模式</h5><ol>
+<li>监听地址栏中<code>hash</code>变化驱动界面变化</li>
+<li>用<code>pushsate</code>记录浏览器的历史，驱动界面发送变化</li>
+</ol>
+<h5 id="history模式"><a href="#history模式" class="headerlink" title="history模式"></a>history模式</h5><p><code>history</code> 模式核心借用 <code>HTML5 history api</code>，<code>api</code> 提供了丰富的 <code>router</code> 相关属性先了解一个几个相关的api</p>
+<ul>
+<li><code>history.pushState</code> 浏览器历史纪录添加记录</li>
+<li><code>history.replaceState</code>修改浏览器历史纪录中当前纪录</li>
+<li><code>history.popState</code> 当 <code>history</code> 发生变化时触发</li>
+</ul>
+<h2 id="如何给SPA做SEO"><a href="#如何给SPA做SEO" class="headerlink" title="如何给SPA做SEO"></a>如何给SPA做SEO</h2><p>下面给出基于<code>Vue</code>的<code>SPA</code>如何实现<code>SEO</code>的三种方式</p>
+<ol>
+<li><strong>SSR服务端渲染</strong></li>
+</ol>
+<p>将组件或页面通过服务器生成html，再返回给浏览器，如<code>nuxt.js</code></p>
+<ol>
+<li><strong>静态化</strong></li>
+</ol>
+<p>目前主流的静态化主要有两种：（1）一种是通过程序将动态页面抓取并保存为静态页面，这样的页面的实际存在于服务器的硬盘中（2）另外一种是通过WEB服务器的 <code>URL Rewrite</code>的方式，它的原理是通过web服务器内部模块按一定规则将外部的URL请求转化为内部的文件地址，一句话来说就是把外部请求的静态地址转化为实际的动态页面地址，而静态页面实际是不存在的。这两种方法都达到了实现URL静态化的效果</p>
+<ol>
+<li><strong>使用</strong><code>**Phantomjs**</code><strong>针对爬虫处理</strong></li>
+</ol>
+<p>原理是通过<code>Nginx</code>配置，判断访问来源是否为爬虫，如果是则搜索引擎的爬虫请求会转发到一个<code>node server</code>，再通过<code>PhantomJS</code>来解析完整的<code>HTML</code>，返回给爬虫。下面是大致流程图</p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/25be6630-3ac7-11eb-ab90-d9ae814b240d.png" alt="img"></p>
+<h2 id="Vue实例挂载过程"><a href="#Vue实例挂载过程" class="headerlink" title="Vue实例挂载过程"></a>Vue实例挂载过程</h2><ul>
+<li><p> <code>new Vue</code>的时候调用会调用<code>_init</code>方法 </p>
+</li>
+<li><ul>
+<li>定义 <code>$set</code>、<code>$get</code> 、<code>$delete</code>、<code>$watch</code> 等方法</li>
+<li>定义 <code>$on</code>、<code>$off</code>、<code>$emit</code>、<code>$off</code>等事件</li>
+<li>定义 <code>_update</code>、<code>$forceUpdate</code>、<code>$destroy</code>生命周期</li>
+</ul>
+</li>
+<li><p> 调用<code>$mount</code>进行页面的挂载 </p>
+</li>
+<li><p> 挂载的时候主要是通过<code>mountComponent</code>方法 </p>
+</li>
+<li><p> 定义<code>updateComponent</code>更新函数 </p>
+</li>
+<li><p> 执行<code>render</code>生成虚拟<code>DOM</code> </p>
+</li>
+<li><p> <code>_update</code>将虚拟<code>DOM</code>生成真实<code>DOM</code>结构，并且渲染到页面中 </p>
+</li>
+</ul>
+<h2 id="v-if-和-v-for"><a href="#v-if-和-v-for" class="headerlink" title="v-if 和 v-for"></a>v-if 和 v-for</h2><ol>
+<li>不要把 <code>v-if</code> 和 <code>v-for</code> 同时用在同一个元素上，带来性能方面的浪费（每次渲染都会先循环再进行条件判断）</li>
+<li>如果避免出现这种情况，则在外层嵌套<code>template</code>（页面渲染不生成<code>dom</code>节点），在这一层进行v-if判断，然后在内部进行v-for循环</li>
+</ol>
+<h2 id="首屏加载"><a href="#首屏加载" class="headerlink" title="首屏加载"></a>首屏加载</h2><p>首屏时间（First Contentful Paint），指的是浏览器从响应用户输入网址地址，到首屏内容渲染完成的时间，此时整个网页不一定要全部渲染完成，但需要展示当前视窗需要的内容</p>
+<p>首屏加载可以说是用户体验中<strong>最重要</strong>的环节</p>
+<h4 id="常见的几种SPA首屏优化方式"><a href="#常见的几种SPA首屏优化方式" class="headerlink" title="常见的几种SPA首屏优化方式"></a>常见的几种SPA首屏优化方式</h4><blockquote>
+<ul>
+<li>减小入口文件积</li>
+<li>静态资源本地缓存</li>
+<li>UI框架按需加载</li>
+<li>图片资源的压缩</li>
+<li>组件重复打包</li>
+<li>开启GZip压缩</li>
+<li>使用SSR</li>
+</ul>
+</blockquote>
+<h3 id="组件data属性"><a href="#组件data属性" class="headerlink" title="组件data属性"></a>组件data属性</h3><p><code>vue</code>组件可能会有很多个实例，采用函数返回一个全新<code>data</code>形式，使每个实例对象的数据不会受到其他实例对象数据的污染</p>
+<h2 id="NextTick是什么"><a href="#NextTick是什么" class="headerlink" title="NextTick是什么"></a>NextTick是什么</h2><p>官方对其的定义</p>
+<blockquote>
+<p>在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM</p>
+</blockquote>
+<p>我们可以理解成，<code>Vue</code> 在更新 <code>DOM</code> 时是异步执行的。当数据发生变化，<code>Vue</code>将开启一个异步更新队列，视图需要等队列中所有数据变化完成之后，再统一进行更新</p>
+<h2 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h2><p>先来看一下官方定义</p>
+<p><code>mixin</code>（混入），提供了一种非常灵活的方式，来分发 <code>Vue</code> 组件中的可复用功能。<br>本质其实就是一个<code>js</code>对象，它可以包含我们组件中任意功能选项，如<code>data</code>、<code>components</code>、<code>methods</code>、<code>created</code>、<code>computed</code>等等</p>
+<p>我们只要将共用的功能以对象的方式传入 <code>mixins</code>选项中，当组件使用 <code>mixins</code>对象时所有<code>mixins</code>对象的选项都将被混入该组件本身的选项中来</p>
+<h3 id="局部混入"><a href="#局部混入" class="headerlink" title="局部混入"></a>局部混入</h3><p>定义一个<code>mixin</code>对象，有组件<code>options</code>的<code>data</code>、<code>methods</code>属性</p>
+<pre><code class="javascript">var myMixin = &#123;
+  created: function () &#123;
+    this.hello()
+  &#125;,
+  methods: &#123;
+    hello: function () &#123;
+      console.log(&#39;hello from mixin!&#39;)
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<p>组件通过<code>mixins</code>属性调用<code>mixin</code>对象</p>
+<pre><code class="javascript">Vue.component(&#39;componentA&#39;,&#123;
+  mixins: [myMixin]
+&#125;)
+</code></pre>
+<p>该组件在使用的时候，混合了<code>mixin</code>里面的方法，在自动执行<code>created</code>生命钩子，执行<code>hello</code>方法</p>
+<h3 id="全局混入"><a href="#全局混入" class="headerlink" title="全局混入"></a>全局混入</h3><p>通过<code>Vue.mixin()</code>进行全局的混入</p>
+<pre><code class="javascript">Vue.mixin(&#123;
+  created: function () &#123;
+      console.log(&quot;全局混入&quot;)
+    &#125;
+&#125;)
+</code></pre>
+<p>使用全局混入需要特别注意，因为它会影响到每一个组件实例（包括第三方组件）</p>
+<p>PS：全局混入常用于插件的编写</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在日常的开发中，我们经常会遇到在不同的组件中经常会需要用到一些相同或者相似的代码，这些代码的功能相对独立</p>
+<p>可以通过<code>Vue</code>的<code>mixin</code>功能将相同或者相似的代码提出来</p>
+<h2 id="create-和-mounted-相关"><a href="#create-和-mounted-相关" class="headerlink" title="create 和 mounted 相关"></a>create 和 mounted 相关</h2><p>beforecreated：el 和 data 并未初始化<br>created:完成了 data 数据的初始化，el没有<br>beforeMount：完成了 el 和 data 初始化<br>mounted ：完成挂载</p>
+<h2 id="key的作用"><a href="#key的作用" class="headerlink" title="key的作用"></a>key的作用</h2><blockquote>
+<p>key是给每一个vnode的唯一id，也是diff的一种优化策略，可以根据key，更准确， 更快的找到对应的vnode节点</p>
+</blockquote>
+<h2 id="Keep-alive-是什么"><a href="#Keep-alive-是什么" class="headerlink" title="Keep-alive 是什么"></a>Keep-alive 是什么</h2><pre><code>keep-alive`是`vue`中的内置组件，能在组件切换过程中将状态保留在内存中，防止重复渲染`DOM
+</code></pre>
+<p><code>keep-alive</code> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们</p>
+<p><code>keep-alive</code>可以设置以下<code>props</code>属性：</p>
+<ul>
+<li> <code>include</code> - 字符串或正则表达式。只有名称匹配的组件会被缓存 </li>
+<li> <code>exclude</code> - 字符串或正则表达式。任何名称匹配的组件都不会被缓存 </li>
+<li> <code>max</code> - 数字。最多可以缓存多少组件实例 </li>
+</ul>
+<p>关于<code>keep-alive</code>的基本用法：</p>
+<pre><code class="html">&lt;keep-alive&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+</code></pre>
+<p>使用<code>includes</code>和<code>exclude</code>：</p>
+<pre><code class="vue">&lt;keep-alive include=&quot;a,b&quot;&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+&lt;!-- 正则表达式 (使用 `v-bind`) --&gt;
+&lt;keep-alive :include=&quot;/a|b/&quot;&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+&lt;!-- 数组 (使用 `v-bind`) --&gt;
+&lt;keep-alive :include=&quot;[&#39;a&#39;, &#39;b&#39;]&quot;&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+</code></pre>
+<p>匹配首先检查组件自身的 <code>name</code> 选项，如果 <code>name</code> 选项不可用，则匹配它的局部注册名称 (父组件 <code>components</code> 选项的键值)，匿名组件不能被匹配</p>
+<p>设置了 keep-alive 缓存的组件，会多出两个生命周期钩子（<code>activated</code>与<code>deactivated</code>）：</p>
+<ul>
+<li> 首次进入组件时：<code>beforeRouteEnter</code> &gt; <code>beforeCreate</code> &gt; <code>created</code>&gt; <code>mounted</code> &gt; <code>activated</code> &gt; … … &gt; <code>beforeRouteLeave</code> &gt; <code>deactivated</code> </li>
+<li> 再次进入组件时：<code>beforeRouteEnter</code> &gt;<code>activated</code> &gt; … … &gt; <code>beforeRouteLeave</code> &gt; <code>deactivated</code> </li>
+</ul>
+<h3 id="表单修饰符"><a href="#表单修饰符" class="headerlink" title="表单修饰符"></a>表单修饰符</h3><p>在我们填写表单的时候用得最多的是<code>input</code>标签，指令用得最多的是<code>v-model</code></p>
+<p>关于表单的修饰符有如下：</p>
+<blockquote>
+<ul>
+<li><p>lazy</p>
+<p>光标离开标签时，才会赋值给value</p>
+</li>
+<li><p>trim</p>
+<p>过滤首空格</p>
+</li>
+<li><p>number</p>
+<p>将输入值转为数值类型</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><p>事件修饰符是对事件捕获以及目标进行了处理，有如下修饰符：</p>
+<blockquote>
+<ul>
+<li><p>stop</p>
+<p>阻止事件冒泡</p>
+</li>
+<li><p>prevent</p>
+<p>阻止默认行为</p>
+</li>
+<li><p>self</p>
+<p>当前元素自身</p>
+</li>
+<li><p>once 单次触发</p>
+</li>
+<li><p>capture</p>
+<p>使事件触发从包含这个元素的顶层开始往下触发</p>
+</li>
+<li><p>passive</p>
+<p>在移动端，当我们在监听元素滚动事件的时候，会一直触发<code>onscroll</code>事件会让我们的网页变卡，因此我们使用这个修饰符的时候，相当于给<code>onscroll</code>事件整了一个<code>.lazy</code>修饰符</p>
+</li>
+<li><p>native</p>
+<p>让组件变成像<code>html</code>内置标签那样监听根元素的原生事件，否则组件上使用 <code>v-on</code> 只会监听自定义事件</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="鼠标按钮修饰符"><a href="#鼠标按钮修饰符" class="headerlink" title="鼠标按钮修饰符"></a>鼠标按钮修饰符</h3><p>鼠标按钮修饰符针对的就是左键、右键、中键点击，有如下：</p>
+<blockquote>
+<ul>
+<li>left 左键点击</li>
+<li>right 右键点击</li>
+<li>middle 中键点击</li>
+</ul>
+</blockquote>
+<h3 id="键盘修饰符"><a href="#键盘修饰符" class="headerlink" title="键盘修饰符"></a>键盘修饰符</h3><p>键盘修饰符是用来修饰键盘事件（<code>onkeyup</code>，<code>onkeydown</code>）的，有如下：</p>
+<p><code>keyCode</code>存在很多，但<code>vue</code>为我们提供了别名，分为以下两种：</p>
+<blockquote>
+<ul>
+<li>普通键（enter、tab、delete、space、esc、up…）</li>
+<li>系统修饰键（ctrl、alt、meta、shift…）</li>
+</ul>
+</blockquote>
+<h3 id="v-bind修饰符"><a href="#v-bind修饰符" class="headerlink" title="v-bind修饰符"></a>v-bind修饰符</h3><p>v-bind修饰符主要是为属性进行操作，用来分别有如下：</p>
+<blockquote>
+<ul>
+<li>sync</li>
+<li>prop</li>
+<li>camel</li>
+</ul>
+</blockquote>
+<h3 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h3><pre><code class="js">//父组件
+&lt;comp :myMessage.sync=&quot;bar&quot;&gt;&lt;/comp&gt; 
+//子组件
+this.$emit(&#39;update:myMessage&#39;,params);
+</code></pre>
+<h4 id="props"><a href="#props" class="headerlink" title="props"></a>props</h4><p>设置自定义标签属性，避免暴露数据，防止污染HTML结构</p>
+<pre><code class="javascript">&lt;input id=&quot;uid&quot; title=&quot;title1&quot; value=&quot;1&quot; :index.prop=&quot;index&quot;&gt;
+</code></pre>
+<h4 id="camel"><a href="#camel" class="headerlink" title="camel"></a>camel</h4><p>将命名变为驼峰命名法，如将<code>view-Box</code>属性名转换为 `viewBox</p>
+<pre><code class="javascript">&lt;svg :viewBox=&quot;viewBox&quot;&gt;&lt;/svg&gt;
+</code></pre>
+<h2 id="Vue注册自定义指令"><a href="#Vue注册自定义指令" class="headerlink" title="Vue注册自定义指令"></a>Vue注册自定义指令</h2><p>注册一个自定义指令有全局注册与局部注册</p>
+<p><code>全局注册</code>主要是通过Vue.directive方法进行注册</p>
+<p>Vue.directive第一个参数是指令的名字（不需要写上v-前缀），第二个参数可以是对象数据，也可以是一个指令函数</p>
+<pre><code class="js">// 注册一个全局自定义指令 `v-focus`
+
+Vue.directive(&#39;focus&#39;, &#123;
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) &#123;
+   // 聚焦元素
+  el.focus()  // 页面加载完成之后自动让输入框获取到焦点的小功能
+  &#125;
+&#125;)
+</code></pre>
+<p><code>局部注册</code>通过在组件options选项中设置directive属性</p>
+<pre><code class="js">directives: &#123;&#125;
+  focus: &#123;
+ // 指令的定义
+    inserted: function (el) &#123;
+        el.focus() // 页面加载完成之后自动让输入框获取到焦点的小功能
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<p>然后你可以在模板中任何元素上使用新的 v-focus property，如下：</p>
+<pre><code class="html">&lt;input v-focus /&gt;
+</code></pre>
+<h5 id="自定义指令也像组件那样存在钩子函数："><a href="#自定义指令也像组件那样存在钩子函数：" class="headerlink" title="自定义指令也像组件那样存在钩子函数："></a>自定义指令也像组件那样存在钩子函数：</h5><ul>
+<li> <code>bind</code>：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置 </li>
+<li> <code>inserted</code>：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中) </li>
+<li> <code>update</code>：所在组件的 <code>VNode</code> 更新时调用，但是可能发生在其子 <code>VNode</code> 更新之前。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 </li>
+<li> <code>componentUpdated</code>：指令所在组件的 <code>VNode</code> 及其子 <code>VNode</code> 全部更新后调用 </li>
+<li> <code>unbind</code>：只调用一次，指令与元素解绑时调用 </li>
+</ul>
+<h5 id="所有的钩子函数的参数都有以下："><a href="#所有的钩子函数的参数都有以下：" class="headerlink" title="所有的钩子函数的参数都有以下："></a>所有的钩子函数的参数都有以下：</h5><ul>
+<li><p><code>el</code>：指令所绑定的元素，可以用来直接操作 <code>DOM</code></p>
+</li>
+<li><p><code>binding</code>：一个对象，包含以下 <code>property</code>： </p>
+</li>
+<li><ul>
+<li><code>name</code>：指令名，不包括 <code>v-</code> 前缀。</li>
+<li><code>value</code>：指令的绑定值，例如：<code>v-my-directive=&quot;1 + 1&quot;</code> 中，绑定值为 <code>2</code>。</li>
+<li><code>oldValue</code>：指令绑定的前一个值，仅在 <code>update</code> 和 <code>componentUpdated</code> 钩子中可用。无论值是否改变都可用。</li>
+<li><code>expression</code>：字符串形式的指令表达式。例如 <code>v-my-directive=&quot;1 + 1&quot;</code> 中，表达式为 <code>&quot;1 + 1&quot;</code>。</li>
+<li><code>arg</code>：传给指令的参数，可选。例如 <code>v-my-directive:foo</code> 中，参数为 <code>&quot;foo&quot;</code>。</li>
+<li><code>modifiers</code>：一个包含修饰符的对象。例如：<code>v-my-directive.foo.bar</code> 中，修饰符对象为 <code>&#123; foo: true, bar: true &#125;</code></li>
+</ul>
+</li>
+<li><p><code>vnode</code>：<code>Vue</code> 编译生成的虚拟节点</p>
+</li>
+<li><p><code>oldVnode</code>：上一个虚拟节点，仅在 <code>update</code> 和 <code>componentUpdated</code> 钩子中可用</p>
+</li>
+</ul>
+<pre><code class="html">&lt;div v-demo=&quot;&#123; color: &#39;white&#39;, text: &#39;hello!&#39; &#125;&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+    Vue.directive(&#39;demo&#39;, function (el, binding) &#123;
+    console.log(binding.value.color) // &quot;white&quot;
+    console.log(binding.value.text)  // &quot;hello!&quot;
+    &#125;)
+&lt;/script&gt;
+</code></pre>
+<h3 id="自定义事件实现节流"><a href="#自定义事件实现节流" class="headerlink" title="自定义事件实现节流"></a>自定义事件实现节流</h3><pre><code class="js">// 1.设置v-throttle自定义指令
+Vue.directive(&#39;throttle&#39;,&#123;
+    bind: (el, binding) =&gt; &#123;
+        let throttleTime = binding.time;
+        if(!throttle) &#123;
+            throttleTime = 2000;
+        &#125;
+           let timer = null;
+        el.addEventListener(&#39;click&#39;, function(event)&#123;
+                if(!timer) &#123;
+                timer = setTimeout(() =&gt; &#123;
+                    timer = null;
+                &#125;, throttleTime); 
+            &#125;else &#123;
+                event &amp;&amp; event.stopImmediatePropagation();
+            &#125;
+        &#125;, true);
+    &#125;
+&#125;)
+// 2.为button标签设置v-throttle自定义指令
+&lt;button @click=&quot;sayHello&quot; v-throttle&gt;提交&lt;/button&gt;
+</code></pre>
+<h3 id="自定义事件实现Copy功能"><a href="#自定义事件实现Copy功能" class="headerlink" title="自定义事件实现Copy功能"></a>自定义事件实现Copy功能</h3><pre><code class="js">Vue.directive(&#39;copy&#39;, &#123;
+    bind: (el,&#123;value&#125;) =&gt; &#123;
+        el.$value = value;
+        el.handler = () =&gt; &#123;
+            if(!el.$value) &#123;
+                console.log(&quot;内容为空&quot;)
+                return;
+            &#125;
+            const textarea = document.createElement(&#39;textarea&#39;);
+            textarea.readOnly = &#39;readOnly&#39;;
+            textarea.style.postion = &#39;absolute&#39;;
+            textarea.style.left = &#39;-6666px&#39;;
+            textarea.value = el.$value;
+            document.body.appendChild(textarea);
+            textarea.select();
+            if(document.execCommand(&#39;Copy&#39;)) &#123;
+                console.log(&quot;复制成功&quot;);
+            &#125;
+            document.removeChild(textarea);
+        &#125;;
+        //绑定事件
+        el.addEventListener(&#39;click&#39;, el.handler);
+        //当传进来的值更新的时候触发
+        componentUpdated(el, &#123;value&#125;) &#123;
+            el.$value = value;
+        &#125;,
+    &#125;,
+    //指令与元素解绑的时候
+    unbind(el) &#123;
+         el.removeEventListenr(&#39;click&#39;, el.handler); 
+    &#125;
+&#125;)
+</code></pre>
+<h2 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h2><p>实际上它只是一层对真实<code>DOM</code>的抽象，以<code>JavaScript</code> 对象 (<code>VNode</code> 节点) 作为基础的树，用对象的属性来描述节点，最终可以通过一系列操作使这棵树映射到真实环境上</p>
+<p>在<code>Javascript</code>对象中，虚拟<code>DOM</code> 表现为一个 <code>Object</code>对象。并且最少包含标签名 (<code>tag</code>)、属性 (<code>attrs</code>) 和子元素对象 (<code>children</code>) 三个属性，不同框架对这三个属性的名命可能会有差别</p>
+<p>创建虚拟<code>DOM</code>就是为了更好将虚拟的节点渲染到页面视图中，所以虚拟<code>DOM</code>对象的节点与真实<code>DOM</code>的属性一一照应</p>
+<p>当你在一次操作时，需要更新10个<code>DOM</code>节点，浏览器没这么智能，收到第一个更新<code>DOM</code>请求后，并不知道后续还有9次更新操作，因此会马上执行流程，最终执行10次流程</p>
+<p>通过<code>VNode</code>，同样更新10个<code>DOM</code>节点，虚拟<code>DOM</code>不会立即操作<code>DOM</code>，而是将这10次更新的<code>diff</code>内容保存到本地的一个<code>js</code>对象中，最终将这个<code>js</code>对象一次性<code>attach</code>到<code>DOM</code>树上，避免大量的无谓计算</p>
+<h2 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h2><p><code>diff</code> 算法是一种通过同层的树节点进行比较的高效算法</p>
+<p>其有两个特点：</p>
+<blockquote>
+<ul>
+<li>比较只会在同层级进行, 不会跨层级比较</li>
+<li>在diff比较的过程中，循环从两边向中间比较</li>
+</ul>
+</blockquote>
+<p><code>diff</code> 算法在很多场景下都有应用，在 <code>vue</code> 中，作用于虚拟 <code>dom</code> 渲染成真实 <code>dom</code> 的新旧 <code>VNode</code> 节点比较</p>
+<h2 id="实现一个简易版axios"><a href="#实现一个简易版axios" class="headerlink" title="实现一个简易版axios"></a>实现一个简易版axios</h2><p>构建一个<code>Axios</code>构造函数，核心代码为<code>request</code></p>
+<pre><code class="js">class Axios &#123;
+    constructor() &#123;
+
+    &#125;
+
+    request(config) &#123;
+        return new Promise(resolve =&gt; &#123;
+            const &#123;url = &#39;&#39;, method = &#39;get&#39;, data = &#123;&#125;&#125; = config;
+            // 发送ajax请求
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.onload = function() &#123;
+                console.log(xhr.responseText)
+                resolve(xhr.responseText);
+            &#125;
+            xhr.send(data);
+        &#125;)
+    &#125;
+&#125;
+</code></pre>
+<p>导出<code>axios</code>实例</p>
+<pre><code class="javascript">// 最终导出axios的方法，即实例的request方法
+function CreateAxiosFn() &#123;
+    let axios = new Axios();
+    let req = axios.request.bind(axios);
+    return req;
+&#125;
+// 得到最后的全局变量axios
+let axios = CreateAxiosFn();
+</code></pre>
+<h2 id="SSR服务端渲染"><a href="#SSR服务端渲染" class="headerlink" title="SSR服务端渲染"></a>SSR服务端渲染</h2><p>SSR主要解决了以下两种问题：</p>
+<blockquote>
+<ul>
+<li>seo：搜索引擎优先爬取页面<code>HTML</code>结构，使用<code>ssr</code>时，服务端已经生成了和业务想关联的<code>HTML</code>，有利于<code>seo</code></li>
+<li>首屏呈现渲染：用户无需等待页面所有<code>js</code>加载完成就可以看到页面视图（压力来到了服务器，所以需要权衡哪些用服务端渲染，哪些交给客户端）</li>
+</ul>
+</blockquote>
+<p>但是使用<code>SSR</code>同样存在以下的缺点：</p>
+<ul>
+<li><p> 复杂度：整个项目的复杂度 </p>
+</li>
+<li><p> 库的支持性，代码兼容 </p>
+</li>
+<li><p> 性能问题 </p>
+</li>
+<li><ul>
+<li> 每个请求都是<code>n</code>个实例的创建，不然会污染，消耗会变得很大 </li>
+<li> 缓存 <code>node serve</code>、 <code>nginx</code>判断当前用户有没有过期，如果没过期的话就缓存，用刚刚的结果。 </li>
+<li> 降级：监控<code>cpu</code>、内存占用过多，就<code>spa</code>，返回单个的壳 </li>
+</ul>
+</li>
+<li><p> 服务器负载变大，相对于前后端分离服务器只需要提供静态资源来说，服务器负载更大，所以要慎重使用 </p>
+</li>
+</ul>
+<h2 id="Vue项目结构"><a href="#Vue项目结构" class="headerlink" title="Vue项目结构"></a>Vue项目结构</h2><p>在划分项目结构的时候，需要遵循一些基本的原则：</p>
+<blockquote>
+<ul>
+<li>文件夹和文件夹内部文件的语义一致性</li>
+<li>单一入口/出口</li>
+<li>就近原则，紧耦合的文件应该放到一起，且应以相对路径引用</li>
+<li>公共的文件应该以绝对路径的方式从根目录引用</li>
+<li><code>/src</code> 外的文件不应该被引入</li>
+</ul>
+</blockquote>
+<h2 id="Vue解决跨域问题"><a href="#Vue解决跨域问题" class="headerlink" title="Vue解决跨域问题"></a>Vue解决跨域问题</h2><h3 id="跨域是什么"><a href="#跨域是什么" class="headerlink" title="跨域是什么"></a>跨域是什么</h3><p>跨域本是浏览器基于<strong>同源策略</strong>的一种安全手段</p>
+<p>同源策略（Sameoriginpolicy），是一种约定，它是浏览器最核心也最基本的安全功能</p>
+<p>所谓同源（即指在同一个域）具有以下三个相同点</p>
+<blockquote>
+<ul>
+<li>协议相同（protocol）</li>
+<li>主机相同（host）</li>
+<li>端口相同（port）</li>
+</ul>
+</blockquote>
+<p>反之非同源请求，也就是协议、端口、主机其中一项不相同的时候，这时候就会产生跨域</p>
+<p>跨域是浏览器的限制</p>
+<h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><h3 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h3><blockquote>
+<p>CORS （Cross-Origin Resource Sharing，跨域资源共享）是一个系统，它由一系列传输的HTTP头组成，这些HTTP头决定浏览器是否阻止前端 JavaScript 代码获取跨域请求的响应</p>
+</blockquote>
+<p><code>CORS</code> 实现起来非常方便，只需要增加一些 <code>HTTP</code> 头，让服务器能声明允许的访问来源</p>
+<p>只要后端实现了 <code>CORS</code>，就实现了跨域</p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/140deb80-4e32-11eb-ab90-d9ae814b240d.png" alt="img"></p>
+<blockquote>
+<p>如果是通过vue-cli脚手架工具搭建项目，我们可以通过webpack为我们起一个本地服务器作为请求的代理对象</p>
+</blockquote>
+<p>在vue.config.js文件，新增以下代码</p>
+<pre><code class="js">amodule.exports = &#123;
+    devServer: &#123;
+        host: &#39;127.0.0.1&#39;,
+        port: 8084,
+        open: true,// vue项目启动时自动打开浏览器
+        proxy: &#123;
+            &#39;/api&#39;: &#123; // &#39;/api&#39;是代理标识，用于告诉node，url前面是/api的就是使用代理的
+                target: &quot;http://xxx.xxx.xx.xx:8080&quot;, //目标地址，一般是指后台服务器地址
+                changeOrigin: true, //是否跨域
+                pathRewrite: &#123; // pathRewrite 的作用是把实际Request Url中的&#39;/api&#39;用&quot;&quot;代替
+                    &#39;^/api&#39;: &quot;&quot; 
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>通过axios发送请求中，配置请求的根路径</p>
+<pre><code class="js">axios.defaults.baseURL = &#39;/api&#39;
+</code></pre>
+<h2 id="Vue2-与-Vue3区别"><a href="#Vue2-与-Vue3区别" class="headerlink" title="Vue2 与 Vue3区别"></a>Vue2 与 Vue3区别</h2><p><a target="_blank" rel="noopener" href="https://www.yuque.com/sxd_panda/sdluga/ny2cc2#4d77f6d3">https://www.yuque.com/sxd_panda/sdluga/ny2cc2#4d77f6d3</a></p>
+<h2 id="vue-router如何重定向？"><a href="#vue-router如何重定向？" class="headerlink" title="vue-router如何重定向？"></a>vue-router如何重定向？</h2><p>答：使用<code>redirect</code>进行重定向</p>
+<pre><code class="javascript">在routes:[&#123; path: &#39;/a&#39;, redirect: &#39;/b&#39; &#125;]
+</code></pre>
+<h2 id="vue-router有哪些组件？"><a href="#vue-router有哪些组件？" class="headerlink" title="vue-router有哪些组件？"></a>vue-router有哪些组件？</h2><p>答：<code>router-link</code>、<code>router-view</code></p>
+<h2 id="active-class-是哪个组件的属性？"><a href="#active-class-是哪个组件的属性？" class="headerlink" title="active-class 是哪个组件的属性？"></a>active-class 是哪个组件的属性？</h2><p>答：router-link组件</p>
+<h2 id="怎么定义-vue-router-的动态路由-怎么获取传过来的值？怎么获取当前的路由信息？"><a href="#怎么定义-vue-router-的动态路由-怎么获取传过来的值？怎么获取当前的路由信息？" class="headerlink" title="怎么定义 vue-router 的动态路由? 怎么获取传过来的值？怎么获取当前的路由信息？"></a>怎么定义 vue-router 的动态路由? 怎么获取传过来的值？怎么获取当前的路由信息？</h2><p>答：在router目录下的index.js文件中，对path属性加上/:id。 使用router对象的params.id。使用this.$router获取当前的路由信息。</p>
+<h3 id="vue-router钩子函数有哪些？"><a href="#vue-router钩子函数有哪些？" class="headerlink" title="vue-router钩子函数有哪些？"></a>vue-router钩子函数有哪些？</h3><h3 id="导航守卫"><a href="#导航守卫" class="headerlink" title="导航守卫"></a>导航守卫</h3><ol>
+<li>beforeEach：全局前置守卫</li>
+</ol>
+<p><strong>to</strong>: 即将要进入的目标</p>
+<p><strong>from</strong>: 当前导航正要离开的路由</p>
+<ol>
+<li>beforeResolve：全局解析守卫</li>
+<li>afterEach：全局后置钩子</li>
+</ol>
+<h3 id="组件守卫"><a href="#组件守卫" class="headerlink" title="组件守卫"></a>组件守卫</h3><ul>
+<li>beforeRouteEnter</li>
+<li>beforeRouteUpdate</li>
+<li>beforeRouteLeave</li>
+</ul>
+<h2 id="route-和-router-的区别是什么？"><a href="#route-和-router-的区别是什么？" class="headerlink" title="$route 和 $router 的区别是什么？"></a>$route 和 $router 的区别是什么？</h2><p>答：$router是VueRouter的实例，在script标签中想要导航到不同的URL,使用$router.push方法。返回上一个历史history用$router.to(-1)</p>
+<p>$route为当前router跳转对象。里面可以获取当前路由的name,path,query,parmas等。</p>
+
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/css/nord.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/js/memo.js"></script>
+
+</html>
