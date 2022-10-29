@@ -497,6 +497,34 @@ for (let j = 0; j &lt; shu.length; j++) &#123;
     &#125;
 &#125;
 </code></pre>
+<h3 id="AES对称加密"><a href="#AES对称加密" class="headerlink" title="AES对称加密"></a>AES对称加密</h3><pre><code class="js">//加密
+function AESEncode(pw) &#123;
+    pw = CryptoJS.enc.Utf8.parse(pw);
+    //密钥
+    let key = CryptoJS.enc.Utf8.parse(&quot;mishi137&quot;);
+    //偏移向量
+    let iv = CryptoJS.enc.Utf8.parse(&quot;pianyi137&quot;);
+    return CryptoJS.AES.encrypt(pw, key, &#123;
+        mode: CryptoJS.mode.CBC, // 加密模式
+        padding: CryptoJS.pad.Pkcs7, // 填充方式
+        iv: iv // 偏移向量
+    &#125;).toString();
+&#125;
+//解密
+function AESDecode(pw) &#123;
+    //密钥
+    let key = CryptoJS.enc.Utf8.parse(&quot;mishi137&quot;);
+    //偏移向量
+    let iv = CryptoJS.enc.Utf8.parse(&quot;pianyi137&quot;);
+    let code = CryptoJS.AES.decrypt(pw, key, &#123;
+        mode: CryptoJS.mode.CBC, // 加密模式
+        padding: CryptoJS.pad.Pkcs7, // 填充方式
+        iv: iv // 偏移向量
+    &#125;).toString(CryptoJS.enc.Utf8);
+    console.log(code)
+    return code;
+&#125;
+</code></pre>
 <h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><pre><code class="js">function()&#123;&#125; --&gt; () =&gt;&#123;&#125;
 
 fangfa:function()&#123;&#125; --&gt; fangfa()&#123;&#125;

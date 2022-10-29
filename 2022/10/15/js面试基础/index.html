@@ -460,6 +460,103 @@ function deepClone(obj, hash = new WeakMap()) &#123;
 <li><code>handler</code>是事件处理函数</li>
 <li><code>useCapture</code>是一个<code>boolean</code>用于指定是否在捕获阶段进行处理，一般设置为<code>false</code>与IE浏览器保持一致</li>
 </ul>
+<h3 id="AJAX都有哪些优点和缺点？"><a href="#AJAX都有哪些优点和缺点？" class="headerlink" title="AJAX都有哪些优点和缺点？"></a>AJAX都有哪些优点和缺点？</h3><p>解析：</p>
+<p>ajax的优点是：</p>
+<p>1.最大的一点是页面无刷新，用户的体验非常好。</p>
+<p>2.使用异步方式与服务器通信，具有更加迅速的响应能力。</p>
+<p>3.可以把以前一些服务器负担的工作转嫁到客户端，利用客户端闲置的能力来处理，减轻服务器和带宽的负担，节约空间和宽带租用成本。并且减轻服务器的负担，ajax的原则是“按需取数据”，可以最大程度的减少冗余请求，和响应对服务器造成的负担。</p>
+<p>4.基于标准化的并被广泛支持的技术，不需要下载插件或者小程序。</p>
+<p>ajax的缺点是：</p>
+<p>1.ajax不支持浏览器back按钮。</p>
+<p>2.安全问题 AJAX暴露了与服务器交互的细节。</p>
+<p>3.对搜索引擎的支持比较弱。</p>
+<p>4.破坏了程序的异常机制。</p>
+<p>5.不容易调试。</p>
+<h3 id="如何进行网站性能优化"><a href="#如何进行网站性能优化" class="headerlink" title="如何进行网站性能优化"></a>如何进行网站性能优化</h3><p>解析：</p>
+<p>\1. 从用户角度而言，优化能够让页面加载得更快、对用户的操作响应得更及时，能够给用户提供更为友好的体验。</p>
+<p>\2. 从服务商角度而言，优化能够减少页面请求数、或者减小请求所占带宽，能够节省可观的资源。</p>
+<p>总之，恰当的优化不仅能够改善站点的用户体验并且能够节省相当的资源利用。</p>
+<p>前端优化的途径有很多，按粒度大致可以分为两类，第一类是页面级别的优化，例如 HTTP请求数、脚本的无阻塞加载、内联脚本的位置优化等 ;第二类则是代码级别的优化，例如 Javascript中的DOM 操作优化、CSS选择符优化、图片优化以及 HTML结构优化等等。另外，本着提高投入产出比的目的，后文提到的各种优化策略大致按照投入产出比从大到小的顺序排列。</p>
+<p>一、页面级优化</p>
+<p>\1. JavaScript 压缩和模块打包</p>
+<p>\2. 按需加载资源</p>
+<p>\3. 在使用 DOM 操作库时用上 array-ids</p>
+<p>\4. 缓存</p>
+<p>\5. 启用 HTTP/2</p>
+<p>\6. 应用性能分析</p>
+<p>\7. 使用负载均衡方案</p>
+<p>\8. 为了更快的启动时间考虑一下同构</p>
+<p>\9. 使用索引加速数据库查询</p>
+<p>\10. 使用更快的转译方案</p>
+<p>\11. 避免或最小化 JavaScript 和 CSS 的使用而阻塞渲染</p>
+<p>\12. 用于未来的一个建议：使用 service workers + 流</p>
+<p>\13. 图片编码优化</p>
+<h3 id="优雅降级和渐进增强"><a href="#优雅降级和渐进增强" class="headerlink" title="优雅降级和渐进增强"></a><strong>优雅降级和渐进增强</strong></h3><p>解析：</p>
+<p>渐进增强（Progressive Enhancement）：一开始就针对低版本浏览器进行构建页面，完成基本的功能，然后再针对高级浏览器进行效果、交互、追加功能达到更好的体验。</p>
+<p>优雅降级（Graceful Degradation）：一开始就构建站点的完整功能，然后针对浏览器测试和修复。比如一开始使用 CSS3 的特性构建了一个应用，然后逐步针对各大浏览器进行 hack 使其可以在低版本浏览器上正常浏览。</p>
+<p>其实渐进增强和优雅降级并非什么新概念，只是旧的概念换了一个新的说法。在传统软件开发中，经常会提到向上兼容和向下兼容的概念。渐进增强相当于向上兼容，而优雅降级相当于向下兼容</p>
+<h3 id="JS实现对货币数字格式化函数（三位加逗号）"><a href="#JS实现对货币数字格式化函数（三位加逗号）" class="headerlink" title="**JS实现对货币数字格式化函数（三位加逗号） **"></a>**JS实现对货币数字格式化函数（三位加逗号） **</h3><h4 id="调用示例-formatMoney-‘1234567890’-1-234-567-890"><a href="#调用示例-formatMoney-‘1234567890’-1-234-567-890" class="headerlink" title="// 调用示例 formatMoney(‘1234567890’); // 1,234,567,890"></a><strong>// 调用示例 formatMoney(‘1234567890’); // 1,234,567,890</strong></h4><p>解析：</p>
+<pre><code class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function outputmoney(number) &#123;
+number = number.replace(/\,/g, &quot;&quot;);
+if(isNaN(number) || number == &quot;&quot;)return &quot;&quot;;
+number = Math.round(number * 100) / 100;
+    if (number &lt; 0)
+        return &#39;-&#39; + outputdollars(Math.floor(Math.abs(number) - 0) + &#39;&#39;) + outputcents(Math.abs(number) - 0);
+    else
+        return outputdollars(Math.floor(number - 0) + &#39;&#39;) + outputcents(number - 0);
+&#125; 
+//格式化金额
+function outputdollars(number) &#123;
+    if (number.length &lt;= 3)
+        return (number == &#39;&#39; ? &#39;0&#39; : number);
+    else &#123;
+        var mod = number.length % 3;
+        var output = (mod == 0 ? &#39;&#39; : (number.substring(0, mod)));
+        for (i = 0; i &lt; Math.floor(number.length / 3); i++) &#123;
+            if ((mod == 0) &amp;&amp; (i == 0))
+                output += number.substring(mod + 3 * i, mod + 3 * i + 3);
+            else
+                output += &#39;,&#39; + number.substring(mod + 3 * i, mod + 3 * i + 3);
+        &#125;
+        return (output);
+    &#125;
+&#125;
+function outputcents(amount) &#123;
+    amount = Math.round(((amount) - Math.floor(amount)) * 100);
+    return (amount &lt; 10 ? &#39;.0&#39; + amount : &#39;.&#39; + amount);
+&#125;
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;input type=text   maxlength=&quot;8&quot; id=&quot;test&quot; onblur=&quot;this.value=outputmoney(this.value);&quot; &gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="异步笔试题"><a href="#异步笔试题" class="headerlink" title="异步笔试题"></a>异步笔试题</h3><p>请写出下面代码的运行结果</p>
+<pre><code>async function async1() &#123;
+    console.log(&#39;async1 start&#39;);
+    await async2();
+    console.log(&#39;async1 end&#39;);
+&#125;
+async function async2() &#123;
+    console.log(&#39;async2&#39;);
+&#125;
+console.log(&#39;script start&#39;);
+setTimeout(function() &#123;
+    console.log(&#39;setTimeout&#39;);
+&#125;, 0)
+async1();
+new Promise(function(resolve) &#123;
+    console.log(&#39;promise1&#39;);
+    resolve();
+&#125;).then(function() &#123;
+    console.log(&#39;promise2&#39;);
+&#125;);
+console.log(&#39;script end&#39;);
+</code></pre>
 
     </div>
     <div class="menu">

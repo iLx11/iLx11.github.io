@@ -808,11 +808,14 @@ a {
     height: 1em;
     position: absolute;
     bottom: 1em;
+    left: 0;
+    padding-left: 12px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    background: var(--bg-color-3);
 
 }
 
@@ -822,13 +825,15 @@ a {
 }
 
 .classes {
-    font-size: 9px;
-    background: rgba(119, 197, 193, 0.35);
-    border-radius: 8px;
-    padding: 2px;
-    padding-right: 8px;
+    height: 2em;
+    font-size: 10px;
+    background: rgba(119, 197, 193, 0.3);
+    border-radius: 5px;
+    padding:3px;
+    padding-right: 16px;
     margin-right: 0.3em;
     clip-path: polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%);
+    overflow: hidden;
 }
 
 .paginator {

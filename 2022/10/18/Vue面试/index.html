@@ -415,10 +415,10 @@ Vue.directive(&#39;throttle&#39;,&#123;
 &lt;button @click=&quot;sayHello&quot; v-throttle&gt;提交&lt;/button&gt;
 </code></pre>
 <h3 id="自定义事件实现Copy功能"><a href="#自定义事件实现Copy功能" class="headerlink" title="自定义事件实现Copy功能"></a>自定义事件实现Copy功能</h3><pre><code class="js">Vue.directive(&#39;copy&#39;, &#123;
-    bind: (el,&#123;value&#125;) =&gt; &#123;
+    bind: (el, &#123; value &#125;) =&gt; &#123;
         el.$value = value;
         el.handler = () =&gt; &#123;
-            if(!el.$value) &#123;
+            if (!el.$value) &#123;
                 console.log(&quot;内容为空&quot;)
                 return;
             &#125;
@@ -429,21 +429,21 @@ Vue.directive(&#39;throttle&#39;,&#123;
             textarea.value = el.$value;
             document.body.appendChild(textarea);
             textarea.select();
-            if(document.execCommand(&#39;Copy&#39;)) &#123;
+            if (document.execCommand(&#39;Copy&#39;)) &#123;
                 console.log(&quot;复制成功&quot;);
             &#125;
-            document.removeChild(textarea);
+            document.body.removeChild(textarea);
         &#125;;
         //绑定事件
         el.addEventListener(&#39;click&#39;, el.handler);
-        //当传进来的值更新的时候触发
-        componentUpdated(el, &#123;value&#125;) &#123;
-            el.$value = value;
-        &#125;,
+    &#125;,
+    //当传进来的值更新的时候触发
+    componentUpdated(el, &#123; value &#125;) &#123;
+        el.$value = value;
     &#125;,
     //指令与元素解绑的时候
     unbind(el) &#123;
-         el.removeEventListenr(&#39;click&#39;, el.handler); 
+        el.removeEventListener(&#39;click&#39;, el.handler);
     &#125;
 &#125;)
 </code></pre>
