@@ -557,6 +557,124 @@ new Promise(function(resolve) &#123;
 &#125;);
 console.log(&#39;script end&#39;);
 </code></pre>
+<h3 id="变式一"><a href="#变式一" class="headerlink" title="变式一"></a>变式一</h3><pre><code>
+async function async1() &#123;
+    console.log(&#39;async1 start&#39;);
+    await async2();
+    console.log(&#39;async1 end&#39;);
+&#125;
+async function async2() &#123;
+    //async2做出如下更改：
+    new Promise(function(resolve) &#123;
+    console.log(&#39;promise1&#39;);
+    resolve();
+&#125;).then(function() &#123;
+    console.log(&#39;promise2&#39;);
+    &#125;);
+&#125;
+console.log(&#39;script start&#39;);
+
+setTimeout(function() &#123;
+    console.log(&#39;setTimeout&#39;);
+&#125;, 0)
+async1();
+
+new Promise(function(resolve) &#123;
+    console.log(&#39;promise3&#39;);
+    resolve();
+&#125;).then(function() &#123;
+    console.log(&#39;promise4&#39;);
+&#125;);
+
+console.log(&#39;script end&#39;);
+</code></pre>
+<p>可以先自己看看输出顺序会是什么，下面来公布结果：</p>
+<pre><code>script start
+async1 start
+promise1
+promise3
+script end
+promise2
+async1 end
+promise4
+setTimeout
+</code></pre>
+<p>在第一次macrotask执行完之后，也就是输出<code>script end</code>之后，会去清理所有microtask。所以会相继输出<code>promise2</code>，<code>async1 end</code>，<code>promise4</code>，其余不再多说。</p>
+<h4 id="执行下列的代码会输出什么？"><a href="#执行下列的代码会输出什么？" class="headerlink" title="执行下列的代码会输出什么？"></a>执行下列的代码会输出什么？</h4><pre><code class="js">const a = &#123;&#125;
+const b = &#123; key: &#39;b&#39; &#125;
+const c = &#123; key: &#39;c&#39; &#125;
+
+a[b] = 123
+a[c] = 456
+
+console.log(a[b])
+
+答案：456
+</code></pre>
+<p>解析：</p>
+<p>对象的键会自动转换为字符串，我们试图将对象b设置为对象a的键。<br>当将一个对象转化为字符串的时候，会变成”[object Object]” 所以，a[“[object Object]”] = 123 。然后，我们再一次做了同样的事情，c 是另外一个对象，这里也有隐式字符串化，于是，a[“[object Object]”] =456。然后，我们打印 a[b]，也就是 a[“[object Object]”]。之前刚设置为 456，因此返回的是 456。</p>
+<h3 id="js原型遵循5个规则："><a href="#js原型遵循5个规则：" class="headerlink" title="js原型遵循5个规则："></a>js原型遵循5个规则：</h3><p>1、所有的引用类型（数组、对象、函数），都具有对象特性，即可自由扩展属性（除了“null”以外）；</p>
+<p>2、所有的引用类型（数组、对象、函数），都有一个__proto__（隐式原型）属性，属性值是一个普通的对象；</p>
+<p>3、所有的函数，都有一个prototype（显式原型）属性，属性值也是一个普通对象；</p>
+<p>4、所有的引用类型（数组、对象、函数），__proto__属性值指向（完全相等）它的构造函数的 “prototype” 属性值；</p>
+<p>5、当试图得到一个对象的某个属性时，如果这个对象本身没有这个属性，那么会去 proto（ 即它的构造函数的 prototype 中）寻找。</p>
+<h3 id="js实现把一个字符串的大小写取反"><a href="#js实现把一个字符串的大小写取反" class="headerlink" title="js实现把一个字符串的大小写取反"></a>js实现把一个字符串的大小写取反</h3><p>方法1：利用正则表达式</p>
+<p>思路：</p>
+<p>大小写取反，最先想到的是替换 replace<br>怎么实现替换，通过正则，首先找到所有字母 /[a-zA-Z]/g<br>replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。<br>实现：如果当前的字母转化为大写还和自己一样，那么他铁定就是大写字母，利用三木运算，是大写，那么就变为小写，反之<br>每一次正则匹配的结果返回<br>代码：</p>
+<pre><code class="js">function reverseChar(str) &#123;
+    // 使用正则的全局匹配
+    str = str.replace(/[a-zA-Z]/g, content =&gt; &#123;
+        // content : 每一次正则匹配的结果
+        return content.toUpperCase() === content ? content.toLowerCase() : content.toUpperCase()
+    &#125;)
+    return str;
+&#125;
+</code></pre>
+<p>方法2：利用 charAt()</p>
+<p> // 第二种方法是利用 字符串中的charAt(i) —来获取字符串中的每一个字符（）—–再比较编码集<br>  //charAt()——–比较的是Unicode编码集—–charAt(i)找的是字符串中第i个字符</p>
+<pre><code class="js">    var str1 = &quot;azcBfHIjs&quot;
+    console.log(str1);
+
+    var newStr = &#39;&#39;;//保存转换后的字符串
+
+    for (var i = 0; i &lt; str1.length; i++) &#123;
+    
+        if (str1.charAt(i) &gt;= &#39;a&#39;) &#123;//a unicode是97、比a大的是小写字母
+            aa = str1.charAt(i).toUpperCase();
+        &#125;
+        else if (str1.charAt(i) &gt;= &#39;A&#39;) &#123;//A unicode 是65、比A 大的是大写字母
+            aa = str1.charAt(i).toLowerCase();
+
+        &#125;
+        newStr = newStr + aa;//字符串的拼接的思想就是 新建一个数组
+    &#125;
+
+    console.log(newStr);
+</code></pre>
+<h3 id="数组扁平化"><a href="#数组扁平化" class="headerlink" title="数组扁平化"></a>数组扁平化</h3><h5 id="简单遍历"><a href="#简单遍历" class="headerlink" title="简单遍历"></a>简单遍历</h5><pre><code class="js">let arr = [1, [2, [4, [5, [6]]]]];
+function flat(arr) &#123;
+    let result = [];
+    arr.forEach((item) =&gt; &#123;
+        if(Array.isArray(item)) &#123;
+            result = result.concat(flat(item));
+        &#125;else &#123;
+            result.push(item);
+        &#125;
+    &#125;)
+    return: result;
+&#125;
+</code></pre>
+<h4 id="利用reduce函数迭代"><a href="#利用reduce函数迭代" class="headerlink" title="利用reduce函数迭代"></a>利用reduce函数迭代</h4><pre><code class="js">var arr = [1, [2, [4, [5, [6]]]]]
+function flatten1(arr) &#123;
+   return arr.reduce((res, next) =&gt; &#123;
+      return res.concat(Array.isArray(next) ? flatten1(next) : next)
+   &#125;, [])
+&#125;
+console.log(flatten1(arr))  // [1,2,3,4,5,6]
+</code></pre>
+<h3 id="js-加载过程阻塞，解决方法"><a href="#js-加载过程阻塞，解决方法" class="headerlink" title="js 加载过程阻塞，解决方法"></a>js 加载过程阻塞，解决方法</h3><p>指定 script 标签的 async 属性。</p>
+<p>如果<code>async=&quot;async&quot;</code>，脚本相对于页面的其余部分异步地执行（当页面继续进行解析时，脚本将被执行）。</p>
+<p>如果不使用 async 且 <code>defer=&quot;defer&quot;</code>：脚本将在页面完成解析时执行。</p>
 
     </div>
     <div class="menu">
