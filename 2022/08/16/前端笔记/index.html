@@ -650,6 +650,49 @@ function transText(text)&#123;
 <h5 id="获取设备宽度及高度"><a href="#获取设备宽度及高度" class="headerlink" title="获取设备宽度及高度"></a>获取设备宽度及高度</h5><pre><code class="js">let clientW = document.documentElement.clientWidth;
 let clientH = document.documentElement.clientHeight;
 </code></pre>
+<h2 id="gsap动画插件"><a href="#gsap动画插件" class="headerlink" title="gsap动画插件"></a>gsap动画插件</h2><p>CDN导入</p>
+<pre><code class="html">&lt;script src=&quot;./js/gsap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./js/ScrollTrigger.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="scrollTrigger插件"><a href="#scrollTrigger插件" class="headerlink" title="scrollTrigger插件"></a>scrollTrigger插件</h3><pre><code class="js">//创建时间线，时间线后的动画会依次播放
+let t6 = gsap.timeline(&#123;
+    //scrollTrigger 配置
+    scrollTrigger: &#123;
+        //触发元素
+        trigger: &quot;.pageList&quot;,
+        //开始执行动画，滚动条的位置
+        start: &quot;4200px&quot;,
+        //动画的结束位置，与 scrub 有关，倒回滚动时会逆向播放。
+        end: &quot;4320px&quot;,
+        // 触发时的动作
+        toggleActions: &quot;restart&quot;,
+        //是否跟随鼠标滚动条的滚动，以及执行时间
+        scrub: 1,
+    &#125;
+&#125;);
+//时间线的下一个动画，传递元素以及动画效果
+//to 表示目标样式 / from 表示从何种样式变换
+t6.to(&quot;.hw-1 img:nth-child(1)&quot;, &#123;
+    // xPercent: 50,
+    opacity: 0,
+    duration: 3,
+    // x: -850
+    scale: 0.6,
+&#125;);
+// 表示同时执行
+gsap.from(&quot;.hw-1 img:nth-child(2)&quot;, &#123;
+    scrollTrigger: &#123;
+        trigger: &quot;.pageList&quot;,
+        start: &quot;4200px&quot;,
+        end: &quot;4320px&quot;,
+        toggleActions: &quot;restart&quot;,
+        scrub: 1,
+    &#125;,
+    opacity: 0,
+    duration: 0.3,
+    scale: 0.7,
+&#125;);
+</code></pre>
 <h2 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h2><h5 id="get"><a href="#get" class="headerlink" title="get"></a>get</h5><pre><code class="js">var xhr = new XMLHttpRequest();
 
 xhr.open(&#39;GET&#39;,&#39;url&#39;);

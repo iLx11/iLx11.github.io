@@ -799,6 +799,10 @@ void udpDo() &#123;
   Serial.print(&quot;pageSize: &quot;);
   Serial.println(fs_info.pageSize);
 </code></pre>
+<h3 id="字符串转-char数组"><a href="#字符串转-char数组" class="headerlink" title="字符串转 char数组"></a>字符串转 char数组</h3><pre><code class="c">const char* aa = str.c_str();
+</code></pre>
+<h3 id="IP地址转字符串"><a href="#IP地址转字符串" class="headerlink" title="IP地址转字符串"></a>IP地址转字符串</h3><pre><code class="c">String aa = WiFi.localIP().toString().c_str();
+</code></pre>
 
     </div>
     <div class="menu">

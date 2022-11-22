@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <div class="bgimg"></div>
+            <div class="cover"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            C/C++语言笔记
+        </div>
+        <div class="post-meta">
+            2022-11-18
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <h3 id="scanf"><a href="#scanf" class="headerlink" title="scanf"></a>scanf</h3><pre><code class="c">//表示扫描除回车以外的字符
+scanf(&quot;%[^\n]&quot;, xx);
+
+//%* 表示跳过
+</code></pre>
+<h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>宏</p>
+<pre><code class="c">// &quot;\&quot; 将多行宏拼接为一行
+#define Max(a, b) (&#123;\
+    //根据参数获取类型
+    __typeof(a) _a = (a);\
+    __typeof(b) _b = (b);\
+    _a &gt; _b ? _a : _b;\
+&#125;)
+    
+#define P(a) (&#123;\
+    //&#39;#&#39; 表示字符串化
+    printf(&quot;%s = %d&quot;, #a, a);\
+&#125;)
+
+//__FILE__ //__func__ // __LINE__
+//args -&gt; 变参宏
+//frm —&gt; 格式控制
+#define log(frm, args...) &#123;\
+    printf(&quot;[%s, %s, %d]&quot;, __FILE__ , __func__, __LINE__)
+    //&#39;##&#39; 表示连接
+    printf(frm, ##args);\
+    printf(&quot;\n&quot;);\
+&#125;
+printf(&quot;%d&quot;, xxx);
+
+//后期去掉debug
+#ifdef DEBUG
+#define  log(frm, args...) &#123;\
+    ...
+&#125;
+#else 
+#define log(frm, args...)
+
+//函数上方添加，将会优先于 main 函数
+__attribute__((constructor))
+</code></pre>
+<h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><pre><code class="c">if(str[i][j] != &#39;B&#39;) continue;
+//&#39;n&#39; 表示安全操作
+if(strncmp(str[i][j], &quot;xxx&quot;, 3)) continue; 
+strncpy(str[i][j], &quot;xxxx&quot;, 4);
+//移位
+move(str[i][j] + 4);
+
+
+//move
+void move(char *p) &#123;
+    int i = 0;
+       for(; p[i]; i++) &#123;
+        p[i] = p[i++]
+    &#125;
+    p[i] = &#39;\0&#39;;
+    return ;
+&#125;
+</code></pre>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><blockquote>
+<p>调用函数灵活修改实参变量的值</p>
+<p>支持动态内存分配，方便实现动态的数据结构</p>
+<p>提高某些程序的效率</p>
+<p>实现缓冲方式文件存取</p>
+</blockquote>
+<p>指针转换</p>
+<pre><code class="c">//void * 
+(int *) malloc(20);
+</code></pre>
+<p>字符数组</p>
+<pre><code class="c">char a[] = &quot;werwe&quot;;
+char *p
+p = a // p = &amp;a[0]
+</code></pre>
+<p>函数指针</p>
+<pre><code class="c">//p 为函数的地址
+//p = strcmp
+void process(char *a, char *b, int(* p)(const char*, const char *))
+</code></pre>
+<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><blockquote>
+<p>默认用最大的字节来对齐</p>
+</blockquote>
+<pre><code class="c">//结构体变量
+//函数的传递结构体
+void output(struct stru str[2])//结构体数组
+    
+//结构体指针
+struct student &#123;
+    long num;
+    char *name; // char name[20]
+&#125;
+struct student stu;
+struct student *p;
+p = &amp;stu;
+stu.name = 123;
+//指针数组分配内存
+stu.name = (char *)malloc(20);
+
+(*p).name ==&gt; p-&gt;name
+</code></pre>
+<h3 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h3><blockquote>
+<p>将几种不同类型的变量存放在同一内存单元中，实现覆盖技术</p>
+</blockquote>
+<pre><code class="c">union IP &#123;
+       struct &#123;
+        unsigned char a1;
+        unsigned char a2;
+        unsigned char a3;
+        unsigned char a4;
+    &#125; ip;
+    unsigned int num;
+&#125;
+</code></pre>
+<h3 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h3><pre><code class="c++">//输出
+std::cout &lt;&lt; &quot;123123\n&quot;;
+//输入
+unsigned int aa;
+std::cin &gt;&gt; aa
+
+//系统        
+system(&quot;cls/ shutdown /a/ pause &quot;);
+
+//定义变量
+int year&#123; 12 &#125;
+</code></pre>
+<p>强制转换</p>
+<pre><code class="c++">static_cast&lt;int&gt;
+//(int) c
+</code></pre>
+<p>枚举</p>
+<pre><code class="c++">enum class EquipLv: int &#123;
+    normal = 10,
+    high,
+    rare
+&#125;;
+EquipLv weapon1 (EquipLv::normal);
+EquipLv weapon2 (EquipLv::rare);
+</code></pre>
+<p>命名空间</p>
+<pre><code class="c++">using namespace std;
+//之后不用使用std
+/
+using std::cin/cout;
+</code></pre>
+<pre><code class="c++">namespace Game &#123;
+    int HP&#123; 1000 &#125;;
+    namespace Weapon &#123;
+        int damage&#123; 3000 &#125;
+    &#125;
+&#125;
+//使用时 ‘::’ 限定符
+int c = Game::Weapon::HP;
+//不能放在函数体内
+</code></pre>
+
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/css/nord.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/js/memo.js"></script>
+
+</html>
