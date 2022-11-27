@@ -121,10 +121,17 @@ void move(char *p) &#123;
 char *p
 p = a // p = &amp;a[0]
 </code></pre>
+<p>字符数组存储在全局数据区或栈区，字符指针的字符串存储在常量区。全局数据区和栈区的字符串（也包括其他数据）有读取和写入的权限，而常量区的字符串（也包括其他数据）<code>只有读取权限，没有写入权限。</code></p>
 <p>函数指针</p>
 <pre><code class="c">//p 为函数的地址
 //p = strcmp
 void process(char *a, char *b, int(* p)(const char*, const char *))
+</code></pre>
+<p>字符串转化大小写</p>
+<pre><code class="text">#define CONVERT(c) (((c) &gt;= &#39;A&#39; &amp;&amp; (c) &lt;= &#39;Z&#39;) ? ((c) - &#39;A&#39; + &#39;a&#39;) : (c))
+</code></pre>
+<p>当表达式中存在有符号类型和无符号类型时所有的操作数都自动转换为无符号类型。</p>
+<pre><code class="c">unsigned int aa;
 </code></pre>
 <h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><blockquote>
 <p>默认用最大的字节来对齐</p>
@@ -160,7 +167,7 @@ stu.name = (char *)malloc(20);
     unsigned int num;
 &#125;
 </code></pre>
-<h3 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h3><pre><code class="c++">//输出
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><pre><code class="c++">//输出
 std::cout &lt;&lt; &quot;123123\n&quot;;
 //输入
 unsigned int aa;
@@ -200,6 +207,137 @@ using std::cin/cout;
 //使用时 ‘::’ 限定符
 int c = Game::Weapon::HP;
 //不能放在函数体内
+</code></pre>
+<p>if 与 switch 中的临时变量</p>
+<pre><code class="c++">//17语法
+if(int a, b, c; 条件)
+
+switch(int a, b; 条件)
+</code></pre>
+<p>获取键盘输入</p>
+<pre><code class="c++">#include &lt;coion.h&gt;
+
+_getch();
+</code></pre>
+<p>填充</p>
+<pre><code class="c++">#include &lt;iomanip&gt;
+
+std::cout &lt;&lt; std::setfill(&#39;0&#39;);
+std::cout &lt;&lt; std::setw(3) &lt;&lt; xx
+</code></pre>
+<p>遍历数组</p>
+<pre><code class="c++">for(int aa : 数组);
+</code></pre>
+<p>定义数组</p>
+<pre><code class="c++">#include &lt;array&gt;
+//较为安全的定义数组
+std::array&lt;int, 3&gt; shu&#123;1, 2, 3&#125;;
+//填充
+shu.fill(23);
+//元素个数
+shu.size();
+//访问成员
+shu.at(2)
+    
+//向量
+std::vector&lt;int&gt; studentId;
+//动态添加一个元素
+studentId.push_back(9600);
+studentId.clear();
+//判断是否为空
+studentId.empty();
+</code></pre>
+<p>判断一段程序是由c编译还是由c++编译程序编译的？</p>
+<pre><code class="cpp">#ifdef __cplusplus
+    cout &lt;&lt; &quot;c++&quot;;
+#else
+    printf(&quot;c&quot;);
+#endif
+</code></pre>
+<h3 id="动态内存分配"><a href="#动态内存分配" class="headerlink" title="动态内存分配"></a>动态内存分配</h3><pre><code class="c++">int * pa = (int *) malloc(4);
+//
+int * pa = new int[5];
+
+pa = (int *) realloc(pa, 8);
+
+//内存释放
+free(pa);
+//释放new分配的内存
+delete[] pa;
+</code></pre>
+<h5 id="风险："><a href="#风险：" class="headerlink" title="风险："></a>风险：</h5><p>碎片化的内存</p>
+<p>引用</p>
+<p>不能改变其他引用</p>
+<pre><code class="c++">int a&#123;500&#125;;
+int &amp; la&#123;a&#125;;
+int &amp; lla&#123;a&#125;;
+</code></pre>
+<p>智能指针</p>
+<pre><code class="c++">std::unique_ptr&lt;类型&gt; intPtr&#123;&#125;;
+//
+std::unique_ptr&lt;类型&gt; intPtr&#123;std::make_unique&lt;int []&gt;(5 &gt;个数) &#125;;
+
+//释放内存,地址清零
+intPtr.reset();
+</code></pre>
+<p>共享指针</p>
+<pre><code class="c++">std::share_ptr&lt;类型&gt; intPtr&#123;&#125;;
+</code></pre>
+<p>安全的C语言输入</p>
+<pre><code class="c++">char str[0xff]
+wscanf_s(&quot;%s&quot;, wstr, 可接受最大字符值);
+</code></pre>
+<p>结构体</p>
+<pre><code class="c++">typedef struct Role &#123;
+    int HP;
+&#125;* PRole, * ARole;
+
+Role user;
+PRole puser = &amp;user;
+//
+PRole puesr = new Role;
+//使用
+puser-&gt;HP;
+</code></pre>
+<p>union</p>
+<pre><code class="c++">union USER &#123;
+    short sHp;
+    int nHp;
+&#125;
+</code></pre>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><pre><code class="c++">//截取起始位置， 个数
+std::string str&#123;&quot;sdfsjd 123&quot;,1 ,3&#125;;
+using std::string;
+str.length();
+
+//复制，（个数， ‘字符’）
+std::string str(6, &#39;a&#39;);
+
+//拼接
+str.append(&quot;234&quot;);
+//截取
+str.substr(1);/ str.substr(1, 3);
+//比较
+str.compare(&quot;123&quot;);/ str.compare(1, 3, &quot;123&quot;);
+//查找/反向为 rfind
+str.find(&quot;123&quot;);/ str.find(&quot;123&quot;, 1, 3);
+
+//未找到返回 std:string::npos int返回 -1
+
+//插入
+str.insert(位置, &quot;123&quot;);
+//insert(位置, “123”, 截取起始, 截取长度);
+str.insert(位置, 个数, &#39;8&#39;); // 插入字符
+
+//替换 长度
+str.replace(1, 3, &quot;123&quot;);
+
+//删除，清除
+str.erase(); / str.clear();
+</code></pre>
+<p>计算中文字符长度</p>
+<pre><code class="c++">if(str[i] &lt; 0) i++;
+count += 1;
 </code></pre>
 
     </div>
