@@ -339,6 +339,23 @@ str.erase(); / str.clear();
 <pre><code class="c++">if(str[i] &lt; 0) i++;
 count += 1;
 </code></pre>
+<p>函数</p>
+<pre><code class="c++">//传递引用参数  
+bool act(const Role&amp; Acter)
+//默认参数, 放在最后
+int add(int a, int b = 100)
+</code></pre>
+<p>不定量参数</p>
+<pre><code class="c++">int Average(int count, ...) &#123;
+    char * arg;
+    //存储
+    va_start(arg, count);
+    //依次读取
+    int x = va_arg(arg, int);
+    //释放
+    va_end(arg);
+&#125;
+</code></pre>
 
     </div>
     <div class="menu">
