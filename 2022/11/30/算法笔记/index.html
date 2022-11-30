@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <div class="bgimg"></div>
+            <div class="cover"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            算法笔记
+        </div>
+        <div class="post-meta">
+            2022-11-30
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <p>dd</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h4 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h4><p>左右闭区间</p>
+<pre><code class="c++">void main() &#123;
+    int a[10]&#123;&#125;;
+    search(a, 3)
+&#125;
+int search(int &amp;a, target) &#123;
+    int length = sizeof(a) / sizeof(a[0]);
+    int mid, left = 0, right = length - 1;
+    //[left, right] -- [left, right) -&gt; left&lt;right
+    while(left &lt;= right) &#123;
+        mid = left + ((right - left) &gt;&gt; 1);
+        if(a[mid] &gt; target) &#123;
+            //闭区间
+            right = mid - 1;
+        &#125;else if(a[mid] &lt; target) &#123;
+            //闭区间
+            left = mid + 1;
+        &#125;else if(a[mid] == target) &#123;
+            return mid;
+        &#125;
+    &#125;
+    return -1;
+&#125;
+</code></pre>
+<h4 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h4><pre><code class="c++">int main() &#123;
+    int a[10]&#123;&#125;;
+    remove(a, 3);
+&#125;
+int remove(int&amp; a, target) &#123;
+    int length = sizeof(a) / sizeof(a[0]);
+    for(int i = 0; i &lt; length; i++) &#123;
+        if(a[i] == target) &#123;
+            for(int j = i + 1; j &lt; length; j++) &#123;
+                a[j - 1] = a[j];
+            &#125;
+            i--;
+            length--;
+        &#125;
+    &#125;
+    return length;
+&#125;
+</code></pre>
+<h5 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h5><pre><code class="c++">int remove(int&amp; a, int target) &#123;
+    int length = sizeof(a) / sizeof(a[0]);
+    int slow = 0;
+    for(int fast = 0; fast &lt; length; fast ++) &#123;
+        if(a[fast] != target) &#123;
+            a[slow] = a[fast];
+            slow ++;
+        &#125;
+    &#125;
+    return slow;
+&#125;
+</code></pre>
+<h5 id="双向指针法"><a href="#双向指针法" class="headerlink" title="双向指针法"></a>双向指针法</h5><pre><code class="c++">int remove(int&amp; a, int target) &#123;
+    int length = sizeof(a) / sizeof(a[0]);
+    int left = 0;
+    int right = length - 1;
+    while(left &lt;= right) &#123;
+        if(a[left] == target) &#123;
+            a[left] == a[right];
+            right --;
+        &#125;
+        left ++;
+        while(left &lt;= right &amp;&amp; a[rigth] == target) &#123;
+            right --;
+        &#125;
+    &#125;
+    return left;
+&#125;
+</code></pre>
+<h5 id="有序数组平方"><a href="#有序数组平方" class="headerlink" title="有序数组平方"></a>有序数组平方</h5><p>将数组内元素平方之后进行排序</p>
+<pre><code class="c++">int* dou(int&amp; a) &#123;
+    int length = sizeof(a) / sizeof(a[0]);
+    int left = 0, right = length - 1, k = length;
+    int newArr[length]&#123;&#125;;
+    for(int i = 0; i &lt; length; i ++) &#123;
+        if(a[left] * a[left] &lt; a[right] * a[right]) &#123;
+            newArr[k --] =  a[right] * a[right];
+            right --;
+        &#125;else &#123;
+            newArr[k --] =  a[left] * a[left];
+            left --;
+        &#125;
+        a = newArr;
+        return a;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/css/nord.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/js/memo.js"></script>
+
+</html>

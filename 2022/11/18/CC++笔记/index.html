@@ -39,7 +39,7 @@
             <div class="post-main">
     
         <div class="post-main-title">
-            C/C++语言笔记
+            C/C++笔记
         </div>
         <div class="post-meta">
             2022-11-18
@@ -179,12 +179,10 @@ system(&quot;cls/ shutdown /a/ pause &quot;);
 //定义变量
 int year&#123; 12 &#125;
 </code></pre>
-<p>强制转换</p>
-<pre><code class="c++">static_cast&lt;int&gt;
+<h5 id="强制转换"><a href="#强制转换" class="headerlink" title="强制转换"></a>强制转换</h5><pre><code class="c++">static_cast&lt;int&gt;
 //(int) c
 </code></pre>
-<p>枚举</p>
-<pre><code class="c++">enum class EquipLv: int &#123;
+<h5 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h5><pre><code class="c++">enum class EquipLv: int &#123;
     normal = 10,
     high,
     rare
@@ -192,8 +190,7 @@ int year&#123; 12 &#125;
 EquipLv weapon1 (EquipLv::normal);
 EquipLv weapon2 (EquipLv::rare);
 </code></pre>
-<p>命名空间</p>
-<pre><code class="c++">using namespace std;
+<h5 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h5><pre><code class="c++">using namespace std;
 //之后不用使用std
 /
 using std::cin/cout;
@@ -214,22 +211,18 @@ if(int a, b, c; 条件)
 
 switch(int a, b; 条件)
 </code></pre>
-<p>获取键盘输入</p>
-<pre><code class="c++">#include &lt;coion.h&gt;
+<h5 id="获取键盘输入"><a href="#获取键盘输入" class="headerlink" title="获取键盘输入"></a>获取键盘输入</h5><pre><code class="c++">#include &lt;coion.h&gt;
 
 _getch();
 </code></pre>
-<p>填充</p>
-<pre><code class="c++">#include &lt;iomanip&gt;
+<h5 id="填充"><a href="#填充" class="headerlink" title="填充"></a>填充</h5><pre><code class="c++">#include &lt;iomanip&gt;
 
 std::cout &lt;&lt; std::setfill(&#39;0&#39;);
 std::cout &lt;&lt; std::setw(3) &lt;&lt; xx
 </code></pre>
-<p>遍历数组</p>
-<pre><code class="c++">for(int aa : 数组);
+<h5 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h5><pre><code class="c++">for(int aa : 数组);
 </code></pre>
-<p>定义数组</p>
-<pre><code class="c++">#include &lt;array&gt;
+<h5 id="定义数组"><a href="#定义数组" class="headerlink" title="定义数组"></a>定义数组</h5><pre><code class="c++">#include &lt;array&gt;
 //较为安全的定义数组
 std::array&lt;int, 3&gt; shu&#123;1, 2, 3&#125;;
 //填充
@@ -247,8 +240,7 @@ studentId.clear();
 //判断是否为空
 studentId.empty();
 </code></pre>
-<p>判断一段程序是由c编译还是由c++编译程序编译的？</p>
-<pre><code class="cpp">#ifdef __cplusplus
+<h5 id="判断一段程序是由c编译还是由c-编译程序编译的？"><a href="#判断一段程序是由c编译还是由c-编译程序编译的？" class="headerlink" title="判断一段程序是由c编译还是由c++编译程序编译的？"></a>判断一段程序是由c编译还是由c++编译程序编译的？</h5><pre><code class="cpp">#ifdef __cplusplus
     cout &lt;&lt; &quot;c++&quot;;
 #else
     printf(&quot;c&quot;);
@@ -266,14 +258,16 @@ free(pa);
 delete[] pa;
 </code></pre>
 <h5 id="风险："><a href="#风险：" class="headerlink" title="风险："></a>风险：</h5><p>碎片化的内存</p>
-<p>引用</p>
-<p>不能改变其他引用</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>不能改变其他引用</p>
 <pre><code class="c++">int a&#123;500&#125;;
 int &amp; la&#123;a&#125;;
 int &amp; lla&#123;a&#125;;
 </code></pre>
-<p>智能指针</p>
-<pre><code class="c++">std::unique_ptr&lt;类型&gt; intPtr&#123;&#125;;
+<p>数组引用</p>
+<pre><code class="c++">int a[100];
+int (&amp;b)[100] = a
+</code></pre>
+<h4 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h4><pre><code class="c++">std::unique_ptr&lt;类型&gt; intPtr&#123;&#125;;
 //
 std::unique_ptr&lt;类型&gt; intPtr&#123;std::make_unique&lt;int []&gt;(5 &gt;个数) &#125;;
 
@@ -287,8 +281,7 @@ intPtr.reset();
 <pre><code class="c++">char str[0xff]
 wscanf_s(&quot;%s&quot;, wstr, 可接受最大字符值);
 </code></pre>
-<p>结构体</p>
-<pre><code class="c++">typedef struct Role &#123;
+<h3 id="结构体-1"><a href="#结构体-1" class="headerlink" title="结构体"></a>结构体</h3><pre><code class="c++">typedef struct Role &#123;
     int HP;
 &#125;* PRole, * ARole;
 
@@ -299,8 +292,7 @@ PRole puesr = new Role;
 //使用
 puser-&gt;HP;
 </code></pre>
-<p>union</p>
-<pre><code class="c++">union USER &#123;
+<h4 id="union"><a href="#union" class="headerlink" title="union"></a>union</h4><pre><code class="c++">union USER &#123;
     short sHp;
     int nHp;
 &#125;
@@ -339,14 +331,12 @@ str.erase(); / str.clear();
 <pre><code class="c++">if(str[i] &lt; 0) i++;
 count += 1;
 </code></pre>
-<p>函数</p>
-<pre><code class="c++">//传递引用参数  
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><pre><code class="c++">//传递引用参数  
 bool act(const Role&amp; Acter)
 //默认参数, 放在最后
 int add(int a, int b = 100)
 </code></pre>
-<p>不定量参数</p>
-<pre><code class="c++">int Average(int count, ...) &#123;
+<h5 id="不定量参数"><a href="#不定量参数" class="headerlink" title="不定量参数"></a>不定量参数</h5><pre><code class="c++">int Average(int count, ...) &#123;
     char * arg;
     //存储
     va_start(arg, count);
@@ -355,6 +345,32 @@ int add(int a, int b = 100)
     //释放
     va_end(arg);
 &#125;
+</code></pre>
+<h4 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h4><p>声明函数指针<code>类型</code></p>
+<pre><code class="c++">int Add(int a, int b) &#123;
+    return a + b;
+&#125;
+
+typedef char(*pfAdd) (int, int);
+//
+using pFAdd = char (*) (int, int);
+
+pfAdd pAdd = (pfAdd) Add;
+</code></pre>
+<p>声明函数指针</p>
+<pre><code class="c++">int (*pxAdd) (int, int) = Add;
+
+pxAdd(100, 100);
+</code></pre>
+<h4 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h4><p>参数类型不同，参数个数不同，函数名相同</p>
+<h4 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h4><pre><code class="c++">template &lt;typename t1, typename t2,,,&gt; 
+t1 ave(t1 a, t2 b) &#123;
+    t1 x;
+    t2 *px;
+    return (a + b)/2;
+&#125;
+//指定类型
+ave &lt;int, float&gt; (123, 123); 
 </code></pre>
 
     </div>
