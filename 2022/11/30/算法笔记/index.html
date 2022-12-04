@@ -136,6 +136,101 @@ int remove(int&amp; a, target) &#123;
     &#125;
 &#125;
 </code></pre>
+<h4 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h4><h5 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h5><pre><code class="c++">int minSubArrayLen(int s, int&amp; a) &#123;
+    int len = sizeof(a) / sizeof(a[0]);
+    int result&#123;INT32_MAX&#125;;
+    int sum&#123;0&#125;, subLength&#123;0&#125;;
+    for(int i = 0; i &lt; len; i ++) &#123;
+        sum = 0; 
+        for(int j = i; j &lt; len; j ++) &#123;
+            sum += a[j];
+            if(sum &gt;= s) &#123;
+                subLength = j - i + 1;
+                result = result &lt; subLength ? result : subLength;
+                break; //执行完退出
+            &#125;
+        &#125;
+    &#125;
+    return result == IN32_MAX ? 0 : result; 
+&#125;
+</code></pre>
+<h5 id="滑动窗口解法"><a href="#滑动窗口解法" class="headerlink" title="滑动窗口解法"></a>滑动窗口解法</h5><pre><code class="c++">int minSubArrayLen(int s, int&amp; a) &#123;
+    int result = IN32_MAX;
+    int len = sizeof(a) / sizeof(a[0]);
+    int i&#123;0&#125;, subLength&#123;0&#125;, sum&#123;0&#125;;
+    for(int j = 0; j &lt; len; j ++) &#123;
+        sum += a[j];
+        while(sum &gt;= s) &#123;
+            subLength = j - i + 1;
+            result = result &lt; subLength ? result : subLength;
+            sum -= a[i];
+            i ++;
+        &#125;
+    &#125;
+    return result == IN32_MAX ? 0 : result;
+&#125;
+</code></pre>
+<h4 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h4><pre><code class="c++">void generateMatrix(int n, int *array) &#123;
+    int loop &#123;0&#125;;
+    int startx &#123;0&#125;;
+    int starty &#123;0&#125;;
+    int mid &#123;n / 2&#125;;
+    int offset &#123;1&#125;;
+    int count &#123;1&#125;;
+    while(loop ++ &lt; n / 2) &#123;
+        i = startx;
+        j = starty;
+        
+        //从左往右
+        for(int i = startx; i &lt; n - offset; i ++) &#123;
+            array[startx][i] = count ++;
+        &#125;
+        //从上往下
+        for(int j = starty; j &lt; n - offset; j ++) &#123;
+            array[i][j] = count ++;
+        &#125;
+        //从右往左
+        for(; i &gt; startx; i --) &#123;
+            array[i][j] = count ++;
+        &#125;
+           //从下往上
+        for(; j &gt; starty; j --) &#123;
+            array[i][j] = count ++;
+        &#125;
+        startx ++;
+        starty ++;
+        //收缩1
+        offset ++;
+    &#125;
+    if(n % 2) &#123;
+        array[mid][mid] = count;
+    &#125;
+&#125;
+int main() &#123;
+    int *a&#123;new int[5][5]&#125;;
+    geerateMatrix(5);
+&#125; 
+</code></pre>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>链表定义</p>
+<pre><code class="C++">struct ListNode &#123;
+    int val;
+    ListNode* next;
+    //构造函数
+    ListNode(int x) : val(x), next(NULL) &#123;&#125;;
+&#125;
+</code></pre>
+<p>删除元素</p>
+<pre><code class="c++">ListNode* delNode(ListNode * head, int val) &#123;
+    //删除头节点
+    while(head != NULL &amp;&amp; head-&gt;val == val) &#123;
+        ListNode* temp = head;
+        head = head-&gt;next;
+        delete temp;
+    &#125;
+    //删除相同元素
+    ListNode* cu
+&#125;
+</code></pre>
 
     </div>
     <div class="menu">

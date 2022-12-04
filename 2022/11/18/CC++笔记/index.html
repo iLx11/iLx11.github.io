@@ -363,7 +363,8 @@ pfAdd pAdd = (pfAdd) Add;
 pxAdd(100, 100);
 </code></pre>
 <h4 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h4><p>参数类型不同，参数个数不同，函数名相同</p>
-<h4 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h4><pre><code class="c++">template &lt;typename t1, typename t2,,,&gt; 
+<h4 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h4><pre><code class="c++">//设置默认值 
+template &lt;typename t1=int, typename t2,,,&gt; 
 t1 ave(t1 a, t2 b) &#123;
     t1 x;
     t2 *px;
@@ -371,6 +372,18 @@ t1 ave(t1 a, t2 b) &#123;
 &#125;
 //指定类型
 ave &lt;int, float&gt; (123, 123); 
+
+//模板参数
+template &lt;typename t1, short count&gt;
+t1 ave(t1 (&amp;ary) [count]) &#123;
+    for (int i = 0; i &lt; count; i++)
+&#125;
+</code></pre>
+<p>头文件</p>
+<pre><code class="c++">//多次引用只生效一次
+#pragma once
+//有定义才执行
+#ifdef aa
 </code></pre>
 
     </div>
