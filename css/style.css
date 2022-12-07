@@ -46,7 +46,7 @@
     --bg-color-2: rgba(255, 255, 255, 1);
 }
 
-[bg-img='0'] {
+/* [bg-img='0'] {
     --bg: url("https://s1.ax1x.com/2022/09/23/xkA1rq.jpg")no-repeat 0em -5em/100% 21em;
 }
 
@@ -57,7 +57,7 @@
 [bg-img='2'] {
     --bg: url("https://s1.ax1x.com/2022/09/23/xkAVVf.jpg") no-repeat 0em 0em/100% 20em;
 
-}
+} */
 
 @font-face {
     font-family: "orb";
@@ -80,7 +80,7 @@ body {
     letter-spacing: 0.6px;
     color: var(--font-color-2);
 }
-
+/* 页面背景 */
 .backg {
     width: 100%;
     height: 100%;
@@ -90,7 +90,6 @@ body {
     z-index: -1;
     /*background: rgba(61, 65, 67,0.5);*/
     background: rgb(242, 245, 252);
-
 }
 
 a {
@@ -117,7 +116,7 @@ a {
         filter: blur(0);
     }
 }
-
+/* 背景图片 */
 .bgimg {
     width: 100%;
     height: 265px;
@@ -154,6 +153,7 @@ a {
 */
 @media screen and (max-width: 600px) {}
 
+/* 页面主题 */
 .paper {
     padding: 2.1vw 2.4vw;
 }
@@ -214,7 +214,7 @@ a {
 .more-hide {
     animation: moreHide 1.5s ease;
 }
-
+/* 头部 */
 .header {
     padding-bottom: 20px;
     margin-bottom: 10px;
@@ -227,6 +227,166 @@ a {
     z-index: 66;
 }
 
+.frame {
+    /* transform: scale(1.5); */
+    width: 60%;
+    height: 15em;
+    background: linear-gradient(#a6adb7, #dbd1d4);
+    outline: 5px solid gray;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    position: absolute;
+    right: 5%;
+    top: 1%;
+    z-index: -1;
+    overflow: hidden;
+    filter: opacity(0.5);
+  }
+  
+  .mountains {
+    position: absolute;
+    width: 100%;
+    height: 65%;
+    bottom: -1em;
+  }
+  
+  .mountain-1 {
+    width: 12em;
+    height: 30em;
+    transform: rotate(-65deg);
+    background: #41354e;
+    position: absolute;
+    bottom: -18em;
+    left: -2em;
+    z-index: 10;
+  }
+  
+  .mountain-2 {
+    width: 25em;
+    height: 20em;
+    transform: rotate(-20deg);
+    background: #2d556a;
+    position: absolute;
+    bottom: -16em;
+    right: -5em;
+    z-index: 9;
+  }
+  
+  .mountain-3 {
+    width: 30em;
+    height: 30em;
+    transform: rotate(-45deg);
+    background: #6f8695;
+    z-index: 8;
+    position: absolute;
+    left: -5em;
+    bottom: -23.5em;
+  }
+  
+  .mountain-4 {
+    width: 30em;
+    height: 30em;
+    transform: rotate(-45deg);
+    background: #adb1b9;
+    z-index: 7;
+    position: absolute;
+    left: -13em;
+    bottom: -25em;
+  }
+  
+  .sky {
+    height: 100%;
+  }
+  
+  .moon {
+    width: 3em;
+    height: 3em;
+    background: #fff;
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 1px #fff;
+    position: absolute;
+    top: 1em;
+    bottom: 0;
+    left: 3em;
+    right: 0;
+  }
+  
+  .star-1 {
+    width: 0.3em;
+    height: 0.3em;
+    background: rgba(255, 255, 255, 0.596);
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 1px rgba(255, 255, 255, 0.596);
+    position: absolute;
+    top: 5em;
+    bottom: 0;
+    left: 3em;
+    right: 0;
+  }
+  
+  .star-2 {
+    width: 0.3em;
+    height: 0.3em;
+    background: rgba(255, 255, 255, 0.596);
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 1px rgba(255, 255, 255, 0.596);
+    position: absolute;
+    top: 3em;
+    bottom: 0;
+    left: 2em;
+    right: 0;
+  }
+  
+  .star-3 {
+    width: 0.3em;
+    height: 0.3em;
+    background: rgba(255, 255, 255, 0.596);
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 1px rgba(255, 255, 255, 0.596);
+    position: absolute;
+    top: 4em;
+    bottom: 0;
+    left: 8em;
+    right: 0;
+  }
+  
+  .star-4 {
+    width: 0.3em;
+    height: 0.3em;
+    background: rgba(255, 255, 255, 0.596);
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 1px rgba(255, 255, 255, 0.596);
+    position: absolute;
+    top: 2em;
+    bottom: 0;
+    left: 10em;
+    right: 0;
+  }
+  
+  .star-5 {
+    width: 0.5em;
+    height: 0.5em;
+    background: rgba(255, 255, 255, 0.596);
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 1px rgba(255, 255, 255, 0.596);
+    position: absolute;
+    top: 3em;
+    bottom: 0;
+    left: 11em;
+    right: 0;
+  }
+  
+  .bottom {
+    width: 100%;
+    font-size: 2em;
+    position: absolute;
+    bottom: 0;
+  }
+  .bottom .icon {
+    margin: 1em;
+    cursor: pointer;
+  }
+/* 更多内容 */
+/* ----------------------------------------------- */
 .more {
     width: 3em;
     height: 3em;
@@ -377,7 +537,8 @@ a {
     z-index: 66;
     display: none;
 }
-
+/* 搜索组件 */
+/* ----------------------------------------------- */
 .header .search {
     width: 100%;
     height: 3em;
@@ -474,7 +635,8 @@ a {
     right: 0;
     transform: translateX(-260%);
 }
-
+/* 所有文章
+----------------------------------------------------------------------- */
 .header .allArticle {
     cursor: pointer;
     color: var(--font-color-1);
@@ -550,17 +712,20 @@ a {
 }
 
 .logo {
-    font-size: 3rem;
+
+    font-size: 2rem;
     font-weight: 600;
     color: rgba(51, 51, 51, 0.93);
     margin-bottom: 16px;
     flex: 0 0 100%;
     font-family: "orb";
+    z-index: 66;
 }
 
 .logo text {
     animation: text 2s ease;
-    fill: rgba(51, 51, 51, 0.9);
+    fill: rgba(51, 51, 51, 0.8);
+    z-index: 66;
 }
 
 @keyframes text {
@@ -575,10 +740,11 @@ a {
     }
 
     100% {
-        fill: rgba(51, 51, 51, 0.9);
+        fill: rgba(51, 51, 51, 0.8);
     }
 }
-
+/* 工具组件
+------------------------------------------------------- */
 .tools {
     width: 100%;
     height: 2.5em;
@@ -639,7 +805,8 @@ a {
     justify-content: center;
 
 }
-
+/* 导航
+--------------------------------------------------------- */
 .nav {
     margin: 0 0 4px;
     flex: 0 0 100%;
@@ -668,7 +835,8 @@ a {
     opacity: 1;
     transition: opacity ease-in-out .5s;
 }
-
+/* 文章头部
+------------------------------------------------------ */
 .post-header {
     display: flex;
     flex-flow: row nowrap;
@@ -739,9 +907,11 @@ a {
     transition: width 0.8s ease;
 }
 /*改动位置------------------------------------------------*/
+/*
 .post:nth-child(1) {
     width: 100%;
 }
+*/
 .post:active {
     border-radius: 25px;
     background: var(--bg-color-1);

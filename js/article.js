@@ -2,14 +2,15 @@ window.onload = function() {
     console.log(storage.retrieve("theme"))
     if (storage.retrieve("theme") == "dark") {
         document.querySelector('.theme').click();
-        document.documentElement.setAttribute("bg-img", "2");
-    } else {
-        if (storage.retrieve("bimg") == "1") {
-            document.documentElement.setAttribute("bg-img", "1");
-        } else {
-            document.documentElement.setAttribute("bg-img", "0");
-        }
-    }
+        // document.documentElement.setAttribute("bg-img", "2");
+    } 
+    // else {
+    //     if (storage.retrieve("bimg") == "1") {
+    //         document.documentElement.setAttribute("bg-img", "1");
+    //     } else {
+    //         document.documentElement.setAttribute("bg-img", "0");
+    //     }
+    // }
     if (storage.retrieve("listC") == "single") {
         document.querySelector('.postListC .singleRow').click();
     }
@@ -101,16 +102,16 @@ more.addEventListener('click', () => {
     });
 });
 //背景图切换
-document.querySelector('.changebg').addEventListener('click', function() {
-    if (storage.retrieve("bimg") == "0" || storage.retrieve("bimg") == null) {
-        document.documentElement.setAttribute("bg-img", "1");
-        storage.save("bimg", "1");
-    } else {
-        document.documentElement.setAttribute("bg-img", "0");
-        storage.save("bimg", "0");
-    }
-    document.querySelector('.closeMore').click();
-});
+// document.querySelector('.changebg').addEventListener('click', function() {
+//     if (storage.retrieve("bimg") == "0" || storage.retrieve("bimg") == null) {
+//         document.documentElement.setAttribute("bg-img", "1");
+//         storage.save("bimg", "1");
+//     } else {
+//         document.documentElement.setAttribute("bg-img", "0");
+//         storage.save("bimg", "0");
+//     }
+//     document.querySelector('.closeMore').click();
+// });
 
 //资源或建议推送
 document.querySelector('.send').addEventListener('click', () => {
@@ -118,7 +119,7 @@ document.querySelector('.send').addEventListener('click', () => {
     if (input[1].value.trim() != '') {
         let comment = `${input[0].value}+-->${input[1].value}`;
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://api.bemfa.com/api/device/v1/data/3/push/get/?uid=4a0a53fe249e4d889d9310e03aba10d7&topic=comment&msg=' + comment);
+        xhr.open('GET', 'https://api.bemfa.com/api/wechat/v1/weget.php?msg2=hahahaha&type=2&uid=88538b55194ff028c5f950c9ac1fb9ce&device=我是设备名称&msg=' + comment);
         xhr.send();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -140,17 +141,22 @@ theme.addEventListener('click', () => {
     if (theme.innerHTML == "Light") {
         theme.innerHTML = "Dark"
         document.documentElement.setAttribute("color-theme", "dark");
-        document.documentElement.setAttribute("bg-img", "2");
+        document.querySelector('.logo text').style.fill = "rgba(255,255,255,0.7)";
+        document.querySelector('.frame').style.filter =  "opacity(0.2)";
+
+        // document.documentElement.setAttribute("bg-img", "2");
         storage.save("theme", "dark");
 
     } else {
         theme.innerHTML = "Light"
         document.documentElement.setAttribute("color-theme", "light");
-        if (storage.retrieve("bimg") != null) {
-            document.documentElement.setAttribute("bg-img", storage.retrieve("bimg"));
-        } else {
-            document.documentElement.setAttribute("bg-img", "0");
-        }
+        document.querySelector('.logo text').style.fill = "rgba(51,51,51,0.8)";
+        document.querySelector('.frame').style.filter =  "opacity(0.5)";
+        // if (storage.retrieve("bimg") != null) {
+        //     document.documentElement.setAttribute("bg-img", storage.retrieve("bimg"));
+        // } else {
+        //     document.documentElement.setAttribute("bg-img", "0");
+        // }
         storage.save("theme", "light");
     }
 });
