@@ -385,6 +385,70 @@ t1 ave(t1 (&amp;ary) [count]) &#123;
 //有定义才执行
 #ifdef aa
 </code></pre>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><pre><code class="c++">class ROLE &#123;
+    private: 
+        int damage;
+    public: 
+        int hp;
+        void act();
+        void init() &#123;
+            hp = 1;
+        &#125;
+   //构造函数
+   ROLE() &#123;
+       cout &lt;&lt; &quot;构造&quot;;
+   &#125;
+   //默认构造
+    ROLE() = default;
+&#125;
+ROLE aa&#123;&#125;;  
+//外联
+//以引用的形式返回
+ROLE&amp; ROLE::act () &#123;
+    cout &lt;&lt; &quot;23423&quot;;
+    //返回指针
+    return *this;
+&#125;
+</code></pre>
+<h5 id="禁止类型转换"><a href="#禁止类型转换" class="headerlink" title="禁止类型转换"></a>禁止类型转换</h5><pre><code class="c++">explicit Role() &#123;&#125;
+</code></pre>
+<h5 id="成员初始化列表"><a href="#成员初始化列表" class="headerlink" title="成员初始化列表"></a>成员初始化列表</h5><blockquote>
+<p>效率更高</p>
+<p>在某些情况下，只能用这种方式进行初始化</p>
+</blockquote>
+<pre><code class="c++">Role(int _lv, int _damage): lv&#123;_lv&#125;, damage&#123;_damage&#125; &#123;
+    
+&#125;
+</code></pre>
+<h5 id="委托构造"><a href="#委托构造" class="headerlink" title="委托构造"></a>委托构造</h5><blockquote>
+<p>只能委托一次</p>
+</blockquote>
+<pre><code class="c++">Role(int _lv, int _damage):Role(_lv)&#123;&#125;
+</code></pre>
+<h5 id="副本构造"><a href="#副本构造" class="headerlink" title="副本构造"></a>副本构造</h5><pre><code class="c++">Role(Role &amp; role): hp( role.hp)
+</code></pre>
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><p>析构函数在类的生命结束时，自动调用，若没有则会添加一个空的析构函数，且只能有一个</p>
+<pre><code class="c++">~Role = default;
+</code></pre>
+<h4 id="Static-静态成员函数"><a href="#Static-静态成员函数" class="headerlink" title="Static 静态成员函数"></a>Static 静态成员函数</h4><blockquote>
+<p>没有创建实例，都可以访问静态成员函数</p>
+<p>静态成员函数不能访问非静态成员变量</p>
+<p>不能是 const</p>
+<p>不能使用 this 指针</p>
+</blockquote>
+<h3 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h3><p>友元函数</p>
+<pre><code class="c++">class T &#123;
+    friend void Set(T&amp; t1);
+&#125;
+void Set(T&amp; t1) &#123;&#125;
+</code></pre>
+<h4 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h4><pre><code class="c++">class Role &#123;
+    class Weapon &#123;
+        int lv;
+    &#125;
+&#125;
+Role::Weapon wp;
+</code></pre>
 
     </div>
     <div class="menu">

@@ -47,7 +47,7 @@
     
 <hr>
     <div class="post-md">
-        <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h4 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h4><p>左右闭区间</p>
+        <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>左右闭区间</p>
 <pre><code class="c++">void main() &#123;
     int a[10]&#123;&#125;;
     search(a, 3)
@@ -71,7 +71,7 @@ int search(int &amp;a, target) &#123;
     return -1;
 &#125;
 </code></pre>
-<h4 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h4><pre><code class="c++">int main() &#123;
+<h3 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h3><pre><code class="c++">int main() &#123;
     int a[10]&#123;&#125;;
     remove(a, 3);
 &#125;
@@ -136,7 +136,7 @@ int remove(int&amp; a, target) &#123;
     &#125;
 &#125;
 </code></pre>
-<h4 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h4><h5 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h5><pre><code class="c++">int minSubArrayLen(int s, int&amp; a) &#123;
+<h3 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h3><h5 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h5><pre><code class="c++">int minSubArrayLen(int s, int&amp; a) &#123;
     int len = sizeof(a) / sizeof(a[0]);
     int result&#123;INT32_MAX&#125;;
     int sum&#123;0&#125;, subLength&#123;0&#125;;
@@ -170,7 +170,7 @@ int remove(int&amp; a, target) &#123;
     return result == IN32_MAX ? 0 : result;
 &#125;
 </code></pre>
-<h4 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h4><pre><code class="c++">void generateMatrix(int n, int *array) &#123;
+<h3 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h3><pre><code class="c++">void generateMatrix(int n, int *array) &#123;
     int loop &#123;0&#125;;
     int startx &#123;0&#125;;
     int starty &#123;0&#125;;
@@ -215,12 +215,11 @@ int main() &#123;
 <pre><code class="C++">struct ListNode &#123;
     int val;
     ListNode* next;
-    //构造函数
+    //构造函数初始化
     ListNode(int x) : val(x), next(NULL) &#123;&#125;;
 &#125;
 </code></pre>
-<p>删除元素</p>
-<pre><code class="c++">ListNode* delNode(ListNode * head, int val) &#123;
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><h5 id="处理头节点"><a href="#处理头节点" class="headerlink" title="处理头节点"></a>处理头节点</h5><pre><code class="c++">ListNode* delNode(ListNode* head, int val) &#123;
     //删除头节点
     while(head != NULL &amp;&amp; head-&gt;val == val) &#123;
         ListNode* temp = head;
@@ -228,7 +227,159 @@ int main() &#123;
         delete temp;
     &#125;
     //删除相同元素
-    ListNode* cu
+    ListNode* cur = head;
+    while(cur != NULL &amp;&amp; cur-&gt;next != NULL) &#123;
+        if(cur-&gt;next-&gt;val == val) &#123;
+            ListNode* temp = cur-&gt;next;
+            cur-&gt;next = cur-&gt;next-&gt;next;
+            delete temp;
+        &#125;else &#123;
+            cur = cur-&gt;next;
+        &#125;
+    &#125;
+    return head;
+&#125;
+</code></pre>
+<h5 id="设置虚拟头节点"><a href="#设置虚拟头节点" class="headerlink" title="设置虚拟头节点"></a>设置虚拟头节点</h5><pre><code class="c++">ListNode* delNode(ListNode* head, int val) &#123;
+    //设置虚拟头节点
+    ListNode* vhead = new ListNode(0);
+    vhead-&gt;next = head;
+    ListNode* cur = vhead;
+    while(cur != NULL &amp;&amp; cur-&gt;next != NULL) &#123;
+        if(cur-&gt;next-&gt;val == val) &#123;
+            ListNode* temp = cur-&gt;next;
+            cur-&gt;next = cur-&gt;next-&gt;next;
+            delet tempo;
+        &#125;else &#123;
+            cur = cur-&gt;next;
+        &#125;
+    &#125;
+     head = vhead-&gt;next;
+     delete vhead;
+     return head;
+&#125;
+</code></pre>
+<h5 id="C语言版本"><a href="#C语言版本" class="headerlink" title="C语言版本"></a>C语言版本</h5><pre><code class="C++">struct ListNode* delNode(struct ListNode* head, int val) &#123;
+    while(head != NULL &amp;&amp; head-&gt;val == val) &#123;
+        struct ListNode* temp = head;
+        head = head-&gt;next;
+        free(temp);
+    &#125;
+    struct ListNode* cur = head;
+       while(cur != NULL &amp;&amp; cur-&gt;next != NULL) &#123;
+        if(cur-&gt;next-&gt;val == val) &#123;
+            struct ListNode* temp = cur-&gt;next;
+            cur-next = cur-&gt;next-&gt;next;
+            free(temp);
+        &#125;
+    &#125;
+    return head;
+&#125; 
+
+//虚拟头节点方法
+struct ListNode* delNode(struct ListNode* head, int val() &#123;
+    typedef struct ListNode ListNode;
+    ListNode *vhead = (ListNode *) malloc(sizeof(ListNode));
+    vhead-&gt;next = head;
+    ListNode *cur = vhead;
+    while(cur != NULL &amp;&amp; cur-&gt;next != NULL) &#123;
+        if(cur-&gt;next-&gt;val == val) &#123;
+            ListNode *temp = cur-&gt;next;
+            cur-&gt;next = cur-&gt;next-&gt;next;
+            free(temp);
+        &#125;else &#123;
+            cur = cur-&gt;next;
+        &#125;
+    &#125;
+    head = vhead-&gt;next;
+    free(vhead);
+    return head;
+&#125;
+</code></pre>
+<h3 id="设计链表"><a href="#设计链表" class="headerlink" title="设计链表"></a>设计链表</h3><blockquote>
+<ul>
+<li>获取链表第index个节点的数值</li>
+<li>在链表的最前面插入一个节点</li>
+<li>在链表的最后面插入一个节点</li>
+<li>在链表第index个节点前面插入一个节点</li>
+<li>删除链表的第index个节点</li>
+</ul>
+</blockquote>
+<pre><code class="c++">class LinkedList &#123;
+    private:
+        int _size;
+        ListNode* _vhead;
+    public:
+        struct ListNode &#123;
+            int val;
+            ListNode* next;
+            ListNode(int val): val(val), next(nullptr)&#123;&#125;
+        &#125;;
+        //构造函数
+        LinkedList() &#123;
+               _vhead = new ListNode(0);
+            _size = 0;
+        &#125;
+        //获取index数值
+        int getVal(int index) &#123;
+            if(index &lt; 0 || index &gt; _size - 1) &#123;
+                return -1;
+            &#125;
+            //后移节点确保最后cur为index
+            ListNode* cur = _vhead-&gt;next;
+            while(index--) &#123;
+                   cur = cur-&gt;next;
+            &#125;
+            return cur-&gt;val;
+        &#125;
+        //头部添加节点
+        void popNode(int val) &#123;
+            ListNode* newNode = new ListNode(val);
+            newNode-&gt;next = _vhead-&gt;next;
+            -vhead-&gt;next = newNode;
+            _size ++;
+        &#125;
+        //尾部添加节点
+        void pushNode(int val) &#123;
+            ListNode* newNode = new ListNode(val);
+            ListNode* cur = _vhead;
+            while(cur-&gt;next != NULL) &#123;
+                cur = cur-&gt;next;
+            &#125;
+            cur-&gt;next = newNode;
+            _size ++;
+        &#125;
+        //删除 index 节点
+        void delIndexNode(int index) &#123;
+               ListNode* cur = _vhead;
+            while(index --) &#123;
+                cur = cur-&gt;next;
+            &#125;
+            ListNode* temp = cur-&gt;next;
+            cur-&gt;next = cur-&gt;next-&gt;next;
+               delete temp;
+            _size --;
+        &#125;
+        //添加 index 节点
+        void addIndexNode(int index) &#123;
+            ListNode* newNode = new ListNode(val);
+            ListNode* cur = _vhead;
+            while(index --) &#123;
+                cur = cur-&gt;next;
+            &#125;
+            newNode-&gt;next = cur-&gt;next;
+            cur-next = newNode;
+            _size ++;
+        &#125;
+        //遍历链表
+        void showLinked() &#123;
+            ListNode* cur = _vhead;
+               while(cur-&gt;next != NULL) &#123;
+                cout &lt;&lt;&quot;val == &quot; &lt;&lt; cur-&gt;next-&gt;val;
+                cur = cur-&gt;next;
+            &#125;
+            cout &lt;&lt; endl;
+        &#125;
 &#125;
 </code></pre>
 
