@@ -400,6 +400,79 @@ struct ListNode* delNode(struct ListNode* head, int val() &#123;
     return pre;
 &#125;
 </code></pre>
+<h3 id="两两交换链表的节点"><a href="#两两交换链表的节点" class="headerlink" title="两两交换链表的节点"></a>两两交换链表的节点</h3><pre><code class="c++">ListNode* changeDouble(ListNode* head) &#123;
+    ListNode* vhead = new ListNode(0);
+    vhead-&gt;next = head;
+    ListNode* cur = vhead;
+    while(cur-&gt;next &amp;&amp; cur-&gt;next-&gt;next) &#123;
+           ListNode* temp1 = cur-&gt;next;
+        ListNode* temp2 = cur-&gt;next-&gt;next;
+        //开始交换
+        cur-&gt;next = temp2;
+        cur-&gt;next-&gt;next = temp1;
+        cur-&gt;next-&gt;next-&gt;next = temp2-&gt;next;
+        //向后移动两位
+        cur = cur-&gt;next-&gt;next;
+    &#125;
+       return vhead-&gt;next;
+&#125;
+</code></pre>
+<h3 id="删除倒数第N个节点"><a href="#删除倒数第N个节点" class="headerlink" title="删除倒数第N个节点"></a>删除倒数第N个节点</h3><pre><code class="c++">ListNode* delReverseN(ListNode* head, int N) &#123;
+    ListNode* vhead = new ListNode(0);
+    vhead-&gt;next = head;
+    ListNode* slowp = vhead;
+    ListNode* fastp = vhead;
+    while(n-- &amp;&amp; fastp-&gt;next) &#123;
+        fastp = fastp-&gt;next;
+    &#125;
+    fastp = fastp-&gt;next;
+    while(fastp) &#123;
+        fastp = fastp-&gt;next;
+        slowp = slowp-next;
+    &#125;
+    //删除节点，释放内存
+    ListNode* temp = slowp-&gt;next;
+    slowp-&gt;next = slow-&gt;next-next;
+    delete temp;
+    retrun vhead-&gt;next;
+&#125; 
+</code></pre>
+<h3 id="链表相交"><a href="#链表相交" class="headerlink" title="链表相交"></a>链表相交</h3><pre><code class="c++">ListNode* sameLinked(ListNode* linA, ListNode* linB) &#123;
+    ListNode* lA = linA;
+    ListNode* lB = linB;
+    int alen&#123;0&#125;, blen&#123;0&#125;;
+    //计算链表长度
+    while(lA != NULL) &#123;
+        lA = lA-&gt;next;
+        alen ++;
+    &#125;
+    while(lB != NULL) &#123;
+        lB = lB-&gt;next;
+        blen ++;
+    &#125;
+    //使 A， B指向头部
+    lA = linA;
+    lB = linB;
+    //保持A指向较长的链表
+    if(blen &gt; alen) &#123;
+        //交换值
+        swap(blen, alen);
+        swap(lB, lA);
+    &#125;
+    while(alen --) &#123;
+        lA = lA-&gt;next;
+    &#125;
+    //寻找相交
+    while(lA != NULL) &#123;
+        if(lA == lB) &#123;
+            return lA;
+        &#125;
+        lA = lA-&gt;next;
+        lB = lB-&gt;next;
+    &#125;
+    retrun NULL;
+&#125;
+</code></pre>
 
     </div>
     <div class="menu">
