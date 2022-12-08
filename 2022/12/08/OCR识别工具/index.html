@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <!-- <div class="bgimg"></div> -->
+            <div class="cover"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            OCR识别工具
+        </div>
+        <div class="post-meta">
+            2022-12-08
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <h1 id="OCR图片文字识别工具"><a href="#OCR图片文字识别工具" class="headerlink" title="OCR图片文字识别工具"></a>OCR图片文字识别工具</h1><p><strong>💡 多功能OCR图文识别，支持多平台，导出PDF，doc，txt等可编辑格式…</strong></p>
+<hr>
+<h1 id="在线网页端OCR"><a href="#在线网页端OCR" class="headerlink" title="在线网页端OCR"></a>在线网页端OCR</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://web.baimiaoapp.com/">https://web.baimiaoapp.com/</a><br><a target="_blank" rel="noopener" href="http://www.imagetotxt.com/">http://www.imagetotxt.com/</a><br><a target="_blank" rel="noopener" href="https://pearocr.com/#/">https://pearocr.com/#/</a><br><a target="_blank" rel="noopener" href="https://www.gaituya.com/wenzi/">https://www.gaituya.com/wenzi/</a><br><a target="_blank" rel="noopener" href="https://www.gaitubao.com/tupian-wenzi">https://www.gaitubao.com/tupian-wenzi</a><br><a target="_blank" rel="noopener" href="https://zhcn.109876543210.com/">https://zhcn.109876543210.com/</a><br><a target="_blank" rel="noopener" href="https://catocr.com/#/">https://catocr.com/#/</a><br><a target="_blank" rel="noopener" href="https://www.onlineocr.net/">https://www.onlineocr.net/</a></p>
+</blockquote>
+<h1 id="飞浆PaddleOCR"><a href="#飞浆PaddleOCR" class="headerlink" title="飞浆PaddleOCR"></a>飞浆PaddleOCR</h1><p>基于飞桨的OCR工具库，包含总模型仅8.6M的超轻量级中文OCR，单模型支持中英文数字组合识别、竖排文本识别、长文本识别。同时支持多种文本检测、文本识别的训练算法</p>
+<p><a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/course/introduce/25207">官网</a> <a target="_blank" rel="noopener" href="https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/README_ch.md">GitHub</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_13-58-35.jpg" alt="img"></p>
+<p>特性</p>
+<p>支持多种OCR相关前沿算法，在此基础上打造产业级特色模型<a target="_blank" rel="noopener" href="https://gitee.com/paddlepaddle/PaddleOCR/blob/release/2.6/doc/doc_ch/ppocr_introduction.md">PP-OCR</a>和<a target="_blank" rel="noopener" href="https://gitee.com/paddlepaddle/PaddleOCR/blob/release/2.6/ppstructure/README_ch.md">PP-Structure</a>，并打通数据生产、模型训练、压缩、预测部署全流程</p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/186170862-b8f80f6c-fee7-4b26-badc-de9c327c76ce.png" alt="img"></p>
+<p><strong>📚《动手学OCR》电子书</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/paddlepaddle/PaddleOCR/blob/release/2.6/doc/doc_ch/ocr_book.md">《动手学OCR》电子书</a></li>
+<li><a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/course/introduce/25207">动手学OCR·十讲</a></li>
+</ul>
+<hr>
+<h1 id="PaddleOCR-json"><a href="#PaddleOCR-json" class="headerlink" title="PaddleOCR-json"></a>PaddleOCR-json</h1><p>图片转文字程序</p>
+<p>一个基于 PaddleOCR v2.6 C++ 的离线图片OCR文字识别程序</p>
+<p>通过管道等方式输入本地图片路径，输出识别结果json字符串</p>
+<p>适用于Win10系统</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hiroi-sora/PaddleOCR-json">GitHub</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_14-03-53.jpg" alt="img"></p>
+<hr>
+<h1 id="PandaOCR"><a href="#PandaOCR" class="headerlink" title="PandaOCR"></a>PandaOCR</h1><p>⭐ 多功能OCR图文识别+翻译+朗读+弹窗+公式+表格+图床+搜图+二维码</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/miaomiaosoft/PandaOCR">PandaOCR普通版</a> <a target="_blank" rel="noopener" href="https://github.com/miaomiaosoft/PandaOCR.Pro">PandaOCR专业版</a> <a target="_blank" rel="noopener" href="https://gitee.com/DDDDDGOOO/PandaOCR.Pro">PandaOCR专业版(Gitee)</a> <a target="_blank" rel="noopener" href="https://support.qq.com/products/322047">帮助文档</a><br><a target="_blank" rel="noopener" href="https://miao520.lanzoui.com/b015f3htg">普通版下载-蓝奏云</a> <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/11a0BBVriXMMLhi0dV3Srsg">普通版下载-百度云(提取码: 5azr)</a> <a target="_blank" rel="noopener" href="https://share.weiyun.com/5DllWfF">普通版下载-微云</a><br><a target="_blank" rel="noopener" href="https://miao520.lanzoui.com/b016ct8ob">专业版下载-蓝奏云(提取码：8888)</a> <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1gaUeeETeGwvNb5-PUYjxqQ">专业版下载-百度云(提取码:kpgh)</a> <a target="_blank" rel="noopener" href="https://share.weiyun.com/jpS7MkHB">专业版下载-微云</a><br>版本对比</p>
+<ul>
+<li>PandaOCR.Pro专业版已发布，它更快速稳定、接口更丰富、操作更简单 <a target="_blank" rel="noopener" href="https://github.com/miaomiaosoft/PandaOCR.Pro">详情</a></li>
+<li>针对当前普通版的说明：</li>
+<li>会继续维护普通版，保留所有接口但不再增加新功能，专业版的版本号之所以从5.x开始，正是考虑到普通版以后还会有更新所以保留了一段版本号。</li>
+<li>您可以继续像以往那样免费使用普通版，不用担心推出专业版后导致普通版停用，如果有更高需求可以尝试专业版。</li>
+<li>由于旧版PandaOCR在制作时急于增加各种功能而忽视了代码中的各种执行逻辑和对后续维护或添加新功能的不良影响，导致现在的代码堆积成了一座屎山，每次看到源代码都感到满头大汉，与其去翻那座大山，干脆重来，所以又花不少时间重构了一个全新版本，同时为避免与之前的版本混淆，取名PandaOCR.Pro专业版。</li>
+<li>与PandaOCR不同的是，PandaOCR.Pro主要针对使用私用API版接口的人群，演示接口由于普遍不够稳定且经常需要修复终归不会是长久之计。</li>
+<li>PandaOCR.Pro同样是免费使用，但它有一个激活专业版本状态，在未激活状态下您可以使用除高级功能外的全部功能，同时识别或翻译等功能可使用演示接口和百度API版接口，普通使用基本足够！</li>
+<li>激活专业版后不受任何限制，您可以使用全部功能，包括全部已接入的API接口和高级功能，如：图文批量识别、调用本地接口、屏幕对照翻译、屏幕显示按键、按键音效播放、快捷短语翻译等！</li>
+<li>如果您喜欢并愿意支持本工具继续提供更好的功能或体验可以考虑激活专业版，也可以单纯捐助，谢谢！</li>
+</ul>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-09-24_20-48-05.jpg" alt="img"></p>
+<hr>
+<h1 id="QQ截图提取版"><a href="#QQ截图提取版" class="headerlink" title="QQ截图提取版"></a>QQ截图提取版</h1><p>运行 <code>Init.bat</code> 创建桌面快捷方式(或者主程序是Bin\QQScreenShot.exe, 自己手动运行)<br><strong>!!!请以兼容性模式运行!!!(右键-&gt;属性-&gt;兼容性-&gt;以兼容模式运行这个程序)</strong><br>单击托盘图标, 或默认使用快捷键Ctrl+Alt+A截图</p>
+<p><a target="_blank" rel="noopener" href="https://wwc.lanzoul.com/i8sCT0e633mj">蓝奏云</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_15-48-47.jpg" alt="img"></p>
+<hr>
+<h1 id="手机微信"><a href="#手机微信" class="headerlink" title="手机微信"></a>手机微信</h1><ul>
+<li>把带文字图片发到<code>微信</code> 或 <code>QQ</code>，长按选择提取文字即可识别</li>
+<li>简单高效</li>
+</ul>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_15-51-25.jpg" alt="img"></p>
+<hr>
+<h1 id="iPhone-内置-OCR"><a href="#iPhone-内置-OCR" class="headerlink" title="iPhone 内置 OCR"></a>iPhone 内置 OCR</h1><p>Apple 在 iOS 15 中宣布了一项名为光学字符识别(OCR) 的新功能</p>
+<ul>
+<li>可以从图像中快速识别、选择、复制、粘贴和搜索文本</li>
+<li>实时文本适用于打字和手写文本</li>
+<li>支持英语、中文、法语、意大利语、德语、葡萄牙语和西班牙语等语言</li>
+<li>可以有效地识别文本，并且几乎 100% 准确</li>
+</ul>
+<p>支持实时文本OCR的iPhone和iPad设备</p>
+<blockquote>
+<p><strong>iPhone：</strong></p>
+<p>iPhone – iPhone XS、iPhone Xs Max、iPhone XR、iPhone 11、iPhone 11 Pro、iPhone Pro Max、iPhone SE 2、iPhone 12、iPhone 12 mini、iPhone 12 Pro、iPhone 12 Pro MaxiPad – iPad Pro</p>
+<p><strong>IPad：</strong></p>
+<p>2018、iPad Pro 2020、iPad Pro 2021、iPad iPad 第 8 代、iPad Air 3、iPad Air 4</p>
+<p><code>注意</code>：您的设备必须在最新版本的 iOS 15 及更高版本上运行。</p>
+</blockquote>
+<p><strong>您可以通过三种不同的方式使用此功能：</strong></p>
+<ul>
+<li>通过相机应用程序</li>
+<li>通过照片应用程序</li>
+<li>将手写笔记转换为文本</li>
+</ul>
+<p><strong>在相机应用程序中使用实时文本</strong></p>
+<ul>
+<li>在 iPhone 和 iPad 设备上启动相机应用程序。</li>
+<li>将相机对准文本并找到右下角的实时文本图标。</li>
+</ul>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_16-04-21.jpg" alt="img"></p>
+<ul>
+<li>当相机识别图像中的文字时，会出现黄色的取景器矩形。</li>
+<li>点击实时文本按钮并选择您想要的文本。</li>
+<li>您可以在此处选择以下任一选项：</li>
+</ul>
+<p>复制 - 复制选定的文本。</p>
+<p>全选 – 选择图像中的所有文本和字符。</p>
+<p>查找 - 在网络上搜索选定的文本。</p>
+<p>翻译 - 将选定的文本转换为支持的语言。</p>
+<p>分享 - 通过信息、电子邮件、或任何其他应用程序分享文本。</p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_16-05-27.jpg" alt="img"></p>
+<p><strong>在照片应用程序中使用实时文本</strong></p>
+<ul>
+<li>在 iPhone 或 iPad 设备上打开照片应用程序。</li>
+<li>打开要从中提取文本的图像。</li>
+<li>点击屏幕右下角的实时文本图标。</li>
+</ul>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_16-06-24.jpg" alt="img"></p>
+<p><strong>使用实时文本识别手写稿件</strong></p>
+<ul>
+<li>您还可以借助此新功能将手写笔记转换为文本。</li>
+<li>在 iOS 设备上打开相机应用程序。</li>
+<li>让取景器出现在手写笔记周围。</li>
+<li>点击实时文本按钮将您的手写笔记转换为文本。</li>
+<li>选择文本并执行您对应的操作。</li>
+</ul>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_16-07-11.jpg" alt="img"></p>
+<h1 id="TrWebOCR"><a href="#TrWebOCR" class="headerlink" title="TrWebOCR"></a>TrWebOCR</h1><p>开源易用的中文离线OCR，识别率媲美大厂，并且提供了易用的web页面及web的接口，方便人类日常工作使用或者其他程序来调用<br>Windows和MacOS系统下可通过构建Docker镜像来使用，暂不支持直接部署使用<br>其他Linux平台暂未测试，可自行安装测试</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/alisen39/TrWebOCR">GitHub</a><br>特性</p>
+<ul>
+<li>中文识别<br>快速高识别率</li>
+<li>文字检测<br>支持一定角度的旋转</li>
+<li>并发请求<br>由于模型本身不支持并发，但通过tornado多进程的方式，能支持一定数量的并发请求。具体并发数取决于机器的配置。</li>
+</ul>
+<p>运行平台</p>
+<ul>
+<li>✔ Python 3.6+</li>
+<li>✔ Ubuntu 16.04</li>
+<li>✔ ️Ubuntu 18.04</li>
+<li>✔ CentOS 7</li>
+<li>✔ Docker</li>
+</ul>
+<p><code>Windows和MacOS系统下可通过构建Docker镜像来使用，暂不支持直接部署使用</code><br>其他Linux平台暂未测试，可自行安装测试</p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_14-14-17.jpg" alt="img"></p>
+<hr>
+<h1 id="Umi-OCR"><a href="#Umi-OCR" class="headerlink" title="Umi-OCR"></a>Umi-OCR</h1><p>批量图片转文字工具</p>
+<p>适用于 Win10 x64 平台的离线OCR软件。支持截屏识别、粘贴图片，支持批量导入本地图片，将OCR结果输出到软件面板或本地文件。</p>
+<ul>
+<li><strong>免费</strong>：本项目所有代码开源，完全免费</li>
+<li><strong>方便</strong>：解压即用，无需安装。离线运行，无需网络</li>
+<li><strong>高效</strong>：采用C++编译的 <a target="_blank" rel="noopener" href="https://github.com/hiroi-sora/PaddleOCR-json">PaddleOCR-json</a> 识别引擎。只要电脑性能足够，通常能比在线OCR服务更快</li>
+<li><strong>精准</strong>：默认使用PPOCR-v3模型库。除了能准确辨认常规文字，对手写、方向不正、杂乱背景等情景也有不错的识别率。可设置<strong>忽略区域</strong>排除水印，可设置<strong>文块后处理</strong>合并段落</li>
+<li><strong>批量</strong>：可批量处理图片，将结果保存为本地 txt / md / jsonl 多种格式文件</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/hiroi-sora/Umi-OCR">GitHub</a> <a target="_blank" rel="noopener" href="https://wwn.lanzoul.com/b036wwa4d">蓝奏云(密码：1111)</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_14-25-16.jpg" alt="img"></p>
+<hr>
+<h1 id="ABBYY-FineReader"><a href="#ABBYY-FineReader" class="headerlink" title="ABBYY FineReader"></a>ABBYY FineReader</h1><p>一款真正的专业OCR，它不仅支持多国文字，还支持彩色文件识别、自动保留原稿插图和排版格式以及后台批处理识别功能</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1qVnt7QMD1KuV1C8YLL4DyA?pwd=9buv">百度云(提取码：9buv )</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/ocr1019screenshots.gif" alt="img"></p>
+<hr>
+<h1 id="天若OCR开源本地版"><a href="#天若OCR开源本地版" class="headerlink" title="天若OCR开源本地版"></a>天若OCR开源本地版</h1><p>天若OCR其懒人版要钱，其开源版需要自己去各大互联网厂商申请key才能使用，因此有民间大佬基于其开源版制作了本地版，无需联网，也无需申请key，纯本地运算。</p>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1525719-1-1.html">52破解</a> <a target="_blank" rel="noopener" href="https://gitee.com/wanglifree/tianruoocr-cl">gitee</a> <a target="_blank" rel="noopener" href="https://wwr.lanzoui.com/iOUd8v6sl2d">蓝奏云（密码：muyi）</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_14-43-03.jpg" alt="img"></p>
+<p>相关链接</p>
+<p>基于最后一个《天若 OCR 文字识别工具》开源版，优化贴图功能的 5.0.1 闲来无事个人修改版</p>
+<p><a target="_blank" rel="noopener" href="https://www.appinn.com/tian-ruo-ocr-501-open-source/">https://www.appinn.com/tian-ruo-ocr-501-open-source/</a></p>
+<hr>
+<h1 id="天若OCR本地版支持Win7"><a href="#天若OCR本地版支持Win7" class="headerlink" title="天若OCR本地版支持Win7"></a>天若OCR本地版支持Win7</h1><p>对于老平台的支持问题(主要指windows平台)</p>
+<ul>
+<li>opencv通过自行编译，最老可以支持xp</li>
+<li>ncnn(cpu)通过自行编译，最老也能支持xp</li>
+<li>onnxruntime只能支持windows7~10</li>
+<li>所以想上老windows平台，则只能选择ncnn版</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1549008-1-1.html">52破解</a> <a target="_blank" rel="noopener" href="https://www.lanzouw.com/b08yscg7g">蓝奏云（密码:hanv）</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-19_14-49-26.jpg" alt="img"></p>
+<hr>
+<h1 id="OCR文字识别助手"><a href="#OCR文字识别助手" class="headerlink" title="OCR文字识别助手"></a>OCR文字识别助手</h1><p>一款Windows平台下的文字OCR识别工具。支持截图，贴图，图片/文档转文字，图片转文档，图片/文档翻译等功能</p>
+<p><a target="_blank" rel="noopener" href="https://ocr.oldfish.cn/">官网</a> <a target="_blank" rel="noopener" href="https://smartoldfish.gitee.io/">gitee</a> <a target="_blank" rel="noopener" href="https://smartoldfish.lanzoui.com/idOXpwnj1xi">蓝奏云绿色版（密码：ocr）</a><br>功能描述</p>
+<p><strong>1、截图：</strong></p>
+<p>支持自由框选截图，活动窗口截图，活动显示器截图，全屏截图，固定区域截图，滚动截图等</p>
+<ul>
+<li>支持高分屏及多屏截图</li>
+<li>支持活动窗口嗅探</li>
+<li>支持窗口元素嗅探，如单按钮，单图标，块布局等</li>
+</ul>
+<p><strong>2、贴图：</strong></p>
+<p>支持文字贴图，图片贴图，粘贴板贴图等</p>
+<ul>
+<li>文字贴图，支持 <strong>HTML，RTF，TXT</strong> 贴图，高保真还原文档格式</li>
+<li>图片贴图，支持粘贴板贴图，截图贴图。</li>
+<li>颜色贴图，配合取色器或调色板使用。</li>
+</ul>
+<p><strong>3、OCR识别：（支持本地识别）</strong></p>
+<p>支持截图识别，文件识别，表格识别，公式识别，竖排识别，PDF/Word识别，识别搜索，固定区域识别，固定区域翻译等。</p>
+<p><strong>4、翻译：</strong></p>
+<p>截图/图片翻译，文档翻译，粘贴翻译，文字翻译，划词翻译，固定区域翻译等</p>
+<p><strong>5、工具：</strong></p>
+<p>标尺，调色板，取色器，<strong>图片压缩</strong>等</p>
+<p>OCR功能总览</p>
+<p>支持截图识别，文件识别，表格识别，公式识别，竖排识别，PDF/Word识别，图片翻译，文档翻译，文字翻译，识别搜索，划词翻译等…</p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/b4c6e6b5884fb5561b35ea74492f801b5ebf7465.gif" alt="img"></p>
+<hr>
+<h1 id="简可信OCR识别"><a href="#简可信OCR识别" class="headerlink" title="简可信OCR识别"></a>简可信OCR识别</h1><p>一个免费图片批量OCR识别程序，可以同时对各种图片文件进行OCR识别。 可以把识别后的图片批量导出文件双层PDF，文本文件等。系统可以对图片进行放大、缩小、旋转、剪切等操作，可以调整图片次序，软件使用非常简单。系统使用Tesseract5 API， 速度快，质量高，支持多线程处理</p>
+<p>本工具可以实现内网环境下本地化部署，不需要把文件上传到互联网，可以保障文件安全，不会导致泄密</p>
+<p>软件完全免费，没有任何时间和功能限制</p>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1697439-1-1.html">52破解</a> <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1jQmmo7zup3brtvlvqT0v5w?pwd=fjhm">百度云（提取码：fjhm ）</a><br>主要功能</p>
+<p><strong>1：支持各种图片预览</strong><br><strong>2：支持图片的简单编辑功能</strong></p>
+<ul>
+<li>支持放大，缩小，旋转，裁剪，灰度变化 。</li>
+<li>也可以增加，删除选中图片。</li>
+<li>加载某个文件夹下图片文件，一个TIFF图片可以显示每一帧。</li>
+<li>导出HOCR。</li>
+</ul>
+<p><strong>3：支持多种输出格式，双层PDF，文字文本等</strong><br><strong>4：系统支持多线程</strong><br><strong>5：识别速度快，准确率高</strong></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/imageocr01.png" alt="img"></p>
+<hr>
+<h1 id="团子翻译器"><a href="#团子翻译器" class="headerlink" title="团子翻译器"></a>团子翻译器</h1><p>团子翻译器是一款生肉翻译软件，通过OCR识别屏幕特定范围内的文字，将识别到的文字调取各大厂的翻译，并输出翻译结果</p>
+<p>集成ocr与翻译功能的屏幕识别软件，可帮助理解大部分英文/日文游戏，目前仅支持Windows</p>
+<ul>
+<li>搭载了离线OCR，项目地址：<a target="_blank" rel="noopener" href="https://github.com/PantsuDango/DangoOCR">DangoOCR</a></li>
+<li>搭载了在线OCR，官网地址：<a target="_blank" rel="noopener" href="https://cloud.stariver.org/auth/login.html">星河云OCR</a></li>
+<li>实现自动模式，循环识别区域内的文本并翻译</li>
+<li>配置了9种翻译源</li>
+<li>账号系统，能够自动云端保存配置</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://translator.dango.cloud/">官网</a> <a href="hhttps://github.com/PantsuDango/Dango-Translator">项目</a><br>使用教程</p>
+<p><a target="_blank" rel="noopener" href="https://docs1.ayano.top/">翻译器使用文档教程</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/tzfyqqqq.png" alt="img"></p>
+<hr>
+<h1 id="CN图文识别"><a href="#CN图文识别" class="headerlink" title="CN图文识别"></a>CN图文识别</h1><p>新增：2022-10-26</p>
+<p>截图识别、一键查询；支持模拟器不黑屏哦，用来做题找答案很方便</p>
+<pre><code>必须要用百度api，识别还是很可以的
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1704035-1-1.html">52破解</a> <a target="_blank" rel="noopener" href="https://cn911.lanzoub.com/iGJeH0ekyire">蓝奏云</a> <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Bz9IjgNyTi0cFW01q6_YrA#7g11">百度云（提取码：7g11）</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/Snipaste_2022-10-26_21-13-24.jpg" alt="img"></p>
+<hr>
+<h1 id="【MacOS】OwlOCR"><a href="#【MacOS】OwlOCR" class="headerlink" title="【MacOS】OwlOCR"></a>【MacOS】OwlOCR</h1><p>免费，实现不联网，本地 OCR 文字识别，对中文支持良好。可以从屏幕截屏、图片、PDF 文档进行 OCR，响应迅速</p>
+<pre><code>仅支持macos
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://owlocr.com/">官网</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/photo_2022-03-09_16-48-51.jpg" alt="img"></p>
+<hr>
+<h1 id="【MacOS】TextSniper"><a href="#【MacOS】TextSniper" class="headerlink" title="【MacOS】TextSniper"></a>【MacOS】TextSniper</h1><p>Mac简单易用的文本识别工具，<code>付费软件</code></p>
+<ul>
+<li>小巧轻量，使用方便</li>
+<li>支持 OCR 结果叠加至剪切板</li>
+<li>离线多语言支持</li>
+<li>买断制 app，包含在 Setapp 订阅中</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.textsniper.app/">官网</a></p>
+<h1 id="【MacOS】Bob"><a href="#【MacOS】Bob" class="headerlink" title="【MacOS】Bob"></a>【MacOS】Bob</h1><p>一款MacOS平台翻译和OCR软件</p>
+<p><a target="_blank" rel="noopener" href="https://bobtranslate.com/">官网</a> <a target="_blank" rel="noopener" href="https://github.com/ripperhe/Bob/">GitHub</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/f63722e676966.gif" alt="img"></p>
+<p>版本区分</p>
+<p>商店版分为免费版和高级版</p>
+<ul>
+<li>免费版：免费使用，有数量限制</li>
+<li>高级版：内购永久，将持续维护和优化</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ripperhe/Bob/">GitHub社区版</a>为免费版，后期不再维护</li>
+</ul>
+<p>翻译功能</p>
+<p>划词翻译<br>截图翻译<br>输入翻译<br>翻译多开<br>自定义插件<br>自动识别语种<br>驼峰拆分、蛇形拆分<br>AppleScript 调用<br>PopClip 调用</p>
+<p>OCR功能</p>
+<p>截图 OCR<br>静默截图 OCR<br>访达选图 OCR<br>离线识别<br>连续识别<br>二维码识别<br>自动复制<br>智能分段</p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/68747470733a2f2f63646e2e72697070657268652e636f6d2f6f73732f6d61737465722f323032322f303632372f7374617475735f6974656d2e6a7067.jpg" alt="img"></p>
+<hr>
+<h1 id="电报图片转文字机器人"><a href="#电报图片转文字机器人" class="headerlink" title="电报图片转文字机器人"></a>电报图片转文字机器人</h1><pre><code>- @TexifyBot
+- @BruhulBot
+- @bacakubot
+- @pix2txt_bot
+- @the_ocr_bot
+- @ocr_free_bot
+- @theimagebot
+- @YourOCRBot
+- @lingvanexbot
+- @MahmudsBot
+- @transcriber_bot
+- @Photo2text_bot
+- @SummaryRobot
+- @imagereaderbot
+- @TranslateIDrobot
+- @imageToText_bot
+- @Image_to_textBot
+- @Image2Text_OCR_bot
+- @pen2text_bot
+可以很好的识别手写体。可以识别中文、英文、日文、韩文、法文、德文等多国文字。不过每个月只能免费使用30次
+</code></pre>
+<h1 id="OCR-API接口申请"><a href="#OCR-API接口申请" class="headerlink" title="OCR-API接口申请"></a>OCR-API接口申请</h1><p><strong>搜狗：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="http://deepi.sogou.com/">http://deepi.sogou.com</a> （送100/200元体验金 | 可能需要先充点钱才能用）</li>
+<li>翻译：<a target="_blank" rel="noopener" href="http://deepi.sogou.com/">http://deepi.sogou.com</a> （送100/200元体验金）</li>
+</ul>
+<p><strong>腾讯：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">https://cloud.tencent.com/</a> （1000次/月免费 | 腾讯云接口）</li>
+<li>OCR：<a target="_blank" rel="noopener" href="https://ai.qq.com/v1/">https://ai.qq.com/v1/</a> （免费 | 腾讯AI旧版接口）</li>
+<li>OCR：<a target="_blank" rel="noopener" href="https://open.youtu.qq.com/">https://open.youtu.qq.com/</a> （500次/天免费 | 腾讯优图接口）</li>
+<li>翻译：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">https://cloud.tencent.com</a> （5百万字符/月免费 | 腾讯云接口）</li>
+<li>翻译：<a target="_blank" rel="noopener" href="https://ai.qq.com/v1/">https://ai.qq.com/v1/</a> （免费，不推荐，质量不如腾讯云 | 腾讯AI旧版接口）</li>
+<li>公式：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">https://cloud.tencent.com/</a> （1000次/月免费 | 腾讯云接口）</li>
+<li>表格：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/">https://cloud.tencent.com/</a> （1000次/月免费 | 腾讯云接口）</li>
+</ul>
+<p><strong>百度：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="https://cloud.baidu.com/">https://cloud.baidu.com</a> （50000次/天免费）</li>
+<li>翻译：<a target="_blank" rel="noopener" href="http://api.fanyi.baidu.com/">http://api.fanyi.baidu.com</a> （免费）</li>
+<li>公式：<a target="_blank" rel="noopener" href="https://cloud.baidu.com/">https://cloud.baidu.com</a> （1000次免费）</li>
+<li>表格：<a target="_blank" rel="noopener" href="https://cloud.baidu.com/">https://cloud.baidu.com</a> （50次/天免费）</li>
+</ul>
+<p><strong>有道：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="http://ai.youdao.com/">http://ai.youdao.com</a> （送50元体验金）</li>
+<li>翻译：<a target="_blank" rel="noopener" href="http://ai.youdao.com/">http://ai.youdao.com</a> （送50元体验金）</li>
+</ul>
+<p><strong>阿里：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="https://market.aliyun.com/products/57124001/cmapi020020.html">https://market.aliyun.com/products/57124001/cmapi020020.html</a> （通用版 | 500次/免费）</li>
+<li>OCR：<a target="_blank" rel="noopener" href="https://market.aliyun.com/products/57124001/cmapi028554.html">https://market.aliyun.com/products/57124001/cmapi028554.html</a> （高精度 | 500次/免费）</li>
+<li>OCR：<a target="_blank" rel="noopener" href="https://market.aliyun.com/products/57124001/cmapi00040832.html">https://market.aliyun.com/products/57124001/cmapi00040832.html</a> （手写版 | 500次/免费）</li>
+<li>OCR：<a target="_blank" rel="noopener" href="https://market.aliyun.com/products/57124001/cmapi00040847.html">https://market.aliyun.com/products/57124001/cmapi00040847.html</a> （多语种 | 500次/免费）</li>
+<li>表格：<a target="_blank" rel="noopener" href="https://market.aliyun.com/products/57124001/cmapi024968.html">https://market.aliyun.com/products/57124001/cmapi024968.html</a> （500次/免费）</li>
+</ul>
+<p><strong>讯飞：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="https://www.xfyun.cn/services/textRecg">https://www.xfyun.cn/services/textRecg</a> （10万次/免费）</li>
+<li>公式：<a target="_blank" rel="noopener" href="https://www.xfyun.cn/services/formula-discern">https://www.xfyun.cn/services/formula-discern</a></li>
+</ul>
+<p><strong>网校（学而思/好未来）：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="https://ai.xueersi.com/">https://ai.xueersi.com</a> （10万次/天免费 | 10秒间隔/次 | 旧站）</li>
+<li>OCR：<a target="_blank" rel="noopener" href="https://ai.100tal.com/">https://ai.100tal.com</a> （新站）</li>
+</ul>
+<p><strong>Deepl：</strong></p>
+<ul>
+<li>翻译：<a target="_blank" rel="noopener" href="https://www.deepl.com/translator">https://www.deepl.com/translator</a> （付费且服务器延迟较高）</li>
+</ul>
+<p><strong>Mathpix：</strong></p>
+<ul>
+<li>公式：<a target="_blank" rel="noopener" href="https://dashboard.mathpix.com/">https://dashboard.mathpix.com</a> （1000次/月免费）</li>
+</ul>
+<p><strong>SpaceOCR：</strong></p>
+<ul>
+<li>OCR：<a target="_blank" rel="noopener" href="https://ocr.space/OCRAPI">https://ocr.space/OCRAPI</a> （25000次/月免费）</li>
+</ul>
+<h1 id="各平台OCR接口开通教程"><a href="#各平台OCR接口开通教程" class="headerlink" title="各平台OCR接口开通教程"></a>各平台OCR接口开通教程</h1><p><strong>👉教程：</strong> <a target="_blank" rel="noopener" href="https://support.qq.com/products/322047/faqs-more">https://support.qq.com/products/322047/faqs-more</a></p>
+<p><img src="https://eureka-1302416167.cos.ap-nanjing.myqcloud.com/img/photo_2022-10-26_21-24-53.jpg" alt="img"></p>
+<p>文章作者: <a target="_blank" rel="noopener" href="http://lin64850.github/">Eureka</a></p>
+
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/css/nord.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/js/memo.js"></script>
+
+</html>

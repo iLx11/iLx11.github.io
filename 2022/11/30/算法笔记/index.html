@@ -382,6 +382,24 @@ struct ListNode* delNode(struct ListNode* head, int val() &#123;
         &#125;
 &#125;
 </code></pre>
+<h5 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">typedef struct &#123;
+    int val;
+    struct ListNode* next;
+&#125;ListNode;
+</code></pre>
+<h3 id="翻转链表"><a href="#翻转链表" class="headerlink" title="翻转链表"></a>翻转链表</h3><h5 id="双指针法-1"><a href="#双指针法-1" class="headerlink" title="双指针法"></a>双指针法</h5><pre><code class="c++">ListNode* reverseList(ListNode* head) &#123;
+    ListNode* pre = NULL;
+    ListNode* cur = head;
+    ListNode* temp = NULL;
+    while(cur != NULL) &#123;
+        temp = cur-&gt;next;
+        cur-&gt;next = pre;
+        pre = cur;
+        cur = temp;
+    &#125;
+    return pre;
+&#125;
+</code></pre>
 
     </div>
     <div class="menu">
