@@ -432,7 +432,7 @@ struct ListNode* delNode(struct ListNode* head, int val() &#123;
     &#125;
     //删除节点，释放内存
     ListNode* temp = slowp-&gt;next;
-    slowp-&gt;next = slow-&gt;next-next;
+    slowp-&gt;next = slow-&gt;next-&gt;next;
     delete temp;
     retrun vhead-&gt;next;
 &#125; 
@@ -459,7 +459,8 @@ struct ListNode* delNode(struct ListNode* head, int val() &#123;
         swap(blen, alen);
         swap(lB, lA);
     &#125;
-    while(alen --) &#123;
+    int comp = alen - blen;
+    while(comp --) &#123;
         lA = lA-&gt;next;
     &#125;
     //寻找相交
@@ -471,6 +472,348 @@ struct ListNode* delNode(struct ListNode* head, int val() &#123;
         lB = lB-&gt;next;
     &#125;
     retrun NULL;
+&#125;
+</code></pre>
+<h3 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h3><p>(x + y) * 2 = x + y + n (y + z)</p>
+<p>x = (n - 1) (y + z) + z</p>
+<p>当 n = 0 时</p>
+<p>x = z</p>
+<pre><code class="c++">ListNode* findSycle (ListNode* head) &#123;
+    ListNode* slow = head;
+    ListNode* fast = head;
+    while(fast != NULL &amp;&amp; fast-&gt;next != NULL) &#123;
+        slow = slow-&gt;next;
+        fast = fast-&gt;next-&gt;next;
+        //判断是否相遇
+        while(slow == fast) &#123;
+            ListNode* index1 = fast;
+            ListNode* index2 = head;
+            //寻找环的入口节点， 相遇点开始各移一个，之后相交则为入口节点
+            while(index1 != index2) &#123;
+                   index1 = index1-&gt;next;
+                index2 = index2-&gt;next;
+            &#125;
+            return index2;
+        &#125;
+        retrun NULL;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>C++ 给提供了如下三种可用的数据结构：</p>
+<ul>
+<li>std::set</li>
+<li>std::multiset</li>
+<li>std::unordered_set</li>
+</ul>
+<h3 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h3><p>“eat -&gt; “ate”</p>
+<pre><code class="c++">bool wordDiff(String s, String t) &#123;
+    int word[26] = &#123;0&#125;;
+    for(int i = 0; i &lt; s.sise(); i ++) &#123;
+        word[s[i] - &#39;a&#39;] ++;
+    &#125;
+    for(int i = 0; i &lt; t.sizs(); i ++) &#123;
+        word[t[i] - &#39;a&#39;] --;
+    &#125;
+       for(int i = 0; i &lt; 26; i ++) &#123;
+        if(word[i] != 0) &#123;
+            return false;
+        &#125;
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h3 id="两个数组交集"><a href="#两个数组交集" class="headerlink" title="两个数组交集"></a>两个数组交集</h3><p>有范围限制时</p>
+<pre><code class="c++">vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; shu1, vector&lt;int&gt;&amp; shu2) &#123;
+    unorded_set&lt;int&gt; reult_set;
+    int hash[1005] = &#123;0&#125;;
+    for(int num : shu1) &#123;
+        hash[num] = 1;
+    &#125;
+    for(int num : shu2) &#123;
+        if(hash[num] == 1) &#123;
+            result_set.insert(num);
+        &#125; 
+    &#125;
+    return vector&lt;int&gt; (result_set.begin(), result_set.end());
+&#125;
+int main() &#123;
+       vector&lt;int&gt; shu1 = &#123;&#125;;
+    intersection(shu1);
+&#125;
+</code></pre>
+<h3 id="快乐数"><a href="#快乐数" class="headerlink" title="快乐数"></a>快乐数</h3><pre><code class="c++">int getSum(int n) &#123;
+    int sum &#123;0&#125;;
+    while(n) &#123;
+        sum += (n % 10) * (n % 10);
+        n = n / 10;
+    &#125;
+    return sum;
+&#125;
+bool isHappy(int n) &#123;
+   int sum = 0;
+   unordered_set&lt;int&gt; = set;
+    while(1) &#123;
+        sum = getSum(n);
+        if (sum == 1) &#123;
+            return true;
+        &#125;
+        // 查找存储在 set 内的值，若找到怎说明陷入了循环
+           if (set.find(sum) != set.end()) &#123;
+            retrun false;
+        &#125;else &#123;
+            set.insert(sum);
+        &#125;
+        n = sum;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h3><table>
+<thead>
+<tr>
+<th>映射</th>
+<th>底层实现</th>
+<th>是否有序</th>
+<th>数值是否可以重复</th>
+<th>能否更改数值</th>
+<th>查询效率</th>
+<th>增删效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>std::map</td>
+<td>红黑树</td>
+<td>key有序</td>
+<td>key不可重复</td>
+<td>key不可修改</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>std::multimap</td>
+<td>红黑树</td>
+<td>key有序</td>
+<td>key可重复</td>
+<td>key不可修改</td>
+<td>O(log n)</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>std::unordered_map</td>
+<td>哈希表</td>
+<td>key无序</td>
+<td>key不可重复</td>
+<td>key不可修改</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<p><strong>示例:</strong></p>
+<p>给定 nums = [2, 7, 11, 15], target = 9</p>
+<p>因为 nums[0] + nums[1] = 2 + 7 = 9</p>
+<p>所以返回 [0, 1]</p>
+<pre><code class="c++">vector&lt;int&gt; doubleSum(vector&lt;int&gt;&amp; num, int target) &#123;
+    unordered_map&lt;int, int&gt; map;
+    for(int i = 0; i &lt; num.size(), i ++) &#123;
+        auto shu = map.find(target - num[i]);
+        if(shu != map.end()) &#123;
+            //在map内找到直接返回两个数
+            //shu-&gt;second 返回值; -&gt;first 返回键
+            return &#123;shu-&gt;second, i&#125;;
+        &#125;
+        //未找到则添加
+        map.insert(pair&lt;int, int&gt; (num[i], i))
+    &#125;
+&#125;
+</code></pre>
+<h3 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h3><p>输入:</p>
+<ul>
+<li>A = [ 1, 2]</li>
+<li>B = [-2,-1]</li>
+<li>C = [-1, 2]</li>
+<li>D = [ 0, 2]</li>
+</ul>
+<p>输出:</p>
+<p>2</p>
+<p><strong>解释:</strong></p>
+<p>两个元组如下:</p>
+<ol>
+<li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0</li>
+<li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0</li>
+</ol>
+<pre><code class="c++">int fourSum(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B, vector&lt;int&gt;&amp; C, vector&lt;int&gt;&amp; D) &#123;
+    unordered_map&lt;int, int&gt; umap;
+    int count;
+    for(int a : A) &#123;
+           for(int b : B) &#123;
+            //键为 a + b 值为 1
+            //umap.insert(pair&lt;int , int&gt; ((a + b), 1);
+            umap[a + b] ++;
+        &#125;
+    &#125;
+    for(int c : C) &#123;
+        for(int d : D) &#123;
+            int temp = c + d;
+            if(map.find(0 - temp) != umap.end()) &#123;
+                count += umap[0 - temp];
+            &#125;
+        &#125;
+    &#125;
+    return count;
+&#125;
+</code></pre>
+<h3 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h3><pre><code class="c++">bool mes(string ransomNote, string magazine) &#123;
+    int word[26] &#123;0&#125;;
+    if(ransomNote.size() &gt; magazine.size()) &#123;
+        return false;
+    &#125;
+    for(int i = 0; i &lt; ransomNote.length(); i ++) &#123;
+        word[ransomNote[i] - &#39;a&#39;] ++;
+    &#125;
+    for(int i = 0; i &lt; magazine.length(); i ++) &#123;
+        word[magazine[i] - &#39;a&#39;]--;
+        //判断方式一
+        if(word[magazine[i] - &#39;a&#39;] &lt; 0) &#123;
+            return false;
+        &#125;
+    &#125;
+    //判断方式二
+    for(int i = 0; i &lt; 26; i ++) &#123;
+        if(word[i] == 1) &#123;
+            return false;
+        &#125;
+    &#125;
+    
+    return true;
+&#125;
+</code></pre>
+<h3 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h3><p>示例：</p>
+<p>给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]</p>
+<h4 id="哈希解法"><a href="#哈希解法" class="headerlink" title="哈希解法"></a>哈希解法</h4><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt; num) &#123;
+   vector&lt;vector&lt;int&gt;&gt; result;    
+    //排序    
+    sort(num.begin(), num.end());
+    for(int i = 0; i &lt; num.size(); i ++) &#123;
+        if(num[i] &gt; 0) &#123;
+            continue;
+        &#125;
+        //去重,保证3个数不与之前的重复
+        if(i &gt; 0 &amp;&amp; num[i] == num[i - 1]) &#123;
+            continue;
+        &#125;
+        unordered_set&lt;int&gt; set;
+        for(int j = 0; j &lt; num.size(); j ++) &#123;
+            if(j &gt; i + 2 &amp;&amp; num[i] == num[j - 1] &amp;&amp;
+                  num[j - 1] == num[j - 2]) &#123;
+                continue;
+            &#125;
+            int c = 0 - (num[i] + num[j]);
+               if(set.find(c) != set.end()) &#123;
+                result.push_back(&#123;num[i], num[j], c&#125;);
+                set.erase(c);
+            &#125;else &#123;
+                set.insert(num[j]);
+            &#125;
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h4 id="双指针法-2"><a href="#双指针法-2" class="headerlink" title="双指针法"></a>双指针法</h4><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt; num) &#123;
+    //排序
+    sort(num.begin(), num.end());
+    vector&lt;vector&lt;int&gt;&gt; result;
+    for(int i = 0; i &lt; num.sizes(); i ++) &#123;
+        if(num[i] &gt; 0) &#123;
+            continue;
+        &#125;
+        //去重
+        if(i &gt; 0 &amp;&amp; num[i] &lt; num[i - 1]) &#123;
+            continue;
+        &#125;
+        int left = i + 1;
+        int right = num.size() - 1;
+           while(left &lt; right) &#123;
+            if((num[left] + num[i] + num[right]) &gt; 0) &#123;
+                right --;
+            &#125;else if((num[left] + num[i] + num[right]) &lt; 0) &#123;
+                left ++;
+            &#125;else &#123;
+                result.push_back(&#123;num[left], num[i], num[right]&#125;);
+                //去重
+                while(left &lt; right &amp;&amp; num[left] == num[left + 1])
+                    left ++;
+                while(left &lt; right &amp;&amp; num[right] == num[right - 1])
+                    right --;
+                //同时向内缩进
+                left ++;
+                right --;
+            &#125;
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h3 id="四数之和-1"><a href="#四数之和-1" class="headerlink" title="四数之和"></a>四数之和</h3><p>双指针法</p>
+<pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt; num, int target) &#123;
+    //排序
+    sort(num.begin(), num.end());
+       vector&lt;vector&lt;int&gt;&gt; result;
+    for(int i = 0; i &lt; num.size(); i ++) &#123;
+        //剪枝
+        if(num[i] &gt; target &amp;&amp; num[i] &gt;= 0) &#123;
+               break;
+        &#125;
+        //去重
+        if(i &gt; 0 &amp;&amp; num[i] == num[i - 1]) &#123;
+            continue;
+        &#125;
+        for(int j = 0; j &lt; num.size(); j ++) &#123;
+            //2次剪枝
+            if(num[i] + num[j] &gt; target &amp;&amp; num[i] + num[j] &gt;= 0) &#123;
+                break;
+            &#125;
+            //去重
+            if(j &gt; i + 1 &amp;&amp; num[j] == num[j - 1]) &#123;
+                continue;
+            &#125; 
+               int left = j + 1;
+            int right = num.size() - 1;
+            while(left &lt; right) &#123;
+                //相加会超限，使用转换
+                if((long) num[i] + num[j] + num[left] + num[right] &gt; target) &#123;
+                    right --;
+                &#125; else if((long) num[i]  + num[j] + num[left] + num[right] &lt; target) &#123;
+                    left ++;
+                &#125; else &#123;
+                    result.push_back(vector&lt;int&gt; &#123;num[i], num[j], num[left], num[right]&#125;);
+                    //去重
+                    while(left &lt; right &amp;&amp; num[left] == num[left + 1])
+                           left ++;
+                    while(left &lt; right &amp;&amp; num[right] == num[right - 1])
+                        right --;
+                    
+                    right --;
+                       left ++;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3><pre><code class="c++">void reverse(vector&lt;char&gt;&amp; charN) &#123;
+    for(int i = 0, int j = charN.size() - 1; i &lt; charN.size() / 2; i ++, j --) &#123;
+        int temp = charN[i];
+        charN[i] = charN[j];
+        charN[j] = temp;
+        /*
+            位运算,异或
+            charN[i] ^= charN[j];
+            charN[j] ^= charN[i];
+            charN[i] ^= charN[j];
+        */
+    &#125;
 &#125;
 </code></pre>
 
