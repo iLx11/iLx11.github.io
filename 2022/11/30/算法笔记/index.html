@@ -987,6 +987,148 @@ string reverseWords(string&amp; s) &#123;
     &#125;
 &#125;
 </code></pre>
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><pre><code class="c++">void getNext(int* next, string needle) &#123;
+    int j = -1;
+    next[0] = j;
+    for(int i = 1; i &lt; needle.size(); i ++) &#123;
+        while(j &gt;= 0 &amp;&amp; s[i] != s[j]) &#123;
+            j = next[j];
+        &#125;
+        if(s[i] == s[j]) &#123;
+            j ++;
+        &#125;
+        next[i] = j;
+    &#125;
+&#125;
+int strStr(string haystack, string needle) &#123;
+    int j = 0;
+    if(needle.size() == 0) retrun 0;
+    int next[needle.size()] &#123;0&#125;;
+    getNext(next);
+    for(int i = 0; i &lt; haystack.size(), i ++) &#123;
+        while(j &gt; 0 &amp;&amp; haystack[i] != needle[j]) &#123;
+            j = next[j];
+        &#125;
+        if(haystack[i] == needle[j]) &#123;
+            j ++;
+        &#125;
+        if(j == needle.size() - 1) &#123;
+            return (i - needle.size() + 1);
+        &#125;
+    &#125;
+       return -1;
+&#125;
+</code></pre>
+<h3 id="重复的子字符串"><a href="#重复的子字符串" class="headerlink" title="重复的子字符串"></a>重复的子字符串</h3><p>给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000。</p>
+<p>示例 1:<br>输入: “abab”<br>输出: True<br>解释: 可由子字符串 “ab” 重复两次构成。</p>
+<pre><code class="c++">void getNext(int* next, string s) &#123;
+    //自减一
+    int j = -1;
+    next[0] = j;
+    for(int i = 0; i &lt; s.size(); i ++) &#123;
+        while(j != -1 &amp;&amp; s[i] != s[j]) &#123;
+            j = next[j];
+        &#125;
+        if(s[i] == s[j]) &#123;
+            j ++;
+        &#125;
+        next[j] = i;
+    &#125;
+&#125;
+bool isReapeat(string s) &#123;
+       if(s.size() == 0) &#123;
+        return false;
+    &#125;
+    int len = s.size();
+    int next[len];
+    getNext(next, s);
+    //---(next[s.size() - 1] + 1) 表示最长相等前后缀
+    //---len - (next[s.size() - 1] + 1) 表示子串长度
+    //---len % 字串长度 == 0 时表示为字串重复
+    if(next[len - 1] != -1 &amp;&amp; len % (len - (next[len - 1] + 1))) &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+</code></pre>
+<h3 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h3><p>使用栈实现队列的下列操作：</p>
+<p>push(x) – 将一个元素放入队列的尾部。<br>pop() – 从队列首部移除元素。<br>peek() – 返回队列首部的元素。<br>empty() – 返回队列是否为空。</p>
+<pre><code class="c++">class MyQueue &#123;
+    private : 
+        stack&lt;int&gt; stackIn;
+        stack&lt;int&gt; stackOut;
+    public :
+        MyQueue() &#123;&#125;
+        int push(x) &#123;
+            stackIn.push(x);
+        &#125;
+        int pop() &#123;
+            if(stackOut.empty()) &#123;
+                while (!stackIn.empty) &#123;
+                    stackOut.push(stackIn.top());
+                    stackIn.pop();
+                &#125;
+                int result = stackOut.top();
+                stackOut.pop();
+                return result;
+            &#125;
+        &#125;
+        int peek() &#123;
+               int result = this-&gt;pop();
+            stackOut.push(result);
+            return result;
+        &#125;
+        int empty() &#123;
+            return stackIn.empty() &amp;&amp; stackOut.empty();
+        &#125;
+&#125;
+</code></pre>
+<h4 id="C语言-2"><a href="#C语言-2" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">typedef struct &#123;
+    int stackInTop, stackOutTop;
+    int stackIn[100], stackOut[100];
+&#125;MyQueue;
+
+//初始化
+MyQueue* queue() &#123;
+    MyQueue* queue = (MyQueue *) malloc(sizeof(MyQueue));
+    queue-&gt;stackInTop = 0
+    queue-&gt;stackOutTop = 0;
+    return queue;
+&#125;
+int push(MyQueue* que, int x) &#123;
+    que-&gt;stackIn[stackInTop] = x;
+    stackInTop ++;
+    return x;
+&#125;
+int pop(MyQueue* que) &#123;
+    //避免多次操作内存
+    int inTop = que-&gt;stackInTop;
+    int outTop = que-&gt;stackOutTop;
+    if(outTop == 0) &#123;
+        while(inTop != 0) &#123;
+            que-&gt;stackOut[outTop ++] = que-&gt;stackIn[-- inTop];
+        &#125;
+        int result = stackOut[--outTop];
+        //将输入栈返回到输出栈
+        while(outTop != 0) &#123;
+            que-&gt;stackIn[inTop ++] = que-&gt;stackOut[-- outTop];
+        &#125;
+           que-&gt;stackInTop = inTop;
+        que-&gt;stackOutTop = outTop;
+        return result;
+    &#125;
+&#125;
+int peek(MyQueue* que) &#123;
+    return que-&gt;stackIn[0];
+&#125;
+int empty(MyQueue* que) &#123;
+    return que-&gt;stackInTop == 0 &amp;&amp; que-&gt;stackTop == 0;
+&#125;
+void freeMyQueue(MyQueue* que) &#123;
+    que-&gt;stackInTop = 0;
+    que-&gt;stackOutTop = 0;
+&#125;
+</code></pre>
 
     </div>
     <div class="menu">
