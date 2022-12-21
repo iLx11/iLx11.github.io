@@ -1051,7 +1051,7 @@ bool isReapeat(string s) &#123;
     return false;
 &#125;
 </code></pre>
-<h3 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h3><p>使用栈实现队列的下列操作：</p>
+<h2 id="栈与队列"><a href="#栈与队列" class="headerlink" title="栈与队列"></a>栈与队列</h2><h3 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h3><p>使用栈实现队列的下列操作：</p>
 <p>push(x) – 将一个元素放入队列的尾部。<br>pop() – 从队列首部移除元素。<br>peek() – 返回队列首部的元素。<br>empty() – 返回队列是否为空。</p>
 <pre><code class="c++">class MyQueue &#123;
     private : 
@@ -1127,6 +1127,457 @@ int empty(MyQueue* que) &#123;
 void freeMyQueue(MyQueue* que) &#123;
     que-&gt;stackInTop = 0;
     que-&gt;stackOutTop = 0;
+&#125;
+</code></pre>
+<h3 id="用队列实现栈"><a href="#用队列实现栈" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h3><p>使用队列实现栈的下列操作：</p>
+<ul>
+<li>push(x) – 元素 x 入栈</li>
+<li>pop() – 移除栈顶元素</li>
+<li>top() – 获取栈顶元素</li>
+<li>empty() – 返回栈是否为空</li>
+</ul>
+<pre><code class="c++">class MyStack &#123;
+    public:
+        queue&lt;int&gt; que1;
+        queue&lt;int&gt; que2;
+        int push(int x) &#123;
+            que1.push(x);
+        &#125;
+        int pop() &#123;
+            int size = que1.size();
+            //留下最后一个元素
+            size --;
+            while(sizs --) &#123;
+                que2.push(que1.front());
+                que1.pop();
+            &#125;
+            int result = que1.front();
+            que1.pop();
+               while(!que2.empty()) &#123;
+                que1.push(que2.front());
+                que2.pop();
+            &#125;
+            return result;
+        &#125;
+        int top() &#123;
+            return que1.back();
+        &#125;
+        int empty() &#123;
+            return que1.empty();
+        &#125;
+&#125;
+</code></pre>
+<h5 id="优化使用一个队"><a href="#优化使用一个队" class="headerlink" title="优化使用一个队"></a>优化使用一个队</h5><pre><code class="c+">class MyStack &#123;
+    public:
+        int pop() &#123;
+            int size = que.size();
+            size --;
+            while(size --) &#123;
+                que.push(que.pop());
+            &#125;
+            int result = que.front();
+            que.push(que.pop());
+            return result;
+            
+        &#125;
+&#125;
+</code></pre>
+<h3 id="有效的括号"><a href="#有效的括号" class="headerlink" title="有效的括号"></a>有效的括号</h3><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
+<p>有效字符串需满足：</p>
+<ul>
+<li>左括号必须用相同类型的右括号闭合。</li>
+<li>左括号必须以正确的顺序闭合。</li>
+<li>注意空字符串可被认为是有效字符串。</li>
+</ul>
+<p>示例 1:</p>
+<ul>
+<li>输入: “()”</li>
+<li>输出: true</li>
+</ul>
+<pre><code class="c++">bool isValid(string s) &#123;
+    if(s.size() % 2 != 0) return false;
+    stack&lt;char&gt; stack;
+    for(int i = 0; i &lt; s.size(), i ++) &#123;
+        if(s[i] == &quot;[&quot;) &#123;
+            stack.push(&quot;]&quot;);
+        &#125;else if(s[i] == &quot;&#123;&quot;) &#123;
+            stack.push(&quot;&#125;&quot;);
+        &#125;else if(s[i] == &quot;(&quot;) &#123;
+            stack.push(&quot;)&quot;);
+        &#125;else if(s[i] == stack.top()) &#123;
+            stack.pop();
+        &#125;else if(stack.empty() || s[i] != stack.top()) &#123;
+            return false;
+        &#125;else &#123;
+            return true;
+        &#125;
+    &#125;
+    //为空则匹配成功
+    retrun stack.empty();
+&#125;
+</code></pre>
+<h3 id="删除字符串中的所有相邻重复项"><a href="#删除字符串中的所有相邻重复项" class="headerlink" title="删除字符串中的所有相邻重复项"></a>删除字符串中的所有相邻重复项</h3><p>给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。</p>
+<p>在 S 上反复执行重复项删除操作，直到无法继续删除。</p>
+<p>在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。</p>
+<p>示例：</p>
+<ul>
+<li>输入：”abbaca”</li>
+<li>输出：”ca”</li>
+</ul>
+<pre><code class="c++">string findNeiborDel(string s) &#123;
+    stack&lt;char&gt; stack;
+    for(int i = 0; i &lt; s.size(); i ++) &#123;
+        if(s[i] == stack.top()) &#123;
+            stack.pop();
+        &#125;else if(stack.empty() || s[i] != stack.top()) &#123;
+            stack.push(s[i]);
+        &#125;
+    &#125;
+    string result = &quot;&quot;;
+    while(!stack.empty()) &#123;
+        result += stack.top();
+        stack.pop();
+    &#125;
+    //反转字符串
+    revese(result.begin(), result.end());
+    return result;
+&#125;
+</code></pre>
+<h5 id="直接将字符串作为栈"><a href="#直接将字符串作为栈" class="headerlink" title="直接将字符串作为栈"></a>直接将字符串作为栈</h5><pre><code class="c++">string findNeiborDel(string s) &#123;
+       string result;
+    for(char a : s) &#123;
+        if(result.empty() || result.back() != a) &#123;
+            result.push_back(a);
+        &#125;else if(result.back() == a) &#123;
+            result.pop_back();
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h3 id="逆波兰表达式求值"><a href="#逆波兰表达式求值" class="headerlink" title="逆波兰表达式求值"></a>逆波兰表达式求值</h3><p>根据 逆波兰表示法，求表达式的值。</p>
+<p>有效的运算符包括 + , - , * , / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。</p>
+<p>说明：</p>
+<p>整数除法只保留整数部分。 给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。</p>
+<p>示例 1：</p>
+<ul>
+<li>输入: [“2”, “1”, “+”, “3”, “ * “]</li>
+<li>输出: 9</li>
+<li>解释: 该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9</li>
+</ul>
+<p>示例 2：</p>
+<ul>
+<li>输入: [“4”, “13”, “5”, “/“, “+”]</li>
+<li>输出: 6</li>
+<li>解释: 该算式转化为常见的中缀算术表达式为：(4 + (13 / 5)) = 6</li>
+</ul>
+<pre><code class="c++">int evalRPN(vector&lt;string&gt; s) &#123;
+    stack&lt;long long&gt; stack;
+    for(int i = 0; i &lt; s.size(); i ++) &#123;
+        if(s[i] == &quot;+&quot; || s[i] == &quot;-&quot; || s[i] == &quot;*&quot; || s[i] == &quot;/&quot;) &#123;
+            long long num1 = stack.top();
+            stack.pop();
+            long long num2 = stack.top();
+            stack.pop();
+            if(s[i] == &quot;+&quot;) &#123;
+                stack.push(num1 + num2);
+            &#125;else if(s[i] == &quot;-&quot;) &#123;
+                stack.push(num1 - num2);
+            &#125;else if(s[i] == &quot;*&quot;) &#123;
+                stack.push(num1 * num2);
+            &#125;else if(s[i] == &quot;/&quot;) &#123;
+                stack.push(num1 / num2);
+            &#125;
+        &#125;else &#123;
+            stack.push(s[i]);
+        &#125;
+    &#125;
+    return stack.top();
+&#125;
+</code></pre>
+<h3 id="滑动窗口最大值"><a href="#滑动窗口最大值" class="headerlink" title="滑动窗口最大值"></a>滑动窗口最大值</h3><p>给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。</p>
+<p>返回滑动窗口中的最大值。</p>
+<p>思路：</p>
+<p>使用一个单调队列，队列前面的值为最大值</p>
+<pre><code class="c++">class Solution &#123;
+    private:
+        class MyQueue &#123;
+            //使用双端队列
+            deque&lt;int&gt; que;
+            void pop(value) &#123;
+                if(!que.empty() &amp;&amp; value == que.front()) &#123;
+                    que.pop_front();
+                &#125;
+            &#125;
+            void push(value) &#123;
+                while(!que.empty() &amp;&amp; value &gt; que.back()) &#123;
+                    que.pop_back();
+                &#125;
+                que.push_back(value);
+            &#125;
+            int front() &#123;
+                return que.eqmpt() &amp;&amp; que.front();
+            &#125;
+        &#125;
+      public: 
+        vector&lt;int&gt; maxSiblingWindow(vector&lt;int&gt;&amp; num, int k) &#123;
+            MyQueue que;
+            vector&lt;int&gt; result;
+            //将前K个放入单调队列
+            for(int i = 0; i &lt; k; i ++) &#123;
+                que.push(num[i]);
+            &#125;
+            result.push_back(que.front());
+            for(int i = k; i &lt; num.size(); i ++) &#123;
+                //删除k之后相同的值
+                que.pop(num[i - k]);
+                que.push(num[i]);
+                //保存最前列的值
+                que.push_back(que.front());
+            &#125;
+            return result;
+        &#125;
+&#125;
+</code></pre>
+<h3 id="前K个高频元素"><a href="#前K个高频元素" class="headerlink" title="前K个高频元素"></a>前K个高频元素</h3><pre><code class="c++">class Solution() &#123;
+    public:
+        class comparition() &#123;
+            public:
+                bool operator(const pair&lt;int, int&gt;&amp; lhs, const pair&lt;int, int&gt;&amp; rhs) &#123;
+                    //左大于右，表示从大到小，优先级队列则为相反，用于构建小顶堆
+                    return lhs.second &gt; rhs.second;
+                &#125;
+                vector&lt;int&gt; topKFrequent(vector&lt;int&gt; num, int k) &#123;
+                    vector&lt;int&gt; result(k);
+                    //用map来记录出现的频率
+                    unordered_map&lt;int&gt; map;
+                    //遍历获取频率
+                    for(int i = 0; i &lt; num.size(); i ++) &#123;
+                        //key 为 num的值，value 为出现频率
+                        map[num[i]] ++;
+                    &#125;
+                    //构建小顶堆，使用优先级队列，使具备条件的最先出队，底层实现为堆
+                    //参数为&lt;类型，存放数据容器， 比较方式&gt;
+                    priority_queue&lt;const pair&lt;int, int&gt;, vector&lt;const pair&lt;int, int&gt;&gt;, comparition&gt; pri_que;
+                    //将 map 的值 push 进队列
+                    for(auto it : map) &#123;
+                        pri_que.push(it);
+                        //将超出 k 的弹出，即最小的元素
+                        if(pri_que.size() &gt; k) &#123;
+                            pri_que.pop();
+                        &#125;
+                    &#125;
+                    //优先级队列为倒叙，输入结果容器
+                    for(int i = k - 1; i &gt;= 0; i --) &#123;
+                        //frist 为 key，即是数组元素 
+                        result[i] = pri_que.top().frist;
+                        pri_que.pop();
+                    &#125;
+                    return result;
+                &#125;
+        &#125;
+</code></pre>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树的存储方式"><a href="#二叉树的存储方式" class="headerlink" title="二叉树的存储方式"></a>二叉树的存储方式</h3><p><strong>二叉树可以链式存储，也可以顺序存储。</strong></p>
+<p>那么链式存储方式就用指针， 顺序存储的方式就是用数组。</p>
+<p>顾名思义就是顺序存储的元素在内存是连续分布的，而链式存储则是通过指针把分布在散落在各个地址的节点串联一起。</p>
+<p>链式存储如图：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020092019554618.png" alt="img"></p>
+<p>链式存储是大家很熟悉的一种方式，那么我们来看看如何顺序存储呢？</p>
+<p>其实就是用数组来存储二叉树，顺序存储的方式如图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200920200429452.png" alt="img"></p>
+<p>用数组来存储二叉树如何遍历的呢？</p>
+<p><strong>如果父节点的数组下标是 i，那么它的左孩子就是 i * 2 + 1，右孩子就是 i * 2 + 2。</strong></p>
+<p>但是用链式表示的二叉树，更有利于我们理解，所以一般我们都是用链式存储二叉树。</p>
+<h3 id="二叉树种类"><a href="#二叉树种类" class="headerlink" title="二叉树种类"></a>二叉树种类</h3><h4 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h4><p>满二叉树：如果一棵二叉树只有度为0的结点和度为2的结点，并且度为0的结点在同一层上，则这棵二叉树为满二叉树。</p>
+<h4 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h4><p>完全二叉树的定义如下：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层，则该层包含 1~ 2^(h-1)  个节点。</p>
+<h4 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h4><h5 id="二叉搜索树是一个有序树。"><a href="#二叉搜索树是一个有序树。" class="headerlink" title="二叉搜索树是一个有序树。"></a><strong>二叉搜索树是一个有序树</strong>。</h5><ul>
+<li>若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；</li>
+<li>若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；</li>
+<li>它的左、右子树也分别为二叉排序树</li>
+</ul>
+<h4 id="平衡二叉搜索树"><a href="#平衡二叉搜索树" class="headerlink" title="平衡二叉搜索树"></a>平衡二叉搜索树</h4><p>平衡二叉搜索树：又被称为AVL（Adelson-Velsky and Landis）树，且具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><pre><code class="c++">struct TreeNode&#123;
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(val): val(val), left(NULL), right(NULL) &#123;&#125;
+&#125;
+</code></pre>
+<p>JavaScript</p>
+<pre><code class="js">class TreeNode &#123;
+    var val;
+    var left;
+    var right;
+    constructor(val = 0, left = null, right = null) &#123;
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="二叉树的递归遍历"><a href="#二叉树的递归遍历" class="headerlink" title="二叉树的递归遍历"></a>二叉树的递归遍历</h3><h5 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h5><pre><code class="c++">vector&lt;int&gt; traversal(TreeNode* cur, vector&lt;int&gt;&amp; num) &#123;
+    if(cur == NULL) return;
+    //根节点
+    num.push_back(cur-&gt;val);
+    //左子树
+    traversal(cur-&gt;left, num);
+    //右子树
+    traversal(cur-&gt;right, num);
+&#125;
+ preorderTraversal(TreeNode* tree) &#123;
+    //定义结果数组
+    vector&lt;int&gt; result;
+    traversal(tree, result);
+    return result;
+&#125;
+</code></pre>
+<h5 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h5><pre><code class="c++">//左子树
+traversal(cur-&gt;left, num);
+//根节点
+num.push_back(cur-&gt;val);
+//右子树
+traversal(cur-&gt;right, num);
+</code></pre>
+<h5 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h5><pre><code class="c++">//左子树
+traversal(cur-&gt;left, num);
+//右子树
+traversal(cur-&gt;right, num);
+//根节点
+num.push_back(cur-&gt;val);
+</code></pre>
+<h3 id="二叉树的迭代遍历"><a href="#二叉树的迭代遍历" class="headerlink" title="二叉树的迭代遍历"></a>二叉树的迭代遍历</h3><h5 id="前序遍历-1"><a href="#前序遍历-1" class="headerlink" title="前序遍历"></a>前序遍历</h5><pre><code class="c++">vector&lt;int&gt; preorderTraversal(TreeNode* tree) &#123;
+       vector&lt;int&gt; result;
+    //使用栈来存储节点
+    stack&lt;TreeNode*&gt; st;
+    //前序遍历先储存根节点
+    st.push(tree);
+    while(! st.empty()) &#123;
+        TreeNode* cur = st.top();
+        //将根节点的值放入结果数组中
+        result.push_back(cur-&gt;val);
+        st.pop();
+           //入栈时先右后左，出栈则为先左后右
+        if(cur-&gt;right) st.push(cur-&gt;right);
+        if(cur-&gt;left) st.push(cur-&gt;left);
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h5 id="中序遍历-1"><a href="#中序遍历-1" class="headerlink" title="中序遍历"></a>中序遍历</h5><pre><code class="c++">//思路是先把所有的左子树存入栈
+vector&lt;int&gt; InorderTraversal(TreeNode* tree) &#123;
+    vector&lt;int&gt; result;
+    stack&lt;TreeNode*&gt; st;
+    TreeNode* cur = tree;
+    while(cur != NULL || ! st.empty()) &#123;
+        //判断是否到最后一个左子树
+        if(cur != NULL) &#123;
+            st.push(cur);
+            cur = cur-&gt;left;
+        &#125;else &#123;
+            //获取最后一个左子树
+            cur = st.top();
+            st.pop();
+            result.push_back(cur-&gt;val);
+            //遍历所有左子树最近的右子树
+            cur = cur-&gt;right;
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h5 id="后序遍历-1"><a href="#后序遍历-1" class="headerlink" title="后序遍历"></a>后序遍历</h5><p>先序遍历是中左右，后续遍历是左右中，那么我们只需要调整一下先序遍历的代码顺序，就变成中右左的遍历顺序，然后在反转result数组，输出的结果顺序就是左右中了</p>
+<pre><code class="c++">vector&lt;int&gt; postorderTraversal(TreeNode* tree) &#123;
+       vector&lt;int&gt; result;
+    //使用栈来存储节点
+    stack&lt;TreeNode*&gt; st;
+    //前序遍历先储存根节点
+    st.push(tree);
+    while(! st.empty()) &#123;
+        TreeNode* cur = st.top();
+        //将根节点的值放入结果数组中
+        result.push_back(cur-&gt;val);
+        st.pop();
+           //入栈时先左后左，出栈则为先右后左
+        if(cur-&gt;left) st.push(cur-&gt;left);
+        if(cur-&gt;right) st.push(cur-&gt;right);
+    &#125;
+    reverse(result.begin(), result.end());
+    return result;
+&#125;
+</code></pre>
+<h3 id="二叉树的统一迭代法"><a href="#二叉树的统一迭代法" class="headerlink" title="二叉树的统一迭代法"></a>二叉树的统一迭代法</h3><h5 id="中序遍历-2"><a href="#中序遍历-2" class="headerlink" title="中序遍历"></a>中序遍历</h5><pre><code class="c++">vector&lt;int&gt; inorderTraversal(TreeNode* tree) &#123;
+    vector&lt;int&gt; result;
+    stack&lt;TreeNode*&gt; st;
+    if(tree != NULL) st.push(tree);
+    while(!st.empty()) &#123;
+        TreeNode* cur = st.top();
+        if(cur != NULL) &#123;
+            //中序遍历一次放入右，中，左
+            //不为空再放入栈中
+            if(cur-&gt;right) st.push(cur-&gt;right);
+            
+            //放入根节点
+            st.push(cur);
+            //用 NULL 作为标识来表示已经访问过根节点
+            st.push(NULL);
+            //放入左子树
+            if(cur-&gt;left) st.push(cur-&gt;left);
+           //为空表示所有节点遍历完成
+        &#125;else &#123;
+            //弹出NULL
+            st.pop();
+            cur = st.top();
+            st.pop();
+            result.push_back(cur-&gt;value);
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h5 id="后序遍历-2"><a href="#后序遍历-2" class="headerlink" title="后序遍历"></a>后序遍历</h5><pre><code class="c++">vector&lt;int&gt; postorderTraversal(TreeNode* tree) &#123;
+    vector&lt;int&gt; result;
+    stack&lt;TreeNode*&gt; st;
+    if(tree != NULL) st.push(tree);
+    while(! st.empty()) &#123;
+        TreeNode* cur = st.top();
+        if(cur != NULL) &#123;
+            //后序遍历先放入根节点
+            st.pop();
+            st.push(cur);
+            st.push(NULL);
+            
+            if(cur-&gt;right) st.push(cur-&gt;right);
+            if(cur-&gt;left) st.push(cur-&gt;left);
+        &#125;else &#123;
+            //删除 NULL
+            st.pop();
+            cur = st.top();
+            result.push_back(cur-&gt;val);
+            st.pop();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="二叉树的层序遍历"><a href="#二叉树的层序遍历" class="headerlink" title="二叉树的层序遍历"></a>二叉树的层序遍历</h3><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* tree) &#123;
+    //构建一个队列来遍历每一层
+    queue&lt;int&gt; que;
+       vector&lt;vector&lt;int&gt;&gt; result;
+    if(tree != NULL) que.push(tree);
+    while(!que.empty()) &#123;
+        //构建每一层的容器
+        vector&lt;int&gt; res;
+        //计算每一层的数量
+        int size = que.size();
+        for(int i = 0; i &lt; size; i ++) &#123;
+            TreeNode* cur = que.front;
+            res.push_back(cur-&gt;val);
+            que.pop();
+            if(cur-&gt;right) que.push(cur-&gt;right);
+            if(cur-&gt;left) que.push(cur-&gt;left);
+        &#125;
+        result.push_back(res);
+    &#125;
+    return result;
 &#125;
 </code></pre>
 
