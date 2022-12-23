@@ -1560,7 +1560,7 @@ vector&lt;int&gt; InorderTraversal(TreeNode* tree) &#123;
 </code></pre>
 <h3 id="二叉树的层序遍历"><a href="#二叉树的层序遍历" class="headerlink" title="二叉树的层序遍历"></a>二叉树的层序遍历</h3><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* tree) &#123;
     //构建一个队列来遍历每一层
-    queue&lt;int&gt; que;
+    queue&lt;TreeNode*&gt; que;
        vector&lt;vector&lt;int&gt;&gt; result;
     if(tree != NULL) que.push(tree);
     while(!que.empty()) &#123;
@@ -1578,6 +1578,165 @@ vector&lt;int&gt; InorderTraversal(TreeNode* tree) &#123;
         result.push_back(res);
     &#125;
     return result;
+&#125;
+</code></pre>
+<h3 id="翻转二叉树"><a href="#翻转二叉树" class="headerlink" title="翻转二叉树"></a>翻转二叉树</h3><h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><pre><code class="c++">TreeNode* reverseTree(TreeNode* tree) &#123;
+    if(tree == NULL) return tree;
+    swap(tree-&gt;right, tree-&gt;left);
+    reverseTree(tree-&gt;left);
+    reverseTree(tree-&gt;right);
+    return tree;
+&#125;
+</code></pre>
+<h5 id="迭代法"><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h5><p>在前中后遍历时将结果数组的代码替换为</p>
+<pre><code class="c++">swap(cur-&gt;left, cur-&gt;right);
+</code></pre>
+<h3 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h3><p>给定一个二叉树，检查它是否是镜像对称的</p>
+<h5 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">bool compare(TreeNode* left, TreeNode* right) &#123;
+    if(left == NULL &amp;&amp; right == NULL) return true;
+    else if(left != NULL &amp;&amp; right == NULL) return false;
+    else if(left == NULL &amp;&amp; right != NULL) return false;
+    else if(left-&gt;val != right-&gt;val) return false;
+    
+    bool outside = compare(left-&gt;left, right-&gt;right);
+    bool inside = compare(left-&gt;right, right-&gt;left);
+    return outside &amp;&amp; inside;
+&#125;
+bool isSymmetric(TreeNode* tree) &#123;
+    if(tree == NULL) return true;
+    //判断二叉树是否对称，只需要判断根节点的左右子树是否对称
+    return compare(tree-&gt;left, tree-&gt;right);
+&#125;
+</code></pre>
+<h5 id="迭代法-1"><a href="#迭代法-1" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">bool isSymmetric(TreeNode* tree) &#123;
+    //使用队列来逐个判断子树是否对称（使用其他数据结构也可以）
+    queue&lt;TreeNode*&gt; que;
+       if(tree == NULL) return true;
+    que.push(tree-&gt;left);
+    que.push(tree-&gt;right);
+    while(!que.empty()) &#123;
+        TreeNode* left = que.front(); que.pop();
+        TreeNode* right = que.front(); que.pop();
+        if(left == NULL &amp;&amp; right == NULL) &#123;
+            return true;
+        &#125;
+        if(!left || !right || (left-&gt;val != right-&gt;val)) &#123;
+            return false;
+        &#125;
+        que.push(left-&gt;left);
+        que.push(right-&gt;right);
+        que.push(left-&gt;right);
+        que.push(right-&gt;left);
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h3 id="二叉树的最大深度"><a href="#二叉树的最大深度" class="headerlink" title="二叉树的最大深度"></a>二叉树的最大深度</h3><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
+<h5 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h5><pre><code class="c++">int getDepth(TreeNode* tree) &#123;
+    if(tree == NUll) return 0;
+    return 1 + max(getDepth(tree-&gt;left), getDepth(tree-&gt;right));
+&#125;
+</code></pre>
+<h5 id="前序遍历-2"><a href="#前序遍历-2" class="headerlink" title="前序遍历"></a>前序遍历</h5><pre><code class="c++">class Solution &#123;
+    public:
+    int result;
+    void getDepth(TreeNode* tree, int depth) &#123;
+        result = result &gt; depth ? result : depth;
+        if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right == NULL) return;
+        if(tree-&gt;left) &#123;
+            getDepth(tree-&gt;left, depth + 1);
+        &#125;
+        if(tree-&gt;rigth) &#123;
+            getDepth(tree-&gt;right, depth + 1);
+        &#125;
+        return ;
+    &#125;
+    int getMax(TreeNode* tree) &#123;
+        int result = 0;
+        if(tree == NULL) return result;
+        getDepth(tree, 1);
+        return result;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="迭代法的层序遍历"><a href="#迭代法的层序遍历" class="headerlink" title="迭代法的层序遍历"></a>迭代法的层序遍历</h5><pre><code class="c++">int getDepth(TreeNode* tree) &#123;
+    int depth = 0;
+    queue&lt;TreeNode*&gt; que;
+    que.push(tree);
+    while(! que.empty()) &#123;
+        int size = que.size();
+        depth ++;
+        for(int i = 0; i &lt; size; i ++) &#123;
+            TreeNode* cur = que.front();
+            que.pop();
+            if(cur-&gt;left) que.push(cur-&gt;left);
+            if(cur-&gt;right) que.push(cur-&gt;right);
+        &#125;
+    &#125;
+    return depth;
+&#125;
+</code></pre>
+<h4 id="N叉树的最大深度"><a href="#N叉树的最大深度" class="headerlink" title="N叉树的最大深度"></a>N叉树的最大深度</h4><h5 id="递归法-1"><a href="#递归法-1" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">int maxDepth(TreeNode* tree) &#123;
+    if(tree == NULL) return 0;
+    int depth = 0;
+    for(int i = 0; i &lt; tree-&gt;children.size(); i ++) &#123;
+        depth = max(depth, maxDepth(tree-&gt;chidren[i]));
+    &#125;
+    return depth + 1;
+&#125;
+</code></pre>
+<h5 id="迭代法-2"><a href="#迭代法-2" class="headerlink" title="迭代法"></a>迭代法</h5><p>层序遍历</p>
+<pre><code class="c++">int maxDepth(TreeNode* tree) &#123;
+    int depth = 0;
+    queue&lt;int&gt; que;
+    que.push(tree);
+    while(! que.empty()) &#123;
+        int size = que.size();
+        depth ++;
+        for(int i = 0; i &lt; size; i ++) &#123;
+            TreeNode* cur = que.front();
+            que.pop();
+            for(int j = 0; j &lt; cur-&gt;children.size(); j ++) &#123;
+                if(que.children[j]) que.push(cur-&gt;children[j]);
+            &#125;
+        &#125;
+    &#125;
+    return depth;
+&#125;
+</code></pre>
+<h3 id="二叉树的最小深度"><a href="#二叉树的最小深度" class="headerlink" title="二叉树的最小深度"></a>二叉树的最小深度</h3><p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量</p>
+<h5 id="递归法-2"><a href="#递归法-2" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">int getMinDepth(TreeNode* tree) &#123;
+    if(tree == NULL) return 0;
+       if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right! = NULL) &#123;
+        return 1 + getMinDepth(tree-&gt;right);
+    &#125;
+    if(tree-&gt;left != NULL &amp;&amp; tree-&gt;right == NULL) &#123;
+        return 1 + getMinDepth(tree-&gt;left);
+    &#125;
+    return 1 + min(getMinDepth(tree-&gt;left), getMinDepth(tree-&gt;rigth));
+&#125;
+</code></pre>
+<h5 id="迭代法-3"><a href="#迭代法-3" class="headerlink" title="迭代法"></a>迭代法</h5><p>层序遍历</p>
+<pre><code class="c++">int getMinDepth(TreeNode* tree) &#123;
+    if(tree == NULL) return 0;
+    queue&lt;TreeNode*&gt; que;
+    int depth = 0;
+    que.push(tree);
+    while(! que.empty()) &#123;
+        int size = que.size();
+        depth ++;
+        for(int i = 0; i &lt; size; i ++) &#123;
+            TreeNode* cur = que.front();
+            que.pop();
+            if(cur-&gt;left) que.push(cur-&gt;left);
+            if(cur-&gt;right) que.push(cur-&gt;right);
+            //当左右子树都为空的时候则为最小深度
+            if(! cur-&gt;left &amp;&amp; ! cur-&gt;right) &#123;
+                return depth;
+            &#125;
+        &#125;
+    &#125;
+    return depth;
 &#125;
 </code></pre>
 
