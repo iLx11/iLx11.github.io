@@ -48,18 +48,14 @@
 <hr>
     <div class="post-md">
         <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>左右闭区间</p>
-<pre><code class="c++">void main() &#123;
-    int a[10]&#123;&#125;;
-    search(a, 3)
-&#125;
-int search(int &amp;a, int target) &#123;
-    int length = sizeof(a) / sizeof(a[0]);
-    int mid, left = 0, right = length - 1;
-    //[left, right] -- [left, right) -&gt; left&lt;right
+<h5 id="c"><a href="#c" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int search(vector&lt;int&gt;&amp; a, int target) &#123;
+    int mid, left = 0, right = a.size() - 1;
+    //1.[left, right] -- 2.[left, right) -&gt; left&lt;right
     while(left &lt;= right) &#123;
         mid = left + ((right - left) &gt;&gt; 1);
         if(a[mid] &gt; target) &#123;
             //闭区间
+            //2.right = mid;
             right = mid - 1;
         &#125;else if(a[mid] &lt; target) &#123;
             //闭区间
@@ -71,17 +67,58 @@ int search(int &amp;a, int target) &#123;
     return -1;
 &#125;
 </code></pre>
-<h3 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h3><pre><code class="c++">int main() &#123;
-    int a[10]&#123;&#125;;
-    remove(a, 3);
+<h5 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">//左闭右闭
+int search(int* nums, int length, int target) &#123;
+    int mid = 0, left = 0, right = length - 1;
+    while(left &lt;= right) &#123;
+        mid = left + ((left + right) &gt;&gt; 1);
+        if(nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125;else if(nums[mid] &gt; traget) &#123;
+            right = mid - 1;
+        &#125;else &#123;
+            return mid;
+        &#125;
+    &#125;
+    return -1;
 &#125;
-int remove(int&amp; a, int target) &#123;
-    int length = sizeof(a) / sizeof(a[0]);
+</code></pre>
+<h5 id="js"><a href="#js" class="headerlink" title="js"></a>js</h5><pre><code class="js">function search(nums, target) &#123;
+    let mid = 0, left = 0, right = nums.length;
+    while(left &lt;= right) &#123;
+        mid = left + ((left + right) &gt;&gt; 1);
+        if(nums[mid] &gt; target) &#123;
+            right = mid - 1;
+        &#125;else if(nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125;else &#123;
+            return mid;
+        &#125;
+    &#125;
+    return -1;
+&#125;
+</code></pre>
+<h5 id="java"><a href="#java" class="headerlink" title="java"></a>java</h5><pre><code class="java">public int search(int[] nums, int target) &#123;
+    int mid = 0, left = 0, right = nums.length;
+    while(left &lt;= right) &#123;
+        if(nums[mid] &gt; target) &#123;
+            right = mid - 1;
+        &#125;else if(left &lt; target) &#123;
+            left = mid + 1;
+        &#125;else &#123;
+            return mid;
+        &#125;
+    &#125;
+    return -1;
+&#125;
+</code></pre>
+<h3 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h3><h4 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h4><pre><code class="c++">int remove(vector&lt;int&gt;&amp; a, int target) &#123;
+    int length = a.size();
     for(int i = 0; i &lt; length; i++) &#123;
         if(a[i] == target) &#123;
             for(int j = i + 1; j &lt; length; j++) &#123;
                 a[j - 1] = a[j];
-            &#125;
+            &#125; 
             i--;
             length--;
         &#125;
@@ -89,8 +126,8 @@ int remove(int&amp; a, int target) &#123;
     return length;
 &#125;
 </code></pre>
-<h5 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h5><pre><code class="c++">int remove(int&amp; a, int target) &#123;
-    int length = sizeof(a) / sizeof(a[0]);
+<h4 id="双指针法"><a href="#双指针法" class="headerlink" title="双指针法"></a>双指针法</h4><h5 id="c-1"><a href="#c-1" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int remove(vector&lt;int&gt;&amp; a, int target) &#123;
+    int length = a.size();
     int slow = 0;
     for(int fast = 0; fast &lt; length; fast ++) &#123;
         if(a[fast] != target) &#123;
@@ -101,26 +138,56 @@ int remove(int&amp; a, int target) &#123;
     return slow;
 &#125;
 </code></pre>
-<h5 id="双向指针法"><a href="#双向指针法" class="headerlink" title="双向指针法"></a>双向指针法</h5><pre><code class="c++">int remove(int&amp; a, int target) &#123;
-    int length = sizeof(a) / sizeof(a[0]);
+<h5 id="c语言"><a href="#c语言" class="headerlink" title="c语言"></a>c语言</h5><pre><code class="c">int remove(int* nums, int length, int target) &#123;
+    int slow = 0;
+    for(int fast = 0; fast &lt; length; fast ++) &#123;
+        if(nums[fast] != target) &#123;
+            nums[slow ++] = nums[fast];
+        &#125;
+    &#125;
+    //新数组的长度
+    return slow;
+&#125;
+</code></pre>
+<h4 id="双向指针法"><a href="#双向指针法" class="headerlink" title="双向指针法"></a>双向指针法</h4><p>尽可能移动最少的元素</p>
+<h5 id="c-2"><a href="#c-2" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int remove(vector&lt;int&gt;&amp; a, int target) &#123;
+    int length = a.size();
     int left = 0;
     int right = length - 1;
+    //将右值移动到不与 target 相等的值
+    while(right &gt;= 0 &amp;&amp; nums[right] == target) right --;
     while(left &lt;= right) &#123;
         if(a[left] == target) &#123;
             a[left] == a[right];
+            //对应的值已移动到前面
             right --;
         &#125;
         left ++;
-        while(left &lt;= right &amp;&amp; a[rigth] == target) &#123;
+        while(right &gt;= 0 &amp;&amp; a[rigth] == target) &#123;
             right --;
         &#125;
     &#125;
     return left;
 &#125;
 </code></pre>
-<h5 id="有序数组平方"><a href="#有序数组平方" class="headerlink" title="有序数组平方"></a>有序数组平方</h5><p>将数组内元素平方之后进行排序</p>
-<pre><code class="c++">int* dou(int&amp; a) &#123;
-    int length = sizeof(a) / sizeof(a[0]);
+<h5 id="java-1"><a href="#java-1" class="headerlink" title="java"></a>java</h5><pre><code class="java">public int remove(int[] nums, int target) &#123;
+    int left = 0;
+    int right = nums.length;
+    while(left &lt;= right) &#123;
+        //右指针移动到 ！target
+        while(right &gt;= 0 &amp;&amp; nums[right] == target) right --;
+        //左指针移动到 target
+        while(left &gt;= 0 &amp;&amp; nums[left] != target) left ++;
+        if(left &lt;= right) &#123;
+            nums[left] = nums[right];
+        &#125;
+    &#125;
+    return left;
+&#125;
+</code></pre>
+<h3 id="有序数组平方"><a href="#有序数组平方" class="headerlink" title="有序数组平方"></a>有序数组平方</h3><p>将有序数组内元素平方之后进行排序</p>
+<h5 id="c-3"><a href="#c-3" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int* sortedSquares(vector&lt;int&gt;&amp; a) &#123;
+    int length = a.size();
     int left = 0, right = length - 1, k = length;
     int newArr[length]&#123;&#125;;
     for(int i = 0; i &lt; length; i ++) &#123;
@@ -131,14 +198,61 @@ int remove(int&amp; a, int target) &#123;
             newArr[k --] =  a[left] * a[left];
             left --;
         &#125;
-        a = newArr;
-        return a;
     &#125;
+    a = newArr;
+    return a;
 &#125;
 </code></pre>
-<h3 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h3><h5 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h5><pre><code class="c++">int minSubArrayLen(int s, int&amp; a) &#123;
-    int len = sizeof(a) / sizeof(a[0]);
-    int result&#123;INT32_MAX&#125;;
+<h5 id="C语言-1"><a href="#C语言-1" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">int* sortedSquares(int* nums, int length) &#123;
+    int left = 0;
+    int right = length - 1;
+    int k = length - 1;
+    //结果数组分配空间
+    int* result = (int *) malloc(sizeof(int) * length);
+    while(left &lt;= right) &#123;
+        if(nums[left] * nums[left] &gt; nums[right] * nums[right]) &#123;
+            result[k --] = nums[left] * nums[left ++];
+        &#125;else if(nums[left] * nums[left] &lt; nums[right] * nums[right]) &#123;
+            result[k --] = nums[right] * nums[right --];
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h5 id="js-1"><a href="#js-1" class="headerlink" title="js"></a>js</h5><pre><code class="js">function sortedSquares(nums) &#123;
+    let left = 0, right = nums.length - 1;
+    let k = nums.length - 1;
+    let result = new Array(nums.length).fill(0);
+    while(left &lt;= right) &#123;
+        if(nums[left] * nums[left] &gt; nums[right] * nums[right]) &#123;
+            result[k --] = nums[left] * nums[left ++];
+        &#125;else if(nums[left] * nums[left] &lt; nums[right] * nums[right]) &#123;
+            result[k --] = nums[right] * nums[right --];
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h5 id="java-2"><a href="#java-2" class="headerlink" title="java"></a>java</h5><pre><code class="java">public sortedSquares(int[] nums) &#123;
+    int left = 0, right = nums.length - 1;
+    int k = nums.length - 1;
+    int[] result = new int[nums.length];
+    while(left &lt;= right) &#123;
+        if(nums[left] * nums[left] &gt; nums[right] * nums[right]) &#123;
+            result[k --] = nums[left] * nums[left ++];
+        &#125;else if(nums[left] * nums[left] &lt; nums[right] * nums[right]) &#123;
+            result[k --] = nums[right] * nums[right --];
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h3 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h3><p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。</p>
+<p>示例：</p>
+<p>输入：s = 7, nums = [2,3,1,2,4,3] 输出：2 解释：子数组 [4,3] 是该条件下的长度最小的子数组。</p>
+<h4 id="常规解法"><a href="#常规解法" class="headerlink" title="常规解法"></a>常规解法</h4><h5 id="c-4"><a href="#c-4" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int minSubArrayLen(int s, vector&lt;int&gt;&amp; a) &#123;
+    int len = a.size();
+    int result = INT32_MAX;
     int sum&#123;0&#125;, subLength&#123;0&#125;;
     for(int i = 0; i &lt; len; i ++) &#123;
         sum = 0; 
@@ -154,9 +268,9 @@ int remove(int&amp; a, int target) &#123;
     return result == IN32_MAX ? 0 : result; 
 &#125;
 </code></pre>
-<h5 id="滑动窗口解法"><a href="#滑动窗口解法" class="headerlink" title="滑动窗口解法"></a>滑动窗口解法</h5><pre><code class="c++">int minSubArrayLen(int s, int&amp; a) &#123;
+<h4 id="滑动窗口解法"><a href="#滑动窗口解法" class="headerlink" title="滑动窗口解法"></a>滑动窗口解法</h4><h5 id="c-5"><a href="#c-5" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int minSubArrayLen(int s, vector&lt;int&gt;&amp; a) &#123;
     int result = IN32_MAX;
-    int len = sizeof(a) / sizeof(a[0]);
+    int len = a.size();
     int i&#123;0&#125;, subLength&#123;0&#125;, sum&#123;0&#125;;
     for(int j = 0; j &lt; len; j ++) &#123;
         sum += a[j];
@@ -168,6 +282,21 @@ int remove(int&amp; a, int target) &#123;
         &#125;
     &#125;
     return result == IN32_MAX ? 0 : result;
+&#125;
+</code></pre>
+<h5 id="c语言-1"><a href="#c语言-1" class="headerlink" title="c语言"></a>c语言</h5><pre><code class="c">int minSubArrayLen(int* nums, int length, int target) &#123;
+    //初始化最大值
+    int result = INT_MAX;
+    int left = 0, right = 0, sum = 0;
+    for(; right &lt; length; right ++) &#123;
+        sum += nums[right];
+        while(sum &gt;= target) &#123;
+            int subLen = right - left + 1;
+            result = subLen &lt; result ? subLen : result;
+            sum -= nums[left];
+            left ++;
+        &#125;
+    &#125;
 &#125;
 </code></pre>
 <h3 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h3><pre><code class="c++">void generateMatrix(int n, int *array) &#123;
@@ -207,7 +336,7 @@ int remove(int&amp; a, int target) &#123;
     &#125;
 &#125;
 int main() &#123;
-    int *a&#123;new int[5][5]&#125;;
+    int *a = new int[5][5];
     geerateMatrix(5);
 &#125; 
 </code></pre>
@@ -382,7 +511,7 @@ struct ListNode* delNode(struct ListNode* head, int val() &#123;
         &#125;
 &#125;
 </code></pre>
-<h5 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">typedef struct &#123;
+<h5 id="C语言-2"><a href="#C语言-2" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">typedef struct &#123;
     int val;
     struct ListNode* next;
 &#125;ListNode;
@@ -883,7 +1012,7 @@ string reverseString(string s, int k) &#123;
     return s;
 &#125;
 </code></pre>
-<h4 id="C语言-1"><a href="#C语言-1" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">char* replaceSpace(char* s) &#123;
+<h4 id="C语言-3"><a href="#C语言-3" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">char* replaceSpace(char* s) &#123;
     int oldSize = strlen(s);
     int count = 0;
     for(int i = 0; i &lt; oldeSize; i ++) &#123;
@@ -1083,7 +1212,7 @@ bool isReapeat(string s) &#123;
         &#125;
 &#125;
 </code></pre>
-<h4 id="C语言-2"><a href="#C语言-2" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">typedef struct &#123;
+<h4 id="C语言-4"><a href="#C语言-4" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">typedef struct &#123;
     int stackInTop, stackOutTop;
     int stackIn[100], stackOut[100];
 &#125;MyQueue;
