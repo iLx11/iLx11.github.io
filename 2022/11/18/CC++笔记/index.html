@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
     <link rel="alternate icon" type="image/png" href="/img/favicon.png">
-    <link rel="stylesheet" media="screen and (max-width:600px)" href="/css/style.css" type="text/css" />
-    <link rel="stylesheet" media="screen and (min-width:600px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
     <title>iLx1 | </title>
     
 <link rel="stylesheet" href="/css/reset.css">
@@ -17,7 +17,6 @@
 <link rel="stylesheet" href="/css/fonts.css">
 
 <meta name="generator" content="Hexo 5.4.2"></head>
-
 <body>
     <div class="backg"></div>
     <div class="paper">
@@ -141,7 +140,7 @@ void process(char *a, char *b, int(* p)(const char*, const char *))
 void output(struct stru str[2])//结构体数组
     
 //结构体指针
-struct student &#123;
+struct Student &#123;
     long num;
     char *name; // char name[20]
 &#125;
@@ -153,6 +152,12 @@ stu.name = 123;
 stu.name = (char *)malloc(20);
 
 (*p).name ==&gt; p-&gt;name
+
+//定义指针类型  
+typedef struct Student &#123;
+    int HP;
+&#125;Stu, * PStu;
+PStu newStu = (PStu) malloc(sizeof(Stu));
 </code></pre>
 <h3 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h3><blockquote>
 <p>将几种不同类型的变量存放在同一内存单元中，实现覆盖技术</p>
@@ -166,6 +171,19 @@ stu.name = (char *)malloc(20);
     &#125; ip;
     unsigned int num;
 &#125;
+</code></pre>
+<h3 id="传递二维数组"><a href="#传递二维数组" class="headerlink" title="传递二维数组"></a>传递二维数组</h3><h5 id="1-传递时指指定列数"><a href="#1-传递时指指定列数" class="headerlink" title="1.传递时指指定列数"></a>1.传递时指指定列数</h5><pre><code class="c">void foo(int a[][3], int m, int n)
+</code></pre>
+<h5 id="2-参数声明为一个指向数组的指针"><a href="#2-参数声明为一个指向数组的指针" class="headerlink" title="2.参数声明为一个指向数组的指针"></a>2.参数声明为一个指向数组的指针</h5><pre><code class="c">void foo(int (*a)[3], int m, int n)
+</code></pre>
+<h5 id="3-把参数声明为指向指针的指针"><a href="#3-把参数声明为指向指针的指针" class="headerlink" title="3.把参数声明为指向指针的指针"></a>3.把参数声明为指向指针的指针</h5><pre><code class="c">void foo(int **a, int m, int n)
+    
+    int a[2][3] = &#123;
+        &#123;1,2,3&#125;,
+        &#123;4,5,6&#125;
+    &#125;;
+    int * p[3] = &#123;a[0], a[1], a[2]&#125;;
+    foo(p, 2, 3);
 </code></pre>
 <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><pre><code class="c++">//输出
 std::cout &lt;&lt; &quot;123123\n&quot;;

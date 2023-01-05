@@ -1,3 +1,4 @@
+var clientW;
 window.onload = function() {
     console.log(storage.retrieve("theme"))
     if(storage.retrieve("theme") == "dark") {
@@ -12,7 +13,9 @@ window.onload = function() {
     //         document.documentElement.setAttribute("bg-img", "0");
     //     }
     // }
+    clientW = document.documentElement.clientWidth;
 }
+//切换主题颜色
 document.querySelector('.themePage2').addEventListener('click', () =>{
     if (document.querySelector('.themePage2').innerHTML == "Light") {
         document.querySelector('.themePage2').innerHTML = "Dark"
@@ -32,7 +35,7 @@ let h4 = document.querySelectorAll('h4');
 let bgn = document.querySelector(".post-md").children[0];
 let menu = document.querySelector('.menu>ul');
 var menuShowControl = true;
-
+//控制菜单显示
 document.querySelector('.menuShow').addEventListener('click', () => {
     if (menuShowControl == true) {
         document.querySelector('.menu').style.display = 'none';
@@ -42,15 +45,21 @@ document.querySelector('.menuShow').addEventListener('click', () => {
     menuShowControl = !menuShowControl;
 
 });
+let postMain = document.querySelector('.post-main');
+//回到顶部
 document.querySelector('.top').addEventListener('click', () => {
+    postMain.scrollTo(0, 0);
     window.scrollTo(0, 0);
 });
 
+//生成首个标题
 menuSet(bgn, menu);
+//当下一个兄弟节点不为空时，持续生成目录
 while ((bgn = bgn.nextElementSibling) != null) {
     menuSet(bgn, menu);
 }
 
+//自动生成文章目录
 function menuSet(bgn, menu) {
     if (bgn.tagName == "H1") {
         let nli = document.createElement("li");
@@ -72,6 +81,8 @@ function menuSet(bgn, menu) {
         return;
     }
 }
+
+//目录点击跳转
 let h1T = document.querySelectorAll('.menu>ul>li>.h1T');
 let h2T = document.querySelectorAll('.menu>ul>li>.h2T');
 let h3T = document.querySelectorAll('.h3T');
@@ -82,6 +93,7 @@ for (let j = 0; j < shu.length; j++) {
     for (let i = 0; i < shu[j].length; i++) {
         shu[j][i].onclick = function() {
             let position = zu[j][i].offsetTop;
+            postMain.scrollTo(0, position);
             window.scrollTo(0, position);
         }
     }
@@ -119,10 +131,11 @@ window.onscroll = function() {
 document.querySelector('.menu>ul').onscroll = function() {
     menuHide();
 }
-
+//自动隐藏目录
 function menuHide() {
     clearTimeout(timer);
     timer = setTimeout(() => {
+        if(clientW < 700)
         document.querySelector('.menu').style.display = 'none';
     }, 1500)
 }
@@ -132,13 +145,15 @@ function getTop(aa) {
     if (aa.offsetParent != null) offset += getTop(aa.offsetParent);
     return offset;
 }
+//用于限制执行次数
 let shuzu = [];
 let set = 0;
 
+//当前文段显示颜色
 function showCurrent() {
-    let hs = document.querySelectorAll('h1, h2, h3, h4');
+    let hs = document.querySelectorAll('.post-main h1, .post-main h2, .post-main h3, .post-main h4');
     for (let i = 0; i < hs.length; i++) {
-        if (hs[i].offsetTop < scroll().top) {
+        if (hs[i].offsetTop < scroll().top || hs[i].offsetTop < postMain.scrollTop) {
             if (scroll().top - hs[i].offsetTop < 60 && shuzu[0] == shuzu[1]) {
                 shuzu[set] = 1;
                 let menuli = document.querySelectorAll('.menu>ul>li>span');
@@ -153,7 +168,6 @@ function showCurrent() {
                 set++;
             }
             if (set > 1) set = 0;
-
         }
     }
 }

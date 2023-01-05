@@ -854,6 +854,7 @@ a {
     position: absolute;
     right: 3em;
     top: 0.4em;
+    cursor: pointer;
 }
 
 .post-header .go-home {
@@ -885,7 +886,9 @@ a {
     transform: translateX(-4px);
     transition: transform ease-in-out .5s;
 }
-
+.post-content .search {
+    display: none;
+}
 .post-list {
     display: flex;
     flex-flow: row wrap;
@@ -1024,7 +1027,7 @@ a {
     display: block;
     padding: 8px 16px;
     border-radius: 18px;
-    background: #fff;
+    background: var(--bg-color-1);
     border: none;
 
 }
