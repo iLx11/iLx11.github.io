@@ -153,7 +153,7 @@ let set = 0;
 function showCurrent() {
     let hs = document.querySelectorAll('.post-main h1, .post-main h2, .post-main h3, .post-main h4');
     for (let i = 0; i < hs.length; i++) {
-        if (hs[i].offsetTop < scroll().top || hs[i].offsetTop < postMain.scrollTop) {
+        if (hs[i].offsetTop < scroll().top) {
             if (scroll().top - hs[i].offsetTop < 60 && shuzu[0] == shuzu[1]) {
                 shuzu[set] = 1;
                 let menuli = document.querySelectorAll('.menu>ul>li>span');
