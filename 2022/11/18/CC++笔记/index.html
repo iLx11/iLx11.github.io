@@ -46,13 +46,7 @@
     
 <hr>
     <div class="post-md">
-        <h3 id="scanf"><a href="#scanf" class="headerlink" title="scanf"></a>scanf</h3><pre><code class="c">//表示扫描除回车以外的字符
-scanf(&quot;%[^\n]&quot;, xx);
-
-//%* 表示跳过
-</code></pre>
-<h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>宏</p>
-<pre><code class="c">// &quot;\&quot; 将多行宏拼接为一行
+        <h1 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h1><h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><h5 id="“-“-将多行宏拼接为一行"><a href="#“-“-将多行宏拼接为一行" class="headerlink" title="“\“ 将多行宏拼接为一行"></a>“\“ 将多行宏拼接为一行</h5><pre><code class="c">//获取最大值
 #define Max(a, b) (&#123;\
     //根据参数获取类型
     __typeof(a) _a = (a);\
@@ -61,33 +55,85 @@ scanf(&quot;%[^\n]&quot;, xx);
 &#125;)
     
 #define P(a) (&#123;\
-    //&#39;#&#39; 表示字符串化
+    //&#39;#a&#39; 表示字符串化a
     printf(&quot;%s = %d&quot;, #a, a);\
 &#125;)
-
-//__FILE__ //__func__ // __LINE__
-//args -&gt; 变参宏
-//frm —&gt; 格式控制
-#define log(frm, args...) &#123;\
-    printf(&quot;[%s, %s, %d]&quot;, __FILE__ , __func__, __LINE__)
-    //&#39;##&#39; 表示连接
+</code></pre>
+<blockquote>
+<h5 id="args-gt-变参宏"><a href="#args-gt-变参宏" class="headerlink" title="args -&gt; 变参宏"></a>args -&gt; 变参宏</h5><h5 id="frm-gt-格式控制"><a href="#frm-gt-格式控制" class="headerlink" title="frm -&gt; 格式控制"></a>frm -&gt; 格式控制</h5><p><code>__FILE__</code>宏用于检查当前文件名</p>
+<p><code>__FUNCTION__</code>/ <code>__func__</code>宏输出当前函数名</p>
+<p><code>__LINE__</code>宏输出当前代码是该文件中的第几行</p>
+</blockquote>
+<pre><code class="c">#define log(frm, args...) &#123;\
+    printf(&quot;[%s, %s, %d]&quot;, __FILE__ , __func__, __LINE__);\
+    
+    //##args 表示把args…中的多个参数，串连起来。
+    //如果写成 #fmt的话，就是把fmt传进来的内容以字符串形式输出。
     printf(frm, ##args);\
     printf(&quot;\n&quot;);\
 &#125;
 printf(&quot;%d&quot;, xxx);
 
-//后期去掉debug
+//函数上方添加，将会优先于 main 函数
+__attribute__((constructor))
+</code></pre>
+<h5 id="宏定义debug"><a href="#宏定义debug" class="headerlink" title="宏定义debug"></a>宏定义debug</h5><pre><code class="c">//后期去掉debug
 #ifdef DEBUG
 #define  log(frm, args...) &#123;\
     ...
 &#125;
 #else 
 #define log(frm, args...)
-
-//函数上方添加，将会优先于 main 函数
-__attribute__((constructor))
 </code></pre>
-<h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><pre><code class="c">if(str[i][j] != &#39;B&#39;) continue;
+<h5 id="字符转化大小写"><a href="#字符转化大小写" class="headerlink" title="字符转化大小写"></a>字符转化大小写</h5><pre><code class="c">#define CONVERT(c) (((c) &gt;= &#39;A&#39; &amp;&amp; (c) &lt;= &#39;Z&#39;) ? ((c) - &#39;A&#39; + &#39;a&#39;) : (c))
+</code></pre>
+<p>当表达式中存在有符号类型和无符号类型时所有的操作，</p>
+<p>数都自动转换为无符号类型。</p>
+<pre><code class="c">unsigned int aa;
+</code></pre>
+<h3 id="scanf"><a href="#scanf" class="headerlink" title="scanf"></a>scanf</h3><pre><code class="c">//表示扫描除回车以外的字符
+//%* 表示跳过
+scanf(&quot;%[^\n]&quot;, xx);
+</code></pre>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><blockquote>
+<p>1.调用函数灵活修改实参变量的值</p>
+<p>2.支持动态内存分配，方便实现动态的数据结构</p>
+<p>3.提高某些程序的效率</p>
+<p>4.实现缓冲方式文件存取</p>
+</blockquote>
+<h3 id="malloc-calloc-realloc-区别"><a href="#malloc-calloc-realloc-区别" class="headerlink" title="malloc / calloc  / realloc 区别"></a>malloc / calloc  / realloc 区别</h3><h4 id="（1）malloc函数"><a href="#（1）malloc函数" class="headerlink" title="（1）malloc函数"></a>（1）malloc函数</h4><p>其原型void *malloc(unsigned int num_bytes)；<br>num_byte为要申请的空间大小，需要我们手动的去计算</p>
+<pre><code class="c">//指针转换
+int *p = (int *)malloc(20*sizeof(int))
+</code></pre>
+<p>如果编译器默认int为4字节存储的话，那么计算结果是80Byte，</p>
+<p>一次申请一个80Byte的连续空间，并将空间基地址强制转换为int类型，赋值给指针p,此时申请的内存值是不确定的。</p>
+<h4 id="（2）calloc函数"><a href="#（2）calloc函数" class="headerlink" title="（2）calloc函数"></a>（2）calloc函数</h4><p>其原型void *calloc(size_t n, size_t size)；<br>不需要人为的计算空间的大小</p>
+<pre><code class="c">int *p = (int *)calloc(20, sizeof(int)）
+</code></pre>
+<p>省去了人为空间计算的麻烦。malloc申请后空间的值是随机的，并没有进行初始化，</p>
+<p>而calloc却在申请后，对空间逐一进行初始化，并设置值为0。</p>
+<p>因此calloc 较于 malloc 效率较低。</p>
+<h4 id="（3）realloc函数"><a href="#（3）realloc函数" class="headerlink" title="（3）realloc函数"></a>（3）realloc函数</h4><p>和上面两个有本质的区别，其原型void realloc(void *ptr, size_t new_Size)</p>
+<p>用于对动态内存进行扩容(及已申请的动态空间不够使用，需要进行空间扩容操作)，ptr为指向原来空间基址的指针， new_size为接下来需要扩充容量的大小。</p>
+<pre><code class="c">int size = 2000;
+int *p = (int *)malloc(20*sizeof(int));
+int *pp = (int *)realloc(p, size*sizeof(int));
+</code></pre>
+<p><code>如果size较小</code>，原来申请的动态内存后面还有空余内存，系统将直接在原内存空间后面扩容，并返回原动态空间基地址；</p>
+<p><code>如果size较大</code>，原来申请的空间后面没有足够大的空间扩容，系统将重新申请一块(20+size)*sizeof(int)的内存，并把原来空间的内容拷贝过去，原来空间free;</p>
+<p><code>如果size非常大</code>，系统内存申请失败，返回NULL,原来的内存不会释放。注意：如果扩容后的内存空间较原空间小，将会出现数据丢失，如果直接realloc(p, 0);相当于free(p).</p>
+<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><pre><code class="c">char a[] = &quot;hello&quot;;
+</code></pre>
+<h5 id="指针指向字符数组"><a href="#指针指向字符数组" class="headerlink" title="指针指向字符数组"></a>指针指向字符数组</h5><pre><code class="c">char *p
+p = a; 
+// p = &amp;a[0]
+</code></pre>
+<h4 id="字符指针"><a href="#字符指针" class="headerlink" title="字符指针"></a>字符指针</h4><pre><code class="c">char *str = &quot;hello&quot;;
+</code></pre>
+<p>字符数组存储在<code>全局数据区或栈区</code></p>
+<p>字符指针的字符串存储在<code>常量区</code>。</p>
+<p>全局数据区和栈区的字符串（也包括其他数据）有读取和写入的权限，而常量区的字符串（也包括其他数据）<code>只有读取权限，没有写入权限。</code></p>
+<h4 id="字符数组操作"><a href="#字符数组操作" class="headerlink" title="字符数组操作"></a>字符数组操作</h4><pre><code class="c">if(str[i][j] != &#39;B&#39;) continue;
 //&#39;n&#39; 表示安全操作
 if(strncmp(str[i][j], &quot;xxx&quot;, 3)) continue; 
 strncpy(str[i][j], &quot;xxxx&quot;, 4);
@@ -105,61 +151,37 @@ void move(char *p) &#123;
     return ;
 &#125;
 </code></pre>
-<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><blockquote>
-<p>调用函数灵活修改实参变量的值</p>
-<p>支持动态内存分配，方便实现动态的数据结构</p>
-<p>提高某些程序的效率</p>
-<p>实现缓冲方式文件存取</p>
-</blockquote>
-<p>指针转换</p>
-<pre><code class="c">//void * 
-(int *) malloc(20);
-</code></pre>
-<p>字符数组</p>
-<pre><code class="c">char a[] = &quot;werwe&quot;;
-char *p
-p = a // p = &amp;a[0]
-</code></pre>
-<p>字符数组存储在全局数据区或栈区，字符指针的字符串存储在常量区。全局数据区和栈区的字符串（也包括其他数据）有读取和写入的权限，而常量区的字符串（也包括其他数据）<code>只有读取权限，没有写入权限。</code></p>
-<p>函数指针</p>
-<pre><code class="c">//p 为函数的地址
+<h4 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h4><pre><code class="c">//p 为函数的地址
 //p = strcmp
 void process(char *a, char *b, int(* p)(const char*, const char *))
 </code></pre>
-<p>字符串转化大小写</p>
-<pre><code class="text">#define CONVERT(c) (((c) &gt;= &#39;A&#39; &amp;&amp; (c) &lt;= &#39;Z&#39;) ? ((c) - &#39;A&#39; + &#39;a&#39;) : (c))
-</code></pre>
-<p>当表达式中存在有符号类型和无符号类型时所有的操作数都自动转换为无符号类型。</p>
-<pre><code class="c">unsigned int aa;
-</code></pre>
-<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><blockquote>
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><blockquote>
 <p>默认用最大的字节来对齐</p>
 </blockquote>
-<pre><code class="c">//结构体变量
-//函数的传递结构体
+<h4 id="结构体变量"><a href="#结构体变量" class="headerlink" title="结构体变量"></a>结构体变量</h4><pre><code class="c">//函数的传递结构体
 void output(struct stru str[2])//结构体数组
-    
-//结构体指针
-struct Student &#123;
+</code></pre>
+<h4 id="结构体指针"><a href="#结构体指针" class="headerlink" title="结构体指针"></a>结构体指针</h4><pre><code class="c">struct Student &#123;
     long num;
     char *name; // char name[20]
 &#125;
 struct student stu;
 struct student *p;
 p = &amp;stu;
-stu.name = 123;
+p-&gt;num = 123;
 //指针数组分配内存
-stu.name = (char *)malloc(20);
-
-(*p).name ==&gt; p-&gt;name
-
-//定义指针类型  
-typedef struct Student &#123;
+p-&gt;name = (char *)malloc(20);
+</code></pre>
+<h5 id="结构体指针的形式"><a href="#结构体指针的形式" class="headerlink" title="结构体指针的形式"></a>结构体指针的形式</h5><pre><code class="c">(*p).name ==&gt; p-&gt;name
+</code></pre>
+<h4 id="定义指针类型"><a href="#定义指针类型" class="headerlink" title="定义指针类型"></a>定义指针类型</h4><pre><code class="c">typedef struct Student &#123;
     int HP;
 &#125;Stu, * PStu;
+
 PStu newStu = (PStu) malloc(sizeof(Stu));
+newStu-&gt;HP = 1000;
 </code></pre>
-<h3 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h3><blockquote>
+<h2 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h2><blockquote>
 <p>将几种不同类型的变量存放在同一内存单元中，实现覆盖技术</p>
 </blockquote>
 <pre><code class="c">union IP &#123;
@@ -172,7 +194,7 @@ PStu newStu = (PStu) malloc(sizeof(Stu));
     unsigned int num;
 &#125;
 </code></pre>
-<h3 id="传递二维数组"><a href="#传递二维数组" class="headerlink" title="传递二维数组"></a>传递二维数组</h3><h5 id="1-传递时指指定列数"><a href="#1-传递时指指定列数" class="headerlink" title="1.传递时指指定列数"></a>1.传递时指指定列数</h5><pre><code class="c">void foo(int a[][3], int m, int n)
+<h2 id="传递二维数组"><a href="#传递二维数组" class="headerlink" title="传递二维数组"></a>传递二维数组</h2><h5 id="1-传递时指指定列数"><a href="#1-传递时指指定列数" class="headerlink" title="1.传递时指指定列数"></a>1.传递时指指定列数</h5><pre><code class="c">void foo(int a[][3], int m, int n)
 </code></pre>
 <h5 id="2-参数声明为一个指向数组的指针"><a href="#2-参数声明为一个指向数组的指针" class="headerlink" title="2.参数声明为一个指向数组的指针"></a>2.参数声明为一个指向数组的指针</h5><pre><code class="c">void foo(int (*a)[3], int m, int n)
 </code></pre>
@@ -185,7 +207,7 @@ PStu newStu = (PStu) malloc(sizeof(Stu));
     int * p[3] = &#123;a[0], a[1], a[2]&#125;;
     foo(p, 2, 3);
 </code></pre>
-<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><pre><code class="c++">//输出
+<h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><pre><code class="c++">//输出
 std::cout &lt;&lt; &quot;123123\n&quot;;
 //输入
 unsigned int aa;
@@ -364,7 +386,7 @@ int add(int a, int b = 100)
     va_end(arg);
 &#125;
 </code></pre>
-<h4 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h4><p>声明函数指针<code>类型</code></p>
+<h4 id="函数指针-1"><a href="#函数指针-1" class="headerlink" title="函数指针"></a>函数指针</h4><p>声明函数指针<code>类型</code></p>
 <pre><code class="c++">int Add(int a, int b) &#123;
     return a + b;
 &#125;

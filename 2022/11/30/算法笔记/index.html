@@ -424,7 +424,7 @@ int search(int* nums, int length, int target) &#123;
     ListNode(int x) : val(x), next(NULL) &#123;&#125;;
 &#125;
 </code></pre>
-<h5 id="C语言-3"><a href="#C语言-3" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">typedef struct ListNode &#123;
+<h5 id="c语言-2"><a href="#c语言-2" class="headerlink" title="c语言"></a>c语言</h5><pre><code class="c">typedef struct ListNode &#123;
     int val;
     struct ListNode* next;
 &#125;LNode, * PNode;
@@ -498,7 +498,7 @@ PNode InitList(int value) &#123;
      return head;
 &#125;
 </code></pre>
-<h5 id="C语言-4"><a href="#C语言-4" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="C++">struct ListNode* delNode(struct ListNode* head, int val) &#123;
+<h5 id="C语言-3"><a href="#C语言-3" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="C++">struct ListNode* delNode(struct ListNode* head, int val) &#123;
     while(head != NULL &amp;&amp; head-&gt;val == val) &#123;
         struct ListNode* temp = head;
         head = head-&gt;next;
@@ -648,7 +648,7 @@ struct ListNode* delNode(struct ListNode* head, int val() &#123;
         &#125;
 &#125;
 </code></pre>
-<h5 id="C语言-5"><a href="#C语言-5" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">typedef struct ListNode &#123;
+<h5 id="C语言-4"><a href="#C语言-4" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">typedef struct ListNode &#123;
     int val;
     struct ListNode* next;
 &#125;LNode, * PNode;
@@ -722,7 +722,7 @@ PNode AddIndex(PNode vhead, int index) &#123;
     return pre;
 &#125;
 </code></pre>
-<h5 id="C语言-6"><a href="#C语言-6" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">PNode reverseList(PNode head) &#123;
+<h5 id="C语言-5"><a href="#C语言-5" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">PNode reverseList(PNode head) &#123;
     PNode cur = head;
     PNode pre = NULL;
     PNode temp = NULL;
@@ -1244,8 +1244,8 @@ PNode delReverseN(PNode head, int N) &#123;
 <li>std::multiset</li>
 <li>std::unordered_set</li>
 </ul>
-<h3 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h3><p>“eat -&gt; “ate”</p>
-<pre><code class="c++">bool wordDiff(String s, String t) &#123;
+<h2 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h2><p>“eat -&gt; “ate”</p>
+<h5 id="c-23"><a href="#c-23" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">bool wordDiff(String s, String t) &#123;
     int word[26] = &#123;0&#125;;
     for(int i = 0; i &lt; s.sise(); i ++) &#123;
         word[s[i] - &#39;a&#39;] ++;
@@ -1261,8 +1261,87 @@ PNode delReverseN(PNode head, int N) &#123;
     return true;
 &#125;
 </code></pre>
-<h3 id="两个数组交集"><a href="#两个数组交集" class="headerlink" title="两个数组交集"></a>两个数组交集</h3><p>有范围限制时</p>
-<pre><code class="c++">vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; shu1, vector&lt;int&gt;&amp; shu2) &#123;
+<h5 id="c-24"><a href="#c-24" class="headerlink" title="c"></a>c</h5><pre><code class="c">int wordDiff(char* s, char* t) &#123;
+    int word[26] = &#123;0&#125;;
+    int slen = strlen(s);
+    int tlen = strlen(t);
+    for(int i = 0; i &lt; slen; i ++) &#123;
+        word[s[i] - &#39;a&#39;] ++;
+    &#125;
+    for(int i = 0; i &lt; tlen; t ++) &#123;
+        word[s[i] - &#39;a&#39;] --;
+    &#125;
+    for(int i = 0; i &lt; 26; i ++) &#123;
+        if(word[i] != 0) &#123;
+           return -1;
+        &#125;
+    &#125;
+    return 1;
+&#125;
+</code></pre>
+<h5 id="js-14"><a href="#js-14" class="headerlink" title="js"></a>js</h5><pre><code class="js">function wordDiff(s, t) &#123;
+    let word = new Array(26).fill(0);
+    let basea = &#39;a&#39;.charCodeAt();
+    for(int o of s) &#123;
+           word[o.charCodeAt() - basea] ++;
+    &#125;
+    for(int o of t) &#123;
+        if(word[o.charCodeAt - basea] == 0) return false;
+         word[o.charCodeAt - basea] --;   
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h5 id="java-14"><a href="#java-14" class="headerlink" title="java"></a>java</h5><pre><code class="java">public bool wordDiff(String s, String t) &#123;
+    int[] word = new int[26];
+    for(int i = 0; i &lt; s.length; i ++) &#123;
+        word[s.charAt(i) -- &#39;a&#39;] ++;
+    &#125;
+    for(int i = 0; i &lt; t.length; i ++) &#123;
+           if(! word[t.charAt(i) -- &#39;a&#39;]) return false;
+        word[t.chAt(i) -- &#39;a&#39;] --;
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h2 id="两个数组交集"><a href="#两个数组交集" class="headerlink" title="两个数组交集"></a>两个数组交集</h2><h4 id="没有范围限制的时候"><a href="#没有范围限制的时候" class="headerlink" title="没有范围限制的时候"></a>没有范围限制的时候</h4><h5 id="c-25"><a href="#c-25" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) &#123;
+    unordered_set&lt;int&gt; result_set;
+    //在set中放入整个第一数组
+    unordered_set&lt;int&gt; nums_set(nums1.begin(), nums1.end());
+    for(int nums : nums2) &#123;
+        //数组2的元素在set中找到，则放入结果set
+        if(nums_set.find(nums) != nums_set.end()) &#123;
+            result_set.insert(nums);
+        &#125;
+    &#125;
+    return vector&lt;int&gt; (result_set.begin(), result_set.end());
+&#125;
+</code></pre>
+<h5 id="js-15"><a href="#js-15" class="headerlink" title="js"></a>js</h5><pre><code class="js">function intersection(nums1, nums2) &#123;
+    let nums_set = new Set(nums1);
+    let result_set = new Set():
+    for(let i = 0; i &lt; nums2.length; i ++) &#123;
+        nums_set.has(nums2[i]) &amp;&amp; result_set.add(nums2[i]);
+    &#125;
+    return Array.from(result_set);
+&#125;
+</code></pre>
+<h5 id="java-15"><a href="#java-15" class="headerlink" title="java"></a>java</h5><pre><code class="java">public int[] intersection(int[] nums1, int[] nums2) &#123;
+    Set&lt;Integer&gt; result_set = new Set&lt;&gt;();
+    Set&lt;Integer&gt; nums_set = new Set&lt;&gt;();
+    for(int i = 0; i &lt; nums1.length; i ++) &#123;
+        nums_set.add(nums1[i]);
+    &#125;
+    for(int i = 0; i &lt; nums2.length; i ++) &#123;
+        if(nums_set.contains(nums2[i])) &#123;
+            result_set.add(nums2[i]);
+        &#125;
+    &#125;
+    //将结果几何转为数组
+    return result_set.stream().mapToInt(x -&gt; x).toArray();
+&#125;
+</code></pre>
+<h4 id="有范围限制时"><a href="#有范围限制时" class="headerlink" title="有范围限制时"></a>有范围限制时</h4><h5 id="c-26"><a href="#c-26" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; shu1, vector&lt;int&gt;&amp; shu2) &#123;
     unorded_set&lt;int&gt; reult_set;
     int hash[1005] = &#123;0&#125;;
     for(int num : shu1) &#123;
@@ -1280,7 +1359,31 @@ int main() &#123;
     intersection(shu1);
 &#125;
 </code></pre>
-<h3 id="快乐数"><a href="#快乐数" class="headerlink" title="快乐数"></a>快乐数</h3><pre><code class="c++">int getSum(int n) &#123;
+<h5 id="c-27"><a href="#c-27" class="headerlink" title="c"></a>c</h5><pre><code class="c">int* intersection(int* nums1, int size1, int* nums2, int size2, int* returnSize) &#123;
+    int hash[1005] = &#123;0&#125;;
+    int lessSize = size1 &gt; size2 ? size2 : size1;
+    int* result = (int *) malloc(sizeof(int) * lessSize);
+    int resIndex = 0;
+    int i;
+    for(i = 0; i &lt; size1; i ++) &#123;
+        hash[nums1[i]] ++;
+    &#125;
+    for(i = 0; i &lt; size2; i ++) &#123;
+        if(hash[nums2[i]] != 0) &#123;
+            result[resIndex] = nums2[i];
+            resIndex ++;
+            //防止结果数组内数据重复
+            hash[nums2[i]] = 0;
+        &#125;
+    &#125;
+    //返回结果数组长度
+    *returnSize = resIndex;
+    return result;
+&#125;
+</code></pre>
+<h2 id="快乐数"><a href="#快乐数" class="headerlink" title="快乐数"></a>快乐数</h2><p>「快乐数」定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。如果 可以变为 1，那么这个数就是快乐数。</p>
+<p>如果 n 是快乐数就返回 True ；不是，则返回 False 。</p>
+<h5 id="c-28"><a href="#c-28" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int getSum(int n) &#123;
     int sum &#123;0&#125;;
     while(n) &#123;
         sum += (n % 10) * (n % 10);
@@ -1290,7 +1393,7 @@ int main() &#123;
 &#125;
 bool isHappy(int n) &#123;
    int sum = 0;
-   unordered_set&lt;int&gt; = set;
+   unordered_set&lt;int&gt; = set; 
     while(1) &#123;
         sum = getSum(n);
         if (sum == 1) &#123;
@@ -1306,7 +1409,44 @@ bool isHappy(int n) &#123;
     &#125;
 &#125;
 </code></pre>
-<h3 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h3><table>
+<h5 id="c-29"><a href="#c-29" class="headerlink" title="c"></a>c</h5><p>使用环形链表方式，如果遇到闭环则表示不为快乐数</p>
+<pre><code class="c">int getSum(int n) &#123;
+    int sum = 0;
+    while(n) &#123;
+        sum += (n % 10) * (n % 10);
+           n = n / 10;
+    &#125;
+    return sum;
+&#125;
+int isHappy(int n) &#123;
+    if(getSum(n) == 1) return 1;
+    int a = getSum(n);
+    int b = getSum(getSum(n));
+    while(a != 1 &amp;&amp; a != b &amp;&amp; getSum(b)) &#123;
+        a = getSum(a);
+        b = getSum(getSum(b));
+    &#125;
+    b == 1 ? return 1 : return -1;
+&#125;
+</code></pre>
+<h5 id="js-16"><a href="#js-16" class="headerlink" title="js"></a>js</h5><pre><code class="js">function isHappy(n) &#123;
+    let newSet = new Set();
+    while(n != 1 &amp;&amp; !newSet.has(n)) &#123;
+        newSet.add(n);
+        n = getSum(n);
+    &#125;
+    return n == 1;
+&#125;
+</code></pre>
+<h5 id="java-16"><a href="#java-16" class="headerlink" title="java"></a>java</h5><pre><code class="java">public isHappy(int n) &#123;
+    Set&lt;Integer&gt; newSet = new HashSet&lt;&gt;();
+    while(n != 1 &amp;&amp; !newSet.contains(n)) &#123;
+        newSet.add(n);
+        n = getSum(n);
+    &#125;
+&#125;
+</code></pre>
+<h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><table>
 <thead>
 <tr>
 <th>映射</th>
@@ -1350,7 +1490,7 @@ bool isHappy(int n) &#123;
 <p>给定 nums = [2, 7, 11, 15], target = 9</p>
 <p>因为 nums[0] + nums[1] = 2 + 7 = 9</p>
 <p>所以返回 [0, 1]</p>
-<pre><code class="c++">vector&lt;int&gt; doubleSum(vector&lt;int&gt;&amp; num, int target) &#123;
+<h5 id="c-30"><a href="#c-30" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">vector&lt;int&gt; doubleSum(vector&lt;int&gt;&amp; num, int target) &#123;
     unordered_map&lt;int, int&gt; map;
     for(int i = 0; i &lt; num.size(), i ++) &#123;
         auto shu = map.find(target - num[i]);
@@ -1363,6 +1503,16 @@ bool isHappy(int n) &#123;
         map.insert(pair&lt;int, int&gt; (num[i], i))
     &#125;
 &#125;
+</code></pre>
+<h5 id="c-31"><a href="#c-31" class="headerlink" title="c"></a>c</h5><p>利用库函数定义 map </p>
+<pre><code class="c">typedef struct &#123;
+    int key;
+    int value;
+    UT_hash_handle hh; // make this structure hashable
+&#125; map;
+
+map* hashMap = NULL;
+
 </code></pre>
 <h3 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h3><p>输入:</p>
 <ul>
@@ -1622,7 +1772,7 @@ string reverseString(string s, int k) &#123;
     return s;
 &#125;
 </code></pre>
-<h4 id="C语言-7"><a href="#C语言-7" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">char* replaceSpace(char* s) &#123;
+<h4 id="C语言-6"><a href="#C语言-6" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">char* replaceSpace(char* s) &#123;
     int oldSize = strlen(s);
     int count = 0;
     for(int i = 0; i &lt; oldeSize; i ++) &#123;
@@ -1822,7 +1972,7 @@ bool isReapeat(string s) &#123;
         &#125;
 &#125;
 </code></pre>
-<h4 id="C语言-8"><a href="#C语言-8" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">typedef struct &#123;
+<h4 id="C语言-7"><a href="#C语言-7" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">typedef struct &#123;
     int stackInTop, stackOutTop;
     int stackIn[100], stackOut[100];
 &#125;MyQueue;
