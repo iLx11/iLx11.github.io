@@ -1500,7 +1500,7 @@ int isHappy(int n) &#123;
             return &#123;shu-&gt;second, i&#125;;
         &#125;
         //未找到则添加
-        map.insert(pair&lt;int, int&gt; (num[i], i))
+        map.insert(pair&lt;int, int&gt; (num[i], i));
     &#125;
 &#125;
 </code></pre>
@@ -1513,8 +1513,85 @@ int isHappy(int n) &#123;
 
 map* hashMap = NULL;
 
+ void hashMapAdd(int key, int value)&#123;
+     map* s;
+     // key already in the hash?
+     HASH_FIND_INT(hashMap, &amp;key, s);
+     if(s == NULL)&#123;
+         s = (map*)malloc(sizeof(map));
+         s -&gt; key = key;
+         HASH_ADD_INT(hashMap, key, s);
+     &#125;
+     s -&gt; value = value;
+ &#125;
+
+map* hashMapFind(int key)&#123;
+     map* s;
+     // *s: output pointer
+     HASH_FIND_INT(hashMap, &amp;key, s);   
+     return s;
+ &#125;
+
+ void hashMapCleanup()&#123;
+     map* cur, *tmp;
+     HASH_ITER(hh, hashMap, cur, tmp)&#123;
+         HASH_DEL(hashMap, cur);
+         free(cur);
+     &#125;
+ &#125;
+
+ void hashPrint()&#123;
+     map* s;
+     for(s = hashMap; s != NULL; s=(map*)(s -&gt; hh.next))&#123;
+         printf(&quot;key %d, value %d\n&quot;, s -&gt; key, s -&gt; value);
+     &#125;
+ &#125;
+int* doubleSum(int* nums, int numSize, int target, int* reSize) &#123;
+    int* result;
+    map* hashMapRes;
+       result = (int *) malloc(sizeof(int) * 2);
+       hashMap = NULL;
+    for(int i = 0; i &lt; numSize; i ++) &#123;
+        hashMapRes = hashMapFind(target - nums[i]);
+        if(hashMapRes &amp;&amp; hashMapRes-&gt;value != i) &#123;
+            result[0] = i;
+            result[1] =    hashMapRes-&gt;value;
+            *reSize = 2;
+            return result;
+        &#125;else &#123;
+            hashMapAdd(num[i], i);
+        &#125;
+    &#125;
+    hashMapClearup();
+    return NULL;
+&#125;
 </code></pre>
-<h3 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h3><p>输入:</p>
+<h5 id="js-17"><a href="#js-17" class="headerlink" title="js"></a>js</h5><pre><code class="js">function doubleSum(nums, target) &#123;
+    let hash = &#123;&#125;;
+    for(let i = 0; i &lt; nums.length; i ++) &#123;
+        if(hash[target - nums[i]] !== undefined) &#123;
+            return [nums[target - nums[i]], i];
+        &#125;
+           hash[nums[i]] = i;
+    &#125;
+    return &#123;&#125;;
+&#125;
+</code></pre>
+<h5 id="java-17"><a href="#java-17" class="headerlink" title="java"></a>java</h5><pre><code class="java">public int[] doubleSum(int[] nums, int target) &#123;
+    int[] result = new int[2];
+    Map&lt;Integer, Integer&gt; resMap = new HashMap&lt;&gt; ();
+    for(int i = 0; i &lt; nums.length; i ++) &#123;
+        int findNum = target - nums[i];
+        if(resMap.contains(findNum)) &#123;
+               result[0] = i;
+            result[1] = get(findNum);
+            break;
+        &#125;
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h2 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h2><p>输入:</p>
 <ul>
 <li>A = [ 1, 2]</li>
 <li>B = [-2,-1]</li>
@@ -1529,7 +1606,7 @@ map* hashMap = NULL;
 <li>(0, 0, 0, 1) -&gt; A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0</li>
 <li>(1, 1, 0, 0) -&gt; A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0</li>
 </ol>
-<pre><code class="c++">int fourSum(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B, vector&lt;int&gt;&amp; C, vector&lt;int&gt;&amp; D) &#123;
+<h5 id="c-32"><a href="#c-32" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int fourSum(vector&lt;int&gt;&amp; A, vector&lt;int&gt;&amp; B, vector&lt;int&gt;&amp; C, vector&lt;int&gt;&amp; D) &#123;
     unordered_map&lt;int, int&gt; umap;
     int count;
     for(int a : A) &#123;
@@ -1550,7 +1627,54 @@ map* hashMap = NULL;
     return count;
 &#125;
 </code></pre>
-<h3 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h3><pre><code class="c++">bool mes(string ransomNote, string magazine) &#123;
+<h5 id="js-18"><a href="#js-18" class="headerlink" title="js"></a>js</h5><pre><code class="js">function fourSum(A, B, C, D) &#123;
+    let nmap = new Map();
+    let count = 0;
+    for(let a of A) &#123;
+        for(let b of B) &#123;
+            let sum = a + b;
+            //设置默认值，获取值并且增加1，
+            nmap.set(sum, (nmap.get(sum) || 0) + 1);
+        &#125;
+    &#125;
+    for(let c of C) &#123;
+        for(let d of D) &#123;
+            let sum = c + d;
+            if(nmap.get(0 - sum)) &#123;
+                count += nmap.get(sum);
+            &#125;
+        &#125;
+    &#125;
+    return count;
+&#125;
+</code></pre>
+<h5 id="java-18"><a href="#java-18" class="headerlink" title="java"></a>java</h5><pre><code class="java">public int fourSum(int[] A, int[] B, int[] C, int[] D) &#123;
+    Map&lt;Integer, Integer&gt; nmap = new HashMap&lt;&gt;();
+    int count = 0;
+    for(int a : A) &#123;
+        for(int b : B) &#123;
+            int sum = a + b;
+            if(nmap.containsKey(sum)) &#123;
+                nmap.put(sum, nmap.get(sum) + 1);
+            &#125;else &#123;
+                nmap.put(sum, 1);
+            &#125;
+        &#125;
+    &#125;
+    for(int c : C) &#123;
+        for(int d : D) &#123;
+            int sum = c + d;
+            if(nmap.containsKey(0 - sum)) &#123;
+                count += nmap.get(0 - sum);
+            &#125;
+        &#125;
+    &#125;
+    return count;
+&#125;
+</code></pre>
+<h2 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h2><p>给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串 ransom 能不能由第二个字符串 magazines 里面的字符构成。如果可以构成，返回 true ；否则返回 false。</p>
+<p>(题目说明：为了不暴露赎金信字迹，要从杂志上搜索各个需要的字母，组成单词来表达意思。杂志字符串中的每个字符只能在赎金信字符串中使用一次。)</p>
+<h5 id="c-33"><a href="#c-33" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">bool mes(string ransomNote, string magazine) &#123;
     int word[26] &#123;0&#125;;
     if(ransomNote.size() &gt; magazine.size()) &#123;
         return false;
@@ -1575,18 +1699,43 @@ map* hashMap = NULL;
     return true;
 &#125;
 </code></pre>
-<h3 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h3><p>示例：</p>
+<h5 id="js-19"><a href="#js-19" class="headerlink" title="js"></a>js</h5><pre><code class="js">function mes(ransomNote, magazine) &#123;
+    let word[26] = new Array(26).fill(0);
+    let base = &#39;a&#39;.charCodeAt();
+       for(let o of ransomNote) &#123;
+        word[o.charCodeAt() - base] ++;
+    &#125;
+    for(let o of magazine) &#123;
+        word[o.charCodeAt - base] --;
+        if(! word[o.charCodeAt - base]) return false;
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h5 id="java-19"><a href="#java-19" class="headerlink" title="java"></a>java</h5><pre><code class="java">public bool mes(String ransomNote, String magazine) &#123;
+    int[] word = new int[26];
+    for(char o : ransomNote.toCharArray()) &#123;
+        word[o - &#39;a&#39;] ++;
+    &#125;
+    for(char o : magazine.toCharArray()) &#123;
+        word[o - &#39;a&#39;] --;
+        if(!word[o - &#39;a&#39;]) return false;
+    &#125;
+    return true;
+&#125;
+</code></pre>
+<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><p>示例：</p>
 <p>给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
 <p>满足要求的三元组集合为： [ [-1, 0, 1], [-1, -1, 2] ]</p>
 <h4 id="哈希解法"><a href="#哈希解法" class="headerlink" title="哈希解法"></a>哈希解法</h4><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt; num) &#123;
    vector&lt;vector&lt;int&gt;&gt; result;    
     //排序    
-    sort(num.begin(), num.end());
+    sort(num.begin(), num.end());                                                                            
     for(int i = 0; i &lt; num.size(); i ++) &#123;
         if(num[i] &gt; 0) &#123;
-            continue;
+            break;
         &#125;
-        //去重,保证3个数不与之前的重复
+        //去重,保证3个数不与之前的重复， 防止在下一循环重新计算在内
         if(i &gt; 0 &amp;&amp; num[i] == num[i - 1]) &#123;
             continue;
         &#125;
@@ -1608,13 +1757,13 @@ map* hashMap = NULL;
     return result;
 &#125;
 </code></pre>
-<h4 id="双指针法-2"><a href="#双指针法-2" class="headerlink" title="双指针法"></a>双指针法</h4><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt; num) &#123;
+<h4 id="双指针法-2"><a href="#双指针法-2" class="headerlink" title="双指针法"></a>双指针法</h4><h5 id="c-34"><a href="#c-34" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt; num) &#123;
     //排序
     sort(num.begin(), num.end());
     vector&lt;vector&lt;int&gt;&gt; result;
     for(int i = 0; i &lt; num.sizes(); i ++) &#123;
         if(num[i] &gt; 0) &#123;
-            continue;
+            break;
         &#125;
         //去重
         if(i &gt; 0 &amp;&amp; num[i] &lt; num[i - 1]) &#123;
@@ -1643,9 +1792,105 @@ map* hashMap = NULL;
     return result;
 &#125;
 </code></pre>
-<h3 id="四数之和-1"><a href="#四数之和-1" class="headerlink" title="四数之和"></a>四数之和</h3><p>双指针法</p>
-<pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt; num, int target) &#123;
-    //排序
+<h5 id="c-35"><a href="#c-35" class="headerlink" title="c"></a>c</h5><pre><code class="c">//qsort辅助cmp函数
+int cmp(const void* ptr1, const void* ptr2) &#123;
+    return *((int*)ptr1) &gt; *((int*)ptr2);
+&#125;
+int** threeSum(int* nums, int numsSize, int returnSize) &#123;
+    int** result = (int **) malloc(sizeof(int *) * 1800);
+    int count = 0;
+    //对nums数组进行排序
+    qsort(nums, numsSize, sizeof(int), cmp);
+    for(int i = 0; i &lt; numsSize; i ++) &#123;
+        if(nums[i] &gt; 0) &#123;
+            break;
+        &#125;
+        //去重
+        if(i &gt; 0 &amp;&amp; nums[i] - nums[i - 1]) &#123;
+            continue;
+        &#125;
+        int left = i + 1;
+        int right = numsSize - 1;
+        while(left &lt; right) &#123;
+            int sum = nums[left] + nums[i] + nums[right];
+            if(sum &gt; 0) &#123;
+                right --;
+            &#125;else if(sum &lt; 0) &#123;
+                left ++;
+            &#125;else &#123;
+                int* res = (int *) malloc(sizeof(int) * 3);
+                res[0] = nums[i];
+                res[1] = nums[left];
+                res[2] = nums[right];
+                result[count ++] = res;
+                free(res);
+                //数组去重
+                while(left &lt; right &amp;&amp; nums[right] == nums[right - 1]) right --;
+                while(left &lt; right &amp;&amp; nums[left] == nums[left + 1]) left ++;
+                right --;
+                left ++;
+            &#125;
+        &#125;
+    &#125;
+    *returnSize = count;
+    return result;
+&#125;
+</code></pre>
+<h5 id="js-20"><a href="#js-20" class="headerlink" title="js"></a>js</h5><pre><code class="js">function threeSum(nums) &#123;
+    let result = new Array(new Array()).fill(0);
+    //升序排序
+    nums.sort((a, b) =&gt; a - b);
+    for(let i = 0; i &lt; nums.length; i ++) &#123;
+        if(nums[i] &gt; 0) &#123;
+            break;
+        &#125;
+        if(i &gt; 0 &amp;&amp; nums[i] == nums[i - 1]) continue;
+        let left = i + 1;
+        let right = nums.length - 1;
+        while(left &lt; right) &#123;
+            if(nums[left] + nums[right] + nums[i] &lt; 0) &#123;
+                left ++;
+            &#125;else if(nums[left] + nums[right] + nums[i] &gt; 0) &#123;
+                right --;
+            &#125;else &#123;
+                result.push([nums[left], nums[right], nums[i]]);
+                while(left &lt; right &amp;&amp; nums[left] == nums[left + 1]) left ++;
+                while(left &lt; right &amp;&amp; nums[right] == nums[right + 1]) right --;
+                left ++;
+                right --;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="java-20"><a href="#java-20" class="headerlink" title="java"></a>java</h5><pre><code class="java">public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123;
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt; ();
+    Arrays.sort(nums);
+    for(int i = 0; i &lt; nums.length; i ++) &#123;
+        if(nums[i] &gt; 0) &#123;
+            break;
+        &#125;
+        if(i &gt; 0 &amp;&amp; nums[i] - nums[i - 1]) continue;
+        int left = i + 1;
+        int right = nums.length - 1;
+        while(left &lt; right) &#123;
+            if(nums[i] + nums[left] + nums[right] &gt; 0) &#123;
+                right --;
+            &#125;else if(nums[i] + nums[left] + nums[right] &lt; 0) &#123;
+                left ++;
+            &#125;else &#123;
+                result.add(Arrys.asList(nums[i], nums[left], nums[right]));
+                while(left &lt; right &amp;&amp; nums[left] == nums[left + 1]) left ++;
+                while(left &lt; right &amp;&amp; nums[right] == nums[right - 1]) right --;
+                left ++;
+                right --;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="四数之和-1"><a href="#四数之和-1" class="headerlink" title="四数之和"></a>四数之和</h2><h4 id="双指针法-3"><a href="#双指针法-3" class="headerlink" title="双指针法"></a>双指针法</h4><h5 id="c-36"><a href="#c-36" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt; num, int target) &#123;
+    //排序 
     sort(num.begin(), num.end());
        vector&lt;vector&lt;int&gt;&gt; result;
     for(int i = 0; i &lt; num.size(); i ++) &#123;
@@ -1691,7 +1936,122 @@ map* hashMap = NULL;
     return result;
 &#125;
 </code></pre>
-<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3><pre><code class="c++">void reverse(vector&lt;char&gt;&amp; charN) &#123;
+<h5 id="c-37"><a href="#c-37" class="headerlink" title="c"></a>c</h5><pre><code class="c">//qsort辅助cmp函数
+int cmp(const void* ptr1, const void* ptr2) &#123;
+    return *((int*)ptr1) &gt; *((int*)ptr2);
+&#125;
+int** fourSum(int* nums, int numsSize, int* returnSize, int target) &#123;
+    int** result = (int **) malloc(sizeof(int *) * 1800);
+    int count = 0;
+    //对nums数组进行排序
+    qsort(nums, numsSize, sizeof(int), cmp);
+    for(int i = 0; i &lt; numsSize; i ++) &#123;
+        //剪枝
+        if(nums[i] &gt; target &amp;&amp; nums[i] &gt;= 0) break;
+        //去重
+        if(i &gt; 0 &amp;&amp; nums[i] == nums[i - 1]) &#123;
+            continue;
+        &#125;
+        for(int j = i + 1; j &lt; numsSize; j ++) &#123;
+            //剪枝
+            if(nums[i] + nums[j] &gt; target &amp;&amp; nums[j] &gt;= 0) &#123;
+                break;
+            &#125;
+            //去重
+            if(j &gt; i + 1 &amp;&amp; nums[j] == nums[j - 1]) continue;
+            int left = j + 1;
+            int right = numsSize - 1;
+            while(left &lt; right) &#123;
+                if(nums[i] + nums[j] + nums[left] +nums[right] &gt; target) &#123;
+                    right --;
+                &#125;else if(nums[i] + nums[j] + nums[left] +nums[right] &lt; target) &#123;
+                    left ++;
+                &#125;else &#123;
+                    int* res = (int *) malloc(sizeof(int) * 4);
+                    res[0] = nums[i];
+                    res[1] = nums[j];
+                    res[2] = nums[left];
+                    res[3] = nums[right];
+                    result[count ++] = res;
+                    //去重
+                    while(left &lt; right &amp;&amp; nums[left] == nums[left + 1]) left ++;
+                    while(left &lt; right &amp;&amp; nums[right] == nums[right - 1]) right --;
+                    left ++;
+                    right --;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    *returnSize = count;
+    return result;
+&#125;
+</code></pre>
+<h5 id="js-21"><a href="#js-21" class="headerlink" title="js"></a>js</h5><pre><code class="js">function fourSum(nums, target) &#123;
+    let result = new Array(new Array(4)).fill(0);
+    for(let i = 0; i &lt; nums.lenght; i ++) &#123;
+        //剪枝
+        if(nums[i] &gt; target &amp;&amp; nums &gt;= 0) break;
+        //去重
+        if(i &gt; 0 &amp;&amp; nums[i] == nums[i - 1]) continue;
+        for(let j = i + 1; j &lt; nums.length; j ++) &#123;
+            //剪枝
+            if(nums[i] + nums[j] &gt; target &amp;&amp; nums[j] &gt;= 0) break;
+            //去重
+            if(j &gt; i + 1; nums[j] == nums[j - 1]) continue;
+            let left = j + 1;
+            let right = nums.length - 1;
+               while(left &lt; right) &#123;
+                if(nums[i] + nums[j] + nums[left] + nums[right] &gt; 0) &#123;
+                    right --;
+                &#125;else if(nums[i] + nums[j] + nums[left] + nums[right] &lt; 0) &#123;
+                    left ++;
+                &#125;else &#123;
+                       result.push([nums[i], nums[j], nums[left], nums[right]]);
+                    //去重
+                    while(left &lt; right &amp;&amp; nums[left] == nums[left + 1]) left ++;
+                    while(left &lt; right &amp;&amp; nums[right] == nums[right - 1]) right --;
+                    left ++:
+                    right --;
+                &#125;
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="java-21"><a href="#java-21" class="headerlink" title="java"></a>java</h5><pre><code class="java">public List&lt;List&lt;Integer&gt;&gt; fourSum(int[] nums, int target) &#123;
+    List&lt;List&lt;Integer&gt; result = new ArrayList&lt;&gt; ();
+    for(int i = 0; i &lt; nums.length; i ++) &#123;
+        //剪枝
+        if(nums[i] &gt; target &amp;&amp; nums[i] &gt;= 0) break;
+        //去重
+        if(i &gt; 0 &amp;&amp; nums[i] == num[i - 1]) continue;
+        for(int j = i + 1; j &lt; nums.length; j ++) &#123;
+            //剪枝
+            if(nums[i] + nums[j] &gt; target &amp;&amp; nums[j] &gt;= 0) break;
+            //去重
+            if(j &gt; i; nums[j] == nums[j - 1]) continue;
+            int left = j + 1;
+            int right = 0;
+            while(left &lt; right) &#123;
+                if(nums[i] + nums[j] + nums[left] + nums[right] &gt; 0) &#123;
+                    right --;
+                &#125;else if(nums[i] + nums[j] + nums[left] + nums[right] &lt; 0) &#123;
+                    left ++;
+                &#125;else &#123;
+                    result.add(Array.asList(nums[i], nums[j], nums[left], nums[right]));
+                       while(left &lt; right &amp;&amp; nums[left] == nums[left + 1]) left ++;
+                    while(left &lt; right &amp;&amp; nums[right] == nums[right - 1]) right --;
+                    left ++;
+                    right --;
+                &#125;
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;
+</code></pre>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h2><pre><code class="c++">void reverse(vector&lt;char&gt;&amp; charN) &#123;
     for(int i = 0, int j = charN.size() - 1; i &lt; charN.size() / 2; i ++, j --) &#123;
         int temp = charN[i];
         charN[i] = charN[j];
@@ -1705,12 +2065,12 @@ map* hashMap = NULL;
     &#125;
 &#125;
 </code></pre>
-<h3 id="反转字符串-1"><a href="#反转字符串-1" class="headerlink" title="反转字符串"></a>反转字符串</h3><p>给定一个字符串 s 和一个整数 k，从字符串开头算起, 每计数至 2k 个字符，就反转这 2k 个字符中的前 k 个字符。</p>
+<h2 id="反转字符串-1"><a href="#反转字符串-1" class="headerlink" title="反转字符串"></a>反转字符串</h2><p>给定一个字符串 s 和一个整数 k，从字符串开头算起, 每计数至 2k 个字符，就反转这 2k 个字符中的前 k 个字符。</p>
 <p>如果剩余字符少于 k 个，则将剩余字符全部反转。</p>
 <p>如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。</p>
 <p>示例:</p>
 <p>输入: s = “abcdefg”, k = 2<br>输出: “bacdfeg”</p>
-<pre><code class="c++">void reverse(string&amp; s, int start, int end) &#123;
+<h5 id="c-38"><a href="#c-38" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">void reverse(string&amp; s, int start, int end) &#123;
     for(int i = start, j = end; i &lt; s.size() / 2; i ++, j --) &#123;
         int temp = s[i];
         s[i] = s[j];
@@ -1729,7 +2089,7 @@ string reverseString(string s, int k) &#123;
     &#125;
 &#125;
 </code></pre>
-<h4 id="双指针法-3"><a href="#双指针法-3" class="headerlink" title="双指针法"></a>双指针法</h4><h5 id="C语言版"><a href="#C语言版" class="headerlink" title="C语言版"></a>C语言版</h5><pre><code class="c">char* reverse(char* s, int k) &#123;
+<h4 id="双指针法-4"><a href="#双指针法-4" class="headerlink" title="双指针法"></a>双指针法</h4><h5 id="c-39"><a href="#c-39" class="headerlink" title="c"></a>c</h5><pre><code class="c">char* reverse(char* s, int k) &#123;
     int len = strlen(s);
     for(int i = 0; i &lt; len; i += (2 * K)) &#123;
         int left = i;
@@ -1744,9 +2104,35 @@ string reverseString(string s, int k) &#123;
     &#125;
 &#125;
 </code></pre>
-<h3 id="替换空格"><a href="#替换空格" class="headerlink" title="替换空格"></a>替换空格</h3><p>请实现一个函数，把字符串 s 中的每个空格替换成”%20”。</p>
+<h5 id="js-22"><a href="#js-22" class="headerlink" title="js"></a>js</h5><pre><code class="js">function reverse(s, k) &#123;
+    for(let i = 0; i &lt; s.length; i += 2 * k) &#123;
+        let left = i;
+        let right = i + k - 1;
+        while(left &lt; right) &#123;
+            let temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left ++;
+               right --;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="java-22"><a href="#java-22" class="headerlink" title="java"></a>java</h5><pre><code class="java">public void reverse(String s, int k) &#123;
+    for(int i = 0; i &lt; s.length; i += 2 * k) &#123;
+        int left = i;
+        int right = i + k - 1;
+        while(left &lt; right) &#123;
+            int temp = s[left];
+            s[left ++] = s[right];
+            s[right ++] = temp;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="替换空格"><a href="#替换空格" class="headerlink" title="替换空格"></a>替换空格</h2><p>请实现一个函数，把字符串 s 中的每个空格替换成”%20”。</p>
 <p>示例 1： 输入：s = “We are happy.”<br>输出：”We%20are%20happy.”</p>
-<pre><code class="c++">string replaceSpace(string s) &#123;
+<h5 id="c-40"><a href="#c-40" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">string replaceSpace(string s) &#123;
     int oldSize = s.size();
     int count&#123;0&#125;;
     //计算空格数量
@@ -1760,9 +2146,9 @@ string reverseString(string s, int k) &#123;
     int newSize = s.size();
     for(int i = oledSize - 1, j = newSize - 1; i &lt; j; i --, j --) &#123;
         if(s[i] == &#39; &#39;) &#123;
-            s[j] = &#39;%&#39;;
+            s[j] = &#39;0&#39;;
             s[j - 1] = &#39;2&#39;;
-            s[j - 2] = &#39;0&#39;;
+            s[j - 2] = &#39;%&#39;;
             //跳过填充
             j -= 2;
         &#125;else &#123;
@@ -1772,7 +2158,7 @@ string reverseString(string s, int k) &#123;
     return s;
 &#125;
 </code></pre>
-<h4 id="C语言-6"><a href="#C语言-6" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">char* replaceSpace(char* s) &#123;
+<h5 id="C语言-6"><a href="#C语言-6" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">char* replaceSpace(char* s) &#123;
     int oldSize = strlen(s);
     int count = 0;
     for(int i = 0; i &lt; oldeSize; i ++) &#123;
@@ -1781,12 +2167,12 @@ string reverseString(string s, int k) &#123;
         &#125;
     &#125;
     int newSize = oldSize + 2 * count;
-    char* news = (char *) malloc(sizeof(char) * (oldSize + 2 * count) + 1);
+    char* news = (char *) malloc(sizeof(char) * newSize + 1);
     for(int i = oldSize - 1, int j = newSize - 1; i &lt; j; i --, j --) &#123;
         if(s[i] == &#39; &#39;) &#123;
-            news[j] = &#39;%&#39;;
+            news[j] = &#39;0&#39;;
             news[j - 1] = &#39;2&#39;;
-            news[j - 2] = &#39;0&#39;;
+            news[j - 2] = &#39;%&#39;;
             j -= 2;
         &#125;else &#123;
             news[j] = s[i];
@@ -1796,12 +2182,56 @@ string reverseString(string s, int k) &#123;
     return news;
 &#125;
 </code></pre>
-<h3 id="反转单词"><a href="#反转单词" class="headerlink" title="反转单词"></a>反转单词</h3><p>给定一个字符串，逐个翻转字符串中的每个单词。</p>
+<h5 id="js-23"><a href="#js-23" class="headerlink" title="js"></a>js</h5><pre><code class="js">function replaceSpace(s) &#123;
+    let array = Array.from(s);
+    //计算空格
+    let count = 0;
+    for(let i = 0; i &lt; s.length; i ++) &#123;
+        if(s[i] == &#39; &#39;) count ++;
+    &#125;
+    for(let i = s.length - 1, j = (s.length + count * 2); i &gt;= 0; i --, j --) &#123;
+        if(s[i] == &#39; &#39;) &#123;
+            s[j] = &#39;0&#39;;
+               s[j - 1] = &#39;2&#39;;
+            s[j - 2] = &#39;%&#39;;
+            j -= 2;
+        &#125;else &#123;
+            s[j] = s[i];
+        &#125;
+    &#125;
+    return array.join(&#39;&#39;);
+&#125;
+</code></pre>
+<h5 id="java-23"><a href="#java-23" class="headerlink" title="java"></a>java</h5><pre><code class="java">public String replaceSpace(String s) &#123;
+       if(s == NULL || s.length() == 0) return s;
+    StringBuilder str = new StringBuilder(s);
+    //扩容两个空格的位置
+    for(char o : s) &#123;
+        if(o == &#39; &#39;) str.append(&quot;  &quot;);
+    &#125;
+    int oldSize = s.length();
+    //扩容
+    s += str.toString();
+    char[] charArray = s.toCharArray();
+    for(int i = oldSize - 1, j = s.length() - 1; i &gt; 0; i --, j --) &#123;
+        if(charArray[i] == &#39; &#39;) &#123;
+            charArray[j] = &#39;0&#39;;
+            charArray[j - 1] = &#39;2&#39;;
+            charArray[j - 2] = &#39;%&#39;;
+            j -= 2;
+        &#125;else &#123;
+            charArray[j] = charArray[i];
+        &#125;
+    &#125;
+    return String(charArray);
+&#125;
+</code></pre>
+<h2 id="反转单词"><a href="#反转单词" class="headerlink" title="反转单词"></a>反转单词</h2><p>给定一个字符串，逐个翻转字符串中的每个单词。</p>
 <p>示例 1：<br>输入: “the sky is blue”<br>输出: “blue is sky the”</p>
 <p>解释: 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。</p>
 <p>解释: 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</p>
 <p>思路: 去除多余空格 -&gt; 翻转字符串 -&gt; 翻转单词</p>
-<pre><code class="c++">//反转字符
+<h5 id="c-41"><a href="#c-41" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">//反转字符
 void reverse(string&amp; s, int start, int end) &#123;
     for(int i = start, j = end; i &lt; j; i ++, j --) &#123;
         s[i] ^= s[j];
@@ -1812,9 +2242,12 @@ void reverse(string&amp; s, int start, int end) &#123;
 //移除多余空格
 void removeExtraSpaces(string&amp; s) &#123;
        int slow &#123;0&#125;;
+    //快指针移动
     for(int i = 0; i &lt; s.size(); i ++) &#123;
         if(s[i] != &#39; &#39;) &#123;
+               //手动添加一个空格
             if(slow != 0) s[slow ++] = &#39; &#39;;
+            //将非空格赋值
                while(i &lt; s.size() &amp;&amp; s[i] != &#39; &#39;) &#123;
                 s[slow] = s[i];
                    slow ++;
@@ -1828,6 +2261,7 @@ string reverseWords(string&amp; s) &#123;
     removeExtraSpaces(s);
     reverse(s, 0, s.size() - 1);
     int start &#123;0&#125;;
+       //筛选出不为空格的字符进行翻转
     for(int i = 0; i &lt; s.size(); i ++) &#123;
         if(s[i] != &#39; &#39;) &#123;
             while(i &lt; s.size() &amp;&amp; s[i] != &#39; &#39;) &#123;
@@ -1840,7 +2274,102 @@ string reverseWords(string&amp; s) &#123;
     return s;
 &#125;
 </code></pre>
-<h3 id="左旋字符串"><a href="#左旋字符串" class="headerlink" title="左旋字符串"></a>左旋字符串</h3><p>字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串”abcdefg”和数字2，该函数将返回左旋转两位得到的结果”cdefgab”。</p>
+<h5 id="c-42"><a href="#c-42" class="headerlink" title="c"></a>c</h5><pre><code class="c">//去除多余空格
+void removeExtraSpaces(char* s) &#123;
+    int len = strlen(s);
+    int slow = 0, fast = 0;
+    for(; fast &lt; len; fast ++) &#123;
+        if(s[fast] != &#39; &#39;) &#123;
+            //添加空格
+            if(slow != 0) s[slow ++] = &#39; &#39;;
+            //其他字符串复制
+            while(fast &lt; len &amp;&amp; s[fast] != &#39; &#39;) &#123;
+                s[slow ++] = s[fast ++];
+            &#125;
+        &#125;
+    &#125;
+    s[slow] = &#39;\0&#39;;
+&#125;
+//翻转字符单词
+char* reverseWords(char* s) &#123;
+    int len = strlen(s);
+    //去除多余空格
+    removeExtraSpaces(s);
+    //全部翻转字符
+    reverse(0, len - 1, s);
+    //翻转单词
+    int start = 0;
+    for(int i = 0; i &lt; len; i ++) &#123;
+        if(s[i] != &#39; &#39;) &#123;
+            while(i &lt; len &amp;&amp; s[i] != &#39; &#39;) &#123;
+                i ++;
+            &#125;
+            reverse(start, i - 1, s);
+            //空格的后一个字符
+            start = i + 1;
+        &#125;
+    &#125;
+    return s;
+&#125;
+</code></pre>
+<h5 id="js-24"><a href="#js-24" class="headerlink" title="js"></a>js</h5><pre><code class="js">function removeExtraSpaces(s) &#123;
+    let fast = 0, slow = 0;
+    for(; fast &lt; charA.length; fast ++) &#123;
+        if(s[fast] != &#39; &#39;) &#123;
+            if(slow != 0) s[slow ++] == &#39; &#39;;
+            while(fast &lt; s.length &amp;&amp; s[fast] != &#39; &#39;) &#123;
+                s[slow ++] = s[fast ++];
+            &#125;
+        &#125;
+    &#125; 
+&#125;
+function reverseWord(s) &#123;
+    let charA = Array.from(s);
+    removeExtraSpaces(charA);
+    //翻转所有字符
+    reverse(charA, charA.length - 1);
+    let start = 0;
+    for(int i = 0; i &lt; charA.length; i ++) &#123;
+        if(charA[i] != &#39; &#39;) &#123;
+            while(i &lt; charA.length &amp;&amp; charA[i] != &#39; &#39;) &#123;
+                   //移动到空格
+                i ++;
+            &#125;
+            reverse(charA, start, i - 1);
+            start = i + 1;
+        &#125;
+    &#125;
+    //charA.join(&#39;&#39;);
+    return charA.toString();
+&#125;
+</code></pre>
+<h5 id="java-24"><a href="#java-24" class="headerlink" title="java"></a>java</h5><pre><code class="java">private void removeExtraSpaces(char[] s) &#123;
+    int slow = 0, fast = 0;
+    for(; fast &lt; s.length(); fast ++) &#123;
+        if(s[slow] != &#39; &#39;) &#123;
+            if(slow != 0) s[slow ++] = &#39; &#39;;
+            while(fast &lt; s.length() &amp;&amp; s[slow] != &#39; &#39;) &#123;
+                s[slow ++] = s[fast ++];
+            &#125;
+        &#125;
+    &#125;
+&#125;
+public String reverseWords(String s) &#123; 
+    char[] charA = s.toCharArray();
+    removeExtraSpaces(charA);
+    reverse(charA, 0, charA.length());
+    int start = 0;
+    for(int i = 0; i &lt; charA.length(); i ++) &#123;
+        if(charA[i] != &#39; &#39;) &#123;
+            while(i &lt; charA.length() &amp;&amp; charA[i] != &#39; &#39;) i ++;
+            reverse(charA, start, i - 1);
+            start = i + 1;
+        &#125;
+    &#125;
+    return String(charA);
+&#125;
+</code></pre>
+<h2 id="左旋字符串"><a href="#左旋字符串" class="headerlink" title="左旋字符串"></a>左旋字符串</h2><p>字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串”abcdefg”和数字2，该函数将返回左旋转两位得到的结果”cdefgab”。</p>
 <p>示例 1：<br>输入: s = “abcdefg”, k = 2<br>输出: “cdefgab”</p>
 <pre><code class="c++">string leftReverse(string s, int n) &#123;
        reverse(s, 0, n);
@@ -1849,7 +2378,7 @@ string reverseWords(string&amp; s) &#123;
     return s;
 &#125;
 </code></pre>
-<h3 id="实现strStr"><a href="#实现strStr" class="headerlink" title="实现strStr"></a>实现strStr</h3><p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回 -1。</p>
+<h2 id="实现strStr"><a href="#实现strStr" class="headerlink" title="实现strStr"></a>实现strStr</h2><p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回 -1。</p>
 <p>示例 1: 输入: haystack = “hello”, needle = “ll” 输出: 2</p>
 <h4 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP  算法"></a>KMP  算法</h4><p>KMP主要应用在字符串匹配上。</p>
 <p>KMP的主要思想是<strong>当出现字符串不匹配时，可以知道一部分之前已经匹配的文本内容，可以利用这些信息避免从头再去做匹配了。</strong></p>
@@ -1860,7 +2389,7 @@ string reverseWords(string&amp; s) &#123;
     //初始化, 使 j 为 -1, 判断 i 与 j + 1 
     //方便记录下标， 与回退下标位置
     int j = -1;
-    next[0] = -1;
+    next[0] = j;
     //i 为 1 表示第二个数开始才有最长相同前后缀
     for (int i = 1; i &lt; s.size(); i ++) &#123;
         //如果前后缀不匹配
@@ -1876,14 +2405,14 @@ string reverseWords(string&amp; s) &#123;
     &#125;
 &#125;
 </code></pre>
-<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><pre><code class="c++">void getNext(int* next, string needle) &#123;
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><h5 id="c-43"><a href="#c-43" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">void getNext(int* next, string needle) &#123;
     int j = -1;
     next[0] = j;
     for(int i = 1; i &lt; needle.size(); i ++) &#123;
-        while(j &gt;= 0 &amp;&amp; s[i] != s[j]) &#123;
+        while(j &gt;= 0 &amp;&amp; s[i] != s[j + 1]) &#123;
             j = next[j];
         &#125;
-        if(s[i] == s[j]) &#123;
+        if(s[i] == s[j + 1]) &#123;
             j ++;
         &#125;
         next[i] = j;
@@ -1895,12 +2424,13 @@ int strStr(string haystack, string needle) &#123;
     int next[needle.size()] &#123;0&#125;;
     getNext(next);
     for(int i = 0; i &lt; haystack.size(), i ++) &#123;
-        while(j &gt; 0 &amp;&amp; haystack[i] != needle[j]) &#123;
+        while(j &gt; 0 &amp;&amp; haystack[i] != needle[j + 1]) &#123;
             j = next[j];
         &#125;
-        if(haystack[i] == needle[j]) &#123;
+        if(haystack[i] == needle[j + 1]) &#123;
             j ++;
         &#125;
+        //如果j指向了模式串t的末尾，那么就说明模式串t完全匹配文本串s里的某个子串了
         if(j == needle.size() - 1) &#123;
             return (i - needle.size() + 1);
         &#125;
@@ -1908,17 +2438,89 @@ int strStr(string haystack, string needle) &#123;
        return -1;
 &#125;
 </code></pre>
-<h3 id="重复的子字符串"><a href="#重复的子字符串" class="headerlink" title="重复的子字符串"></a>重复的子字符串</h3><p>给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000。</p>
+<h5 id="c-44"><a href="#c-44" class="headerlink" title="c"></a>c</h5><pre><code class="c">void getNext(int* next, char* s) &#123;
+    //KMP算法
+    int j = -1;
+    next[0] = j;
+    int len = strlen(s);
+    for(int i = 0; i &lt; len; i ++) &#123;
+        while(j &gt;= 0 &amp;&amp; s[i] != s[j + 1]) &#123;
+            //回退
+            j = next[j];
+        &#125;
+        if(s[i] == s[j + 1]) &#123;
+            j ++;
+        &#125;
+        next[i] = j;
+    &#125;
+&#125;
+int strStr(char* haystack, char* needle) &#123;
+    int hlen = strlen(haystack);
+    int nlen = strlen(needle);
+    int j = -1;
+    int next[nlen] = 0;
+    getNext(next, needle);
+    for(int i = 0; i &lt; hlen; i ++) &#123;
+        while(j != -1 &amp;&amp; haystack[i] != needle[j + 1]) j = next[j];
+        if(haystact[i] == needle[j + 1]) j ++;
+        if(j = nlen - 1) return i - nlen + 1;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="js-25"><a href="#js-25" class="headerlink" title="js"></a>js</h5><pre><code class="js">function getNext(next, s) &#123;
+    let j = -1;
+    next[0] = j;
+    for(let i = 0; i &lt; s.length; i ++) &#123;
+        while(j != -1 &amp;&amp; s[i] != s[j + 1]) j = next[-1];
+        if(s[i] == s[j + 1]) j ++;
+        next[i] = j;
+    &#125;
+&#125;
+function strStr(haystack, needle) &#123;
+    let j = -1;
+    let next = new Array(needle.length).fill(0);
+    getNext(next, needle);
+    for(int i = 0; i &lt; haystack.length; i ++) &#123;
+        while(j != -1 &amp;&amp; haystack[i] != needle[j + 1]) j = next[j];
+        if(haystack[i] == needle[j + 1]) j ++;
+        if(j == needle.length - 1) return i - needle + 1;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="java-25"><a href="#java-25" class="headerlink" title="java"></a>java</h5><pre><code class="java">private void getNext(int[] next, String s) &#123;
+    char[] charA = s.toCharArray();
+    int j = -1;
+    next[0] = j;
+    for(int i = 0; i &lt; charA.length(); i ++) &#123;
+        while(j != -1 &amp;&amp; charA[i] != charA[j + 1]) j = next[j];
+        if(charA[i] == charA[j + 1]) j ++;
+        next[i] = j;
+    &#125;
+&#125;
+public int strStr(String haystack, String needle) &#123;
+    char[] hchar = haystack.toCharArray();
+    char[] nchar = needle.toCharArray();
+    int j = -1;
+    int[] next = next int[nchar.length()];
+    getNext(next, needle);
+    for(int i = 0; i &lt; hchar.length(); i ++) &#123;
+        while(j != -1 &amp;&amp; hchar[i] != nchar[j + 1]) j = next[j];
+        if(hchar[i] == nchar[j + 1]) j ++;
+        if(j == nchar.length() - 1) return i - nchar.length() + 1;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="重复的子字符串"><a href="#重复的子字符串" class="headerlink" title="重复的子字符串"></a>重复的子字符串</h2><p>给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000。</p>
 <p>示例 1:<br>输入: “abab”<br>输出: True<br>解释: 可由子字符串 “ab” 重复两次构成。</p>
 <pre><code class="c++">void getNext(int* next, string s) &#123;
     //自减一
     int j = -1;
     next[0] = j;
     for(int i = 0; i &lt; s.size(); i ++) &#123;
-        while(j != -1 &amp;&amp; s[i] != s[j]) &#123;
+        while(j != -1 &amp;&amp; s[i] != s[j + 1]) &#123;
             j = next[j];
         &#125;
-        if(s[i] == s[j]) &#123;
+        if(s[i] == s[j + 1]) &#123;
             j ++;
         &#125;
         next[j] = i;
