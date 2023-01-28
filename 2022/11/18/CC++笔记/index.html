@@ -181,6 +181,57 @@ p-&gt;name = (char *)malloc(20);
 PStu newStu = (PStu) malloc(sizeof(Stu));
 newStu-&gt;HP = 1000;
 </code></pre>
+<h4 id="结构体构建队列"><a href="#结构体构建队列" class="headerlink" title="结构体构建队列"></a>结构体构建队列</h4><pre><code class="c">#include &lt;assert.h&gt;
+
+typedef struct QueNode &#123;
+    int val;
+    //单向队列
+    struct QueNode* next;
+&#125;QNode;
+typedef struct Que &#123;
+    //指向队列尾部
+    QNode* tail;
+    //指向队列头部
+    QNode* head;
+&#125;Que;
+//队列初始化
+void QueInit(Que* que) &#123;
+    //assert()宏接受一个整形表达式参数。
+    //如果表达式的值为假，assert()宏就会调用_assert函数在标准错误流中打印一条错误信息，并调用abort()
+    //（abort()函数的原型在stdlib.h头文件中）函数终止程序。
+    assert(que);
+    que-&gt;tail = que-&gt;head = NULL;
+&#125;
+</code></pre>
+<h5 id="数据入队列"><a href="#数据入队列" class="headerlink" title="数据入队列"></a>数据入队列</h5><pre><code class="c">void push(Que* que, int val) &#123;
+    assert(que);
+    Que* newNode = (QNode *) malloc(sizeof(QNode));
+    newNode-&gt;val = val;
+    newNode-&gt;next = NULL;
+    //队列为空
+    if(que-&gt;tail == NULL) &#123;
+        que-&gt;tail = que-&gt;head = newNode;
+    &#125;else &#123;
+        //尾指针指向的节点，下一个节点指向新节点
+        que-tail-&gt;next = newNode;
+        //尾指针指向新节点
+        que-&gt;tail = newNode;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="数据出队列"><a href="#数据出队列" class="headerlink" title="数据出队列"></a>数据出队列</h5><pre><code class="c">void pop(Que* que) &#123;
+    assert(que);
+       assert(que-&gt;head);s
+    //只有一个节点
+    if(que-&gt;head-&gt;next == NULL) &#123;
+        que-&gt;tail = que-&gt;head = NULL;
+         return ;   
+    &#125;
+    Que* temp = que-&gt;head;
+    que-&gt;head = que-&gt;head-&gt;next;
+    free(temp);
+&#125;
+</code></pre>
 <h2 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h2><blockquote>
 <p>将几种不同类型的变量存放在同一内存单元中，实现覆盖技术</p>
 </blockquote>

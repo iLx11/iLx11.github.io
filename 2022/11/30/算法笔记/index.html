@@ -2513,7 +2513,7 @@ public int strStr(String haystack, String needle) &#123;
 </code></pre>
 <h2 id="重复的子字符串"><a href="#重复的子字符串" class="headerlink" title="重复的子字符串"></a>重复的子字符串</h2><p>给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000。</p>
 <p>示例 1:<br>输入: “abab”<br>输出: True<br>解释: 可由子字符串 “ab” 重复两次构成。</p>
-<pre><code class="c++">void getNext(int* next, string s) &#123;
+<h5 id="c-45"><a href="#c-45" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">void getNext(int* next, string s) &#123;
     //自减一
     int j = -1;
     next[0] = j;
@@ -2527,7 +2527,7 @@ public int strStr(String haystack, String needle) &#123;
         next[j] = i;
     &#125;
 &#125;
-bool isReapeat(string s) &#123;
+bool isRepeated(string s) &#123;
        if(s.size() == 0) &#123;
         return false;
     &#125;
@@ -2543,9 +2543,62 @@ bool isReapeat(string s) &#123;
     return false;
 &#125;
 </code></pre>
-<h1 id="栈与队列"><a href="#栈与队列" class="headerlink" title="栈与队列"></a>栈与队列</h1><h3 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h3><p>使用栈实现队列的下列操作：</p>
+<h5 id="c-46"><a href="#c-46" class="headerlink" title="c"></a>c</h5><pre><code class="c">void getNext(int* nums, char* s) &#123;
+    int j = -1;
+    nums[0] = j;
+    int len = strlen(s);
+    for(let i = 0; i &lt; len; i ++) &#123;
+        if(j &gt;= 0 &amp;&amp; s[i] != s[j + 1]) j = nums[j];
+        if(s[j + 1] == s[i]) j ++;
+        nums[i] = j;
+    &#125;
+&#125;
+int isRepeated(char* s) &#123;
+    int len = strlen(s);
+    int* next[len] = &#123;&#125;;
+    getNext(next, s);
+    if(next[len - 1] != -1 &amp;&amp; len % (len - (next[len - 1] + 1)) == 0) return 1;
+    return 0;
+&#125;
+</code></pre>
+<h5 id="js-26"><a href="#js-26" class="headerlink" title="js"></a>js</h5><pre><code class="js">function getNext(next, s) &#123;
+    let j = -1;
+    next.push(j);
+    for(let i = 0; i &lt; s.length; i ++) &#123;
+        if(j != -1 &amp;&amp; s[i] != s[j + 1]) j = next[j];
+        if(s[i] == s[j + 1]) j ++;
+        next.push(j);
+    &#125;
+&#125;
+function isRepeated(s) &#123;
+    let len = s.length;
+    let next = new Array(s.length).fill(0);
+    getNext(next, s);
+    if(s[len - 1] != -1 &amp;&amp; len % (len - (s[len - 1] + 1)) == 0) return true;
+    return false;
+&#125;
+</code></pre>
+<h5 id="java-26"><a href="#java-26" class="headerlink" title="java"></a>java</h5><pre><code class="java">public void getNext(int[] next, char[] charA) &#123;
+    int j = -1;
+    next[0] = j;
+    for(int i = 0; i &lt; charA.length(); i ++) &#123;
+        if(j != -1 &amp;&amp; charA[i] != charA[j + 1]) j = next[j];
+        if(charA[i] == charA[j + 1]) j ++;
+        next[i] = j;
+    &#125;
+&#125;
+public bool isRepeated(String s) &#123;
+    charA[] charA = s.toCharArray();
+    int[] next = new Array(s.length());
+    getNext(next, charA);
+    int len = s.length;
+    if(next[len - 1] != -1 &amp;&amp; len % (len - (len[len - 1] + 1)) == 0) return true;
+    return false;
+&#125;
+</code></pre>
+<h1 id="栈与队列"><a href="#栈与队列" class="headerlink" title="栈与队列"></a>栈与队列</h1><h2 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h2><p>使用栈实现队列的下列操作：</p>
 <p>push(x) – 将一个元素放入队列的尾部。<br>pop() – 从队列首部移除元素。<br>peek() – 返回队列首部的元素。<br>empty() – 返回队列是否为空。</p>
-<pre><code class="c++">class MyQueue &#123;
+<h5 id="c-47"><a href="#c-47" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">class MyQueue &#123;
     private : 
         stack&lt;int&gt; stackIn;
         stack&lt;int&gt; stackOut;
@@ -2575,7 +2628,7 @@ bool isReapeat(string s) &#123;
         &#125;
 &#125;
 </code></pre>
-<h4 id="C语言-7"><a href="#C语言-7" class="headerlink" title="C语言"></a>C语言</h4><pre><code class="c">typedef struct &#123;
+<h5 id="C语言-7"><a href="#C语言-7" class="headerlink" title="C语言"></a>C语言</h5><pre><code class="c">typedef struct &#123;
     int stackInTop, stackOutTop;
     int stackIn[100], stackOut[100];
 &#125;MyQueue;
@@ -2583,7 +2636,7 @@ bool isReapeat(string s) &#123;
 //初始化
 MyQueue* queue() &#123;
     MyQueue* queue = (MyQueue *) malloc(sizeof(MyQueue));
-    queue-&gt;stackInTop = 0
+    queue-&gt;stackInTop = 0;
     queue-&gt;stackOutTop = 0;
     return queue;
 &#125;
@@ -2621,14 +2674,71 @@ void freeMyQueue(MyQueue* que) &#123;
     que-&gt;stackOutTop = 0;
 &#125;
 </code></pre>
-<h3 id="用队列实现栈"><a href="#用队列实现栈" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h3><p>使用队列实现栈的下列操作：</p>
+<h5 id="js-27"><a href="#js-27" class="headerlink" title="js"></a>js</h5><pre><code class="js">class solution &#123;
+    let stackIn, let stackOut;
+    constructor() &#123;
+        //stackIn = new    Array();
+        stackIn = [];
+        stackOut = [];
+    &#125;
+    push(val) &#123;
+        this.stackIn.push(val);
+    &#125;
+    pop() &#123;
+        if(this.stackOut.length) return stackOut.pop());
+        while(this.stackIn.length) &#123;
+            this.stackOut.push(this.stackIn.pop());
+        &#125;
+        return this.stackOut.pop();
+    &#125;
+    peek() &#123;
+        return stackIn[0];
+    &#125;
+    isEmpty() &#123;
+        return !this.stackIn.length &amp;&amp; !this.stackOut.length;
+    &#125;
+&#125;
+</code></pre>
+<h5 id="java-27"><a href="#java-27" class="headerlink" title="java"></a>java</h5><pre><code class="java">class Solution &#123;
+    Stack&lt;Integer&gt; stackIn;
+    Stack&lt;Integer&gt; stackOut;
+       //初始化
+    public Solution() &#123;
+         stackIn = new StackIn&lt;&gt; ();
+        stackOut = new StackOut&lt;&gt; ();
+    &#125;
+    //队列添加元素
+    public void push(int val) &#123;
+        stackIn.push(val);
+    &#125;
+    //队列删除最前元素
+    public void pop() &#123;
+        insideOut();
+        stackOut.pop();
+    &#125;
+    //返回队列第一个元素
+    public int peek() &#123;
+        insideOut();
+        return stack.peek();
+    &#125;
+    //返回是否队列为空
+    public bool isEmpty() &#123;
+        return stackIn.isEmpty() &amp;&amp; stackOut.isEmpty();
+    &#125;
+    public void insideOut() &#123;
+        if(!stackOut.isEmpty()) return ;
+        while(!stackIn.isEmpty()) stackOut.push(stackIn.pop());
+    &#125;
+&#125;
+</code></pre>
+<h2 id="用队列实现栈"><a href="#用队列实现栈" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h2><p>使用队列实现栈的下列操作：</p>
 <ul>
 <li>push(x) – 元素 x 入栈</li>
 <li>pop() – 移除栈顶元素</li>
 <li>top() – 获取栈顶元素</li>
 <li>empty() – 返回栈是否为空</li>
 </ul>
-<pre><code class="c++">class MyStack &#123;
+<h5 id="c-48"><a href="#c-48" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">class MyStack &#123;
     public:
         queue&lt;int&gt; que1;
         queue&lt;int&gt; que2;
@@ -2659,7 +2769,7 @@ void freeMyQueue(MyQueue* que) &#123;
         &#125;
 &#125;
 </code></pre>
-<h5 id="优化使用一个队"><a href="#优化使用一个队" class="headerlink" title="优化使用一个队"></a>优化使用一个队</h5><pre><code class="c+">class MyStack &#123;
+<h5 id="优化使用一个队"><a href="#优化使用一个队" class="headerlink" title="优化使用一个队"></a>优化使用一个队</h5><pre><code class="c++">class MyStack &#123;
     public:
         int pop() &#123;
             int size = que.size();
@@ -2670,11 +2780,84 @@ void freeMyQueue(MyQueue* que) &#123;
             int result = que.front();
             que.push(que.pop());
             return result;
-            
         &#125;
 &#125;
 </code></pre>
-<h3 id="有效的括号"><a href="#有效的括号" class="headerlink" title="有效的括号"></a>有效的括号</h3><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
+<h4 id="c-49"><a href="#c-49" class="headerlink" title="c"></a>c</h4><p>C语言可以通过数组来实现顺序队列，通过实现逻辑环形的数组顺序队列</p>
+<p>还可以用一个单链表链表记录队列中的节点并记录后一个节点</p>
+<p>用另一个结构体包含头节点和尾节点的双指针</p>
+<h5 id="结构体构建队列"><a href="#结构体构建队列" class="headerlink" title="结构体构建队列"></a>结构体构建队列</h5><pre><code class="c">typedef struct QueNode &#123;
+    int val;
+    //单向队列
+    struct QueNode* next;
+&#125;QNode;
+typedef struct Que &#123;
+    //指向队列尾部
+    QNode* tail;
+    //指向队列头部
+    QNode* head;
+&#125;Que;
+//队列初始化
+void QueInit(Que* que) &#123;
+    //assert()宏接受一个整形表达式参数。
+    //如果表达式的值为假，assert()宏就会调用_assert函数在标准错误流中打印一条错误信息，并调用abort()
+    //（abort()函数的原型在stdlib.h头文件中）函数终止程序。
+    assert(que);
+    que-&gt;tail = que-&gt;head = NULL;
+&#125;
+</code></pre>
+<h5 id="题目代码"><a href="#题目代码" class="headerlink" title="题目代码"></a>题目代码</h5><pre><code class="c">void push(Que* que, int val) &#123;
+    Qpush(que, val);
+&#125;
+int pop(Que* que, int size) &#123;
+    //留下最后一个元素
+    size --;
+       while(size --) &#123;
+        Qpush(que, que-&gt;head-&gt;val);
+        Qpop(que);
+    &#125;
+    int result = que-&gt;head-&gt;val;
+    Qpop(que);
+    return result;
+&#125;
+</code></pre>
+<h5 id="js-28"><a href="#js-28" class="headerlink" title="js"></a>js</h5><pre><code class="js">class MyStack &#123;
+    let que;
+    constructor() &#123;
+        que = []&#39;&#39;
+    &#125;
+    push(val) &#123;
+        this.que.shift(val);
+    &#125;
+       pop() &#123;
+        let size = this.que.length;
+        size --;
+        while(size --) &#123;
+            //反向利用数组
+            this.que.unshift(this.que.pop());
+        &#125;
+        return this.que.pop();
+    &#125;
+&#125;
+</code></pre>
+<h5 id="java-28"><a href="#java-28" class="headerlink" title="java"></a>java</h5><pre><code class="java">class MyStack &#123;
+    Queue&lt;Integer&gt; que;
+    public MyStack() &#123;
+        que = new LinkedList&lt;&gt; ();
+    &#125;
+    public void push(int val) &#123;
+        que.offer(val);
+    &#125;
+    public int pop() &#123;
+        int size = que.size();
+        while(size-- &gt; 1) &#123;
+            que.offer(que.poll());
+        &#125;
+        return que.poll();
+    &#125;
+&#125;
+</code></pre>
+<h2 id="有效的括号"><a href="#有效的括号" class="headerlink" title="有效的括号"></a>有效的括号</h2><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
 <p>有效字符串需满足：</p>
 <ul>
 <li>左括号必须用相同类型的右括号闭合。</li>
