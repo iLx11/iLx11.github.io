@@ -188,7 +188,7 @@ int search(int* nums, int length, int target) &#123;
 <h2 id="有序数组平方"><a href="#有序数组平方" class="headerlink" title="有序数组平方"></a>有序数组平方</h2><p>将有序数组内元素平方之后进行排序</p>
 <h5 id="c-3"><a href="#c-3" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">int* sortedSquares(vector&lt;int&gt;&amp; a) &#123;
     int length = a.size();
-    int left = 0, right = length - 1, k = length;
+    int left = 0, right = length - 1, k = length - 1;
     int newArr[length]&#123;&#125;;
     for(int i = 0; i &lt; length; i ++) &#123;
         if(a[left] * a[left] &lt; a[right] * a[right]) &#123;
@@ -196,7 +196,7 @@ int search(int* nums, int length, int target) &#123;
             right --;
         &#125;else &#123;
             newArr[k --] =  a[left] * a[left];
-            left --;
+            left ++;
         &#125;
     &#125;
     a = newArr;
@@ -423,7 +423,7 @@ int search(int* nums, int length, int target) &#123;
     ListNode* next;
     //构造函数初始化
     ListNode(int x) : val(x), next(NULL) &#123;&#125;;
-&#125;
+&#125;;
 </code></pre>
 <h5 id="c语言-2"><a href="#c语言-2" class="headerlink" title="c语言"></a>c语言</h5><pre><code class="c">typedef struct ListNode &#123;
     int val;
@@ -2869,11 +2869,11 @@ int pop(Que* que, int size) &#123;
 <li>输入: “()”</li>
 <li>输出: true</li>
 </ul>
-<pre><code class="c++">bool isValid(string s) &#123;
+<h5 id="c-50"><a href="#c-50" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">bool isValid(string s) &#123;
     if(s.size() % 2 != 0) return false;
     stack&lt;char&gt; stack;
     for(int i = 0; i &lt; s.size(), i ++) &#123;
-        if(s[i] == &quot;[&quot;) &#123;
+        if(s[i] == &quot;[&quot; ) &#123;
             stack.push(&quot;]&quot;);
         &#125;else if(s[i] == &quot;&#123;&quot;) &#123;
             stack.push(&quot;&#125;&quot;);
@@ -2884,14 +2884,60 @@ int pop(Que* que, int size) &#123;
         &#125;else if(stack.empty() || s[i] != stack.top()) &#123;
             return false;
         &#125;else &#123;
-            return true;
+            stack.pop();
         &#125;
     &#125;
     //为空则匹配成功
     retrun stack.empty();
 &#125;
 </code></pre>
-<h3 id="删除字符串中的所有相邻重复项"><a href="#删除字符串中的所有相邻重复项" class="headerlink" title="删除字符串中的所有相邻重复项"></a>删除字符串中的所有相邻重复项</h3><p>给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。</p>
+<h5 id="c-51"><a href="#c-51" class="headerlink" title="c"></a>c</h5><pre><code class="c">typedef struct stack &#123;
+    int stackTop;
+    int stack[100];
+&#125;Stack;
+Stack* stackInit(Stack* stack) &#123;
+    stack-&gt;stackTop = 0;
+    return stack;
+&#125;
+int isValid(Stack* stack, char* s) &#123;
+    int len = strlen(s);
+    stackInit();
+    for(int i = 0; i &lt; len; i ++) &#123;
+        if(s[i] == &#39;[&#39; || s[i] == &#39;&#123;&#39; || s[i] == &#39;(&#39;) &#123;
+            stack[stackTop ++] = s[i];
+        &#125;else if(stackTop == 0 || s[i] != stack[stackTop - 1]) &#123;
+            return -1;
+        &#125;else &#123;
+            //栈弹出
+            stackTop --;
+        &#125;
+    &#125;
+    return stackTop == 0 ? 1 : -1;
+&#125;
+</code></pre>
+<h5 id="js-29"><a href="#js-29" class="headerlink" title="js"></a>js</h5><pre><code class="js">function isValid(s) &#123;
+    let stack = [];
+    for(let i = 0; i &lt; s.length; i ++) &#123;
+        switch(s[i]) &#123;
+            case &quot;&#123;&quot; : 
+                stack.push(&quot;&#125;&quot;);
+                break;
+            case &quot;[&quot; :
+                stack.push(&quot;]&quot;);
+                break;
+            case &quot;(&quot; : 
+                stack.push(&quot;)&quot;);
+                break;
+            default: 
+                if(s[i] != stack.pop()) return false;
+        &#125;
+    &#125;
+    return !stack.length;
+&#125;
+</code></pre>
+<h5 id="js-优化版"><a href="#js-优化版" class="headerlink" title="js 优化版"></a>js 优化版</h5><pre><code class="js">
+</code></pre>
+<h2 id="删除字符串中的所有相邻重复项"><a href="#删除字符串中的所有相邻重复项" class="headerlink" title="删除字符串中的所有相邻重复项"></a>删除字符串中的所有相邻重复项</h2><p>给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。</p>
 <p>在 S 上反复执行重复项删除操作，直到无法继续删除。</p>
 <p>在完成所有重复项删除操作后返回最终的字符串。答案保证唯一。</p>
 <p>示例：</p>
