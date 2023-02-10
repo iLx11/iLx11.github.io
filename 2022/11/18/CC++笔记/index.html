@@ -46,7 +46,7 @@
     
 <hr>
     <div class="post-md">
-        <h1 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h1><h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><h5 id="“-“-将多行宏拼接为一行"><a href="#“-“-将多行宏拼接为一行" class="headerlink" title="“\“ 将多行宏拼接为一行"></a>“\“ 将多行宏拼接为一行</h5><pre><code class="c">//获取最大值
+        <h1 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h1><h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h5 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h5><h5 id="“-“-将多行宏拼接为一行"><a href="#“-“-将多行宏拼接为一行" class="headerlink" title="“\“ 将多行宏拼接为一行"></a>“\“ 将多行宏拼接为一行</h5><pre><code class="c">//获取最大值
 #define Max(a, b) (&#123;\
     //根据参数获取类型
     __typeof(a) _a = (a);\
@@ -801,6 +801,99 @@ class Vip: public Role &#123;
             cout &lt;&lt; width * heigth;
         &#125;
 &#125;
+</code></pre>
+<h3 id="文件和流"><a href="#文件和流" class="headerlink" title="文件和流"></a>文件和流</h3><h5 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h5><table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ofstream</td>
+<td align="left">该数据类型表示输出文件流，用于创建文件并向文件写入信息。</td>
+</tr>
+<tr>
+<td align="left">ifstream</td>
+<td align="left">该数据类型表示输入文件流，用于从文件读取信息。</td>
+</tr>
+<tr>
+<td align="left">fstream</td>
+<td align="left">该数据类型通常表示文件流，且同时具有 ofstream 和 ifstream 两种功能，这意味着它可以创建文件，向文件写入信息，从文件读取信息。</td>
+</tr>
+</tbody></table>
+<p>要在 C++ 中进行文件处理，必须在 C++ 源代码文件中包含头文件</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+</code></pre>
+<h5 id="open-函数"><a href="#open-函数" class="headerlink" title="open()函数"></a>open()函数</h5><p>第一参数指定要打开的文件的名称和位置，第二个参数定义文件被打开的模式。</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式标志</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ios::app</td>
+<td align="left">追加模式。所有写入都追加到文件末尾。</td>
+</tr>
+<tr>
+<td align="left">ios::ate</td>
+<td align="left">文件打开后定位到文件末尾。</td>
+</tr>
+<tr>
+<td align="left">ios::in</td>
+<td align="left">打开文件用于读取。</td>
+</tr>
+<tr>
+<td align="left">ios::out</td>
+<td align="left">打开文件用于写入。</td>
+</tr>
+<tr>
+<td align="left">ios::trunc</td>
+<td align="left">如果该文件已经存在，其内容将在打开文件之前被截断，即把文件长度设为 0。</td>
+</tr>
+</tbody></table>
+<p>您可以把以上两种或两种以上的模式结合使用。例如，如果您想要以写入模式打开文件，并希望截断文件，以防文件已存在，那么您可以使用下面的语法：</p>
+<pre><code>ofstream outfile;
+outfile.open(&quot;file.dat&quot;, ios::out | ios::trunc );
+</code></pre>
+<p>类似地，您如果想要打开一个文件用于读写，可以使用下面的语法：</p>
+<pre><code>ifstream  afile;
+afile.open(&quot;file.dat&quot;, ios::out | ios::in );
+</code></pre>
+<h4 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h4><p>当 C++ 程序终止时，它会自动关闭刷新所有流，释放所有分配的内存，并关闭所有打开的文件。</p>
+<pre><code class="c++">void close();
+</code></pre>
+<h4 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h4><pre><code class="c++">char data[100];
+ofstream outfile;
+outfile.open(&quot;test.txt&quot;);
+
+//写入操作
+outfile &lt;&lt; data &lt;&lt; endl;
+outfile.close();
+</code></pre>
+<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><pre><code class="c++">char data[100];
+ofstream infile;
+infile.open(&quot;text.txt&quot;);
+
+//读取文件操作，存在data中
+infile &gt;&gt; data;
+infile.close();
+</code></pre>
+<h4 id="文件位置指针"><a href="#文件位置指针" class="headerlink" title="文件位置指针"></a>文件位置指针</h4><p>文件位置指针是一个整数值，指定了从文件的起始位置到指针所在位置的字节数。</p>
+<pre><code class="c++">/ 定位到 fileObject 的第 n 个字节（假设是 ios::beg）
+fileObject.seekg( n );
+ 
+// 把文件的读指针从 fileObject 当前位置向后移 n 个字节
+fileObject.seekg( n, ios::cur );
+ 
+// 把文件的读指针从 fileObject 末尾往回移 n 个字节
+fileObject.seekg( n, ios::end );
+ 
+// 定位到 fileObject 的末尾
+fileObject.seekg( 0, ios::end );
 </code></pre>
 
     </div>
