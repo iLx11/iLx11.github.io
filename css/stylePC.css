@@ -13,7 +13,7 @@
     --bg-color-1: rgba(255, 255, 255, 0.7);
     --bg-color-2: rgba(255, 255, 255, 1);
     --bg-color-3: rgba(255, 255, 255, 0.8);
-    --bg-color-4: rgb(242, 245, 252);
+    --bg-color-4: rgb(239, 237, 241);
 
     --bgshadow1: 3px 4px 12px 3px rgba(111, 109, 133, 0.2);
     --bgshadow2: 3px 4px 12px 3px rgba(111, 109, 133, 0.09);
@@ -166,6 +166,7 @@ html, body {
     /* width: 1300px; */
     height: 100%;
     padding: 0em 1em;
+    display: none;
 }
 
 .paper-main {

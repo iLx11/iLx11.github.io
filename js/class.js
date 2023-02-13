@@ -1,3 +1,4 @@
+// 资源分类
 let artName = document.querySelectorAll(".archive-main span");
 let articlesClass = document.querySelector(".articlesClass");
 let artClassArray = [];
