@@ -1875,7 +1875,20 @@ const request = axios.create(&#123;
 
 export default request
 </code></pre>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="封装-API"><a href="#封装-API" class="headerlink" title="封装 API"></a>封装 API</h3><p>API 下不同的文件夹来表示请求不同的数据</p>
+<h3 id="axios-拦截器"><a href="#axios-拦截器" class="headerlink" title="axios 拦截器"></a>axios 拦截器</h3><h4 id="声明请求拦截器"><a href="#声明请求拦截器" class="headerlink" title="声明请求拦截器"></a>声明请求拦截器</h4><pre><code class="js">1et loadingInstance=null
+axios.interceptors.request.use（config=&gt;&#123;
+//展示Loading效果
+loadingInstance=Loading.service（&#123;fullscreen:true&#125;）
+return config
+&#125;）
+</code></pre>
+<h4 id="声明响应拦截器"><a href="#声明响应拦截器" class="headerlink" title="声明响应拦截器"></a>声明响应拦截器</h4><pre><code class="js">axios.interceptors.response.use（response=&gt;&#123;
+//隐藏Loading效果
+1oadingInstance.close）
+return response
+&#125;）
+</code></pre>
+<h3 id="封装-API"><a href="#封装-API" class="headerlink" title="封装 API"></a>封装 API</h3><p>API 下不同的文件夹来表示请求不同的数据</p>
 <pre><code class="js">//调用封装的工具来发起请求
 import request from &#39;utils/request.js&#39;
 

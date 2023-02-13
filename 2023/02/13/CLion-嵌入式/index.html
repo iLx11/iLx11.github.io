@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <title>iLx1 | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <div class="backg"></div>
+    <div class="paper">
+        <div class="paper-main">
+            <!-- <div class="bgimg"></div> -->
+            <div class="cover"></div>
+            <!-- <div class="bgimgB"></div> -->
+            
+            <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+            
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            CLion-嵌入式
+        </div>
+        <div class="post-meta">
+            2023-02-13
+        </div>
+    
+<hr>
+    <div class="post-md">
+        <h3 id="取代-keil-迁移到更高级的-IDE"><a href="#取代-keil-迁移到更高级的-IDE" class="headerlink" title="取代 keil 迁移到更高级的 IDE"></a>取代 keil 迁移到更高级的 IDE</h3><p>CLion 有强大的代码补全、界面风格、各种插件、流畅性等众多优点</p>
+<h5 id="基于HAL库开发为准"><a href="#基于HAL库开发为准" class="headerlink" title="基于HAL库开发为准"></a>基于<code>HAL库</code>开发为准</h5><h2 id="环境与工具"><a href="#环境与工具" class="headerlink" title="环境与工具"></a>环境与工具</h2><ul>
+<li>Windows 10</li>
+<li>STM32CubeMX</li>
+<li>Clion-2019</li>
+<li>MinGW</li>
+<li>OpenOCD</li>
+<li>arm-none-eabi-gcc</li>
+</ul>
+<h3 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h3><p>选择低版本的cube MX， 因为6.4.0 以上的版本不再支持以SW4STM32为导出IDE，而我们后续需要以这个选项导出工程，故在选择下载时不可以下载最新的cubeMX</p>
+<p>下载链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.st.com/en/development-tools/stm32cubemx.html#get-software">https://www.st.com/en/development-tools/stm32cubemx.html#get-software</a></p>
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131925723.png" alt="image-20230213105305017"></p>
+<h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><p>OpenOCD是用于对STM32进行下载仿真的工具，是一个开源软件包，解压到某个目录，后面会在Clion中链接这个目录</p>
+<p>下载地址：</p>
+<p><a href="https://link.zhihu.com/?target=http://gnutoolchains.com/arm-eabi/openocd/">https://link.zhihu.com/?target=http%3A//gnutoolchains.com/arm-eabi/openocd/</a></p>
+<h4 id="在CLion-中配置-OpenOCD"><a href="#在CLion-中配置-OpenOCD" class="headerlink" title="在CLion 中配置 OpenOCD"></a>在CLion 中配置 OpenOCD</h4><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924237.png" alt="image-20230213124855858"></p>
+<h3 id="MinGW"><a href="#MinGW" class="headerlink" title="MinGW"></a>MinGW</h3><p>Clion需要使用MinGW环境来配置工具链，安装方法如下：<br>首先去MinGW主页下载最新版本的MinGW</p>
+<p>下载链接：</p>
+<p><a href="https://link.zhihu.com/?target=https://osdn.net/projects/mingw/releases/">https://link.zhihu.com/?target=https%3A//osdn.net/projects/mingw/releases/</a></p>
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924240.png" alt="image-20230213125233612"></p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>软件运行需要有 java 环境，尽量选择低版本的下载</p>
+<p><a target="_blank" rel="noopener" href="https://www.java.com/zh-CN/download/">https://www.java.com/zh-CN/download/</a></p>
+<p>安装时把<code>Basic Setup</code>里面的组件全部勾选（也可也去掉不需要的语言编译器比如Objective-C）。</p>
+<p>之后配置<code>系统的环境变量</code>，在Path环境变量里面添加一条，指向MinGW的<code>bin</code>文件夹</p>
+<p>验证安装是否成功：</p>
+<pre><code class="bash">gcc -v
+</code></pre>
+<p>打印出<code>版本信息</code>则为配置成功</p>
+<h3 id="arm-none-eabi-gcc"><a href="#arm-none-eabi-gcc" class="headerlink" title="arm-none-eabi-gcc"></a>arm-none-eabi-gcc</h3><p>下载链接：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.arm.com/downloads/-/gnu-rm">https://developer.arm.com/downloads/-/gnu-rm</a></p>
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131925574.png" alt="image-20230213125939109"></p>
+<h5 id="解压后将-bin-目录配置到系统环境目录"><a href="#解压后将-bin-目录配置到系统环境目录" class="headerlink" title="解压后将 bin 目录配置到系统环境目录"></a>解压后将 bin 目录配置到系统环境目录</h5><p>cmd 输入</p>
+<pre><code class="bash">arm-none-eabi-gcc -v
+</code></pre>
+<p>如果有信息输出,那就是装好了</p>
+<h4 id="CLion-配置"><a href="#CLion-配置" class="headerlink" title="CLion 配置"></a>CLion 配置</h4><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131925136.png" alt="image-20230213135245131"></p>
+<h2 id="CLion-中创建-STM32-工程"><a href="#CLion-中创建-STM32-工程" class="headerlink" title="CLion 中创建 STM32 工程"></a>CLion 中创建 STM32 工程</h2><h4 id="创建一个新工程"><a href="#创建一个新工程" class="headerlink" title="创建一个新工程"></a>创建一个新工程</h4><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131925258.png" alt="image-20230213154429514" style="zoom: 80%;" />
+
+
+
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924307.png" alt="image-20230213154707455"></p>
+<h4 id="完成后点击create"><a href="#完成后点击create" class="headerlink" title="完成后点击create"></a>完成后点击create</h4><h5 id="如遇以下问题"><a href="#如遇以下问题" class="headerlink" title="如遇以下问题"></a>如遇以下问题</h5><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131926011.png" alt="image-20230213154844389"></p>
+<h5 id="解决方式："><a href="#解决方式：" class="headerlink" title="解决方式："></a>解决方式：</h5><p>删除CLion 安装目录下的jbr文件夹，将新版安装目录下的jbr文件夹拷贝进来</p>
+<p>jbr文件下载：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr11_0_13b1751.25">https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr11_0_13b1751.25</a></p>
+<p>解压后替换即可</p>
+<h4 id="点击-Open-with-STM32CubeMX"><a href="#点击-Open-with-STM32CubeMX" class="headerlink" title="点击 Open with STM32CubeMX"></a>点击 Open with STM32CubeMX</h4><p>在STM32CubeMX中做好配置</p>
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924401.png" alt="image-20230213155253579"></p>
+<h4 id="在-stm32cubemx-中的重要配置"><a href="#在-stm32cubemx-中的重要配置" class="headerlink" title="在 stm32cubemx 中的重要配置"></a>在 stm32cubemx 中的重要配置</h4><p>（配置好板子之类的自己的需求后）</p>
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924492.png" alt="image-20230213155707849"></p>
+<p>生成的代码会分开单独的源文件和头文件，否则会全部放在main.c文件，不便于整理，降低代码可读性</p>
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131926665.png" alt="image-20230213155854761"></p>
+<h4 id="配置完成后点击"><a href="#配置完成后点击" class="headerlink" title="配置完成后点击"></a>配置完成后点击</h4><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924528.png" alt="image-20230213161311788"></p>
+<h4 id="遇到这个框点击-close"><a href="#遇到这个框点击-close" class="headerlink" title="遇到这个框点击 close"></a>遇到这个框点击 close</h4><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131926852.png" alt="image-20230213161401668"></p>
+<h4 id="之后返回-CLion"><a href="#之后返回-CLion" class="headerlink" title="之后返回 CLion"></a>之后返回 CLion</h4><p>这个是板子配置文件，我们先不选择，之后进行配置</p>
+<p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924545.png" alt="image-20230213161600221"></p>
+<h4 id="在工程文件夹下创建-config-目录"><a href="#在工程文件夹下创建-config-目录" class="headerlink" title="在工程文件夹下创建 config 目录"></a>在工程文件夹下创建 config 目录</h4><h4 id="config-目录下-新建命名为-stlink-cfg-的文件"><a href="#config-目录下-新建命名为-stlink-cfg-的文件" class="headerlink" title="config 目录下 新建命名为 stlink.cfg 的文件"></a>config 目录下 新建命名为 stlink.cfg 的文件</h4><h5 id="st-link-上传"><a href="#st-link-上传" class="headerlink" title="(st-link 上传)"></a>(st-link 上传)</h5><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924808.png" alt="image-20230213163014404"></p>
+<h5 id="文件中粘贴硬件配置"><a href="#文件中粘贴硬件配置" class="headerlink" title="文件中粘贴硬件配置"></a>文件中粘贴硬件配置</h5><p>前两行设置了仿真器的类型和接口，下面几行指定了<strong>Flash大小</strong>、<strong>芯片类型</strong>、<strong>下载速度</strong>等</p>
+<pre><code class="bash"># choose st-link/j-link/dap-link etc.
+#adapter driver cmsis-dap
+#transport select swd
+ 
+source [find interface/stlink.cfg]
+transport select hla_swd
+ 
+source [find target/stm32f1x.cfg]
+ 
+# download speed = 10MHz
+adapter speed 10000
+</code></pre>
+<h3 id="编译-amp-烧录-amp-调试"><a href="#编译-amp-烧录-amp-调试" class="headerlink" title="编译 &amp;  烧录 &amp; 调试"></a>编译 &amp;  烧录 &amp; 调试</h3><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924082.png" alt="image-20230213163258711"></p>
+<img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131926631.png" alt="image-20230213163437368" style="zoom:80%;" />
+
+
+
+<h4 id="选择配置文件"><a href="#选择配置文件" class="headerlink" title="选择配置文件"></a>选择配置文件</h4><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131924616.png" alt="image-20230213163609813"></p>
+<h4 id="则配置完成"><a href="#则配置完成" class="headerlink" title="则配置完成"></a>则配置完成</h4><h4 id="点击上传按钮"><a href="#点击上传按钮" class="headerlink" title="点击上传按钮"></a>点击上传按钮</h4><p><img src="https://raw.githubusercontent.com/iLx11/pic/main/202302131927900.png" alt="image-20230213163732427"></p>
+<h4 id="用于烧录的-hex-和-bin-文件将在工程目录下生成"><a href="#用于烧录的-hex-和-bin-文件将在工程目录下生成" class="headerlink" title="用于烧录的 .hex 和 .bin 文件将在工程目录下生成"></a>用于烧录的 .hex 和 .bin 文件将在工程目录下生成</h4><h5 id="目录名："><a href="#目录名：" class="headerlink" title="目录名："></a>目录名：</h5><pre><code class="bash">cmake-build-debug-mingw
+</code></pre>
+<h4 id="之后就可以愉快的在舒适的-IDEA-中编码了"><a href="#之后就可以愉快的在舒适的-IDEA-中编码了" class="headerlink" title="之后就可以愉快的在舒适的 IDEA 中编码了"></a>之后就可以愉快的在舒适的 IDEA 中编码了</h4>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+     <div class="menuShow">
+     <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24"><path d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path></svg>
+    </div>
+    <div class="top">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+</div>
+
+<script src="/js/nav.js"></script>
+
+            <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+
+<link rel="stylesheet" href="/css/nord.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+        </div>
+    </div>
+</body>
+
+<script src="/js/memo.js"></script>
+
+</html>

@@ -237,7 +237,7 @@ let difference = new Set([...a].filter(x =&gt; !b.has(x)));
 <li>没有<code>clear</code>清空方法</li>
 </ul>
 </blockquote>
-<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>异步编程的一种解决方案</p>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p>异步编程的一种解决方案</p>
 <p><code>promise</code>解决异步操作的优点：</p>
 <blockquote>
 <ul>
@@ -348,11 +348,19 @@ hw.next()
   console.log(f2.toString());
 &#125;;
 </code></pre>
-<h3 id="anysc-await异步最终解决方案"><a href="#anysc-await异步最终解决方案" class="headerlink" title="anysc/await异步最终解决方案"></a>anysc/await异步最终解决方案</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><p>async是一个加在函数前的修饰符，被async定义的函数会默认返回一个Promise对象resolve的值。因此对async函数可以直接then，返回值就是then方法传入的函数。</p>
+<h2 id="anysc-await"><a href="#anysc-await" class="headerlink" title="anysc/await"></a>anysc/await</h2><h3 id="异步最终解决方案"><a href="#异步最终解决方案" class="headerlink" title="异步最终解决方案"></a>异步最终解决方案</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><p>async是一个加在函数前的修饰符，被async定义的函数会默认返回一个Promise对象resolve的值。因此对async函数可以直接then，返回值就是then方法传入的函数。</p>
 <h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><p>await 也是一个修饰符，只能放在async定义的函数内。</p>
 <p>await 修饰的如果是Promise对象：可以获取Promise中返回的内容（resolve或reject的参数），且取到值后语句才会往下执行；</p>
 <p>如果不是Promise对象：把这个非promise的东西当做await表达式的结果。</p>
-<h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><p><strong>定义：</strong> 用于定义基本操作的自定义行为</p>
+<h3 id="EventLoop"><a href="#EventLoop" class="headerlink" title="EventLoop"></a>EventLoop</h3><p>JavaScript主线程从“任务队列”中读取异步任务的回调函数，放到执行栈中依次执行。这个过程是循环不断的，所以整个的这种运行机制又称为EVentLoop（事件循环）。</p>
+<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><h3 id="宏任务（macrotask）"><a href="#宏任务（macrotask）" class="headerlink" title="宏任务（macrotask）"></a>宏任务（macrotask）</h3><blockquote>
+<p>·异步Ajax请求、<br>·setTimeout、setlnterval、<br>·文件操作<br>·其它宏任务</p>
+</blockquote>
+<h3 id="微任务（microtask）"><a href="#微任务（microtask）" class="headerlink" title="微任务（microtask）"></a>微任务（microtask）</h3><blockquote>
+<p>·Promise.then、.catch和.finally<br>·process.nextTick<br>·其它微任务</p>
+</blockquote>
+<p>每一个宏任务执行完之后，都会检查是否存在待执行的<code>微任务</code>，如果有，则执行完所有<code>微任务</code>之后，再继续执行下一个<code>宏任务</code>。</p>
+<h1 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h1><p><strong>定义：</strong> 用于定义基本操作的自定义行为</p>
 <p><strong>本质：</strong> 修改的是程序默认形为，就形同于在编程语言层面上做修改，属于元编程<code>(meta programming)</code></p>
 <p>元编程（Metaprogramming，又译超编程，是指某类计算机程序的编写，这类计算机程序编写或者操纵其它程序（或者自身）作为它们的数据，或者在运行时完成部分本应在编译时完成的工作</p>
 <p>用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）</p>
@@ -516,14 +524,12 @@ function set(target, key, value, receiver) &#123;
 <li>CMD (典型代表：sea.js)</li>
 </ul>
 <p>（自动采用严格模式）模块功能主要由两个命令构成：</p>
-<blockquote>
 <ul>
 <li><code>export</code>：用于规定模块的对外接口</li>
 <li><code>import</code>：用于输入其他模块提供的功能</li>
 </ul>
-</blockquote>
-<pre><code class="js">//export 
-let year = &#39;year&#39;
+<h3 id="按需导出-导入"><a href="#按需导出-导入" class="headerlink" title="按需导出/ 导入"></a>按需导出/ 导入</h3><p>每个模块中可以使用多次按需导出<br>按需导入的成员名称必须和按需导出的名称保持一致<br>按需导入时，可以使用as关键字进行重命名<br>按需导入可以和默认导入一起使用</p>
+<h4 id="export"><a href="#export" class="headerlink" title="export"></a>export</h4><pre><code class="js">let year = &#39;year&#39;
 let mouth = &#39;mouth&#39;
 let day = &#39;day&#39;
 export &#123;
@@ -531,22 +537,21 @@ year as Year, //重命名
 mouth,
 day
 &#125;
-
-//import
-import &#123;Year as nian, mouth, day&#125; from &#39;./js&#39;
+</code></pre>
+<h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><pre><code class="js">import &#123;Year as nian, mouth, day&#125; from &#39;./js&#39;
 
 //导入整个模块
 import * as all from &#39;./js&#39;
 
 //如果只有一个模块名，需要有配置文件，告诉引擎模块的位置
-import &#123; myMethod &#125; from &#39;util&#39;;
+import &#123; myMethod &#125; from &#39;util&#39;
 </code></pre>
 <p>在编译阶段，<code>import</code>会提升到整个模块的头部，首先执行</p>
 <p>多次重复执行同样的导入，只会执行一次</p>
-<p>如果不需要知道变量名或函数就完成加载，就要用到<code>export default</code>命令，为模块指定默认输出</p>
+<h3 id="默认导出"><a href="#默认导出" class="headerlink" title="默认导出"></a>默认导出</h3><p>如果不需要知道变量名或函数就完成加载，就要用到<code>export default</code>命令，为模块指定默认输出</p>
 <pre><code class="javascript">// export-default.js
 export default function () &#123;
-    console.log(&#39;foo&#39;);
+    console.log(&#39;foo&#39;)
 &#125;
 </code></pre>
 <p>加载该模块的时候，<code>import</code>命令可以为该函数指定任意名字</p>
