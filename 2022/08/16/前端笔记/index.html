@@ -656,6 +656,163 @@ function AESDecode(pw) &#123;
     return code;
 &#125;
 </code></pre>
+<h4 id="页面加载"><a href="#页面加载" class="headerlink" title="页面加载"></a>页面加载</h4><pre><code class="html">&lt;style&gt;
+        /*页面加载开始*/
+        .load &#123;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        &#125;
+
+        .loader &#123;
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        &#125;
+        .h-mes &#123;
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        &#125;
+        .h-mes span &#123;
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        &#125;
+        .loader:before &#123;
+            content: &quot;&quot;;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        &#125;
+
+        .loader svg &#123;
+            display: block;
+            width: 100%;
+            height: 100%;
+        &#125;
+
+        .loader svg polygon &#123;
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        &#125;
+
+        .loader svg polygon &#123;
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        &#125;
+
+        .loader.triangle &#123;
+            width: 48px;
+        &#125;
+
+        .loader.triangle:before &#123;
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        &#125;
+        #noWait &#123;
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        &#125;
+        @keyframes pathTriangle &#123;
+            33% &#123;
+                stroke-dashoffset: 74;
+            &#125;
+
+            66% &#123;
+                stroke-dashoffset: 147;
+            &#125;
+
+            100% &#123;
+                stroke-dashoffset: 221;
+            &#125;
+        &#125;
+
+        @keyframes dotTriangle &#123;
+            33% &#123;
+                transform: translate(0, 0);
+            &#125;
+
+            66% &#123;
+                transform: translate(10px, -18px);
+            &#125;
+
+            100% &#123;
+                transform: translate(-10px, -18px);
+            &#125;
+
+        &#125;
+    &lt;/style&gt;
+
+    &lt;body&gt;
+        &lt;!-- 页面加载效果 --&gt;
+        &lt;div class=&quot;load&quot;&gt;
+            &lt;div class=&quot;loader triangle&quot;&gt;
+                &lt;svg viewBox=&quot;0 0 86 80&quot;&gt;
+                    &lt;polygon points=&quot;43 8 79 72 7 72&quot;&gt;&lt;/polygon&gt;
+                &lt;/svg&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;h-mes&quot;&gt;
+                &lt;span id=&quot;chs&quot;&gt;&quot; 请稍等一会... &quot;&lt;/span&gt;
+                &lt;span&gt;Please wait for a long time&lt;/span&gt;
+                &lt;span id=&quot;noWait&quot;&gt;&lt;我不等啦！&gt;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+   &lt;/body&gt;
+   &lt;script&gt;
+            const loader = document.querySelector(&#39;.load&#39;);
+            const paper = document.querySelector(&#39;.paper&#39;);
+            const ch_span = document.querySelector(&#39;.load .h-mes&gt;#chs&#39;);
+            const no_wait = document.querySelector(&#39;.load #noWait&#39;);
+    
+            const ch_array = [&#39;&quot; 或许再等一会.. &quot;&#39;, &#39;&quot; 等待是为了更好的阅读体验 &quot;&#39;, &#39;&quot; 就快加载完了 &quot;&#39;, &#39;&quot; 还差一点... &quot;&#39;, &#39;&quot; 感谢你的坚持 ! &quot;&#39;]
+            let i = 0, j = 0;
+            let timer = setInterval(() =&gt; &#123;
+                ch_span.innerHTML = ch_array[i];
+                i &gt; 3 ? i = 0 : i ++;
+                j &gt; 5 ? no_wait.style.display = &#39;block&#39; : j ++;
+            &#125;, 1800);
+            console.log(23542365)
+            window.onload = showMain();
+            no_wait.addEventListener(&#39;click&#39;, showMain);
+    
+            function showMain() &#123;
+                loader.style.display = &#39;none&#39;;
+                paper.style.display = &#39;block&#39;;
+                timer = null;
+                // clearInterval();
+            &#125;
+    &lt;/script&gt;
+</code></pre>
 <h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><pre><code class="js">function()&#123;&#125; --&gt; () =&gt;&#123;&#125;
 
 fangfa:function()&#123;&#125; --&gt; fangfa()&#123;&#125;
@@ -2104,20 +2261,21 @@ zujian.data().成员
     
             const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
             let i = 0, j = 0;
-            let timer = setInterval(() => {
+            var show_main = setInterval(() => {
                 ch_span.innerHTML = ch_array[i];
                 i > 3 ? i = 0 : i ++;
                 j > 5 ? no_wait.style.display = 'block' : j ++;
             }, 1800);
-            console.log(23542365)
-            window.onload = showMain();
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
             no_wait.addEventListener('click', showMain);
     
             function showMain() {
                 loader.style.display = 'none';
                 paper.style.display = 'block';
-                timer = null;
-                // clearInterval();
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
             }
         </script>
     </body>

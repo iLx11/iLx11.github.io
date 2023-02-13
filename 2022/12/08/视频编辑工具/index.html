@@ -399,20 +399,21 @@
     
             const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
             let i = 0, j = 0;
-            let timer = setInterval(() => {
+            var show_main = setInterval(() => {
                 ch_span.innerHTML = ch_array[i];
                 i > 3 ? i = 0 : i ++;
                 j > 5 ? no_wait.style.display = 'block' : j ++;
             }, 1800);
-            console.log(23542365)
-            window.onload = showMain();
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
             no_wait.addEventListener('click', showMain);
     
             function showMain() {
                 loader.style.display = 'none';
                 paper.style.display = 'block';
-                timer = null;
-                // clearInterval();
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
             }
         </script>
     </body>
