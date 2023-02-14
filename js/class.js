@@ -1,8 +1,8 @@
 // 资源分类
-let artName = document.querySelectorAll(".archive-main span");
-let articlesClass = document.querySelector(".articlesClass");
-let artClassArray = [];
-let artNameH = new Array(new Array(0));
+const artName = document.querySelectorAll(".archive-main span");
+const articlesClass = document.querySelector(".articlesClass");
+const artClassArray = [];
+const artNameH = new Array(new Array(0));
 artName.forEach((o, i) => {
   //获取分类
   if (!artClassArray.includes(o.nextElementSibling.innerHTML.trim())) {
@@ -13,7 +13,7 @@ artName.forEach((o, i) => {
 });
 //将不同类别显示在页面
 artClassArray.forEach((o, i) => {
-  let newLi = document.createElement("li");
+  const newLi = document.createElement("li");
   let curString = "";
   artNameH.forEach((v, k) => {
     if(v[2] == o) {

@@ -1,17 +1,10 @@
 window.onload = function() {
-    console.log(storage.retrieve("theme"))
-    if (storage.retrieve("theme") == "dark") {
+    console.log(window.localStorage.getItem("theme"))
+    if (window.localStorage.getItem("theme") == "dark") {
         document.querySelector('.theme').click();
         // document.documentElement.setAttribute("bg-img", "2");
-    } 
-    // else {
-    //     if (storage.retrieve("bimg") == "1") {
-    //         document.documentElement.setAttribute("bg-img", "1");
-    //     } else {
-    //         document.documentElement.setAttribute("bg-img", "0");
-    //     }
-    // }
-    if (storage.retrieve("listC") == "single") {
+    }
+    if (window.localStorage.getItem("listC") == "single") {
         document.querySelector('.postListC .singleRow').click();
     }
 }
@@ -24,12 +17,12 @@ document.querySelector('.closeArt').addEventListener('click', () => {
 });
 
 //文章搜索
-let searchBody = document.querySelector('.header .searchBody');
-let searchSvg = document.querySelector('.searchBody .ssvg');
-let searchResultUl = document.querySelector('.search .result ul');
-let searchResult = document.querySelector('.search .result');
-let searchInp = document.querySelector('.searchBody input');
-let cover = document.querySelector('.cover');
+const searchBody = document.querySelector('.header .searchBody');
+const searchSvg = document.querySelector('.searchBody .ssvg');
+const searchResultUl = document.querySelector('.search .result ul');
+const searchResult = document.querySelector('.search .result');
+const searchInp = document.querySelector('.searchBody input');
+const cover = document.querySelector('.cover');
 cover.addEventListener('click', () => {
     searchInp.value = '';
     searchResultUl.innerHTML = '';
@@ -75,13 +68,13 @@ searchInp.addEventListener('keyup', () => {
 });
 
 //更多
-let more = document.querySelector('.more');
+const more = document.querySelector('.more');
 more.addEventListener('click', () => {
     more.innerHTML = "";
     more.style.background = "var(--bg-color-3)";
     more.style.transform = "scale(60)";
-    let moreC = document.querySelector('.moreContent');
-    let cMore = document.querySelector('.closeMore');
+    const moreC = document.querySelector('.moreContent');
+    const cMore = document.querySelector('.closeMore');
     moreC.classList.add("more-show");
     moreC.classList.remove("more-hide");
     moreC.style.display = 'block';
@@ -101,21 +94,9 @@ more.addEventListener('click', () => {
         });
     });
 });
-//背景图切换
-// document.querySelector('.changebg').addEventListener('click', function() {
-//     if (storage.retrieve("bimg") == "0" || storage.retrieve("bimg") == null) {
-//         document.documentElement.setAttribute("bg-img", "1");
-//         storage.save("bimg", "1");
-//     } else {
-//         document.documentElement.setAttribute("bg-img", "0");
-//         storage.save("bimg", "0");
-//     }
-//     document.querySelector('.closeMore').click();
-// });
-
 //资源或建议推送
 document.querySelector('.send').addEventListener('click', () => {
-    let input = document.querySelectorAll('.m_pub');
+    const input = document.querySelectorAll('.m_pub');
     if (input[1].value.trim() != '') {
         let comment = `${input[0].value}+-->${input[1].value}`;
         let xhr = new XMLHttpRequest();
@@ -136,7 +117,7 @@ document.querySelector('.send').addEventListener('click', () => {
 });
 
 //主题切换
-let theme = document.querySelector('.theme');
+const theme = document.querySelector('.theme');
 theme.addEventListener('click', () => {
     if (theme.innerHTML == "Light") {
         theme.innerHTML = "Dark"
@@ -145,25 +126,20 @@ theme.addEventListener('click', () => {
         document.querySelector('.frame').style.filter =  "opacity(0.2)";
 
         // document.documentElement.setAttribute("bg-img", "2");
-        storage.save("theme", "dark");
+        window.localStorage.setItem("theme", "dark");
 
     } else {
         theme.innerHTML = "Light"
         document.documentElement.setAttribute("color-theme", "light");
         document.querySelector('.logo text').style.fill = "rgba(51,51,51,0.8)";
         document.querySelector('.frame').style.filter =  "opacity(0.5)";
-        // if (storage.retrieve("bimg") != null) {
-        //     document.documentElement.setAttribute("bg-img", storage.retrieve("bimg"));
-        // } else {
-        //     document.documentElement.setAttribute("bg-img", "0");
-        // }
-        storage.save("theme", "light");
+        window.localStorage.setItem("theme", "light");
     }
 });
 
 //列表样式切换
 document.querySelector('.postListC .singleRow').addEventListener('click', () => {
-    let posts = document.querySelectorAll('.post');
+    const posts = document.querySelectorAll('.post');
     posts.forEach(o => {
         o.style.width = "100%";
         o.style.height = "140px";
@@ -173,10 +149,10 @@ document.querySelector('.postListC .singleRow').addEventListener('click', () => 
     document.querySelector('.postListC .singleRow').style.boxShadow = "3px 4px 12px 3px rgba(111, 109, 133, 0.09)";
     document.querySelector('.postListC .doubleRow path').setAttribute("fill", "var(--font-color-2)");
     document.querySelector('.postListC .doubleRow').style.boxShadow = "3px 4px 12px 3px rgba(111, 109, 133, 0)";
-    storage.save("listC", "single");
+    window.localStorage.setItem("listC", "single");
 });
 document.querySelector('.postListC .doubleRow').addEventListener('click', () => {
-    let posts = document.querySelectorAll('.post');
+    const posts = document.querySelectorAll('.post');
     posts.forEach(o => {
         o.style.width = "48%";
         o.style.height = "180px";
@@ -186,5 +162,5 @@ document.querySelector('.postListC .doubleRow').addEventListener('click', () => 
     document.querySelector('.postListC .singleRow').style.boxShadow = "3px 4px 12px 3px rgba(111, 109, 133, 0)";
     document.querySelector('.postListC .doubleRow path').setAttribute("fill", "rgba(13, 145, 145,0.3)");
     document.querySelector('.postListC .doubleRow').style.boxShadow = "3px 4px 12px 3px rgba(111, 109, 133, 0.2)";
-    storage.save("listC", "double");
+    window.localStorage.setItem("listC", "double");
 });

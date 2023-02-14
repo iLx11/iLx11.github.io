@@ -656,7 +656,7 @@ function AESDecode(pw) &#123;
     return code;
 &#125;
 </code></pre>
-<h4 id="页面加载"><a href="#页面加载" class="headerlink" title="页面加载"></a>页面加载</h4><pre><code class="html">&lt;style&gt;
+<h3 id="页面加载"><a href="#页面加载" class="headerlink" title="页面加载"></a>页面加载</h3><pre><code class="html">&lt;style&gt;
         /*页面加载开始*/
         .load &#123;
             display: flex;
@@ -801,8 +801,7 @@ function AESDecode(pw) &#123;
                 i &gt; 3 ? i = 0 : i ++;
                 j &gt; 5 ? no_wait.style.display = &#39;block&#39; : j ++;
             &#125;, 1800);
-            console.log(23542365)
-            window.onload = showMain();
+            window.addEventListener(&#39;load&#39;,showMain);
             no_wait.addEventListener(&#39;click&#39;, showMain);
     
             function showMain() &#123;
@@ -2279,9 +2278,4 @@ zujian.data().成员
             }
         </script>
     </body>
-    
-    
-<script src="/js/memo.js"></script>
-
-
 </html>

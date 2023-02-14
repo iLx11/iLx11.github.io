@@ -1,40 +1,33 @@
 var clientW;
-window.onload = function() {
-    console.log(storage.retrieve("theme"))
-    if(storage.retrieve("theme") == "dark") {
+window.onload = function () {
+    console.log(window.localStorage.getItem("theme"))
+    if (window.localStorage.getItem("theme") == "dark") {
         document.documentElement.setAttribute("color-theme", "dark");
         // document.documentElement.setAttribute("bg-img", "2");
         document.querySelector('.themePage2').innerHTML = "Dark"
-    } 
-    // else {
-    //     if (storage.retrieve("bimg") == "1") {
-    //         document.documentElement.setAttribute("bg-img", "1");
-    //     } else {
-    //         document.documentElement.setAttribute("bg-img", "0");
-    //     }
-    // }
+    }
     clientW = document.documentElement.clientWidth;
 }
 //切换主题颜色
-document.querySelector('.themePage2').addEventListener('click', () =>{
+document.querySelector('.themePage2').addEventListener('click', () => {
     if (document.querySelector('.themePage2').innerHTML == "Light") {
         document.querySelector('.themePage2').innerHTML = "Dark"
         document.documentElement.setAttribute("color-theme", "dark");
-        storage.save("theme","dark");
+        window.localStorage.setItem("theme", "dark");
 
     } else {
         document.querySelector('.themePage2').innerHTML = "Light"
         document.documentElement.setAttribute("color-theme", "light");
-        storage.save("theme","light");
+        window.localStorage.setItem("theme", "light");
     }
 });
-let h1 = document.querySelectorAll('h1');
-let h2 = document.querySelectorAll('h2');
-let h3 = document.querySelectorAll('h3');
-let h4 = document.querySelectorAll('h4');
+const h1 = document.querySelectorAll('h1');
+const h2 = document.querySelectorAll('h2');
+const h3 = document.querySelectorAll('h3');
+const h4 = document.querySelectorAll('h4');
 let bgn = document.querySelector(".post-md").children[0];
-let menu = document.querySelector('.menu>ul');
-var menuShowControl = true;
+const menu = document.querySelector('.menu>ul');
+let menuShowControl = true;
 //控制菜单显示
 document.querySelector('.menuShow').addEventListener('click', () => {
     if (menuShowControl == true) {
@@ -45,7 +38,7 @@ document.querySelector('.menuShow').addEventListener('click', () => {
     menuShowControl = !menuShowControl;
 
 });
-let postMain = document.querySelector('.post-main');
+const postMain = document.querySelector('.post-main');
 //回到顶部
 document.querySelector('.top').addEventListener('click', () => {
     postMain.scrollTo(0, 0);
@@ -62,20 +55,20 @@ while ((bgn = bgn.nextElementSibling) != null) {
 //自动生成文章目录
 function menuSet(bgn, menu) {
     if (bgn.tagName == "H1") {
-        let nli = document.createElement("li");
-        nli.innerHTML = `<span class="h1T">@${bgn.innerHTML}</span>`;
+        const nli = document.createElement("li");
+        nli.innerHTML = `<span class="h1T"><div class="topic-1"><div>一级标题</div><div class="topic-content">${bgn.innerHTML}</div></div></span>`;
         menu.appendChild(nli);
     } else if (bgn.tagName == "H2") {
-        let nli = document.createElement("li");
-        nli.innerHTML = `<span class="h2T">${bgn.innerHTML}</span>`;
+        const nli = document.createElement("li");
+        nli.innerHTML = `<span class="h2T"><div class="topic-2"><div>二级标题</div><div class="topic-content">${bgn.innerHTML}</div></div></span>`;
         menu.appendChild(nli);
     } else if (bgn.tagName == "H3") {
-        let nli = document.createElement("li");
-        nli.innerHTML = `<span class="h3T">->${bgn.innerHTML}</span>`;
+        const nli = document.createElement("li");
+        nli.innerHTML = `<span class="h3T"><div class="topic-3"><div>三级标题</div><div class="topic-content">${bgn.innerHTML}</div></div></span>`;
         menu.appendChild(nli);
     } else if (bgn.tagName == "H4") {
-        let nli = document.createElement("li");
-        nli.innerHTML = `<span class="h4T">-->${bgn.innerHTML}</span>`;
+        const nli = document.createElement("li");
+        nli.innerHTML = `<span class="h4T"><div class="topic-4"><div>四级标题</div><div class="topic-content">${bgn.innerHTML}</div></div></span>`;
         menu.appendChild(nli);
     } else {
         return;
@@ -83,15 +76,15 @@ function menuSet(bgn, menu) {
 }
 
 //目录点击跳转
-let h1T = document.querySelectorAll('.menu>ul>li>.h1T');
-let h2T = document.querySelectorAll('.menu>ul>li>.h2T');
-let h3T = document.querySelectorAll('.h3T');
-let h4T = document.querySelectorAll('.h4T');
-let shu = [h1T, h2T, h3T, h4T];
-let zu = [h1, h2, h3, h4];
+const h1T = document.querySelectorAll('.menu>ul>li>.h1T');
+const h2T = document.querySelectorAll('.menu>ul>li>.h2T');
+const h3T = document.querySelectorAll('.h3T');
+const h4T = document.querySelectorAll('.h4T');
+const shu = [h1T, h2T, h3T, h4T];
+const zu = [h1, h2, h3, h4];
 for (let j = 0; j < shu.length; j++) {
     for (let i = 0; i < shu[j].length; i++) {
-        shu[j][i].onclick = function() {
+        shu[j][i].onclick = function () {
             let position = zu[j][i].offsetTop;
             postMain.scrollTo(0, position);
             window.scrollTo(0, position);
@@ -121,22 +114,23 @@ function scroll() {
     }
 }
 var timer = null;
-window.onscroll = function() {
+window.onscroll = function () {
     if (document.querySelector('.menu>ul').children.length != 0 && menuShowControl == true) {
         document.querySelector('.menu').style.display = 'block';
     }
     menuHide();
     showCurrent();
 }
-document.querySelector('.menu>ul').onscroll = function() {
+document.querySelector('.post-main').onscroll = showCurrent;
+document.querySelector('.menu>ul').onscroll = function () {
     menuHide();
 }
 //自动隐藏目录
 function menuHide() {
     clearTimeout(timer);
     timer = setTimeout(() => {
-        if(clientW < 700)
-        document.querySelector('.menu').style.display = 'none';
+        if (clientW < 700)
+            document.querySelector('.menu').style.display = 'none';
     }, 1500)
 }
 
@@ -149,20 +143,17 @@ function getTop(aa) {
 let shuzu = [];
 let set = 0;
 
+let log = console.log.bind(document);
 //当前文段显示颜色
 function showCurrent() {
     let hs = document.querySelectorAll('.post-main h1, .post-main h2, .post-main h3, .post-main h4');
+    // log(hs)
     for (let i = 0; i < hs.length; i++) {
-        if (hs[i].offsetTop < scroll().top) {
-            if (scroll().top - hs[i].offsetTop < 60 && shuzu[0] == shuzu[1]) {
-                shuzu[set] = 1;
-                let menuli = document.querySelectorAll('.menu>ul>li>span');
-                for (let j = 0; j < menuli.length; j++) {
-                    menuli[j].style.color = "var(--font-color-1)";
-                }
-                menuli[i].style.color = "rgba(158, 215, 236, 0.9)";
-                document.querySelector('.menu>ul').scrollTo(0, menuli[i].offsetTop - 100);
-                set++;
+
+        if (hs[i].offsetTop < scroll().top || hs[i].offsetTop < postMain.scrollTop) {
+
+            if (((Math.abs(scroll().top - hs[i].offsetTop) < 20) || (clientW > 700 && Math.abs(postMain.scrollTop - hs[i].offsetTop) < 20))  && shuzu[0] == shuzu[1] ) {
+                showColor(i);
             } else {
                 shuzu[set] = 0;
                 set++;
@@ -170,4 +161,14 @@ function showCurrent() {
             if (set > 1) set = 0;
         }
     }
+}
+function showColor(i) {
+    shuzu[set] = 1;
+    const menuli = document.querySelectorAll('.menu .topic-content');
+    for (let j = 0; j < menuli.length; j++) {
+        menuli[j].style.color = "var(--font-color-1)";
+    }
+    menuli[i].style.color = "rgba(158, 215, 236, 0.9)";
+    document.querySelector('.menu>ul').scrollTo(0, menuli[i].offsetTop - 100);
+    set++;
 }

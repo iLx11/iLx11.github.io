@@ -1148,6 +1148,38 @@ a {
     margin-bottom: 1.2em;
 
 }
+.topic-1, .topic-2, .topic-3, .topic-4{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgba(51,51,51,0.9);
+}
+.topic-1 div:nth-child(1),
+.topic-2 div:nth-child(1),
+.topic-3 div:nth-child(1),
+.topic-4 div:nth-child(1){
+    width: 70px;
+    height: 100%;
+    font-size: 8px;
+    border-radius: 6px;
+    margin-right: 6px;
+    color: rgba(51,51,51,0.6);
+}
+.topic-1 div:nth-child(1){
+    background: rgba(246, 156, 159, 0.8);
+}
+.topic-2 div:nth-child(1){
+    background: rgba(147, 209, 218, 0.8);
+}
+.topic-3 div:nth-child(1){
+    background: rgba(184, 188, 219, 0.8);
+}
+.topic-4 div:nth-child(1){
+    background: rgba(211, 215, 212, 0.8);
+}
 
 .post-main .menuShow {
     width: 3em;
