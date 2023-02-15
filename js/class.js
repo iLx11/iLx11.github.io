@@ -24,3 +24,4 @@ artClassArray.forEach((o, i) => {
   newLi.innerHTML = `<span>${o}</span><ul class="articlesUL">${curString}</ul>`;
   articlesClass.appendChild(newLi);
 });
+

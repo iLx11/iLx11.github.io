@@ -58,7 +58,9 @@
     --bg: url("https://s1.ax1x.com/2022/09/23/xkAVVf.jpg") no-repeat 0em 0em/100% 20em;
 
 } */
-
+.flex-block {
+    display: none;
+}
 @font-face {
     font-family: "orb";
     src: url("../fonts/Orbitron.ttf");
@@ -234,7 +236,7 @@ a {
     width: 60%;
     height: 15em;
     background: linear-gradient(#a6adb7, #dbd1d4);
-    outline: 5px solid gray;
+    outline: 1.5px solid gray;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     position: absolute;
     right: 5%;
@@ -980,10 +982,12 @@ a {
     transition: color ease-in-out .5s;
 }
 
-.post-except {
+.post-except-mobile {
     word-break: break-all;
 }
-
+.post-except-pc {
+    display: none;
+}
 .read-more {
     padding: 0 4px;
     color: var(--font-color-0);
@@ -1035,11 +1039,14 @@ a {
     font-size: 10px;
     background: rgba(119, 197, 193, 0.3);
     border-radius: 5px;
-    padding:3px;
+    padding:6px;
     padding-right: 16px;
     margin-right: 0.3em;
     clip-path: polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .paginator {
@@ -1100,7 +1107,11 @@ a {
     color: var(--font-color-0);
     transition: color ease-in-out .5s;
 }
-
+.post-struction {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
 .post-main {
     display: flex;
     flex-direction: row;
@@ -1111,7 +1122,7 @@ a {
     position: relative;
 }
 
-.post-main .menu {
+.post-struction .menu {
     width: 9em;
     height: 18em;
     box-shadow: var(--bgshadow1);
@@ -1126,7 +1137,7 @@ a {
 
 }
 
-.post-main .menu>ul {
+.post-struction .menu>ul {
     width: 100%;
     height: 100%;
     display: flex;
@@ -1138,7 +1149,7 @@ a {
 
 }
 
-.post-main .menu>ul>li {
+.post-struction .menu>ul>li {
     width: 100%;
     height: auto;
     display: flex;
