@@ -1,9 +1,7 @@
 @charset "utf-8";
-
 *,
 *::before,
-*::after
-{
+*::after {
     box-sizing: border-box;
 }
 
@@ -18,36 +16,30 @@ p,
 figure,
 blockquote,
 dl,
-dd
-{
+dd {
     margin: 0;
 }
 
 ul,
-ol
-{
+ol {
     list-style: none;
 }
 
-ul
-{
+ul {
     padding-inline-start: 0;
 }
 
 html,
-body
-{
+body {
     scroll-behavior: smooth;
 }
 
-a:not([class])
-{
+a:not([class]) {
     text-decoration-skip-ink: auto;
 }
 
 img,
-picture
-{
+picture {
     width: auto;
     max-width: 100%;
     display: block;
@@ -56,15 +48,12 @@ picture
 input,
 button,
 textarea,
-select
-{
+select {
     font: inherit;
 }
 
-@media (prefers-reduced-motion: reduce)
-{
-    html:focus-within
-    {
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
         scroll-behavior: auto;
     }
 }
