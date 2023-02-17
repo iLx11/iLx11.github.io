@@ -181,7 +181,93 @@
             
                 <hr>
                 <div class="post-md">
-                    <h1 id="webpack-Vue"><a href="#webpack-Vue" class="headerlink" title="webpack + Vue"></a>webpack + Vue</h1><h3 id="下载yarn"><a href="#下载yarn" class="headerlink" title="下载yarn"></a>下载yarn</h3><p>下载地址:  <a target="_blank" rel="noopener" href="https://yarn.bootcss.com/docs/install/#windows-stable">https://yarn.bootcss.com/docs/install/#windows-stable</a> </p>
+                    <h1 id="使用webpack打包TS"><a href="#使用webpack打包TS" class="headerlink" title="使用webpack打包TS"></a>使用webpack打包TS</h1><h3 id="下载依赖"><a href="#下载依赖" class="headerlink" title="下载依赖"></a>下载依赖</h3><pre><code class="text">yarn add -D typescript
+yarn add -D webpack webpack-cli
+yarn add -D webpack-dev-server
+yarn add -D html-webpack-plugin clean-webpack-plugin
+yarn add -D ts-loader
+yarn add -D cross-env
+</code></pre>
+<h3 id="入口JS-src-main-ts"><a href="#入口JS-src-main-ts" class="headerlink" title="入口JS: src/main.ts"></a>入口JS: src/main.ts</h3><pre><code class="typescript">// import &#39;./01_helloworld&#39;
+
+document.write(&#39;Hello Webpack TS!&#39;)
+</code></pre>
+<h3 id="index页面-public-index-html"><a href="#index页面-public-index-html" class="headerlink" title="index页面: public/index.html"></a>index页面: public/index.html</h3><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+  &lt;title&gt;webpack &amp; TS&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="build-webpack-config-js"><a href="#build-webpack-config-js" class="headerlink" title="build/webpack.config.js"></a>build/webpack.config.js</h3><pre><code class="javascript">const &#123;CleanWebpackPlugin&#125; = require(&#39;clean-webpack-plugin&#39;)
+const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;)
+const path = require(&#39;path&#39;)
+
+const isProd = process.env.NODE_ENV === &#39;production&#39; // 是否生产环境
+
+function resolve (dir) &#123;
+  return path.resolve(__dirname, &#39;..&#39;, dir)
+&#125;
+
+module.exports = &#123;
+  mode: isProd ? &#39;production&#39; : &#39;development&#39;,
+  entry: &#123;
+    app: &#39;./src/main.ts&#39;
+  &#125;,
+
+  output: &#123;
+    path: resolve(&#39;dist&#39;),
+    filename: &#39;[name].[contenthash:8].js&#39;
+  &#125;,
+
+  module: &#123;
+    rules: [
+      &#123;
+        test: /\.tsx?$/,
+        use: &#39;ts-loader&#39;,
+        include: [resolve(&#39;src&#39;)]
+      &#125;
+    ]
+  &#125;,
+
+  plugins: [
+    new CleanWebpackPlugin(&#123;
+    &#125;),
+
+    new HtmlWebpackPlugin(&#123;
+      template: &#39;./public/index.html&#39;
+    &#125;)
+  ],
+
+  resolve: &#123;
+    extensions: [&#39;.ts&#39;, &#39;.tsx&#39;, &#39;.js&#39;]
+  &#125;,
+
+  devtool: isProd ? &#39;cheap-module-source-map&#39; : &#39;cheap-module-eval-source-map&#39;,
+
+  devServer: &#123;
+    host: &#39;localhost&#39;, // 主机名
+    stats: &#39;errors-only&#39;, // 打包日志输出输出错误信息
+    port: 8081,
+    open: true
+  &#125;,
+&#125;
+</code></pre>
+<h3 id="配置打包命令"><a href="#配置打包命令" class="headerlink" title="配置打包命令"></a>配置打包命令</h3><pre><code class="text">&quot;dev&quot;: &quot;cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.js&quot;,
+&quot;build&quot;: &quot;cross-env NODE_ENV=production webpack --config build/webpack.config.js&quot;
+</code></pre>
+<h3 id="运行与打包"><a href="#运行与打包" class="headerlink" title="运行与打包"></a>运行与打包</h3><pre><code class="text">yarn dev
+yarn build
+</code></pre>
+<p>-</p>
+<p>-</p>
+<h1 id="webpack-Vue"><a href="#webpack-Vue" class="headerlink" title="webpack + Vue"></a>webpack + Vue</h1><h3 id="下载yarn"><a href="#下载yarn" class="headerlink" title="下载yarn"></a>下载yarn</h3><p>下载地址:  <a target="_blank" rel="noopener" href="https://yarn.bootcss.com/docs/install/#windows-stable">https://yarn.bootcss.com/docs/install/#windows-stable</a> </p>
 <ul>
 <li><p>mac - 通过homebrew安装</p>
 <ul>
@@ -574,10 +660,9 @@ console.log(fn) // 这里必须打印不能调用/不使用, 不然webpack会精
 </ol>
 
                 </div>
-                
+
                 <div class="menuShow">
-                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
                         <path
                             d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
                             fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
@@ -630,7 +715,7 @@ console.log(fn) // 这里必须打印不能调用/不使用, 不然webpack会精
             var show_main = setInterval(() => {
                 ch_span.innerHTML = ch_array[i];
                 i > 3 ? i = 0 : i ++;
-                j > 3 ? no_wait.style.display = 'block' : j ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
             }, 1800);
             // console.log(23542365)
             window.addEventListener('load',showMain);
