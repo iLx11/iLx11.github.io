@@ -797,6 +797,7 @@ a {
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 0.6em;
+    z-index: 9999;
 }
 
 .tools .toolContent {
@@ -809,6 +810,7 @@ a {
     border-radius: 10px;
     padding: 0.3em;
     cursor: pointer;
+    z-index: 9999;
 }
 
 .theme {
@@ -892,6 +894,7 @@ a {
     left: 0;
     /* background: rgba(128, 153, 207, 1); */
     padding: 0.6em 0.6em;
+    z-index: 6;
 }
 
 .flex-r-block div:nth-child(2) {
