@@ -888,7 +888,7 @@ a {
 
 .flex-r-block {
     width: 100%;
-    height: 11%;
+    height: 4%;
     position: absolute;
     top: 0px;
     left: 0;
@@ -902,7 +902,7 @@ a {
     height: 90px;
     position: absolute;
     right: 21%;
-    top: 45%;
+    top: 65%;
     background: rgba( 237, 220, 227, 0.05);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
     backdrop-filter: blur( 2.5px);
@@ -916,7 +916,7 @@ a {
     height: 50px;
     position: absolute;
     right: 17%;
-    top: 45%;
+    top: 75%;
     background: rgba( 236, 127, 170, 0.35);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
     backdrop-filter: blur( 9px);
