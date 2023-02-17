@@ -410,7 +410,7 @@ a {
     border-radius: 50%;
     /*background: rgba(255, 255, 255, 1.0);*/
     transition: transform 1s ease;
-    z-index: 68;
+    z-index: 100;
 }
 
 .moreContent {
@@ -421,7 +421,7 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 88;
+    z-index: 101;
     padding: 1em 0.9em;
     display: none;
 }
@@ -442,7 +442,7 @@ a {
     position: fixed;
     right: 9%;
     top: 75%;
-    z-index: 100;
+    z-index: 102;
     animation: move .8s ease;
     display: none;
 }
@@ -797,7 +797,7 @@ a {
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 0.6em;
-    z-index: 9999;
+    z-index: 99;
 }
 
 .tools .toolContent {
@@ -810,7 +810,7 @@ a {
     border-radius: 10px;
     padding: 0.3em;
     cursor: pointer;
-    z-index: 9999;
+    z-index: 99;
 }
 
 .theme {
