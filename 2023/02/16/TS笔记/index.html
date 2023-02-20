@@ -258,7 +258,196 @@ tArray = [&quot;str&quot;, 123];
 //wrong
 tArray = [123, &quot;str&quot;];
 </code></pre>
-<p><a target="_blank" rel="noopener" href="https://ilx1.vercel.app/">https://ilx1.vercel.app/</a></p>
+<p>-</p>
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>默认从0开始</p>
+<pre><code class="ts">enum Colorful &#123;
+    red = 2,
+    blue, 
+    yellow,
+    green
+&#125;
+
+let meColor: Colorful = Colorful.blue;
+</code></pre>
+<p>-</p>
+<h3 id="any"><a href="#any" class="headerlink" title="any"></a>any</h3><p>有时候，我们会想要为那些在编程阶段还不清楚类型的变量指定一个类型。 这些值可能来自于动态的内容，比如来自用户输入或第三方代码库。 这种情况下，我们不希望类型检查器对这些值进行检查而是直接让它们通过编译阶段的检查。 那么我们可以使用 <code>any</code> 类型来标记这些变量：</p>
+<pre><code class="ts">let notdecide: any = 123;
+notdecide = &#39;string&#39;; // ok
+notdecide = true;  // ok
+
+// 数组
+let array: any[] = [&#39;123&#39;, 123, true];
+</code></pre>
+<p>-</p>
+<h3 id="void"><a href="#void" class="headerlink" title="void"></a>void</h3><p>某种程度上来说，<code>void</code> 类型像是与 <code>any</code> 类型相反，它<code>表示没有任何类型</code>。 当一个函数没有返回值时，你通常会见到其返回值类型是 <code>void</code>：</p>
+<p>-</p>
+<h3 id="object"><a href="#object" class="headerlink" title="object"></a>object</h3><p><code>object</code> 表示非原始类型，也就是除 <code>number</code>，<code>string</code>，<code>boolean</code>之外的类型。</p>
+<p>使用 <code>object</code> 类型，就可以更好的表示像 <code>Object.create</code> 这样的 <code>API</code></p>
+<p>-</p>
+<h3 id="联合类型"><a href="#联合类型" class="headerlink" title="联合类型"></a>联合类型</h3><p>联合类型（Union Types）表示取值可以为多种类型中的一种</p>
+<p>（或）</p>
+<pre><code class="ts">function func(x: number | string ): string &#123;
+    return x.toString();
+&#125;
+</code></pre>
+<p>-</p>
+<h3 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h3><p>通过类型断言这种方式可以告诉编译器，“相信我，我知道自己在干什么”。 类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。 它没有运行时的影响，只是在编译阶段起作用。 TypeScript 会假设你，程序员，已经进行了必须的检查。</p>
+<blockquote>
+<pre><code class="typescript">类型断言(Type Assertion): 可以用来手动指定一个值的类型
+语法:
+    方式一: &lt;类型&gt;值
+    方式二: 值 as 类型  tsx中只能用这种方式
+</code></pre>
+</blockquote>
+<pre><code class="ts">// 需求: 定义一个函数得到一个字符串或者数值数据的长度
+function getLength(x: number | string) &#123;
+  if ((&lt;string&gt;x).length) &#123;
+    return (x as string).length
+  &#125; else &#123;
+    return x.toString().length
+  &#125;
+</code></pre>
+<h3 id="类型推断"><a href="#类型推断" class="headerlink" title="类型推断"></a>类型推断</h3><p>类型推断: TS会在没有明确的指定类型的时候推测出一个类型</p>
+<blockquote>
+<ol>
+<li>定义变量时赋值了, 推断为对应的类型. </li>
+<li>定义变量时没有赋值, 推断为any类型</li>
+</ol>
+</blockquote>
+<pre><code class="typescript">/* 定义变量时赋值了, 推断为对应的类型 */
+let num = 123 // number
+// b9 = &#39;abc&#39; // error
+
+/* 定义变量时没有赋值, 推断为any类型 */
+let anything  // any类型
+b10 = 123
+b10 = &#39;abc&#39;
+</code></pre>
+<p>-</p>
+<p>-</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>TypeScript 的核心原则之一是对值所具有的结构进行类型检查。我们使用接口（Interfaces）来定义对象的类型。<code>接口是对象的状态(属性)和行为(方法)的抽象(描述)</code></p>
+<p>-</p>
+<p>创建对象，对属性进行约束</p>
+<pre><code class="ts">interface Person &#123;
+    // 必须属性
+    // 只读属性
+    readonly id: number,
+    name: string, 
+    sex: string,
+    // 可选属性
+    age?: number
+&#125;
+
+let person: Person &#123;
+    id: 1,
+    name: &#39;123&#39;,
+    sex: &#39;男&#39;
+&#125;
+</code></pre>
+<p>-</p>
+<h3 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h3><pre><code class="ts">/* 
+接口可以描述函数类型(参数的类型与返回的类型)
+*/
+
+interface SearchFunc &#123;
+  (source: string, subString: string): boolean
+&#125;
+</code></pre>
+<p>实例</p>
+<pre><code class="ts">const mySearch: SearchFunc = function (source: string, sub: string): boolean &#123;
+  return source.search(sub) &gt; -1
+&#125;
+</code></pre>
+<p>-</p>
+<h3 id="类类型"><a href="#类类型" class="headerlink" title="类类型"></a>类类型</h3><h4 id="接口的实现类"><a href="#接口的实现类" class="headerlink" title="接口的实现类"></a>接口的实现类</h4><pre><code class="ts">interface Alarm &#123;
+  alert(): any;
+&#125;
+
+interface Light &#123;
+    LightOn(): void;
+&#125;
+
+// 类可以实现多个接口
+class Clock implements Alarm, Light &#123;
+    alert() &#123;
+        console.log(&quot;the alarm&quot;)
+    &#125;
+    LightOn() &#123;
+        console.log(&quot;the light is on&quot;)
+    &#125;
+&#125;
+</code></pre>
+<p>-</p>
+<h3 id="接口继承接口"><a href="#接口继承接口" class="headerlink" title="接口继承接口"></a>接口继承接口</h3><pre><code class="ts">interface lightAlarm extends Alarm, Ligth &#123;&#125;
+</code></pre>
+<p>-</p>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><h3 id="公共，私有与受保护的修饰符"><a href="#公共，私有与受保护的修饰符" class="headerlink" title="公共，私有与受保护的修饰符"></a>公共，私有与受保护的修饰符</h3><h3 id="默认为-public"><a href="#默认为-public" class="headerlink" title="#默认为 public"></a><a target="_blank" rel="noopener" href="https://24kcs.github.io/vue3_study/chapter2/3_class.html#%E9%BB%98%E8%AE%A4%E4%B8%BA-public">#</a>默认为 public</h3><p>在上面的例子里，我们可以自由的访问程序里定义的成员。 如果你对其它语言中的类比较了解，就会注意到我们在之前的代码里并没有使用 <code>public</code> 来做修饰；例如，C# 要求必须明确地使用 <code>public</code> 指定成员是可见的。 在 TypeScript 里，成员都默认为 <code>public</code>。</p>
+<p>你也可以明确的将一个成员标记成 <code>public</code>。 我们可以用下面的方式来重写上面的 <code>Animal</code> 类：</p>
+<h3 id="理解-private"><a href="#理解-private" class="headerlink" title="#理解 private"></a><a target="_blank" rel="noopener" href="https://24kcs.github.io/vue3_study/chapter2/3_class.html#%E7%90%86%E8%A7%A3-private">#</a>理解 private</h3><p>当成员被标记成 <code>private</code> 时，它就不能在声明它的类的外部访问。</p>
+<h3 id="理解-protected"><a href="#理解-protected" class="headerlink" title="#理解 protected"></a><a target="_blank" rel="noopener" href="https://24kcs.github.io/vue3_study/chapter2/3_class.html#%E7%90%86%E8%A7%A3-protected">#</a>理解 protected</h3><p><code>protected</code> 修饰符与 <code>private</code> 修饰符的行为很相似，但有一点不同，<code>protected</code>成员在派生类中仍然可以访问。</p>
+<pre><code class="ts">class Animal &#123;
+  public name: string
+
+  public constructor (name: string) &#123;
+    this.name = name
+  &#125;
+
+  public run (distance: number=0) &#123;
+    console.log(`$&#123;this.name&#125; run $&#123;distance&#125;m`)
+  &#125;
+&#125;
+
+class Person extends Animal &#123;
+  private age: number = 18
+  protected sex: string = &#39;男&#39;
+    // 重写父类方法
+  run (distance: number=5) &#123;
+    console.log(&#39;Person jumping...&#39;)
+    // 调用父的一般方法
+    super.run(distance)
+  &#125;
+&#125;
+</code></pre>
+<p>-</p>
+<h3 id="readonly-修饰符"><a href="#readonly-修饰符" class="headerlink" title="readonly 修饰符"></a>readonly 修饰符</h3><p><code>readonly</code> 关键字将属性设置为只读的。 只读属性必须在声明时或构造函数里被初始化</p>
+<pre><code class="ts">class Person &#123;
+    readonly name: string = &#39;qwe&#39;
+    // 参数属性
+    constructor(readonly name: string) &#123;
+          
+    &#125;
+&#125;
+</code></pre>
+<p>-</p>
+<h3 id="存取器"><a href="#存取器" class="headerlink" title="存取器"></a>存取器</h3><p><code>TypeScript</code> 支持通过 <code>getters/setters</code> 来截取对对象成员的访问。 它能帮助你有效的控制对对象成员的访问。</p>
+<pre><code class="ts">class Person &#123;
+  firstName: string = &#39;A&#39;
+  lastName: string = &#39;B&#39;
+  get fullName () &#123;
+    return this.firstName + &#39;-&#39; + this.lastName
+  &#125;
+  set fullName (value) &#123;
+    const names = value.split(&#39;-&#39;)
+    this.firstName = names[0]
+    this.lastName = names[1]
+  &#125;
+&#125;
+const p = new Person()
+console.log(p.fullName)
+</code></pre>
+<p>-</p>
+<h3 id="静态属性"><a href="#静态属性" class="headerlink" title="静态属性"></a>静态属性</h3><blockquote>
+<p>静态属性, 是类对象的属性<br>非静态属性, 是类的实例对象的属性</p>
+</blockquote>
+<pre><code class="typescript">class Person &#123;
+  name1: string = &#39;A&#39;
+  static personalId: string = &#39;HUMAN001&#39;
+&#125;
+
+console.log( Person.personalId )
+</code></pre>
+<p>-</p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>抽象类做为其它派生类的基类使用。 它们不能被实例化。不同于接口，抽象类可以包含成员的实现细节。 <code>abstract</code> 关键字是用于定义抽象类和在抽象类内部定义抽象方法。</p>
 
                 </div>
 
