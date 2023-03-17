@@ -797,7 +797,7 @@ a {
     justify-content: flex-end;
     align-items: center;
     margin-bottom: 0.6em;
-    z-index: 99;
+    z-index: 64;
 }
 
 .tools .toolContent {
@@ -810,7 +810,7 @@ a {
     border-radius: 10px;
     padding: 0.3em;
     cursor: pointer;
-    z-index: 99;
+    z-index: 64;
 }
 
 .theme {
@@ -1089,7 +1089,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 666;
+    z-index: 64;
 }
 
 .collection-star .star-f {
