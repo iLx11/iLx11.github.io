@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                前端笔记P2
+            </div>
+            <div class="post-meta">
+                2022-08-16
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><h3 id="声明周期"><a href="#声明周期" class="headerlink" title="声明周期"></a>声明周期</h3><p><img src="E:\编程\Vue2\Vue2\day4\day4\讲义\lifecycle.png" alt="lifecycle"></p>
+<p>cdn 引入文件</p>
+<pre><code class="html"> &lt;script type=&quot;text/javascript&quot; src=&quot;js/vue.js&quot;&gt;&lt;/script&gt;
+
+ &lt;div&gt;&#123;&#123;变量/方法&#125;&#125;&lt;/div&gt;
+</code></pre>
+<p>创建对象</p>
+<pre><code class="js">var duixiang = new Vue(&#123;
+    //元素id
+     el: &#39;#done&#39;,
+    //定义变量
+     data: &#123;
+            bianliang: [],       
+     &#125;,
+    /*
+        或者写为
+        data() &#123;
+            return &#123;
+                bianliang: [],
+            &#125;
+        &#125;
+    */
+    //页面加载后就执行的函数
+     mounted: function() &#123;&#125;,
+     methods: &#123;
+         fangfa() &#123;
+             console.log(&quot;Vue&quot;);
+         &#125;,
+     &#125;
+&#125;);
+</code></pre>
+<h2 id="vue-指令"><a href="#vue-指令" class="headerlink" title="vue 指令"></a>vue 指令</h2><h3 id="v-clock-去除闪动问题"><a href="#v-clock-去除闪动问题" class="headerlink" title="v-clock(去除闪动问题)"></a>v-clock(去除闪动问题)</h3><pre><code class="css">[v-clock] &#123;
+    display: none;
+&#125;
+</code></pre>
+<pre><code class="html">&lt;div v-clock&gt;...&lt;/div&gt;
+</code></pre>
+<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><p>动态绑定属性/简写为“:”</p>
+<h5 id="标签属性"><a href="#标签属性" class="headerlink" title="标签属性"></a>标签属性</h5><pre><code class="js"> &lt;a v-bind:href=&quot;变量&quot;&gt; &lt;img v-bind:src=&quot;变量&quot;&gt;&lt;/a&gt;
+</code></pre>
+<h5 id="class属性"><a href="#class属性" class="headerlink" title="class属性"></a>class属性</h5><pre><code class="js"> v-bind:class=&quot;&#123;类名1:boolean,类名2:boolean&#125;&quot; 
+
+//结合数组
+ v-bind:class=&quot;[类名,类名,&#123;类名1:boolean,类名2:boolean&#125;]&quot; 
+</code></pre>
+<h5 id="style属性"><a href="#style属性" class="headerlink" title="style属性"></a>style属性</h5><pre><code class="js"> //用驼峰命名，或是用单引号‘’
+:style=&quot;&#123;key(attributeName):value(attributeValue),&#125;
+
+//数组语法
+:style=&quot;[object1,object2,…]
+ object1: &#123;color: red&#125;;
+</code></pre>
+<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><p>事件监听/简写为@</p>
+<pre><code class="html"> &lt;button @click=&quot;方法()&quot;&gt;&lt;/button&gt;
+</code></pre>
+<p>访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法</p>
+<pre><code class="js">@click=&quot;show(&#39;vue&#39;,$event)&quot;
+//作为最后一个参数显示传递，只用函数传递则默认传递事件
+
+//获取事件类型
+console.log(event.type)
+// 事件源，就是发生事件的元素；
+console.log(event.target)
+</code></pre>
+<h5 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h5><pre><code class="js">&lt;!-- 阻止单击事件继续传播 --&gt;
+&lt;a v-on:click.stop=&quot;doThis&quot;&gt;&lt;/a&gt;
+
+&lt;!-- 提交事件不再重载页面 --&gt;
+&lt;form v-on:submit.prevent=&quot;onSubmit&quot;&gt;&lt;/form&gt;
+
+&lt;!-- 点击事件将只会触发一次 --&gt;
+&lt;a v-on:click.once=&quot;doThis&quot;&gt;&lt;/a&gt;
+</code></pre>
+<h3 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h3><p>判断条件渲染内容</p>
+<pre><code class="html">&lt;h2 v-if=&quot;条件或boolean&quot;&gt;&#123;&#123;excellent&#125;&#125;&lt;/h2&gt;
+&lt;h2 v-else-if=&quot;条件或boolean&quot;&gt;&#123;&#123;good&#125;&#125;&lt;/h2&gt;
+&lt;h2 v-else&gt;&#123;&#123;变量&#125;&#125;&lt;/h2&gt;
+</code></pre>
+<p>v-show 与 v-if 差不多相同</p>
+<h5 id="v-if-与-v-show区别"><a href="#v-if-与-v-show区别" class="headerlink" title="v-if 与 v-show区别"></a>v-if 与 v-show区别</h5><blockquote>
+<p>v-if控制元素是否渲染</p>
+<p>v-show控制元素是否显示</p>
+</blockquote>
+<h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>遍历数组</p>
+<pre><code class="html"> &lt;ul v-for=&quot;(item,index) in 数组&quot;&gt;//(v,k)
+        &lt;li&gt;&#123;&#123;item&#125;&#125; index=&#123;&#123;index&#125;&#125;&lt;/li&gt;
+ &lt;/ul&gt;
+</code></pre>
+<p>:key的作用：帮助vue区分不同元素，以提高性能</p>
+<pre><code class="html">&lt;ul v-for=&quot;(item,index) in 数组&quot; :key=&quot;item.id&quot;&gt;//(v,k)&gt;&lt;/ul&gt;
+</code></pre>
+<p>遍历对象</p>
+<pre><code class="html">&lt;ul v-for=&#39;(v.k.i) in obj&#39;&gt;&lt;/ul&gt;
+</code></pre>
+<p>添加条件</p>
+<pre><code class="html">&lt;ul v-if=&#39;v==xx&#39; v-for=&#39;(v.k.i) in obj&#39;&gt;&lt;/ul&gt;
+</code></pre>
+<h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>表单和数据双向绑定，数据变化则同时变化</p>
+<pre><code class="js">msg&#123;&#123;msg&#125;&#125;
+
+v-model=&quot;msg&quot;
+</code></pre>
+<pre><code class="html">&lt;!--复选框--&gt;
+&lt;select v-model=&quot;selected&quot; multiple &gt;
+        &lt;option disabled value=&quot;&quot;&gt;请选择&lt;/option&gt;
+        &lt;option&gt;选项&lt;/option&gt;
+    &lt;/select&gt;
+</code></pre>
+<p>修饰符</p>
+<p>**.number: ** 自动将用户的输入值转为数值类型</p>
+<pre><code class="html">&lt;input v-model.number=&quot;age&quot; type=&quot;number&quot;&gt;
+</code></pre>
+<p>.trim : 自动过滤用户输入的首尾空白字符</p>
+<pre><code class="html">&lt;input v-model.trim=&quot;msg&quot;&gt;
+</code></pre>
+<h4 id="响应式数据"><a href="#响应式数据" class="headerlink" title="响应式数据"></a>响应式数据</h4><pre><code class="js">Vue.set(vm.list, 2, &quot;xxx&quot;);
+vm.$set(list, 1, &quot;xxx&quot;);
+</code></pre>
+<h4 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h4><pre><code class="js">data: &#123;
+    name:&#39;&#39;,
+    info: &#123;
+        userName: &#39;&#39;,
+    &#125;
+&#125;,
+watch: &#123;
+   name: function(newVal, oldVal) &#123;
+       console.log(&quot;aaa&quot;)
+   &#125;,
+   //监听对象
+   info: &#123;
+       handler(newVal) &#123;
+           console.log(newVal)
+       &#125;,
+       //开启深度监听，只要对象中任意有变化则触发监听
+       deep: true,
+       //组件初始化后立即加载组件（监听在初始化后不会立即调用）
+       immediate: true,
+   &#125;,
+   //监听对象属性
+   &#39;info.userName&#39;(newVal) &#123;
+           console.log(newVal)
+   &#125;
+&#125;
+</code></pre>
+<h4 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h4><pre><code class="js">computed: &#123;
+    //定义是以方法的格式，使用是以属性的格式
+    total() &#123;
+        return a + b;
+    &#125;
+&#125;
+//&#123;&#123;total&#125;&#125;
+</code></pre>
+<h1 id="Vue-组件"><a href="#Vue-组件" class="headerlink" title="Vue 组件"></a>Vue 组件</h1><h3 id="注册组件"><a href="#注册组件" class="headerlink" title="注册组件"></a>注册组件</h3><h5 id="全局组件（所有Vue实例化中都可以使用）"><a href="#全局组件（所有Vue实例化中都可以使用）" class="headerlink" title="全局组件（所有Vue实例化中都可以使用）"></a>全局组件（所有Vue实例化中都可以使用）</h5><pre><code class="js">//组件不支持驼峰
+
+Vue.component(&#39;组件名&#39;,&#123;//组件的名称
+    data: function() &#123;
+          return: &#123;&#125;  
+    &#125;,
+     template:&#39;&lt;h2&gt;全局组件&lt;/h2&gt;&#39;//template是创建模板
+    method: &#123;
+        say() &#123;console.log(&quot;abc&quot;)&#125;
+    &#125;
+&#125;)
+/*
+    或者
+    const cnpC = Vue.extend(&#123;
+        template: `&lt;div&gt;
+                         &lt;h2&gt;标题&lt;/h2&gt;
+                         &lt;p&gt;模板内容&lt;/p&gt;
+                  &lt;div/&gt;`
+    &#125;);
+    // 2.注册全局组件(tagName,component)
+    
+    Vue.component(&#39;my-cmp&#39;, cnpC);
+*/
+
+//全局组件需定义在Vue实例化之前
+</code></pre>
+<h5 id="局部组件-只能当前实例化可用"><a href="#局部组件-只能当前实例化可用" class="headerlink" title="局部组件(只能当前实例化可用)"></a>局部组件(只能当前实例化可用)</h5><pre><code class="js"> new Vue(&#123;
+     el:&#39;#app&#39;,
+     // 局部组件注册是components带s，注册全局组件不用带s
+     components:&#123;         
+             &quot;组件名&quot;:&#123;        //组件名称                 
+                 template:&#39;&lt;div&gt;&lt;h2&gt;标题&lt;/h2&gt; &lt;p&gt;模板内容&lt;/p&gt;&lt;div/&gt;&#39;//模板                
+             &#125;
+      &#125;
+&#125;)
+</code></pre>
+<h5 id="用模板注册组件"><a href="#用模板注册组件" class="headerlink" title="用模板注册组件"></a>用模板注册组件</h5><pre><code class="vue">&lt;template id = &quot;tempid&quot;&gt;
+   &lt;div&gt;
+      &lt;h2&gt;标题&lt;/h2&gt;
+       &lt;p&gt;模板内容&lt;/p&gt;
+   &lt;div/&gt;`
+&lt;/template&gt;
+  
+&lt;!--
+    在全局和局部组件中
+    template: &#39;tempid&#39;,
+
+--&gt;
+&lt;style &gt;
+    //直接修改子组件的样式
+    /deep/ h3 &#123;
+        color: blue;
+    &#125;
+&lt;/style&gt;    
+</code></pre>
+<h4 id="使用时"><a href="#使用时" class="headerlink" title="使用时"></a>使用时</h4><pre><code class="html">&lt;组件名&gt;&lt;/组件名&gt;
+</code></pre>
+<h4 id="组件嵌套"><a href="#组件嵌套" class="headerlink" title="组件嵌套"></a>组件嵌套</h4><pre><code class="js">new Vue(&#123;
+ el:&quot;#app&quot;,
+ components:&#123;
+     father:&#123;          //father是个组件
+         template:&#39;&lt;div&gt;这是father组件... &lt;son&gt;&lt;/son&gt;&lt;/div&gt;&#39;,
+               components:&#123;  //这个components是在father组件里面的
+                   son:&#123;   //又定义一个组件son
+                         template:&#39;&lt;div&gt;这是son组件...&lt;/div&gt;&#39;
+                    &#125;       
+               &#125;
+         &#125;
+   &#125;
+&#125;)
+//使用时
+//&lt;father&gt;&lt;/father&gt;
+</code></pre>
+<h2 id="组件之间传值"><a href="#组件之间传值" class="headerlink" title="组件之间传值"></a>组件之间传值</h2><h3 id="父传参数给子（单向数据流）"><a href="#父传参数给子（单向数据流）" class="headerlink" title="父传参数给子（单向数据流）"></a>父传参数给子（单向数据流）</h3><h5 id="props"><a href="#props" class="headerlink" title="props"></a>props</h5><pre><code class="js">data: &#123;
+    mag:mag,
+&#125;,
+components:&#123;
+     zi:&#123;
+         template:&#39;&lt;div&gt;这是father组件... &lt;son&gt;&lt;/son&gt;&lt;/div&gt;&#39;, 
+         props:[&#39;mag&#39;],
+         //也可以传对象
+         props: &#123;
+             //设置默认值
+             default: 0,
+             //限制类型
+             type: Number,
+             //设置必填
+             required: true,
+         &#125;
+      &#125;
+&#125;
+
+//使用时结合v-bind
+//&lt;zi :msg=&quot;mag&quot;&gt;&lt;/zi&gt;
+</code></pre>
+<h3 id="子传参数给父"><a href="#子传参数给父" class="headerlink" title="子传参数给父"></a>子传参数给父</h3><pre><code class="js">//&lt;zi @click=&quot;$emit(&#39;fudo&#39;, can)/zido()&quot;&gt;&lt;/zi&gt;
+method: &#123;
+    zido() &#123;
+       this.$emit(&#39;fudo&#39;, can);
+    &#125;
+&#125;
+//&lt;fu @fudo=&quot;fudo&quot;&gt;
+</code></pre>
+<h3 id="非父子组件传值"><a href="#非父子组件传值" class="headerlink" title="非父子组件传值"></a>非父子组件传值</h3><pre><code class="js">//事件中心
+var eventHub = new Vue();
+
+//监听与销毁事件
+eventHub.$on(&#39;add-do&#39;, do);
+eventHub.$off(&#39;add-do&#39;, do);
+
+//传递数据
+eventHub.$emit(&#39;add-do&#39;,传值/&#123;&#125;);
+
+//&lt;div @add-do=&#39;do($event)&#39;&gt;&lt;/&gt;
+</code></pre>
+<h4 id="兄弟组件传值"><a href="#兄弟组件传值" class="headerlink" title="兄弟组件传值"></a>兄弟组件传值</h4><h5 id="eventBus-js"><a href="#eventBus-js" class="headerlink" title="eventBus.js"></a>eventBus.js</h5><ol>
+<li>创建 eventBus 实例</li>
+</ol>
+<pre><code class="js">import Vue from &#39;vue&#39;
+export default new Vue();
+</code></pre>
+<ol start="2">
+<li>发送模块</li>
+</ol>
+<pre><code class="js">import bus from &#39;./eventBus.js&#39;
+//通过eventBus 发送文件
+bus.$emit(&#39;share&#39;, this.mes)
+</code></pre>
+<ol start="3">
+<li>接收模块</li>
+</ol>
+<pre><code class="js">import bus from &#39;./eventBus.js&#39;
+
+bus.$on(&#39;share&#39;, mes =&gt; &#123;
+    console.log(mes)
+&#125;)
+</code></pre>
+<h3 id="父组件调用子组件"><a href="#父组件调用子组件" class="headerlink" title="父组件调用子组件"></a>父组件调用子组件</h3><pre><code class="js">/*
+    使用子组件内部的方法
+    &lt;!--给组件绑上一个ref属性，例如tree--&gt;
+    &lt;Tree :data=&quot;data2&quot; ref=&quot;tree&quot; show-checkbox&gt;&lt;/Tree&gt;
+    
+    &lt;!--给标签绑上一个ref属性，可以操作DOM--&gt;
+*/
+
+//然后就可以使用组件里的方法获取返回值
+console.log(this.$refs.tree.getCheckedNodes())
+this.$refs.tree.show()
+</code></pre>
+<h4 id="this-nextTick-cd"><a href="#this-nextTick-cd" class="headerlink" title="this.$nextTick(cd)"></a>this.$nextTick(cd)</h4><blockquote>
+<p>组件的 $nextTick(cd) 方法会把 cd 回调推迟到下一个 DOM 更新周期后执行</p>
+<p>（DOM 更新完成后，操作最新的DOM）</p>
+</blockquote>
+<h3 id="子组件调用父组件方法"><a href="#子组件调用父组件方法" class="headerlink" title="子组件调用父组件方法"></a>子组件调用父组件方法</h3><blockquote>
+<p>1、this.$parent.event 来调用父组件的方法。</p>
+</blockquote>
+<p>父组件</p>
+<pre><code class="js"> methods: &#123;
+      fatherMethod() &#123;
+        console.log(&#39;调用父组件方法&#39;);
+      &#125;
+ &#125;
+</code></pre>
+<p>子组件</p>
+<pre><code class="js">//&lt;button @click=&quot;childClick()&quot;&gt;点击&lt;/button&gt;
+
+childClick() &#123;
+  this.$parent.fatherMethod();
+&#125;
+</code></pre>
+<blockquote>
+<p>2、在子组件里用 $emit向父组件触发一个事件，父组件监听这个事件。</p>
+</blockquote>
+<p>父组件</p>
+<pre><code class="js">//&lt;child @fatherMethod=&quot;fatherMethod&quot;&gt;&lt;/child&gt;
+
+
+methods: &#123;
+   fatherMethod() &#123;
+      console.log(&#39;调用父组件方法&#39;);
+   &#125;
+ &#125;
+</code></pre>
+<p>子组件</p>
+<pre><code class="js">//&lt;button @click=&quot;childClick()&quot;&gt;点击&lt;/button&gt;
+
+methods: &#123;
+      childClick() &#123;
+        this.$emit(&#39;fatherMethod&#39;);
+      &#125;
+ &#125;
+</code></pre>
+<blockquote>
+<p>3、父组件把方法传入子组件中，在子组件里直接调用这个方法。</p>
+</blockquote>
+<p>父组件</p>
+<pre><code class="html">  &lt;child :fatherMethod=&quot;fatherMethod&quot;&gt;&lt;/child&gt;
+</code></pre>
+<p>子组件</p>
+<pre><code class="js">//&lt;button @click=&quot;childClick()&quot;&gt;点击&lt;/button&gt;
+
+props: &#123;
+    fatherMethod: &#123;
+        type: Function,
+        default: null
+    &#125;
+&#125;,
+methods: &#123;
+    childClick() &#123;
+        if (this.fatherMethod) &#123;
+          this.fatherMethod();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="切换使用组件"><a href="#切换使用组件" class="headerlink" title="切换使用组件"></a>切换使用组件</h3><pre><code class="vue">&lt;component :is=&quot;组件名&quot;&gt;&lt;/component&gt;
+</code></pre>
+<h3 id="keep-alive"><a href="#keep-alive" class="headerlink" title="keep-alive"></a>keep-alive</h3><p>切换组件时将不会被销毁</p>
+<pre><code class="vue">//选择包含的组件 include / 不包含 exclude
+&lt;keep-alive include=&quot;组件名&quot;&gt;
+    &lt;component :is=&quot;组件名&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+</code></pre>
+<h5 id="组件被缓存时"><a href="#组件被缓存时" class="headerlink" title="组件被缓存时"></a>组件被缓存时</h5><pre><code class="vue">deactivated() &#123;&#125;
+</code></pre>
+<h5 id="组件被激活时"><a href="#组件被激活时" class="headerlink" title="组件被激活时"></a>组件被激活时</h5><pre><code class="vue">activated() &#123;&#125;
+</code></pre>
+<h3 id="provide-与-inject"><a href="#provide-与-inject" class="headerlink" title="provide 与 inject"></a>provide 与 inject</h3><ul>
+<li>在祖先组件定义<code>provide</code>属性，返回传递的值</li>
+<li>在后代组件通过<code>inject</code>接收组件传递过来的值</li>
+</ul>
+<p>祖先组件</p>
+<pre><code class="javascript">provide()&#123;  
+    return &#123;  
+        foo:&#39;foo&#39;  
+    &#125;  
+&#125;
+</code></pre>
+<p>后代组件</p>
+<pre><code class="javascript">inject:[&#39;foo&#39;] // 获取到祖先组件传递过来的值
+</code></pre>
+<h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><ul>
+<li> 适用场景: 复杂关系的组件数据传递 </li>
+<li> <code>Vuex</code>作用相当于一个用来存储共享变量的容器</li>
+</ul>
+<p>项目应用 VUEX</p>
+<pre><code class="bas">npm i vuex --save
+</code></pre>
+<h3 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h3><pre><code class="js">import Vue from &#39;vue&#39;
+import Vuex from &#39;vuex&#39;
+
+Vue.use(vuex)
+const store = new Vuex.Store(&#123;&#125;)
+
+new Vue(&#123;
+    el: &#39;#app&#39;,
+    store
+&#125;)
+</code></pre>
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><pre><code class="js">const store = new Vuex.Store(&#123;
+    state: &#123;
+        count: 0
+    &#125;
+&#125;)
+</code></pre>
+<h3 id="组件中"><a href="#组件中" class="headerlink" title="组件中"></a>组件中</h3><pre><code class="vue">&lt;template&gt;
+    &#123;&#123;$store.state.count&#125;&#125;
+&lt;/template&gt;
+
+// 利用计算属性简写
+computed: &#123;
+    count() &#123;
+        return this.$store.state.count
+    &#125;
+&#125;
+</code></pre>
+<h3 id="辅助函数"><a href="#辅助函数" class="headerlink" title="辅助函数"></a>辅助函数</h3><h3 id="mapstate"><a href="#mapstate" class="headerlink" title="mapstate"></a>mapstate</h3><pre><code class="js">import &#123; mapstate &#125; from &#39;vuex&#39;
+
+// 利用计算属性
+computed: &#123;
+    // 延展运算符
+    ...mapState([&#39;count&#39;])
+&#125;
+</code></pre>
+<h2 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h2><p>修改 state 的方法</p>
+<pre><code class="js">const store = new Vuex(&#123;
+    // 立即执行 （同步）
+    mutations: &#123;
+        updateCount(state, payload) &#123;
+            state.count += payload
+        &#125;
+    &#125;
+&#125;)
+</code></pre>
+<h3 id="组件使用"><a href="#组件使用" class="headerlink" title="组件使用"></a>组件使用</h3><pre><code class="vue">&lt;template&gt;
+    &lt;button @click=&quot;onChange&quot;&gt;&lt;/button&gt;
+&lt;/template&gt;
+export default &#123;
+    methods: &#123;
+        onChange() &#123;
+            this.$store.commit(&#39;updateCount&#39;, param)
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="辅助函数-1"><a href="#辅助函数-1" class="headerlink" title="辅助函数"></a>辅助函数</h3><pre><code class="js">import &#123; mapMutations &#125; from &#39;vuex&#39;
+
+methods: &#123;
+    // 写入方法，与上面等同
+    ...mapMutations([&#39;updateCount&#39;])
+&#125;
+</code></pre>
+<h2 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h2><pre><code class="js">actions &#123;
+    async getData(context) &#123;
+        const &#123; data: res &#125; = await getDataApi(context);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="组件使用-1"><a href="#组件使用-1" class="headerlink" title="组件使用"></a>组件使用</h3><pre><code class="vue">export default &#123;
+    methods: &#123;
+        onChange() &#123;
+            this.$store.dispatch(&#39;getData&#39;, param)
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="辅助函数-2"><a href="#辅助函数-2" class="headerlink" title="辅助函数"></a>辅助函数</h3><pre><code class="js">import &#123; mapActions &#125; from &#39;vuex&#39;
+
+methods: &#123;
+    ...mapActions([&#39;getData&#39;])
+&#125;
+</code></pre>
+<h2 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h2><blockquote>
+<p>从state 派生出一些状态</p>
+</blockquote>
+<pre><code class="js">state: &#123;
+      list: [2,34,5,45,65]  
+&#125;,
+getters: &#123;
+    // getters函数的第一个参数是 state
+    // 必须要有返回值
+    filterList:  state =&gt;  state.list.filter(item =&gt; item &gt; 5)
+&#125;
+</code></pre>
+<h3 id="组件中-1"><a href="#组件中-1" class="headerlink" title="组件中"></a>组件中</h3><pre><code class="vue">export default &#123;
+    methods: &#123;
+        onChange() &#123;
+            this.$store.getters(&#39;getData&#39;, param)
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="辅助函数-3"><a href="#辅助函数-3" class="headerlink" title="辅助函数"></a>辅助函数</h3><pre><code class="js">import &#123; mapGetters &#125; from &#39;vuex&#39;
+
+computed: &#123;
+    ...mapGetters([&#39;filterList&#39;])
+&#125;
+</code></pre>
+<h2 id="vuex模块化"><a href="#vuex模块化" class="headerlink" title="vuex模块化"></a>vuex模块化</h2><pre><code class="js">const store = new Vuex(&#123;
+    modules: &#123;
+        user: &#123;
+            state: &#123;
+                token: &#39;sdfsdfsdf&#39;
+            &#125;,
+            mutations: &#123;
+                updataToken(state, ) &#123;
+                    
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;)
+</code></pre>
+<h3 id="组件中-2"><a href="#组件中-2" class="headerlink" title="组件中"></a>组件中</h3><pre><code class="vue">&lt;template&gt; &#123;&#123; $store.state.user.token&#125;&#125;&lt;/template&gt;
+</code></pre>
+<h3 id="使用getters-简化"><a href="#使用getters-简化" class="headerlink" title="使用getters 简化"></a>使用getters 简化</h3><pre><code class="js">// 根级别
+getters &#123;
+    token: state =&gt; state.user.token
+&#125;
+</code></pre>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><pre><code class="js">modules: &#123;
+    user: &#123;
+        namespaced: true
+    &#125;
+&#125;
+</code></pre>
+<p>默认情况下，模块内部的 action、mutation 和 getter 是注册在<strong>全局命名空间</strong>的——这样使得多个模块能够对同一 mutation 或 action 作出响应。</p>
+<p>未使用命名空间时</p>
+<pre><code class="js">methods: &#123;
+    ...mapMutations([&#39;updataToken&#39;])
+&#125;
+</code></pre>
+<h4 id="使用命名空间时"><a href="#使用命名空间时" class="headerlink" title="使用命名空间时"></a>使用命名空间时</h4><pre><code class="js">methods: &#123;
+    // 需要加入模块名
+    ...mapMutation([&#39;user/updataToken&#39;])
+    updata() &#123;
+        // 调用模块方法
+        this[&#39;user/updataToken&#39;]()
+    &#125;
+&#125;
+</code></pre>
+<p>直接使用</p>
+<pre><code class="js">this.$store.dispatch(&#39;user/updataToken&#39;)
+</code></pre>
+<h3 id="命名空间辅助函数"><a href="#命名空间辅助函数" class="headerlink" title="命名空间辅助函数"></a>命名空间辅助函数</h3><pre><code class="js">import &#123; createNamespacedHelpers &#125; from &#39;vuex&#39;
+import &#123; mapMutations &#125; = createNamespaceHelpers(&#39;user&#39;)
+
+methods: &#123;
+    ...mapMutations([&#39;updataToken&#39;])
+    undata() &#123;
+        this.upodataToken(param);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="不同模块需要打包到-modules不同-js-文件"><a href="#不同模块需要打包到-modules不同-js-文件" class="headerlink" title="不同模块需要打包到 / modules不同 js 文件"></a>不同模块需要打包到 / modules不同 js 文件</h3><p>/modules/user.js</p>
+<pre><code class="js">export default &#123;
+    namespaced: true,
+    state: &#123;&#125;,
+    mutations: &#123;&#125;,
+    actions: &#123;&#125;,
+    getters: &#123;&#125;
+&#125;
+</code></pre>
+<h4 id="在-store-index-js-中引入各模块"><a href="#在-store-index-js-中引入各模块" class="headerlink" title="在 store/ index.js 中引入各模块"></a>在 store/ index.js 中引入各模块</h4><pre><code class="js">import user from &#39;./modules/user&#39;
+import mana from &#39;./modules/mana&#39;
+
+export default new Vuex.Store(&#123;
+    modules: &#123;
+        user,
+        mana
+    &#125;
+&#125;)
+</code></pre>
+<p>在 main.js  导入store</p>
+<pre><code class="js">import store from &#39;store&#39;
+
+export default &#123;
+    el: &#39;#app&#39;,
+    store
+&#125;
+</code></pre>
+<h1 id="插槽"><a href="#插槽" class="headerlink" title="插槽"></a>插槽</h1><h3 id="具名插槽并传值"><a href="#具名插槽并传值" class="headerlink" title="具名插槽并传值"></a>具名插槽并传值</h3><pre><code class="vue">&lt;template id=&quot;template&quot;&gt;
+     &lt;div&gt;
+         &lt;slot name=&quot;slot1&quot; msg=&quot;hello&quot;&gt;我是插槽默认内容&lt;/slot&gt;
+     &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;!--使用时--&gt;
+&lt;zujian&gt;
+    &lt;p slot=&quot;slot1&quot;&gt;
+        自动替换插槽
+    &lt;/p&gt;
+&lt;/zujian&gt;
+</code></pre>
+<h5 id="或者"><a href="#或者" class="headerlink" title="或者"></a>或者</h5><pre><code class="vue">&lt;zujian&gt;
+    // 简写为 #slot1=&quot;scope&quot;
+    // &#123;&#123;scope.msg&#125;&#125; 打印子组件插槽的msg
+    // 叫做作用域插槽
+    &lt;template v-slot:slot1&gt;
+        &lt;p&gt;
+            自动替换插槽
+        &lt;/p&gt;
+    &lt;/template&gt;
+&lt;zujian&gt;
+</code></pre>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><h5 id="自定义指令也像组件那样存在钩子函数："><a href="#自定义指令也像组件那样存在钩子函数：" class="headerlink" title="自定义指令也像组件那样存在钩子函数："></a>自定义指令也像组件那样存在钩子函数：</h5><ul>
+<li> <code>bind</code>：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置 </li>
+<li> <code>inserted</code>：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中) </li>
+<li> <code>update</code>：所在组件的 <code>VNode</code> 更新时调用，但是可能发生在其子 <code>VNode</code> 更新之前。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新 </li>
+<li> <code>componentUpdated</code>：指令所在组件的 <code>VNode</code> 及其子 <code>VNode</code> 全部更新后调用 </li>
+<li> <code>unbind</code>：只调用一次，指令与元素解绑时调用 </li>
+</ul>
+<h5 id="所有的钩子函数的参数都有以下："><a href="#所有的钩子函数的参数都有以下：" class="headerlink" title="所有的钩子函数的参数都有以下："></a>所有的钩子函数的参数都有以下：</h5><ul>
+<li><p><code>el</code>：指令所绑定的元素，可以用来直接操作 <code>DOM</code></p>
+</li>
+<li><p><code>binding</code>：一个对象，包含以下 <code>property</code>： </p>
+</li>
+<li><ul>
+<li><code>name</code>：指令名，不包括 <code>v-</code> 前缀。</li>
+<li><code>value</code>：指令的绑定值，例如：<code>v-my-directive=&quot;1 + 1&quot;</code> 中，绑定值为 <code>2</code>。</li>
+<li><code>oldValue</code>：指令绑定的前一个值，仅在 <code>update</code> 和 <code>componentUpdated</code> 钩子中可用。无论值是否改变都可用。</li>
+<li><code>expression</code>：字符串形式的指令表达式。例如 <code>v-my-directive=&quot;1 + 1&quot;</code> 中，表达式为 <code>&quot;1 + 1&quot;</code>。</li>
+<li><code>arg</code>：传给指令的参数，可选。例如 <code>v-my-directive:foo</code> 中，参数为 <code>&quot;foo&quot;</code>。</li>
+<li><code>modifiers</code>：一个包含修饰符的对象。例如：<code>v-my-directive.foo.bar</code> 中，修饰符对象为 <code>&#123; foo: true, bar: true &#125;</code></li>
+</ul>
+</li>
+<li><p><code>vnode</code>：<code>Vue</code> 编译生成的虚拟节点</p>
+</li>
+<li><p><code>oldVnode</code>：上一个虚拟节点，仅在 <code>update</code> 和 <code>componentUpdated</code> 钩子中可用</p>
+</li>
+</ul>
+<pre><code class="js">directives: &#123;
+    color: &#123;
+        // 指令第一次绑定后就会调用
+        // el 为绑定的元素
+        // bindind 表示指令传入的数据
+        bind(el, binding) &#123;
+            console.log(binding.value)
+        &#125;，
+        //update 每次DOM更新时调用
+        update(el, binding) &#123;
+            console.log(binding.value)
+        &#125;
+    &#125;
+    //当bind 和 update 是相同的逻辑，可以直接结合
+    color(el, bindind) &#123;
+        console.log(binding.value)
+    &#125;
+&#125;
+</code></pre>
+<h4 id="全局自定义指令实现Copy功能"><a href="#全局自定义指令实现Copy功能" class="headerlink" title="全局自定义指令实现Copy功能"></a>全局自定义指令实现Copy功能</h4><pre><code class="js">Vue.directive(&#39;copy&#39;, &#123;
+    bind: (el, &#123; value &#125;) =&gt; &#123;
+        el.$value = value;
+        el.handler = () =&gt; &#123;
+            if (!el.$value) &#123;
+                console.log(&quot;内容为空&quot;)
+                return;
+            &#125;
+            const textarea = document.createElement(&#39;textarea&#39;);
+            textarea.readOnly = &#39;readOnly&#39;;
+            textarea.style.postion = &#39;absolute&#39;;
+            textarea.style.left = &#39;-6666px&#39;;
+            textarea.value = el.$value;
+            document.body.appendChild(textarea);
+            textarea.select();
+            if (document.execCommand(&#39;Copy&#39;)) &#123;
+                console.log(&quot;复制成功&quot;);
+            &#125;
+            document.body.removeChild(textarea);
+        &#125;;
+        //绑定事件
+        el.addEventListener(&#39;click&#39;, el.handler);
+    &#125;,
+    //当传进来的值更新的时候触发
+    componentUpdated(el, &#123; value &#125;) &#123;
+        el.$value = value;
+    &#125;,
+    //指令与元素解绑的时候
+    unbind(el) &#123;
+        el.removeEventListener(&#39;click&#39;, el.handler);
+    &#125;
+&#125;)
+</code></pre>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>处理异步任务</p>
+<pre><code class="js">var p = new Promise(function(resolve, reject) &#123;
+    let xml = new XMLHttpRequest();
+    //成功调用resolve(xml.responseText)否则reject(&#39;xxx&#39;)
+&#125;);
+p.then(function(ret) &#123;
+    //从resolve得到正常结果
+    &#125;,function()(ret) &#123;
+    //从reject得到错误结果
+     &#125;
+)
+/*
+     = 
+     .then(function() &#123;
+    &#125;)
+    .catch(function() &#123;
+
+    &#125;);
+*/
+.then(function() &#123;
+    console.log()
+&#125;)
+</code></pre>
+<h5 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h5><pre><code class="js">//并发处理异步任务，所有任务执行完后得到结果
+Promist.all([p1.p2.p3]).then((result) =&gt; &#123;
+    console.log(result)
+&#125;)
+
+//并发处理异步任务，只要有一个任务执行完后得到结果
+Promist.all([p1.p2.p3]).then((result) =&gt; &#123;    console.log(result)
+&#125;)
+</code></pre>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><pre><code class="js">fetch(&#39;url&#39;,&#123;
+    method: &#39;DELETE//&#39;,
+    body: &#39;=&amp;=&#39;,
+    headers: &#123;
+        &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39; 
+    &#125;
+&#125;)
+.then(function() &#123;
+&#125;)
+.then();
+</code></pre>
+<h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><pre><code class="js">axios.get(&#39;url&#39;,&#123;
+    params:&#123;
+        name: &quot;&quot;,
+    &#125;
+&#125;).then(function(res) &#123;
+        console.log(res.data)
+&#125;);
+
+axios.post(&#39;url&#39;,&#123;
+    //默认json格式
+    name:&quot;&quot;,
+&#125;)
+//传递表单参数
+const params = new URLSearchParams();
+params.append(&#39;param1&#39;,&#39;value1&#39;);
+axios.post(&#39;url&#39;, params).then()
+</code></pre>
+<h4 id="基准URL地址"><a href="#基准URL地址" class="headerlink" title="基准URL地址"></a>基准URL地址</h4><pre><code class="js">axios.defaults.baseURL = &#39;http://localhost:3000/&#39;;
+</code></pre>
+<h4 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h4><p>请求拦截器</p>
+<pre><code class="js">axios.interceptors.request.use(function(config) &#123;
+    config.headers.mytoken = &#39;nihao&#39;;
+    return config;
+&#125;, function(err) &#123;
+    console.log(err)
+&#125;)
+axios.get()
+</code></pre>
+<p>响应拦截器</p>
+<pre><code class="js">axios.interceptors.response.use(function(res) &#123;
+    return res.data
+&#125;,function()&#123;&#125;)
+</code></pre>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h4><pre><code class="js">//async返回值是Promise实例对象
+async function queryData() &#123;
+    let res = await axios.get(&#39;data&#39;);
+    return res.data;
+&#125;
+
+queryData().then(function(data) &#123;
+    console.log(data)
+&#125;)
+</code></pre>
+<h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><blockquote>
+<h5 id="原理是监听window的onhashchange事件"><a href="#原理是监听window的onhashchange事件" class="headerlink" title="原理是监听window的onhashchange事件"></a>原理是监听window的onhashchange事件</h5></blockquote>
+<pre><code class="js">window.onhashchange = function()&#123;
+    console.log(location.hash)
+&#125;
+</code></pre>
+<h3 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h3><h5 id="路由链接"><a href="#路由链接" class="headerlink" title="路由链接"></a>路由链接</h5><pre><code class="html">&lt;!--router-link默认会被渲染成a标签--&gt;
+&lt;!--to会被渲染成href属性--&gt;
+&lt;!--to属性值会被渲染为#开头的hash地址--&gt;
+&lt;router-link to=&quot;/user&quot; &gt;user&lt;/router-link&gt;
+</code></pre>
+<h5 id="路由占位"><a href="#路由占位" class="headerlink" title="路由占位"></a>路由占位</h5><pre><code class="html">&lt;router-view&gt;&lt;/router-view&gt;
+</code></pre>
+<h5 id="路由规则"><a href="#路由规则" class="headerlink" title="路由规则"></a>路由规则</h5><pre><code class="js">import router from &#39;VueRouter&#39;
+
+new router(&#123;
+    //path表示当前路由规则的hash地址
+    //component表示路由规则对应展示的组件
+    routes: [
+        &#123;path:&#39;/user&#39;, component: User&#125;
+    ]
+&#125;)
+</code></pre>
+<h5 id="挂载路由实例对象"><a href="#挂载路由实例对象" class="headerlink" title="挂载路由实例对象"></a>挂载路由实例对象</h5><pre><code class="js">import router from &#39;VueRouter&#39;
+
+new vue(&#123;
+    router,
+&#125;).$mount(#app)
+</code></pre>
+<h5 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h5><pre><code class="vue">routes: [
+    &#123;path: &#39;/&#39;, redirect: &#39;/user&#39;&#125;,
+]
+</code></pre>
+<h2 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h2><h4 id="子级路由模板"><a href="#子级路由模板" class="headerlink" title="子级路由模板"></a>子级路由模板</h4><pre><code class="vue">&lt;template&gt;
+    &lt;router-link to=&quot;/父/子&quot;&gt;&lt;/router-link&gt;
+    
+    //子路由占位符
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="路由规则-1"><a href="#路由规则-1" class="headerlink" title="路由规则"></a>路由规则</h4><pre><code class="js">&#123;
+    path: &#39;/fu&#39;,
+    component: fu,
+    children: [
+        &#123;path: &#39;/fu/zi&#39;, component: zi&#125;,
+    ]
+&#125;
+</code></pre>
+<h2 id="动态匹配"><a href="#动态匹配" class="headerlink" title="动态匹配"></a>动态匹配</h2><pre><code class="vue">routes: [
+    //路径参数
+    &#123;path: &#39;/user/:id&#39;, component: User&#125;
+]
+
+//组件中访问路径参数
+&lt;template&gt;
+    &#123;&#123; $route.params.id &#125;&#125;
+&lt;/template&gt;
+</code></pre>
+<h3 id="另一种方式"><a href="#另一种方式" class="headerlink" title="另一种方式"></a>另一种方式</h3><h4 id="组件内传递动态参数"><a href="#组件内传递动态参数" class="headerlink" title="组件内传递动态参数"></a>组件内传递动态参数</h4><pre><code class="vue">&lt;template&gt;
+    // 对象不拼接字符串
+    &lt;router-link :to=&quot;&#123;
+        name: &#39;zujian&#39;,
+        params: &#123;
+            id: canshu             
+        &#125;               
+    &#125;&quot;&gt;
+    // 拼接字符串
+    &lt;router-link :to=&quot;`zujiam/$&#123;id&#125;`&quot;&gt;
+    &lt;/router-link&gt;
+    //子路由占位符
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="vue">// router/index.js
+routes: [
+    // 开启组件传参
+    &#123;path: &#39;/user/:id&#39;, component: User, props: true&#125;
+]
+
+// user.vue
+&lt;template&gt;
+    &#123;&#123; id &#125;&#125;
+&lt;/template&gt;
+ 
+export default &#123;
+    props: [&#39;id&#39;]
+&#125;
+</code></pre>
+<h5 id="props指定类型"><a href="#props指定类型" class="headerlink" title="props指定类型"></a>props指定类型</h5><pre><code class="js">props: route =&gt; (&#123;xxx: &#39;xx&#39;, xx: &#39;xx&#39;, xx: route.params.xx&#125;)
+</code></pre>
+<h3 id="命名路由"><a href="#命名路由" class="headerlink" title="命名路由"></a>命名路由</h3><pre><code class="js">routes: [
+    &#123;
+        path:  &#39;&#39;,
+        name: &#39;user&#39;,
+    &#125;
+]
+</code></pre>
+<pre><code class="html">&lt;router-link :to=&quot;&#123;name :&#39;user&#39;, params:&#123;id;xx&#125;&#125;&quot;&gt;&lt;/router-link&gt;
+</code></pre>
+<h3 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h3><pre><code class="js">//跳转并怎加历史记录
+this.$route.push(&#39;/path&#39;)
+//替换不怎加历史记录
+this.$route.replace(&#39;/path&#39;)
+
+//命名路由带参数
+this.$route.push(&#123;name: &#39;&#39;, params: &#123;id: xxx&#125;&#125;)
+
+//带查询参数  /xxx?id=xxx
+this.$route.push(&#123;path: &#39;&#39;, query: &#123;id: xxx&#125;&#125;)
+
+//历史记录前进或后退
+// - nums (表示层数)
+this.$route.go(-1)
+</code></pre>
+<h3 id="路由导航守卫"><a href="#路由导航守卫" class="headerlink" title="路由导航守卫"></a>路由导航守卫</h3><p>每次发生路由跳转就会触发</p>
+<pre><code class="js">router.beforeEach((to, from, next) =&gt; &#123;
+    //to为将要访问的路径
+    //from为从哪个路径跳转
+    //next表示放行
+    if(to.path == &#39;/&#39;) return next() //next(&#39;/&#39;)
+&#125;)
+</code></pre>
+<h4 id="next的三种调用"><a href="#next的三种调用" class="headerlink" title="next的三种调用"></a>next的三种调用</h4><pre><code class="js">//直接放行
+next()
+//跳转 path
+next(&#39;/path&#39;)
+//拒绝跳转
+next(false)
+</code></pre>
+<h3 id="减小入口文件体积"><a href="#减小入口文件体积" class="headerlink" title="减小入口文件体积"></a>减小入口文件体积</h3><p>常用的手段是路由懒加载，把不同路由对应的组件分割成不同的代码块，待路由被请求的时候会单独打包路由，使得入口文件变小，加载速度大大增加</p>
+<p><img src="https://static.vue-js.com/486cee90-3acc-11eb-ab90-d9ae814b240d.png" alt="img"></p>
+<p>在<code>vue-router</code>配置路由的时候，采用动态加载路由的形式</p>
+<pre><code class="javascript">routes:[ 
+    path: &#39;Blogs&#39;,
+    name: &#39;ShowBlogs&#39;,
+    component: () =&gt; import(&#39;./components/ShowBlogs.vue&#39;)
+]
+</code></pre>
+<p>以函数的形式加载路由，这样就可以把各自的路由文件分别打包，只有在解析给定的路由时，才会加载路由组件</p>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><pre><code class="vue">&lt;template&gt;
+    &lt;input 
+    type=&quot;file&quot;
+    hidden
+    ref=&quot;file&quot;
+    @change=&quot;onFileChange&quot;   
+    &gt;
+&lt;/template&gt;
+export default &#123;
+    methods: &#123;
+        onFileChange() &#123;
+            // 获取文件对象
+            const file = this.$refs.file.files[0]
+            // 获取 blob 数据
+            const data = window.URL.createObjectURL(file)
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="图片裁切"><a href="#图片裁切" class="headerlink" title="图片裁切"></a>图片裁切</h3><h4 id="cropperjs"><a href="#cropperjs" class="headerlink" title="cropperjs"></a>cropperjs</h4><p><a target="_blank" rel="noopener" href="https://github.com/fengyuanchen/cropperjs">https://github.com/fengyuanchen/cropperjs</a></p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><pre><code class="js">mouted() &#123;
+    const image = this.$refs.img
+    const cropper = new Cropper(image, &#123;
+        // 0-裁剪扩展到画布外
+        viewMode: 1,
+        /* 
+            拖动模式
+            drop - 拖动裁剪框
+            move - 拖动图片
+            none - 拖动固定框
+        */
+        dragMode: &#39;move&#39;,
+        // 裁剪比例
+        aspectRatio: 1 / 1,
+        // 裁剪框撑满整个画布
+        autoCropArea: 1,
+        // 裁剪框是否可以移动
+        cropBoxMovable: false,
+        // 裁剪框是否可以缩放
+        cropBoxResizable: false,
+        // 背景
+        background: false,
+        // 画布移动（默认移动）
+        movable: true
+    &#125;)
+&#125;
+methods: &#123;
+    onConfirm() &#123;
+        this.cropper.getCroppedCanvas().toBlob(blob =&gt; &#123;
+            log(blob)
+            // 传递服务器
+            const formData = new formData()
+            formData.append(&#39;croppedImage&#39;, blob,&quot;可选图片名&quot;)
+            // axios
+        &#125;)
+    &#125;
+&#125;
+</code></pre>
+<h1 id="vue-cli脚手架"><a href="#vue-cli脚手架" class="headerlink" title="vue/cli脚手架"></a>vue/cli脚手架</h1><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><p>开箱即用</p>
+<p>0配置webpack</p>
+<p>babel支持</p>
+<p>css, less支持</p>
+<p>开发服务器支持</p>
+<h4 id="全局安装命令"><a href="#全局安装命令" class="headerlink" title="全局安装命令"></a>全局安装命令</h4><pre><code class="bash">yarn global add @vue/cli
+# OR
+npm install -g @vue/cli
+</code></pre>
+<h5 id="查看脚手架版本"><a href="#查看脚手架版本" class="headerlink" title="查看脚手架版本"></a>查看脚手架版本</h5><pre><code class="bash">vue -V
+</code></pre>
+<h3 id="vue-cli-创建项目启动服务"><a href="#vue-cli-创建项目启动服务" class="headerlink" title="@vue/cli 创建项目启动服务"></a>@vue/cli 创建项目启动服务</h3><blockquote>
+<p>目标: 使用vue命令, 创建脚手架项目</p>
+</blockquote>
+<p>==注意: 项目名不能带大写字母, 中文和特殊符号==</p>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><pre><code class="bash"># vue和create是命令, vuecli-demo是文件夹名
+vue create vuecli-demo
+
+#手动选择需要的
+Manually select features
+
+#（*）空格选择
+# no history mode -&gt; hash模式
+# Standard config
+# lint in save
+# dedicated config files
+# Sava preset(模板)
+</code></pre>
+<h4 id="图形化创建"><a href="#图形化创建" class="headerlink" title="图形化创建"></a>图形化创建</h4><pre><code class="bash">vue ui
+
+#选择手动配置
+#babel,router,linter/Formatter,使用配置文件
+#与以上相同
+</code></pre>
+<p>进入脚手架项目下, 启动内置的热更新本地服务器</p>
+<pre><code class="bash">cd vuecil-demo
+
+npm run serve
+# 或
+yarn serve
+</code></pre>
+<p>打开浏览器输入上述地址</p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/image-20210116233035582.png" alt="image-20210116233035582"></p>
+<h3 id="目录和代码分析"><a href="#目录和代码分析" class="headerlink" title="目录和代码分析"></a>目录和代码分析</h3><pre><code class="bash"> vuecil-demo        # 项目目录
+    ├── node_modules # 项目依赖的第三方包
+    ├── public       # 静态文件目录
+      ├── favicon.ico# 浏览器小图标
+      └── index.html # 单页面的html文件(网页浏览的是它)
+    ├── src          # 业务文件夹
+      ├── assets     # 静态资源
+        └── logo.png # vue的logo图片
+      ├── components # 组件目录
+        └── HelloWorld.vue # 欢迎页面vue代码文件 
+      ├── App.vue    # 整个应用的根组件
+      └── main.js    # 入口js文件
+    ├── .gitignore   # git提交忽略配置
+    ├── babel.config.js  # babel配置
+    ├── package.json  # 依赖包列表
+    ├── README.md    # 项目说明
+    └── yarn.lock    # 项目包版本锁定和缓存地址
+</code></pre>
+<h3 id="vue-cli-自定义配置"><a href="#vue-cli-自定义配置" class="headerlink" title="@vue/cli 自定义配置"></a>@vue/cli 自定义配置</h3><blockquote>
+<p>目标：项目中没有webpack.config.js文件，因为@vue/cli用的vue.config.js</p>
+</blockquote>
+<p>src并列处新建vue.config.js</p>
+<pre><code class="jsx">/* 覆盖webpack的配置 */
+module.exports = &#123;
+  devServer: &#123; // 自定义服务配置
+    open: true, // 自动打开浏览器
+    port: 3000
+  &#125;
+&#125;
+</code></pre>
+<h2 id="Element-UI"><a href="#Element-UI" class="headerlink" title="Element-UI"></a>Element-UI</h2><p>安装依赖</p>
+<pre><code class="bash">yarn add element-ui -S
+</code></pre>
+<p>导入资源</p>
+<pre><code class="js">//组件库
+import ElementUI from &#39;element-ui&#39;;
+//导入样式
+import &#39;element-ui/lib/theme-chalk/index.css&#39;;
+//配置插件
+Vue.use(ElementUI)
+</code></pre>
+<p>图形化安装</p>
+<p>vue-cli-plugin-element</p>
+<h2 id="eslint"><a href="#eslint" class="headerlink" title="eslint"></a>eslint</h2><p>代码检查工具</p>
+<h5 id="暂时关闭"><a href="#暂时关闭" class="headerlink" title="暂时关闭"></a>暂时关闭</h5><p>方式1: 手动解决掉错误, 以后项目中会讲如何自动解决</p>
+<p>方式2: 暂时关闭eslint检查(因为现在主要精力在学习Vue语法上), 在vue.config.js中配置后重启服务</p>
+<pre><code class="js">module.exports = &#123;
+    lintOnSave: false,//关闭eslint检查
+&#125;
+</code></pre>
+<h5 id="安装less依赖"><a href="#安装less依赖" class="headerlink" title="安装less依赖"></a>安装less依赖</h5><p>less-loader -&gt; less</p>
+<h4 id="导入element表单"><a href="#导入element表单" class="headerlink" title="导入element表单"></a>导入element表单</h4><pre><code class="js">import &#123;Form, FormItem, Input&#125; from &#39;element-ui&#39;
+
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+</code></pre>
+<h4 id="导入弹框提示组件"><a href="#导入弹框提示组件" class="headerlink" title="导入弹框提示组件"></a>导入弹框提示组件</h4><pre><code class="js">import &#123;Message&#125; from &#39;element-ui&#39;
+
+//挂载到原型对象
+Vue.prototype.$message = Message
+
+this.$message.success(&quot;NIHAO&quot;)
+
+//解决空白弹窗问题
+import &#123; Message &#125; from &#39;element-ui&#39;
+
+Vue.component(Message.name, Message)
+              
+Vue.prototype.$message = Message
+</code></pre>
+<h2 id="配置axios"><a href="#配置axios" class="headerlink" title="配置axios"></a>配置axios</h2><pre><code class="js">import axios from &#39;axios&#39;
+
+axios.defaults.baseURL = &#39;127.0.0.1&#39;
+
+Vue.prototype.$http = axios
+
+//调用时
+async () =&gt; 
+//结构赋值
+const &#123;data: res&#125; = await this.$http.post(&#39;&#39;,data)
+</code></pre>
+<h3 id="解决代码复用问题"><a href="#解决代码复用问题" class="headerlink" title="解决代码复用问题"></a>解决代码复用问题</h3><p>新建 utils 目录，建立 request.js 文件</p>
+<pre><code class="js">import axios from &#39;axios&#39;
+
+const request = axios.create(&#123;
+    baseURL: &#39;http://xxx&#39;
+&#125;)
+
+export default request
+</code></pre>
+<h3 id="axios-拦截器"><a href="#axios-拦截器" class="headerlink" title="axios 拦截器"></a>axios 拦截器</h3><h4 id="声明请求拦截器"><a href="#声明请求拦截器" class="headerlink" title="声明请求拦截器"></a>声明请求拦截器</h4><pre><code class="js">1et loadingInstance=null
+axios.interceptors.request.use（config=&gt;&#123;
+//展示Loading效果
+loadingInstance=Loading.service（&#123;fullscreen:true&#125;）
+return config
+&#125;）
+</code></pre>
+<h4 id="声明响应拦截器"><a href="#声明响应拦截器" class="headerlink" title="声明响应拦截器"></a>声明响应拦截器</h4><pre><code class="js">axios.interceptors.response.use（response=&gt;&#123;
+//隐藏Loading效果
+1oadingInstance.close）
+return response
+&#125;）
+</code></pre>
+<h3 id="封装-API"><a href="#封装-API" class="headerlink" title="封装 API"></a>封装 API</h3><p>API 下不同的文件夹来表示请求不同的数据</p>
+<pre><code class="js">//调用封装的工具来发起请求
+import request from &#39;utils/request.js&#39;
+
+export const getxxxAPI = (xxx) =&gt; &#123;
+    return request.get(&#39;url&#39;, &#123;
+        params: &#123;
+            xxx,
+        &#125;
+    &#125;)
+&#125;
+</code></pre>
+<h4 id="按需导入"><a href="#按需导入" class="headerlink" title="按需导入"></a>按需导入</h4><pre><code class="js">import &#123;getxxxAPI&#125; from &#39;API/xxxAPI.js&#39;
+
+const &#123;data: res&#125; = await getxxxAPI(xxx);
+</code></pre>
+<h3 id="所遇问题"><a href="#所遇问题" class="headerlink" title="所遇问题"></a>所遇问题</h3><h5 id="格式化文档"><a href="#格式化文档" class="headerlink" title="格式化文档"></a>格式化文档</h5><p>根目录创建”.prettierrc”（修改引号和分号）</p>
+<pre><code class="json">&#123;
+       &quot;semi&quot;: false,
+    &quot;singleQuete&quot;: true
+&#125;
+</code></pre>
+<h5 id="confirm闪退问题"><a href="#confirm闪退问题" class="headerlink" title="$confirm闪退问题"></a>$confirm闪退问题</h5><pre><code class="html">&lt;!--将a标签改为--&gt;
+&lt;a href=&quot;javascript:viod(0)&quot;&gt;&lt;/a&gt;
+</code></pre>
+<h4 id="访问其他组件成员"><a href="#访问其他组件成员" class="headerlink" title="访问其他组件成员"></a>访问其他组件成员</h4><pre><code class="js">import zujian = from &#39;/path&#39;
+
+zujian.data().成员
+</code></pre>
+<h4 id="打包好的VUE项目空白"><a href="#打包好的VUE项目空白" class="headerlink" title="打包好的VUE项目空白"></a>打包好的VUE项目空白</h4><p>vue.config.js文件</p>
+<pre><code class="js">module.exports = defineConfig(&#123;
+  assetsDir: &#39;static&#39;,
+  parallel: false,
+  publicPath: &#39;./&#39;,
+&#125;)
+</code></pre>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/nord.css" type="text/css" />
+<script src="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//js/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
