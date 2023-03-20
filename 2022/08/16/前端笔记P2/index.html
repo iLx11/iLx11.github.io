@@ -926,7 +926,7 @@ Promist.all([p1.p2.p3]).then((result) =&gt; &#123;    console.log(result)
 &#125;)
 .then();
 </code></pre>
-<h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><pre><code class="js">axios.get(&#39;url&#39;,&#123;
+<h1 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h1><pre><code class="js">axios.get(&#39;url&#39;,&#123;
     params:&#123;
         name: &quot;&quot;,
     &#125;
@@ -1300,23 +1300,40 @@ const request = axios.create(&#123;
 
 export default request
 </code></pre>
-<h3 id="axios-拦截器"><a href="#axios-拦截器" class="headerlink" title="axios 拦截器"></a>axios 拦截器</h3><h4 id="声明请求拦截器"><a href="#声明请求拦截器" class="headerlink" title="声明请求拦截器"></a>声明请求拦截器</h4><pre><code class="js">1et loadingInstance=null
-axios.interceptors.request.use（config=&gt;&#123;
-//展示Loading效果
-loadingInstance=Loading.service（&#123;fullscreen:true&#125;）
-return config
-&#125;）
+<h3 id="配置axios-拦截器"><a href="#配置axios-拦截器" class="headerlink" title="配置axios 拦截器"></a>配置axios 拦截器</h3><pre><code class="js">import axios from &#39;axios&#39;
+
+const request = axios.create(&#123;
+    baseURL: &#39;http://xxx&#39;,
+    timeout: 5000
+&#125;)
+
+// 请求拦截器
+request.interceptors.request.use(
+    config =&gt; &#123;
+        return config
+    &#125;,
+    error =&gt; &#123;
+        return Promise.reject(error)
+    &#125;
+)
+// 响应拦截器
+request.interceptors.response,use(
+    response =&gt; &#123;
+        const res = response.data
+        return res
+    &#125;,
+    error =&gt; &#123;
+        return Promise.reject(error)
+    &#125;
+)
+
+export default request
 </code></pre>
-<h4 id="声明响应拦截器"><a href="#声明响应拦截器" class="headerlink" title="声明响应拦截器"></a>声明响应拦截器</h4><pre><code class="js">axios.interceptors.response.use（response=&gt;&#123;
-//隐藏Loading效果
-1oadingInstance.close）
-return response
-&#125;）
-</code></pre>
-<h3 id="封装-API"><a href="#封装-API" class="headerlink" title="封装 API"></a>封装 API</h3><p>API 下不同的文件夹来表示请求不同的数据</p>
+<h2 id="封装-API"><a href="#封装-API" class="headerlink" title="封装 API"></a>封装 API</h2><p>API 下不同的文件夹来表示请求不同的数据</p>
 <pre><code class="js">//调用封装的工具来发起请求
 import request from &#39;utils/request.js&#39;
 
+// export function getxxxAPI() &#123;&#125;
 export const getxxxAPI = (xxx) =&gt; &#123;
     return request.get(&#39;url&#39;, &#123;
         params: &#123;
@@ -1329,6 +1346,18 @@ export const getxxxAPI = (xxx) =&gt; &#123;
 
 const &#123;data: res&#125; = await getxxxAPI(xxx);
 </code></pre>
+<h2 id="公共资源图片和统一样式"><a href="#公共资源图片和统一样式" class="headerlink" title="公共资源图片和统一样式"></a>公共资源图片和统一样式</h2><p><strong>图片资源</strong></p>
+<blockquote>
+<p>图片资源在课程资料的图片文件中，我们只需要将**<code>common</code>**文件夹拷贝放置到 **<code>assets</code>**目录即可</p>
+</blockquote>
+<p><strong>样式</strong></p>
+<blockquote>
+<p>样式资源在  资源/样式目录下</p>
+</blockquote>
+<p>将两个文件放置到<strong>styles</strong>目录下，然后在**<code>index.scss</code>**中引入该样式</p>
+<pre><code class="scss">@import &#39;./common.scss&#39;; //引入common.scss样式表 
+</code></pre>
+<p><strong><code>本节注意</code><strong>：注意在scss文件中，通过</strong>@import</strong> 引入其他样式文件，需要注意最后加分号，否则会报错</p>
 <h3 id="所遇问题"><a href="#所遇问题" class="headerlink" title="所遇问题"></a>所遇问题</h3><h5 id="格式化文档"><a href="#格式化文档" class="headerlink" title="格式化文档"></a>格式化文档</h5><p>根目录创建”.prettierrc”（修改引号和分号）</p>
 <pre><code class="json">&#123;
        &quot;semi&quot;: false,

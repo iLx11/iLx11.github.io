@@ -709,6 +709,11 @@ let axios = CreateAxiosFn();
 <p>通过axios发送请求中，配置请求的根路径</p>
 <pre><code class="js">axios.defaults.baseURL = &#39;/api&#39;
 </code></pre>
+<p>**<code>vue.config.js</code>**的改动如果要生效,需要进行重启服务</p>
+<p>同时，还需要注意的是，我们同时需要注释掉 mock的加载，因为mock-server会导致代理服务的异常</p>
+<pre><code class="js">// before: require(&#39;./mock/mock-server.js&#39;),  // 注释mock-server加载
+</code></pre>
+<p><strong>生产环境的跨域</strong></p>
 <h2 id="Vue2-与-Vue3区别"><a href="#Vue2-与-Vue3区别" class="headerlink" title="Vue2 与 Vue3区别"></a>Vue2 与 Vue3区别</h2><p><a target="_blank" rel="noopener" href="https://www.yuque.com/sxd_panda/sdluga/ny2cc2#4d77f6d3">https://www.yuque.com/sxd_panda/sdluga/ny2cc2#4d77f6d3</a></p>
 <h2 id="vue-router如何重定向？"><a href="#vue-router如何重定向？" class="headerlink" title="vue-router如何重定向？"></a>vue-router如何重定向？</h2><p>答：使用<code>redirect</code>进行重定向</p>
 <pre><code class="javascript">在routes:[&#123; path: &#39;/a&#39;, redirect: &#39;/b&#39; &#125;]
