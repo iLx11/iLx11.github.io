@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
     <link rel="alternate icon" type="image/png" href="/img/favicon.png">
-    <link rel="stylesheet" media="screen and (max-width:700px)" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/style.css" type="text/css" />
-    <link rel="stylesheet" media="screen and (min-width:700px)" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/stylePC.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/reset.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/markdown.css" type="text/css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/fonts.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
 
     <title>
         iLx1 |
@@ -553,6 +553,19 @@ function userDevouncedRef&lt;T&gt;(value: T, dalay = 200) &#123;
     &#125;)
 &#125;
 </code></pre>
+<h1 id="组件间传值"><a href="#组件间传值" class="headerlink" title="组件间传值"></a>组件间传值</h1><h2 id="props-amp-emit"><a href="#props-amp-emit" class="headerlink" title="props &amp; emit"></a>props &amp; emit</h2><pre><code class="vue">&lt;script setup=&quot;props, &#123;emit&#125;&quot;&gt;
+    const props = defineProps(&#123;
+        msg: &#123;
+            type: Stirng,
+            default: () =&gt; &quot;default&quot;
+        &#125;
+    &#125;)
+    const msg = ref(props.msg)
+    // emits
+    const emits = defineEmits([&#39;method&#39;])
+    emits(&#39;method&#39;, params)
+&lt;/script&gt;
+</code></pre>
 <h2 id="provide-与-inject"><a href="#provide-与-inject" class="headerlink" title="provide 与 inject"></a>provide 与 inject</h2><p>provide<code>和</code>inject<code>提供依赖注入，功能类似 2.x 的</code>provide/inject</p>
 <h4 id="实现跨层级组件-祖孙-间通信"><a href="#实现跨层级组件-祖孙-间通信" class="headerlink" title="实现跨层级组件(祖孙)间通信"></a>实现跨层级组件(祖孙)间通信</h4><pre><code class="ts">// 父组件
 /*&lt;template&gt;
@@ -576,6 +589,28 @@ setup() &#123;
         color
     &#125;
 &#125;
+</code></pre>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><p>如果是在<script setup>定义组件内的指令，有一个语法糖可以使用：</p>
+<p>任何以v开头的驼峰式命名的变量都可以被用作一个自定义指令，然后在模板中使用。</p>
+<pre><code class="vue">&lt;script setup&gt; 
+    const vFocus = &#123;
+        mounted: (el) =&gt; el.focus()
+    &#125;
+&lt;/script&gt;
+</code></pre>
+<p>如果是使用选项式，则自定义指令需要在<code>directives</code>选项中注册</p>
+<pre><code class="vue">&lt;script&gt; 
+    export default &#123;
+        setup() &#123;&#125;,
+        derectives: &#123;
+            focus: &#123;
+                mounted(el) &#123;
+                    el.focus()
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&lt;/script&gt;
 </code></pre>
 <h2 id="响应式数据的判断"><a href="#响应式数据的判断" class="headerlink" title="响应式数据的判断"></a>响应式数据的判断</h2><ul>
 <li>isRef: 检查一个值是否为一个 ref 对象</li>
@@ -735,7 +770,7 @@ export const useCounterStore = defineStore(&#39;counter&#39;, &#123;
         </ul>
     </div>
 </section>
-<script src="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//js/nav.js"></script>
+<script src="/js/nav.js"></script>
 <!-- 
 <script src="/js/nav.js"></script>
  -->
@@ -743,9 +778,9 @@ export const useCounterStore = defineStore(&#39;counter&#39;, &#123;
     <span>Copyright © 2022 iLx1</span>
 </div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//css/nord.css" type="text/css" />
-<script src="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//js/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/iLx11/iLx11.github.io//js/highlightjs-line-numbers.js"></script>
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
 
 <!-- 
 <link rel="stylesheet" href="/css/nord.css">
