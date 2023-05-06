@@ -1346,6 +1346,28 @@ export const getxxxAPI = (xxx) =&gt; &#123;
 
 const &#123;data: res&#125; = await getxxxAPI(xxx);
 </code></pre>
+<h2 id="vue使用节流函数"><a href="#vue使用节流函数" class="headerlink" title="vue使用节流函数"></a>vue使用节流函数</h2><pre><code class="vue">data() &#123;
+    this.AnaGet = this.throttle(this.AnaGet, 300)
+    return &#123;
+
+    &#125;
+&#125;,
+methods: &#123;
+    throttle(method, wait) &#123;
+        let timer = null;
+        return function() &#123;
+            const context = this
+            const args = arguments
+            if(!timer) &#123;
+                timer = setTimeout(() =&gt; &#123;
+                    method.apply(context, args)
+                &#125;, wait)
+            &#125;
+        &#125;
+        
+    &#125;
+&#125;
+</code></pre>
 <h2 id="公共资源图片和统一样式"><a href="#公共资源图片和统一样式" class="headerlink" title="公共资源图片和统一样式"></a>公共资源图片和统一样式</h2><p><strong>图片资源</strong></p>
 <blockquote>
 <p>图片资源在课程资料的图片文件中，我们只需要将**<code>common</code>**文件夹拷贝放置到 **<code>assets</code>**目录即可</p>

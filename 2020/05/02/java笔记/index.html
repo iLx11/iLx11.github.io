@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                java笔记
+            </div>
+            <div class="post-meta">
+                2020-05-02
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <p>Hello world </p>
+<pre><code class="java">public class HelloWorld &#123;
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;HelloWorld&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>编译：javac 文件名.java</p>
+<p>执行：java 类名</p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ol>
+<li>char类型的数据转换为int类型是按照码表中对应的int值进行计算的。比如在ASCII码表中，’a’对应97。</li>
+</ol>
+<pre><code class="java">int a = &#39;a&#39;;
+System.out.println(a); // 将输出97
+</code></pre>
+<ol start="2">
+<li>整数默认是int类型，byte、short和char类型数据参与运算均会自动转换为int类型。</li>
+</ol>
+<pre><code class="java">byte b1 = 10;
+byte b2 = 20;
+byte b3 = b1 + b2; 
+// 第三行代码会报错，b1和b2会自动转换为int类型，计算结果为int，int赋值给byte需要强制类型转换。
+// 修改为:
+int num = b1 + b2;
+// 或者：
+byte b3 = (byte) (b1 + b2);
+</code></pre>
+<ol>
+<li>boolean类型不能与其他基本数据类型相互转换。</li>
+</ol>
+<h3 id="表达式类型提升"><a href="#表达式类型提升" class="headerlink" title="表达式类型提升"></a>表达式类型提升</h3><p>算术表达式中包含不同的基本数据类型的值的时候，整个算术表达式的类型会自动进行提升。</p>
+<p>提升规则：</p>
+<p>byte类型，short类型和char类型将被提升到int类型，不管是否有其他类型参与运算。</p>
+<p>整个表达式的类型自动提升到与表达式中最高等级的操作数相同的类型</p>
+<p>​       等级顺序：byte,short,char –&gt; int –&gt; long –&gt; float –&gt; double</p>
+<h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h3><pre><code class="java">import java.util.Scanner; 
+
+Scanner sc = new Scanner(System.in);// 创建Scanner对象，sc表示变量名，其他均不可变
+
+int i = sc.nextInt(); // 表示将键盘录入的值作为int数返回。
+</code></pre>
+<h3 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h3><pre><code class="java">import java.util.Random;
+
+Random r = new Random();
+
+int num = r.nextInt(10);
+</code></pre>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><pre><code class="java">// 1
+int[] arr;
+char[] arr;
+
+// 2
+int arr[];
+char arr[];
+</code></pre>
+<h3 id="数组动态初始化"><a href="#数组动态初始化" class="headerlink" title="数组动态初始化"></a>数组动态初始化</h3><pre><code class="java">int[] arr = new int[3];
+</code></pre>
+<h3 id="静态初始化"><a href="#静态初始化" class="headerlink" title="静态初始化"></a>静态初始化</h3><pre><code class="java">int[] arr = &#123;1, 2, 3&#125;
+</code></pre>
+<h3 id="数组异常"><a href="#数组异常" class="headerlink" title="数组异常"></a>数组异常</h3><p>ArrayIndexOutOfBoundsException 数组越界异常</p>
+<p>NullPointerException 空指针异常</p>
+<h2 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h2><table>
+<thead>
+<tr>
+<th>区域名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>寄存器</td>
+<td>给CPU使用，和我们开发无关。</td>
+</tr>
+<tr>
+<td>本地方法栈</td>
+<td>JVM在使用操作系统功能的时候使用，和我们开发无关。</td>
+</tr>
+<tr>
+<td>方法区</td>
+<td>存储可以运行的class文件。</td>
+</tr>
+<tr>
+<td>堆内存</td>
+<td>存储对象或者数组，new来创建的，都存储在堆内存。</td>
+</tr>
+<tr>
+<td>方法栈</td>
+<td>方法运行时使用的内存，比如main方法运行，进入方法栈中执行。</td>
+</tr>
+</tbody></table>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><pre><code class="java">public static void name () &#123;
+    // 体
+&#125;
+</code></pre>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><h3 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h3><ul>
+<li>this修饰的变量用于指代成员变量，其主要作用是（区分局部变量和成员变量的重名问题）<ul>
+<li>方法的形参如果与成员变量同名，不带this修饰的变量指的是形参，而不是成员变量</li>
+<li>方法的形参没有与成员变量同名，不带this修饰的变量指的是成员变量</li>
+</ul>
+</li>
+</ul>
+<h2 id="String-类"><a href="#String-类" class="headerlink" title="String 类"></a>String 类</h2><h3 id="String类的特点"><a href="#String类的特点" class="headerlink" title="String类的特点"></a>String类的特点</h3><ul>
+<li>字符串不可变，它们的值在创建后不能被更改</li>
+<li>虽然 String 的值是不可变的，但是它们可以被共享</li>
+<li>字符串效果上相当于字符数组( char[] )，但是底层原理是字节数组( byte[] )</li>
+</ul>
+<h3 id="常用的构造方法"><a href="#常用的构造方法" class="headerlink" title="常用的构造方法"></a>常用的构造方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public   String()</td>
+<td>创建一个空白字符串对象，不含有任何内容</td>
+</tr>
+<tr>
+<td>public   String(char[] chs)</td>
+<td>根据字符数组的内容，来创建字符串对象</td>
+</tr>
+<tr>
+<td>public   String(byte[] bys)</td>
+<td>根据字节数组的内容，来创建字符串对象</td>
+</tr>
+<tr>
+<td>String s =   “abc”;</td>
+<td>直接赋值的方式创建字符串对象，内容就是abc</td>
+</tr>
+</tbody></table>
+<pre><code class="java">String str = new String();
+</code></pre>
+<h3 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h3><pre><code class="java">s1.equals(s2)
+</code></pre>
+<h3 id="String常用方法"><a href="#String常用方法" class="headerlink" title="String常用方法"></a>String常用方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public boolean   equals(Object anObject)</td>
+<td>比较字符串的内容，严格区分大小写(用户名和密码)</td>
+</tr>
+<tr>
+<td>public char charAt(int   index)</td>
+<td>返回指定索引处的 char 值</td>
+</tr>
+<tr>
+<td>public int   length()</td>
+<td>返回此字符串的长度</td>
+</tr>
+</tbody></table>
+<h2 id="StringBuilder类"><a href="#StringBuilder类" class="headerlink" title="StringBuilder类"></a>StringBuilder类</h2><h3 id="常用的构造方法-1"><a href="#常用的构造方法-1" class="headerlink" title="常用的构造方法"></a>常用的构造方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public StringBuilder()</td>
+<td>创建一个空白可变字符串对象，不含有任何内容</td>
+</tr>
+<tr>
+<td>public StringBuilder(String   str)</td>
+<td>根据字符串的内容，来创建可变字符串对象</td>
+</tr>
+</tbody></table>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><p>添加和反转方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public StringBuilder   append(任意类型)</td>
+<td>添加数据，并返回对象本身</td>
+</tr>
+<tr>
+<td>public StringBuilder   reverse()</td>
+<td>返回相反的字符序列</td>
+</tr>
+<tr>
+<td>public   int   length()</td>
+<td>返回长度，实际存储值</td>
+</tr>
+<tr>
+<td>public   String toString()</td>
+<td>通过toString()就可以实现把StringBuilder转换为String</td>
+</tr>
+</tbody></table>
+<h3 id="StringBuilder和String相互转换"><a href="#StringBuilder和String相互转换" class="headerlink" title="StringBuilder和String相互转换"></a>StringBuilder和String相互转换</h3><ul>
+<li><p>StringBuilder转换为String</p>
+<pre><code class="java">public String toString(); 
+// 通过 toString() 就可以实现把 StringBuilder 转换为 String
+
+StringBuilder sb = new StringBuilder();
+String s = sb.toString();
+</code></pre>
+</li>
+<li><p>String转换为StringBuilder</p>
+<pre><code class="java">public StringBuilder(String s); // 通过构造方法就可以实现把 String 转换为 StringBuilder
+
+StringBuilder sb = new StringBuilder(s);
+</code></pre>
+</li>
+</ul>
+<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public ArrayList()</td>
+<td>创建一个空的集合对象</td>
+</tr>
+</tbody></table>
+<h3 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public boolean   remove(Object o)</td>
+<td>删除指定的元素，返回删除是否成功</td>
+</tr>
+<tr>
+<td>public E   remove(int   index)</td>
+<td>删除指定索引处的元素，返回被删除的元素</td>
+</tr>
+<tr>
+<td>public E   set(int index,E   element)</td>
+<td>修改指定索引处的元素，返回被修改的元素</td>
+</tr>
+<tr>
+<td>public E   get(int   index)</td>
+<td>返回指定索引处的元素</td>
+</tr>
+<tr>
+<td>public int   size()</td>
+<td>返回集合中的元素的个数</td>
+</tr>
+<tr>
+<td>public boolean   add(E e)</td>
+<td>将指定的元素追加到此集合的末尾</td>
+</tr>
+<tr>
+<td>public void   add(int index,E   element)</td>
+<td>在此集合中的指定位置插入指定的元素</td>
+</tr>
+</tbody></table>
+<pre><code class="java">ArrayList&lt;String&gt; array = new ArrayList&lt;String&gt;();
+array.add(&#39;hello&#39;);
+</code></pre>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h3 id="继承中变量的访问特点"><a href="#继承中变量的访问特点" class="headerlink" title="继承中变量的访问特点"></a>继承中变量的访问特点</h3><p>在子类方法中访问一个变量，采用的是就近原则。</p>
+<ol>
+<li>子类局部范围找</li>
+<li>子类成员范围找</li>
+<li>父类成员范围找</li>
+<li>如果都没有就报错</li>
+</ol>
+<h3 id="super"><a href="#super" class="headerlink" title="super"></a>super</h3><p>子类中所有的构造方法默认都会访问父类中无参的构造方法**</p>
+<p>​    子类会继承父类中的数据，可能还会使用父类的数据。所以，子类初始化之前，一定要先完成父类数据的初始化，原因在于，每一个子类构造方法的第一条语句默认都是：super()</p>
+<p><strong>问题：如果父类中没有无参构造方法，只有带参构造方法</strong></p>
+<pre><code>1. 通过使用super关键字去显示的调用父类的带参构造方法
+2. 在父类中自己提供一个无参构造方法
+</code></pre>
+<ul>
+<li>this&amp;super关键字：<ul>
+<li>this：代表本类对象的引用</li>
+<li>super：代表父类存储空间的标识(可以理解为父类对象引用)</li>
+</ul>
+</li>
+<li>this和super的使用分别<ul>
+<li>成员变量：<ul>
+<li>this.成员变量    -   访问本类成员变量</li>
+<li>super.成员变量 -   访问父类成员变量</li>
+</ul>
+</li>
+<li>成员方法：<ul>
+<li>this.成员方法  - 访问本类成员方法</li>
+<li>super.成员方法 - 访问父类成员方法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>构造方法：<ul>
+<li>this(…)  -  访问本类构造方法</li>
+<li>super(…)  -  访问父类构造方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="方法重写"><a href="#方法重写" class="headerlink" title="方法重写"></a>方法重写</h3><ul>
+<li>1、方法重写概念<ul>
+<li>子类出现了和父类中一模一样的方法声明（方法名一样，参数列表也必须一样）</li>
+</ul>
+</li>
+<li>2、方法重写的应用场景<ul>
+<li>当子类需要父类的功能，而功能主体子类有自己特有内容时，可以重写父类中的方法，这样，即沿袭了父类的功能，又定义了子类特有的内容</li>
+</ul>
+</li>
+<li>3、Override注解<ul>
+<li>用来检测当前的方法，是否是重写的方法，起到【校验】的作用</li>
+</ul>
+</li>
+</ul>
+<h3 id="方法重写的注意事项"><a href="#方法重写的注意事项" class="headerlink" title="方法重写的注意事项"></a>方法重写的注意事项</h3><ul>
+<li>方法重写的注意事项</li>
+</ul>
+<ol>
+<li>私有方法不能被重写(父类私有成员子类是不能继承的)</li>
+<li>子类方法访问权限不能更低(public &gt; 默认 &gt; 私有)</li>
+</ol>
+<h3 id="Java中继承的注意事项"><a href="#Java中继承的注意事项" class="headerlink" title="Java中继承的注意事项"></a>Java中继承的注意事项</h3><ul>
+<li><p>Java中继承的注意事项</p>
+<ol>
+<li>Java中类只支持单继承，不支持多继承<ul>
+<li>错误范例：class A extends B, C { }</li>
+</ul>
+</li>
+<li>Java中类支持多层继承</li>
+</ol>
+</li>
+</ul>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><ul>
+<li>fianl关键字的作用<ul>
+<li>final代表最终的意思，可以修饰成员方法，成员变量，类</li>
+</ul>
+</li>
+<li>final修饰类、方法、变量的效果  <ul>
+<li>fianl修饰类：该类不能被继承（不能有子类，但是可以有父类）</li>
+<li>final修饰方法：该方法不能被重写</li>
+<li>final修饰变量：表明该变量是一个常量，不能再次赋值</li>
+</ul>
+</li>
+</ul>
+<h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><ul>
+<li>static的概念<ul>
+<li>static关键字是静态的意思，可以修饰【成员方法】，【成员变量】</li>
+</ul>
+</li>
+<li>static修饰的特点 <ol>
+<li>被类的所有对象共享，这也是我们判断是否使用静态关键字的条件</li>
+<li>可以通过类名调用当然，也可以通过对象名调用<strong>【推荐使用类名调用】</strong></li>
+</ol>
+</li>
+</ul>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><h3 id="多态的概述"><a href="#多态的概述" class="headerlink" title="多态的概述"></a>多态的概述</h3><ul>
+<li><p>什么是多态</p>
+<p>​    同一个对象，在不同时刻表现出来的不同形态</p>
+</li>
+<li><p>多态的前提</p>
+<ul>
+<li>要有继承或实现关系</li>
+<li>要有方法的重写</li>
+<li>要有父类引用指向子类对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="多态中的成员访问特点"><a href="#多态中的成员访问特点" class="headerlink" title="多态中的成员访问特点"></a>多态中的成员访问特点</h3><ul>
+<li><p>成员访问特点</p>
+<ul>
+<li><p>成员变量</p>
+<p>​    编译看父类，运行看父类</p>
+</li>
+<li><p>成员方法</p>
+<p>​    编译看父类，运行看子类</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="多态的好处和弊端"><a href="#多态的好处和弊端" class="headerlink" title="多态的好处和弊端"></a>多态的好处和弊端</h3><ul>
+<li><p>好处</p>
+<p>​    提高程序的扩展性。定义方法时候，使用父类型作为参数，在使用的时候，使用具体的子类型参与操作</p>
+</li>
+<li><p>弊端</p>
+<p>​    不能使用子类的特有成员</p>
+</li>
+</ul>
+<h3 id="多态中的转型"><a href="#多态中的转型" class="headerlink" title="多态中的转型"></a>多态中的转型</h3><ul>
+<li><p>向上转型</p>
+<p>​    父类引用指向子类对象就是向上转型</p>
+</li>
+<li><p>向下转型</p>
+<p>​    格式：子类型 对象名 = (子类型)父类引用;</p>
+</li>
+</ul>
+<pre><code class="java">public class Test &#123;
+    public static void main(String[] arg) &#123;
+        // 向上转型
+        Animal a = new Cat();
+        a.eat();
+        
+        // 向下转型
+        Cat c = (Cat) a;
+        c.eat();
+    &#125;
+&#125;
+</code></pre>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><h3 id="抽象类的概述"><a href="#抽象类的概述" class="headerlink" title="抽象类的概述"></a>抽象类的概述</h3><p>​    当我们在做子类共性功能抽取时，有些方法在父类中并没有具体的体现，这个时候就需要抽象类了！</p>
+<p>​    在Java中，一个没有方法体的方法应该定义为抽象方法，而类中如果有抽象方法，该类必须定义为抽象类！</p>
+<h3 id="抽象类的特点"><a href="#抽象类的特点" class="headerlink" title="抽象类的特点"></a>抽象类的特点</h3><ul>
+<li><p>抽象类和抽象方法必须使用 abstract 关键字修饰</p>
+<pre><code class="java">//抽象类的定义
+public abstract class 类名 &#123;&#125;
+
+//抽象方法的定义
+public abstract void eat();
+</code></pre>
+</li>
+<li><p>抽象类中不一定有抽象方法，有抽象方法的类一定是抽象类</p>
+</li>
+<li><p>抽象类不能实例化</p>
+<p>​    抽象类如何实例化呢？参照多态的方式，通过子类对象实例化，这叫抽象类多态</p>
+</li>
+<li><p>抽象类的子类</p>
+<p>​    要么重写抽象类中的所有抽象方法</p>
+<p>​    要么是抽象类</p>
+</li>
+</ul>
+<h3 id="抽象类成员"><a href="#抽象类成员" class="headerlink" title="抽象类成员"></a>抽象类成员</h3><p>可以是常量和变量，空参或有参构造，抽象或普通方法</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><h3 id="接口特点"><a href="#接口特点" class="headerlink" title="接口特点"></a>接口特点</h3><ul>
+<li><p>接口用关键字interface修饰</p>
+<pre><code class="java">public interface 接口名 &#123;&#125; 
+</code></pre>
+</li>
+<li><p>类实现接口用implements表示</p>
+<pre><code class="java">public class 类名 implements 接口名 &#123;&#125;
+</code></pre>
+</li>
+<li><p>接口不能实例化</p>
+<p>​    接口如何实例化呢？参照多态的方式，通过实现类对象实例化，这叫接口多态。</p>
+<p>​    多态的形式：具体类多态，抽象类多态，接口多态。 </p>
+</li>
+<li><p>接口的子类</p>
+<p>​    要么重写接口中的所有抽象方法</p>
+<p>​    要么子类也是抽象类</p>
+</li>
+</ul>
+<h3 id="接口的成员特点"><a href="#接口的成员特点" class="headerlink" title="接口的成员特点"></a>接口的成员特点</h3><ul>
+<li><p>成员特点</p>
+<ul>
+<li><p>成员变量</p>
+<p>​     只能是常量<br>​     默认修饰符：public static final</p>
+</li>
+<li><p>构造方法</p>
+<p>​    没有，因为接口主要是扩展功能的，而没有具体存在</p>
+</li>
+<li><p>成员方法</p>
+<p>​    只能是抽象方法</p>
+<p>​    默认修饰符：public abstract</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><h3 id="类名作为形参和返回值"><a href="#类名作为形参和返回值" class="headerlink" title="类名作为形参和返回值"></a>类名作为形参和返回值</h3><ul>
+<li><p>1、类名作为方法的形参</p>
+<p>方法的形参是类名，其实需要的是该类的对象</p>
+<p>实际传递的是该对象的【地址值】</p>
+</li>
+<li><p>2、类名作为方法的返回值</p>
+<p>方法的返回值是类名，其实返回的是该类的对象</p>
+<p>实际传递的，也是该对象的【地址值】        </p>
+</li>
+</ul>
+<pre><code class="java">public void useCat(Cat c);
+</code></pre>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>内部类概念</p>
+<ul>
+<li>在一个类中定义一个类。举例：在一个类A的内部定义一个类B，类B就被称为内部类</li>
+</ul>
+<p>内部类的访问特点 </p>
+<ul>
+<li>内部类可以直接访问外部类的成员，包括私有</li>
+<li>外部类要访问内部类的成员，必须创建对象</li>
+</ul>
+<h3 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h3><ul>
+<li><p>匿名内部类的前提</p>
+<ul>
+<li>存在一个类或者接口，这里的类可以是具体类也可以是抽象类</li>
+</ul>
+</li>
+<li><p>匿名内部类的格式</p>
+<ul>
+<li><p>格式：new 类名 ( ) {  重写方法 }    new  接口名 ( ) { 重写方法 }</p>
+</li>
+<li><p>举例： </p>
+<pre><code class="java">new Inter()&#123;
+    @Override
+    public void method()&#123;&#125;
+&#125; 
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>匿名内部类的本质</p>
+<ul>
+<li>本质：是一个继承了该类或者实现了该接口的子类匿名对象</li>
+</ul>
+</li>
+<li><p>匿名内部类的细节</p>
+<ul>
+<li><p>匿名内部类可以通过多态的形式接受</p>
+<pre><code class="java">Inter i = new Inter()&#123;
+  @Override
+    public void method()&#123;
+        
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>匿名内部类直接调用方法</p>
+<pre><code class="java">interface Inter&#123;
+    void method();
+&#125;
+
+class Test&#123;
+    public static void main(String[] args)&#123;
+        new Inter()&#123;
+            @Override
+            public void method()&#123;
+                System.out.println(&quot;我是匿名内部类&quot;);
+            &#125;
+        &#125;.method();    // 直接调用方法
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="2-4-匿名内部类在开发中的使用（应用）"><a href="#2-4-匿名内部类在开发中的使用（应用）" class="headerlink" title="2.4 匿名内部类在开发中的使用（应用）"></a>2.4 匿名内部类在开发中的使用（应用）</h3><ul>
+<li><p>匿名内部类在开发中的使用</p>
+<ul>
+<li>当发现某个方法需要，接口或抽象类的子类对象，我们就可以传递一个匿名内部类过去，来简化传统的代码</li>
+</ul>
+</li>
+<li><p>示例代码：</p>
+<pre><code class="java">interface Jumpping &#123;
+    void jump();
+&#125;
+class Cat implements Jumpping &#123;
+    @Override
+    public void jump() &#123;
+        System.out.println(&quot;猫可以跳高了&quot;);
+    &#125;
+&#125;
+class Dog implements Jumpping &#123;
+    @Override
+    public void jump() &#123;
+        System.out.println(&quot;狗可以跳高了&quot;);
+    &#125;
+&#125;
+class JumppingOperator &#123;
+    public void method(Jumpping j) &#123; //new Cat();   new Dog();
+        j.jump();
+    &#125;
+&#125;
+class JumppingDemo &#123;
+    public static void main(String[] args) &#123;
+        //需求：创建接口操作类的对象，调用method方法
+        JumppingOperator jo = new JumppingOperator();
+        Jumpping j = new Cat();
+        jo.method(j);
+
+        Jumpping j2 = new Dog();
+        jo.method(j2);
+        System.out.println(&quot;--------&quot;);
+
+        // 匿名内部类的简化
+        jo.method(new Jumpping() &#123;
+            @Override
+            public void jump() &#123;
+                System.out.println(&quot;猫可以跳高了&quot;);
+            &#125;
+        &#125;);
+        // 匿名内部类的简化
+        jo.method(new Jumpping() &#123;
+            @Override
+            public void jump() &#123;
+                System.out.println(&quot;狗可以跳高了&quot;);
+            &#125;
+        &#125;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h2><h3 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h3><ul>
+<li><p>1、Math类概述</p>
+<ul>
+<li>Math 包含执行基本数字运算的方法</li>
+</ul>
+</li>
+<li><p>2、Math中方法的调用方式</p>
+<ul>
+<li>Math类中无构造方法，但内部的方法都是静态的，则可以通过   <strong>类名.进行调用</strong></li>
+</ul>
+</li>
+<li><p>3、Math类的常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名    方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public static int   abs(int a)</td>
+<td>返回参数的绝对值</td>
+</tr>
+<tr>
+<td>public static double ceil(double a)</td>
+<td>返回大于或等于参数的最小double值，等于一个整数</td>
+</tr>
+<tr>
+<td>public static double floor(double a)</td>
+<td>返回小于或等于参数的最大double值，等于一个整数</td>
+</tr>
+<tr>
+<td>public   static int round(float a)</td>
+<td>按照四舍五入返回最接近参数的int</td>
+</tr>
+<tr>
+<td>public static int   max(int a,int b)</td>
+<td>返回两个int值中的较大值</td>
+</tr>
+<tr>
+<td>public   static int min(int a,int b)</td>
+<td>返回两个int值中的较小值</td>
+</tr>
+<tr>
+<td>public   static double pow (double a,double b)</td>
+<td>返回a的b次幂的值</td>
+</tr>
+<tr>
+<td>public   static double random()</td>
+<td>返回值为double的正值，[0.0,1.0)</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="System"><a href="#System" class="headerlink" title="System"></a>System</h3><ul>
+<li>System类的常用方法 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public   static void exit(int status)</td>
+<td>终止当前运行的   Java   虚拟机，非零表示异常终止</td>
+</tr>
+<tr>
+<td>public   static long currentTimeMillis()</td>
+<td>返回当前时间(以毫秒为单位)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>示例代码</p>
+<ul>
+<li>需求：在控制台输出1-10000，计算这段代码执行了多少毫秒 </li>
+</ul>
+<pre><code class="java">public class SystemDemo &#123;
+    public static void main(String[] args) &#123;
+        // 获取开始的时间节点
+        long start = System.currentTimeMillis();
+        for (int i = 1; i &lt;= 10000; i++) &#123;
+            System.out.println(i);
+        &#125;
+        // 获取代码运行结束后的时间节点
+        long end = System.currentTimeMillis();
+        System.out.println(&quot;共耗时：&quot; + (end - start) + &quot;毫秒&quot;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="Object类的toString方法"><a href="#Object类的toString方法" class="headerlink" title="Object类的toString方法"></a>Object类的toString方法</h3><ul>
+<li><p>Object类概述</p>
+<ul>
+<li>Object 是类层次结构的根，每个类都可以将 Object 作为超类。所有类都直接或者间接的继承自该类，换句话说，该类所具备的方法，所有类都会有一份</li>
+</ul>
+</li>
+<li><p>查看方法源码的方式</p>
+<ul>
+<li>选中方法，按下Ctrl + B</li>
+</ul>
+</li>
+<li><p>重写toString方法的方式</p>
+<ul>
+<li><ol>
+<li>Alt + Insert 选择toString</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在类的空白区域，右键 -&gt; Generate -&gt; 选择toString</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>toString方法的作用：</p>
+<ul>
+<li>以良好的格式，更方便的展示对象中的属性值</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">     @Override
+    public String toString() &#123;
+        return &quot;Student&#123;&quot; +
+                &quot;name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                &quot;, age=&quot; + age +
+                &#39;&#125;&#39;;
+    &#125;
+</code></pre>
+<h3 id="Object类的equals方法"><a href="#Object类的equals方法" class="headerlink" title="Object类的equals方法"></a>Object类的equals方法</h3><ul>
+<li><p>equals方法的作用</p>
+<ul>
+<li>用于对象之间的比较，返回true和false的结果</li>
+<li>举例：s1.equals(s2);    s1和s2是两个对象</li>
+</ul>
+</li>
+<li><p>重写equals方法的场景</p>
+<ul>
+<li>不希望比较对象的地址值，想要结合对象属性进行比较的时候。</li>
+</ul>
+</li>
+<li><p>重写equals方法的方式</p>
+<ul>
+<li><ol>
+<li>alt + insert  选择equals() and hashCode()，IntelliJ Default，一路next，finish即可</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在类的空白区域，右键 -&gt; Generate -&gt; 选择equals() and hashCode()，后面的同上。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">    @Override
+    public boolean equals(Object o) &#123;
+        //this -- s1
+        //o -- s2
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o; //student -- s2
+
+        if (age != student.age) return false;
+        return name != null ? name.equals(student.name) : student.name == null;
+    &#125;
+</code></pre>
+<h3 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h3><ul>
+<li><p>Arrays的常用方法</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">public static String toString(int[] a)</td>
+<td>返回指定数组的内容的字符串表示形式</td>
+</tr>
+<tr>
+<td align="left">public static void sort(int[] a)</td>
+<td>按照数字顺序排列指定的数组</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><h3 id="基本类型包装类"><a href="#基本类型包装类" class="headerlink" title="基本类型包装类"></a>基本类型包装类</h3><ul>
+<li><p>基本类型包装类的作用</p>
+<p>​    将基本数据类型封装成对象的好处在于可以在对象中定义更多的功能方法操作该数据</p>
+<p>​    常用的操作之一：用于基本数据类型与字符串之间的转换</p>
+</li>
+<li><p>基本类型对应的包装类</p>
+<table>
+<thead>
+<tr>
+<th>基本数据类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="Integer类"><a href="#Integer类" class="headerlink" title="Integer类"></a>Integer类</h3><ul>
+<li><p>Integer类概述</p>
+<p>​    包装一个对象中的原始类型 int 的值</p>
+</li>
+<li><p>Integer类构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public Integer(int   value)</td>
+<td>根据 int 值创建 Integer 对象(过时)</td>
+</tr>
+<tr>
+<td>public Integer(String s)</td>
+<td>根据 String 值创建 Integer 对象(过时)</td>
+</tr>
+<tr>
+<td>public static Integer valueOf(int i)</td>
+<td>返回表示指定的 int 值的 Integer   实例</td>
+</tr>
+<tr>
+<td>public static Integer valueOf(String s)</td>
+<td>返回一个保存指定值的 Integer 对象 String</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="int和String类型的相互转换"><a href="#int和String类型的相互转换" class="headerlink" title="int和String类型的相互转换"></a>int和String类型的相互转换</h3><ul>
+<li><p>int转换为String</p>
+<ul>
+<li><p>转换方式</p>
+<ul>
+<li>方式一：直接在数字后加一个空字符串</li>
+<li>方式二：通过String类静态方法valueOf()</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<pre><code class="java">public class IntegerDemo &#123;
+    public static void main(String[] args) &#123;
+        //int --- String
+        int number = 100;
+        //方式1
+        String s1 = number + &quot;&quot;;
+        System.out.println(s1);
+        //方式2
+        //public static String valueOf(int i)
+        String s2 = String.valueOf(number);
+        System.out.println(s2);
+        System.out.println(&quot;--------&quot;);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>String转换为int</p>
+<ul>
+<li><p>转换方式</p>
+<ul>
+<li>方式一：先将字符串数字转成Integer，再调用valueOf()方法</li>
+<li>方式二：通过Integer静态方法parseInt()进行转换</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<pre><code class="java">public class IntegerDemo &#123;
+    public static void main(String[] args) &#123;
+        //String --- int
+        String s = &quot;100&quot;;
+        //方式1：String --- Integer --- int
+        Integer i = Integer.valueOf(s);
+        //public int intValue()
+        int x = i.intValue();
+        System.out.println(x);
+        //方式2
+        //public static int parseInt(String s)
+        int y = Integer.parseInt(s);
+        System.out.println(y);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="时间日期类"><a href="#时间日期类" class="headerlink" title="时间日期类"></a>时间日期类</h2><h3 id="Date类"><a href="#Date类" class="headerlink" title="Date类"></a>Date类</h3><ul>
+<li><p>Date类概述</p>
+<p>​    Date 代表了一个特定的时间，精确到毫秒</p>
+</li>
+<li><p>Date类构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public Date()</td>
+<td>分配一个 Date对象，并初始化，以便它代表它被分配的时间，精确到毫秒</td>
+</tr>
+<tr>
+<td>public Date(long date)</td>
+<td>分配一个 Date对象，并将其初始化为表示从标准基准时间起指定的毫秒数</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<pre><code class="java">public class DateDemo01 &#123;
+    public static void main(String[] args) &#123;
+        //public Date()：分配一个 Date对象，并初始化，以便它代表它被分配的时间，精确到毫秒
+        Date d1 = new Date();
+        System.out.println(d1);
+
+        //public Date(long date)：分配一个 Date对象，并将其初始化为表示从标准基准时间起指定的毫秒数
+        long date = 1000*60*60;
+        Date d2 = new Date(date);
+        System.out.println(d2);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="Date类常用方法"><a href="#Date类常用方法" class="headerlink" title="Date类常用方法"></a>Date类常用方法</h3><ul>
+<li><p>常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public long getTime()</td>
+<td>获取的是日期对象从1970年1月1日 00:00:00到现在的毫秒值</td>
+</tr>
+<tr>
+<td>public void setTime(long time)</td>
+<td>设置时间，给的是毫秒值</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="SimpleDateFormat类（应用）"><a href="#SimpleDateFormat类（应用）" class="headerlink" title="SimpleDateFormat类（应用）"></a>SimpleDateFormat类（应用）</h3><ul>
+<li><p>SimpleDateFormat类概述</p>
+<p>​    SimpleDateFormat是一个具体的类，用于以区域设置敏感的方式格式化和解析日期。</p>
+<p>​    我们重点学习日期格式化和解析</p>
+</li>
+<li><p>SimpleDateFormat类构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public   SimpleDateFormat()</td>
+<td>构造一个SimpleDateFormat，使用默认模式和日期格式</td>
+</tr>
+<tr>
+<td>public SimpleDateFormat(String pattern)</td>
+<td>构造一个SimpleDateFormat使用给定的模式和默认的日期格式</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>SimpleDateFormat类的常用方法</p>
+<ul>
+<li>格式化(从Date到String)<ul>
+<li>public final String format(Date date)：将日期格式化成日期/时间字符串</li>
+</ul>
+</li>
+<li>解析(从String到Date)<ul>
+<li>public Date parse(String source)：从给定字符串的开始解析文本以生成日期</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<pre><code class="java">public class SimpleDateFormatDemo &#123;
+    public static void main(String[] args) throws ParseException &#123;
+        //格式化：从 Date 到 String
+        Date d = new Date();
+//        SimpleDateFormat sdf = new SimpleDateFormat();
+        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy年MM月dd日 HH:mm:ss&quot;);
+        String s = sdf.format(d);
+        System.out.println(s);
+        System.out.println(&quot;--------&quot;);
+
+        //从 String 到 Date
+        String ss = &quot;2048-08-09 11:11:11&quot;;
+        //ParseException
+        SimpleDateFormat sdf2 = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+        Date dd = sdf2.parse(ss);
+        System.out.println(dd);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h2 id="Calendar类"><a href="#Calendar类" class="headerlink" title="Calendar类"></a>Calendar类</h2><ul>
+<li><p>Calendar类概述</p>
+<p>​    Calendar 为特定瞬间与一组日历字段之间的转换提供了一些方法，并为操作日历字段提供了一些方法</p>
+<p>​    Calendar 提供了一个类方法 getInstance 用于获取这种类型的一般有用的对象。</p>
+<p>​    该方法返回一个Calendar 对象。</p>
+<p>​    其日历字段已使用当前日期和时间初始化：Calendar rightNow = Calendar.getInstance();</p>
+</li>
+<li><p>Calendar类常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public int   get(int field)</td>
+<td>返回给定日历字段的值</td>
+</tr>
+<tr>
+<td>public abstract void add(int   field, int amount)</td>
+<td>根据日历的规则，将指定的时间量添加或减去给定的日历字段</td>
+</tr>
+<tr>
+<td>public final void set(int year,int month,int date)</td>
+<td>设置当前日历的年月日</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>示例代码</p>
+<pre><code class="java">public class CalendarDemo &#123;
+    public static void main(String[] args) &#123;
+        // 获取日历类对象
+        Calendar c = Calendar.getInstance();
+
+        // public int get(int field):返回给定日历字段的值
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1;
+        int date = c.get(Calendar.DATE);
+        System.out.println(year + &quot;年&quot; + month + &quot;月&quot; + date + &quot;日&quot;);
+
+        // public abstract void add(int field, int amount):根据日历的规则，将指定的时间量添加或减去给定的日历字段
+        // 需求1:3年前的今天
+        c.add(Calendar.YEAR,-3);
+
+        // 需求2:10年后的10天前
+        c.add(Calendar.YEAR,10);
+        c.add(Calendar.DATE,-10);
+
+        //public final void set(int year,int month,int date):设置当前日历的年月日
+        c.set(2050,10,10);
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH) + 1;
+        date = c.get(Calendar.DATE);
+        System.out.println(year + &quot;年&quot; + month + &quot;月&quot; + date + &quot;日&quot;);
+
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
+<li><p>异常的概述</p>
+<p>​    异常就是程序出现了不正常的情况</p>
+</li>
+</ul>
+<h3 id="异常体系"><a href="#异常体系" class="headerlink" title="异常体系"></a>异常体系</h3><p>Throwable </p>
+<p>|–Exception : 程序本身可以处理的问题</p>
+<p>|    |–RuntimeException : 编译期不检查，出现问题再修改</p>
+<p>|    |–非RuntimeException: 编译期必须处理</p>
+<p>|–Error </p>
+<h3 id="try-catch方式处理异常"><a href="#try-catch方式处理异常" class="headerlink" title="try-catch方式处理异常"></a>try-catch方式处理异常</h3><ul>
+<li><p>定义格式</p>
+<pre><code class="java">try &#123;
+    可能出现异常的代码;
+&#125; catch(异常类名 变量名) &#123;
+    异常的处理代码;
+&#125;
+</code></pre>
+</li>
+<li><p>执行流程</p>
+<ul>
+<li>程序从 try 里面的代码开始执行</li>
+<li>出现异常，就会跳转到对应的 catch 里面去执行</li>
+<li>执行完毕之后，程序还可以继续往下执行</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">try &#123;
+    int[] arr = &#123;1, 2, 3&#125;;
+    System.out.println(arr[3]);
+&#125; catch (ArrayIndexOutOfBoundsException e) &#123;
+    e.printStackTrace();
+&#125; 
+</code></pre>
+<h3 id="Throwable成员方法"><a href="#Throwable成员方法" class="headerlink" title="Throwable成员方法"></a>Throwable成员方法</h3><ul>
+<li><p>常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public String getMessage()</td>
+<td>返回此 throwable 的详细消息字符串</td>
+</tr>
+<tr>
+<td>public String toString()</td>
+<td>返回此可抛出的简短描述</td>
+</tr>
+<tr>
+<td>public void printStackTrace()</td>
+<td>把异常的错误信息输出在控制台</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">e.getMessage();
+e.toString();
+e.printStackTrace();
+</code></pre>
+<h3 id="throws方式处理异常"><a href="#throws方式处理异常" class="headerlink" title="throws方式处理异常"></a>throws方式处理异常</h3><ul>
+<li><p>定义格式</p>
+<pre><code class="java">public void 方法() throws 异常类名 &#123;
+    
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><ul>
+<li><p>自定义异常类</p>
+<pre><code class="java">public class ScoreException extends Exception &#123;
+
+    public ScoreException() &#123;&#125;
+
+    public ScoreException(String message) &#123;
+        super(message);
+    &#125;
+
+&#125;
+
+// 使用时
+try &#123;
+    t.checkScore(score);
+&#125; catch (ScoreException e) &#123;
+    e.printStackTrace();
+&#125;
+</code></pre>
+</li>
+</ul>
+<h2 id="Collection集合"><a href="#Collection集合" class="headerlink" title="Collection集合"></a>Collection集合</h2><h3 id="集合体系结构"><a href="#集合体系结构" class="headerlink" title="集合体系结构"></a>集合体系结构</h3><ul>
+<li><p>集合类的特点</p>
+<p>​    提供一种存储空间可变的存储模型，存储的数据容量可以随时发生改变</p>
+</li>
+</ul>
+<p>|–集合</p>
+<p>|    |–Collection : 单列 - 接口</p>
+<p>|    |    |–List : 可重复 - 接口</p>
+<p>|    |    |    |–ArrayList</p>
+<p>|    |    |    |–LinkedList</p>
+<p>|    |    |–Set : 不可重复 - 接口</p>
+<p>|    |    |    |–HashSet</p>
+<p>|    |    |    |–TreeSet</p>
+<p>|    |–Map : 单列 - 接口</p>
+<h3 id="Collection集合概述和基本使用【应用】"><a href="#Collection集合概述和基本使用【应用】" class="headerlink" title="Collection集合概述和基本使用【应用】"></a>Collection集合概述和基本使用【应用】</h3><ul>
+<li><p>Collection集合概述</p>
+<ul>
+<li><p>是单例集合的顶层接口，它表示一组对象，这些对象也称为Collection的元素</p>
+</li>
+<li><p>JDK 不提供此接口的任何直接实现，它提供更具体的子接口（如Set和List）实现</p>
+</li>
+</ul>
+</li>
+<li><p>Collection集合基本使用</p>
+<pre><code class="java">// 创建Collection集合的对象
+Collection&lt;String&gt; c = new ArrayList&lt;String&gt;();
+
+// 添加元素：boolean add(E e)
+c.add(&quot;hello&quot;);
+c.add(&quot;world&quot;);
+c.add(&quot;java&quot;);
+
+// 输出集合对象
+System.out.println(c);
+</code></pre>
+</li>
+</ul>
+<h3 id="Collection集合的常用方法"><a href="#Collection集合的常用方法" class="headerlink" title="Collection集合的常用方法"></a>Collection集合的常用方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean add(E e)</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>boolean remove(Object o)</td>
+<td>从集合中移除指定的元素</td>
+</tr>
+<tr>
+<td>void   clear()</td>
+<td>清空集合中的元素</td>
+</tr>
+<tr>
+<td>boolean contains(Object o)</td>
+<td>判断集合中是否存在指定的元素</td>
+</tr>
+<tr>
+<td>boolean isEmpty()</td>
+<td>判断集合是否为空</td>
+</tr>
+<tr>
+<td>int   size()</td>
+<td>集合的长度，也就是集合中元素的个数</td>
+</tr>
+</tbody></table>
+<h3 id="Collection集合的遍历"><a href="#Collection集合的遍历" class="headerlink" title="Collection集合的遍历"></a>Collection集合的遍历</h3><p>迭代器的介绍</p>
+<ul>
+<li>迭代器，集合的专用遍历方式</li>
+<li>Iterator<E> iterator()：返回此集合中元素的迭代器，通过集合的iterator()方法得到</li>
+<li>迭代器是通过集合的iterator()方法得到的，所以我们说它是依赖于集合而存在的</li>
+</ul>
+<pre><code class="java">Collection&lt;String&gt; c = new ArrayList&lt;&gt;();
+// 添加元素
+c.add(&quot;hello&quot;);
+c.add(&quot;world&quot;);
+// Iterator&lt;E&gt; iterator()：返回此集合中元素的迭代器，通过集合的iterator()方法得到
+Iterator&lt;String&gt; it = c.iterator();
+
+// 用while循环改进元素的判断和获取
+while (it.hasNext()) &#123;
+   String s = it.next();
+   System.out.println(s);
+&#125;
+</code></pre>
+<h2 id="List集合"><a href="#List集合" class="headerlink" title="List集合"></a>List集合</h2><h3 id="List集合概述和特点"><a href="#List集合概述和特点" class="headerlink" title="List集合概述和特点"></a>List集合概述和特点</h3><ul>
+<li>List集合概述<ul>
+<li>有序集合(也称为序列)，用户可以精确控制列表中每个元素的插入位置。用户可以通过整数索引访问元素，并搜索列表中的元素</li>
+<li>与Set集合不同，列表通常允许重复的元素</li>
+</ul>
+</li>
+<li>List集合特点<ul>
+<li>有索引</li>
+<li>可以存储重复元素</li>
+<li>元素存取有序</li>
+</ul>
+</li>
+</ul>
+<h3 id="List集合的特有方法"><a href="#List集合的特有方法" class="headerlink" title="List集合的特有方法"></a>List集合的特有方法</h3><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void add(int index,E   element)</td>
+<td>在此集合中的指定位置插入指定的元素</td>
+</tr>
+<tr>
+<td>E remove(int   index)</td>
+<td>删除指定索引处的元素，返回被删除的元素</td>
+</tr>
+<tr>
+<td>E set(int index,E   element)</td>
+<td>修改指定索引处的元素，返回被修改的元素</td>
+</tr>
+<tr>
+<td>E get(int   index)</td>
+<td>返回指定索引处的元素</td>
+</tr>
+</tbody></table>
+<pre><code class="java">List&lt;Student&gt; list = new ArrayList&lt;&gt;();
+// 创建对象，并添加到集合
+Student s1 = new Student(&quot;xxx&quot;, 100);
+list.add(s1);
+
+// 遍历集合
+// 迭代器
+Iterator&lt;Student&gt; it = list.iterator();
+while(it.hasNext()) &#123;
+    Student s = it.next();
+    sout(s);
+&#125;
+
+// for 循环
+for(int i = 0; i &lt; list.size(); i ++) &#123;
+    Student st = list.get(i);
+    sout(st.getName, st.getAge());
+&#125;
+</code></pre>
+<h3 id="并发修改异常"><a href="#并发修改异常" class="headerlink" title="并发修改异常"></a>并发修改异常</h3><ul>
+<li><p>出现的原因</p>
+<p>​    迭代器遍历的过程中，通过集合对象修改了集合中的元素，造成了迭代器获取元素中判断预期修改值和实际修改值不一致，则会出现：ConcurrentModificationException</p>
+</li>
+<li><p>解决的方案</p>
+<p>​    用for循环遍历，然后用集合对象做对应的操作即可</p>
+</li>
+</ul>
+<h3 id="列表迭代器"><a href="#列表迭代器" class="headerlink" title="列表迭代器"></a>列表迭代器</h3><ul>
+<li><p>ListIterator介绍</p>
+<ul>
+<li>通过List集合的listIterator()方法得到，所以说它是List集合特有的迭代器</li>
+<li>用于允许程序员沿任一方向遍历的列表迭代器，在迭代期间修改列表，并获取列表中迭代器的当前位置</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">ListIterator&lt;String&gt; lit = list.listIterator();
+while(lit.hasNext()) &#123;
+    String s = lit.next();
+&#125;
+</code></pre>
+<h3 id="增强for循环【应用】"><a href="#增强for循环【应用】" class="headerlink" title="增强for循环【应用】"></a>增强for循环【应用】</h3><ul>
+<li><p>定义格式</p>
+<pre><code class="java">for(元素数据类型 变量名 : 数组/集合对象名) &#123;
+    循环体;
+&#125;
+</code></pre>
+</li>
+</ul>
+<pre><code class="java">// 数组
+int[] arr = &#123;1, 2, 3&#125;;
+for(int a : arr) &#123;
+    sout(a);
+&#125;
+// 集合
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+for(String s: list) &#123;
+    sout(s);
+&#125;
+</code></pre>
+<h3 id="LinkedList集合的特有功能"><a href="#LinkedList集合的特有功能" class="headerlink" title="LinkedList集合的特有功能"></a>LinkedList集合的特有功能</h3><ul>
+<li><p>特有方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public void addFirst(E e)</td>
+<td>在该列表开头插入指定的元素</td>
+</tr>
+<tr>
+<td>public void addLast(E e)</td>
+<td>将指定的元素追加到此列表的末尾</td>
+</tr>
+<tr>
+<td>public E getFirst()</td>
+<td>返回此列表中的第一个元素</td>
+</tr>
+<tr>
+<td>public   E getLast()</td>
+<td>返回此列表中的最后一个元素</td>
+</tr>
+<tr>
+<td>public E removeFirst()</td>
+<td>从此列表中删除并返回第一个元素</td>
+</tr>
+<tr>
+<td>public   E removeLast()</td>
+<td>从此列表中删除并返回最后一个元素</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h2><h3 id="Set集合概述和特点"><a href="#Set集合概述和特点" class="headerlink" title="Set集合概述和特点"></a>Set集合概述和特点</h3><ul>
+<li>Set集合的特点<ul>
+<li>元素存取无序</li>
+<li>没有索引、只能通过迭代器或增强for循环遍历</li>
+<li>不能存储重复元素</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">// 创建集合对象
+Set&lt;String&gt; set = new HashSet&lt;String&gt;();
+
+// 添加元素
+set.add(&quot;hello&quot;);
+set.add(&quot;world&quot;);
+set.add(&quot;java&quot;);
+// 不包含重复元素的集合
+set.add(&quot;world&quot;);
+
+// 遍历
+for(String s : set) &#123;
+    System.out.println(s);
+&#125;
+</code></pre>
+<h3 id="HashSet集合概述和特点【应用】"><a href="#HashSet集合概述和特点【应用】" class="headerlink" title="HashSet集合概述和特点【应用】"></a>HashSet集合概述和特点【应用】</h3><ul>
+<li><p>HashSet集合的特点</p>
+<ul>
+<li>底层数据结构是哈希表</li>
+<li>对集合的迭代顺序不作任何保证，也就是说不保证存储和取出的元素顺序一致</li>
+<li>没有带索引的方法，所以不能使用普通for循环遍历</li>
+<li>由于是Set集合，所以是不包含重复元素的集合</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">HashSet&lt;String&gt; hs = new HashSet&lt;&gt;();
+// 添加元素
+hs.add(&quot;hello&quot;);
+// 遍历
+for(String s : hs) &#123;
+    sout(s);
+&#125;
+</code></pre>
+<h3 id="HashSet集合保证元素唯一性的原理"><a href="#HashSet集合保证元素唯一性的原理" class="headerlink" title="HashSet集合保证元素唯一性的原理"></a>HashSet集合保证元素唯一性的原理</h3><p>​    1.根据对象的哈希值计算存储位置</p>
+<p>​            如果当前位置没有元素则直接存入</p>
+<p>​            如果当前位置有元素存在，则进入第二步</p>
+<p>​     2.当前元素的元素和已经存在的元素比较哈希值</p>
+<p>​            如果哈希值不同，则将当前元素进行存储</p>
+<p>​            如果哈希值相同，则进入第三步</p>
+<p>​     3.通过equals()方法比较两个元素的内容</p>
+<p>​            如果内容不相同，则将当前元素进行存储</p>
+<p>​            如果内容相同，则不存储当前元素</p>
+<h3 id="LinkedHashSet集合概述和特点"><a href="#LinkedHashSet集合概述和特点" class="headerlink" title="LinkedHashSet集合概述和特点"></a>LinkedHashSet集合概述和特点</h3><ul>
+<li><p>LinkedHashSet集合特点</p>
+<ul>
+<li>哈希表和链表实现的Set接口，具有可预测的迭代次序</li>
+<li>由链表保证元素有序，也就是说元素的存储和取出顺序是一致的</li>
+<li>由哈希表保证元素唯一，也就是说没有重复的元素</li>
+</ul>
+</li>
+</ul>
+<h2 id="Set集合排序"><a href="#Set集合排序" class="headerlink" title="Set集合排序"></a>Set集合排序</h2><h3 id="2-1TreeSet集合概述和特点【应用】"><a href="#2-1TreeSet集合概述和特点【应用】" class="headerlink" title="2.1TreeSet集合概述和特点【应用】"></a>2.1TreeSet集合概述和特点【应用】</h3><ul>
+<li><p>TreeSet集合概述</p>
+<ul>
+<li>元素有序，可以按照一定的规则进行排序，具体排序方式取决于构造方法<ul>
+<li>TreeSet()：根据其元素的自然排序进行排序</li>
+<li>TreeSet(Comparator comparator) ：根据指定的比较器进行排序</li>
+</ul>
+</li>
+<li>没有带索引的方法，所以不能使用普通for循环遍历</li>
+<li>由于是Set集合，所以不包含重复元素的集合</li>
+</ul>
+</li>
+</ul>
+<h3 id="自然排序Comparable的使用"><a href="#自然排序Comparable的使用" class="headerlink" title="自然排序Comparable的使用"></a>自然排序Comparable的使用</h3><ul>
+<li><p>案例需求</p>
+<ul>
+<li>存储学生对象并遍历，创建TreeSet集合使用无参构造方法</li>
+<li>要求：按照年龄从小到大排序，年龄相同时，按照姓名的字母顺序排序</li>
+</ul>
+</li>
+<li><p>实现步骤</p>
+<ul>
+<li>用TreeSet集合存储自定义对象，无参构造方法使用的是自然排序对元素进行排序的</li>
+<li>自然排序，就是让元素所属的类实现Comparable接口，重写compareTo(T o)方法</li>
+<li>重写方法时，一定要注意排序规则必须按照要求的主要条件和次要条件来写</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">public class Student implements Comparable&lt;Student&gt; 
+    
+@Override
+public int compareTo(Student s) &#123;
+//        return 0;
+//        return 1;
+//        return -1;
+    // 按照年龄从小到大排序
+    int num = this.age - s.age;
+//        int num = s.age - this.age;
+        //年龄相同时，按照姓名的字母顺序排序
+    int num2 = num == 0 ? this.name.compareTo(s.name) : num;
+    return num2;
+&#125;
+</code></pre>
+<h3 id="比较器排序Comparator的使用【应用】"><a href="#比较器排序Comparator的使用【应用】" class="headerlink" title="比较器排序Comparator的使用【应用】"></a>比较器排序Comparator的使用【应用】</h3><ul>
+<li><p>案例需求</p>
+<ul>
+<li>存储学生对象并遍历，创建TreeSet集合使用带参构造方法</li>
+<li>要求：按照年龄从小到大排序，年龄相同时，按照姓名的字母顺序排序</li>
+</ul>
+</li>
+<li><p>实现步骤</p>
+<ul>
+<li>用TreeSet集合存储自定义对象，带参构造方法使用的是比较器排序对元素进行排序的</li>
+<li>比较器排序，就是让集合构造方法接收Comparator的实现类对象，重写compare(T o1,T o2)方法</li>
+<li>重写方法时，一定要注意排序规则必须按照要求的主要条件和次要条件来写</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">// 创建集合对象
+TreeSet&lt;Student&gt; ts = new TreeSet&lt;Student&gt;(new Comparator&lt;Student&gt;() &#123;
+      @Override
+      public int compare(Student s1, Student s2) &#123;
+      // this.age - s.age
+      // s1,s2
+      int num = s1.getAge() - s2.getAge();
+      int num2 = num == 0 ? s1.getName().compareTo(s2.getName()) : num;
+      return num2;
+    &#125;
+&#125;);
+</code></pre>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>

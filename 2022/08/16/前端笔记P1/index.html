@@ -476,6 +476,13 @@ ui li&#123;
 //or
 document.documentElement.setAttribute(&quot;color-theme&quot;, &quot;light&quot;);
 </code></pre>
+<h4 id="隐藏滚动条"><a href="#隐藏滚动条" class="headerlink" title="隐藏滚动条"></a>隐藏滚动条</h4><pre><code class="css">scrollbar-width: none; /* firefox */
+-ms-overflow-style: none; /* IE 10+ */
+
+.HWcontrol::-webkit-scrollbar &#123;
+  display: none; /* Chrome Safari */
+&#125;
+</code></pre>
 <h2 id="js部分："><a href="#js部分：" class="headerlink" title="js部分："></a>js部分：</h2><h4 id="存储函数："><a href="#存储函数：" class="headerlink" title="存储函数："></a>存储函数：</h4><pre><code class="js">(function (w) &#123;
         var isSupportLocalStorage = !!window.localStorage, isSupportBehavior = false;
         if (!isSupportLocalStorage) &#123;

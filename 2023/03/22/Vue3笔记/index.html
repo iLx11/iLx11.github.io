@@ -371,6 +371,14 @@ proxy.name = &#39;tom&#39;
     fullName3.value = user.firstName + &#39;-&#39; + user.lastName
 &#125;) 
 </code></pre>
+<h3 id="对reactive数据的某个属性进行监听"><a href="#对reactive数据的某个属性进行监听" class="headerlink" title="对reactive数据的某个属性进行监听"></a>对reactive数据的某个属性进行监听</h3><h4 id="对某个属性进行监听"><a href="#对某个属性进行监听" class="headerlink" title="对某个属性进行监听"></a>对某个属性进行监听</h4><pre><code class="ts">watch(()=&gt;person.name,(newValue,oldValue)=&gt;&#123;
+    console.log(newValue,oldValue);
+&#125;,&#123;immediate:true,deep:true&#125;)
+</code></pre>
+<h4 id="对两个及以上的reactive属性进行监听"><a href="#对两个及以上的reactive属性进行监听" class="headerlink" title="对两个及以上的reactive属性进行监听"></a>对两个及以上的reactive属性进行监听</h4><pre><code class="ts">watch([()=&gt;person.name,()=&gt;person.age],(newValue,oldValue)=&gt;&#123;
+    console.log(newValue,oldValue);
+&#125;,&#123;immediate:true,deep:true&#125;)
+</code></pre>
 <h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p><strong>与 2.x 版本生命周期相对应的组合式 API</strong></p>
 <ul>
 <li><code>beforeCreate</code> -&gt; 使用 <code>setup()</code></li>
@@ -565,6 +573,11 @@ function userDevouncedRef&lt;T&gt;(value: T, dalay = 200) &#123;
     const emits = defineEmits([&#39;method&#39;])
     emits(&#39;method&#39;, params)
 &lt;/script&gt;
+</code></pre>
+<h3 id="子组件默认不对外暴露数据，我们需要用到defineExpose"><a href="#子组件默认不对外暴露数据，我们需要用到defineExpose" class="headerlink" title="子组件默认不对外暴露数据，我们需要用到defineExpose({})"></a>子组件默认不对外暴露数据，我们需要用到defineExpose({})</h3><p>子组件对外暴露之后，父组件才能调用</p>
+<pre><code class="ts">defineExpose(&#123;
+  list2
+&#125;)
 </code></pre>
 <h2 id="provide-与-inject"><a href="#provide-与-inject" class="headerlink" title="provide 与 inject"></a>provide 与 inject</h2><p>provide<code>和</code>inject<code>提供依赖注入，功能类似 2.x 的</code>provide/inject</p>
 <h4 id="实现跨层级组件-祖孙-间通信"><a href="#实现跨层级组件-祖孙-间通信" class="headerlink" title="实现跨层级组件(祖孙)间通信"></a>实现跨层级组件(祖孙)间通信</h4><pre><code class="ts">// 父组件
