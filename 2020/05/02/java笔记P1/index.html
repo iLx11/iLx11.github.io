@@ -180,7 +180,7 @@
     <div class="post-main">
         
             <div class="post-main-title">
-                java笔记
+                java笔记P1
             </div>
             <div class="post-meta">
                 2020-05-02
@@ -1696,7 +1696,7 @@ public int compareTo(Student s) &#123;
     return num2;
 &#125;
 </code></pre>
-<h3 id="比较器排序Comparator的使用【应用】"><a href="#比较器排序Comparator的使用【应用】" class="headerlink" title="比较器排序Comparator的使用【应用】"></a>比较器排序Comparator的使用【应用】</h3><ul>
+<h3 id="比较器排序Comparator的使用"><a href="#比较器排序Comparator的使用" class="headerlink" title="比较器排序Comparator的使用"></a>比较器排序Comparator的使用</h3><ul>
 <li><p>案例需求</p>
 <ul>
 <li>存储学生对象并遍历，创建TreeSet集合使用带参构造方法</li>
@@ -1722,6 +1722,314 @@ TreeSet&lt;Student&gt; ts = new TreeSet&lt;Student&gt;(new Comparator&lt;Student
       return num2;
     &#125;
 &#125;);
+</code></pre>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><ul>
+<li><p>泛型定义格式</p>
+<ul>
+<li>&lt;类型&gt;：指定一种类型的格式。这里的类型可以看成是形参</li>
+<li>&lt;类型1,类型2…&gt;：指定多种类型的格式，多种类型之间用逗号隔开。这里的类型可以看成是形参</li>
+<li>将来具体调用时候给定的类型可以看成是实参，并且实参的类型只能是引用数据类型</li>
+</ul>
+</li>
+<li><p>泛型的好处</p>
+<ul>
+<li>把运行时期的问题提前到了编译期间</li>
+<li>避免了强制类型转换</li>
+</ul>
+</li>
+</ul>
+<h3 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h3><p>定义格式</p>
+<pre><code class="java">修饰符 class 类名&lt;类型&gt; &#123;  &#125;
+</code></pre>
+<p>示例代码泛型类</p>
+<pre><code class="java">public class Generic&lt;T&gt; &#123;
+    private T t;
+
+    public T getT() &#123;
+        return t;
+    &#125;
+
+    public void setT(T t) &#123;
+        this.t = t;
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java"> Generic&lt;String&gt; g1 = new Generic&lt;String&gt;();
+</code></pre>
+<h3 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h3><ul>
+<li><p>定义格式</p>
+<pre><code class="java">修饰符 &lt;类型&gt; 返回值类型 方法名(类型 变量名) &#123;  &#125;
+</code></pre>
+</li>
+<li><p>示例代码</p>
+<ul>
+<li><p>带有泛型方法的类</p>
+<pre><code class="java">public class Generic &#123;
+    public &lt;T&gt; void show(T t) &#123;
+        System.out.println(t);
+    &#125;
+&#125;
+</code></pre>
+<pre><code class="java">Generic g = new Generic();
+g.show(&quot;hello&quot;);
+g.show(12);
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h3><ul>
+<li><p>定义格式</p>
+<pre><code class="java">修饰符 interface 接口名&lt;类型&gt; &#123;  &#125;
+</code></pre>
+</li>
+<li><p>示例代码</p>
+<ul>
+<li><p>泛型接口</p>
+<pre><code class="java">public interface Generic&lt;T&gt; &#123;
+    void show(T t);
+&#125;
+</code></pre>
+</li>
+<li><p>泛型接口实现类</p>
+<pre><code class="java">public class GenericImpl&lt;T&gt; implements Generic&lt;T&gt; &#123;
+    @Override
+    public void show(T t) &#123;
+        System.out.println(t);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="类型通配符"><a href="#类型通配符" class="headerlink" title="类型通配符"></a>类型通配符</h3><ul>
+<li><p>类型通配符的作用</p>
+<p>​    为了表示各种泛型List的父类，可以使用类型通配符    </p>
+</li>
+<li><p>类型通配符的分类</p>
+<ul>
+<li>类型通配符：&lt;?&gt;<ul>
+<li>List&lt;?&gt;：表示元素类型未知的List，它的元素可以匹配任何的类型</li>
+<li>这种带通配符的List仅表示它是各种泛型List的父类，并不能把元素添加到其中</li>
+</ul>
+</li>
+<li>类型通配符上限：&lt;? extends 类型&gt;<ul>
+<li>List&lt;? extends Number&gt;：它表示的类型是Number或者其子类型</li>
+</ul>
+</li>
+<li>类型通配符下限：&lt;? super 类型&gt;<ul>
+<li>List&lt;? super Number&gt;：它表示的类型是Number或者其父类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>类型通配符的基本使用</p>
+<pre><code class="java">public class GenericDemo &#123;
+    public static void main(String[] args) &#123;
+        //类型通配符：&lt;?&gt;
+        List&lt;?&gt; list1 = new ArrayList&lt;Object&gt;();
+        List&lt;?&gt; list2 = new ArrayList&lt;Number&gt;();
+        List&lt;?&gt; list3 = new ArrayList&lt;Integer&gt;();
+        System.out.println(&quot;--------&quot;);
+
+        //类型通配符上限：&lt;? extends 类型&gt;
+//        List&lt;? extends Number&gt; list4 = new ArrayList&lt;Object&gt;();
+        List&lt;? extends Number&gt; list5 = new ArrayList&lt;Number&gt;();
+        List&lt;? extends Number&gt; list6 = new ArrayList&lt;Integer&gt;();
+        System.out.println(&quot;--------&quot;);
+
+        //类型通配符下限：&lt;? super 类型&gt;
+        List&lt;? super Number&gt; list7 = new ArrayList&lt;Object&gt;();
+        List&lt;? super Number&gt; list8 = new ArrayList&lt;Number&gt;();
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><h3 id="可变参数-1"><a href="#可变参数-1" class="headerlink" title="可变参数"></a>可变参数</h3><ul>
+<li><p>可变参数介绍</p>
+<p>​    可变参数又称参数个数可变，用作方法的形参出现，那么方法参数个数就是可变的了</p>
+</li>
+<li><p>可变参数定义格式</p>
+<pre><code class="java">修饰符 返回值类型 方法名(数据类型… 变量名) &#123;  &#125;
+</code></pre>
+</li>
+<li><p>可变参数的注意事项</p>
+<ul>
+<li>这里的变量其实是一个数组</li>
+<li>如果一个方法有多个参数，包含可变参数，可变参数要放在最后</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">sum(10,20,30,40,50,60,70,80,90,100)
+
+public static int sum(int... a) &#123;
+   int sum = 0;
+   for(int i : a) &#123;
+       sum += i;
+   &#125;
+   return sum;
+&#125;   
+</code></pre>
+<h2 id="Map-集合"><a href="#Map-集合" class="headerlink" title="Map 集合"></a>Map 集合</h2><p>Map集合的特点</p>
+<ul>
+<li>键值对映射关系</li>
+<li>一个键对应一个值</li>
+<li>键不能重复，值可以重复</li>
+<li>元素存取无序</li>
+</ul>
+<pre><code class="java">public class MapDemo01 &#123;
+    public static void main(String[] args) &#123;
+        //创建集合对象
+        Map&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();
+
+        //V put(K key, V value) 将指定的值与该映射中的指定键相关联
+        map.put(&quot;itheima001&quot;,&quot;林青霞&quot;);
+
+        //输出集合对象
+        System.out.println(map);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Map集合的基本功能"><a href="#Map集合的基本功能" class="headerlink" title="Map集合的基本功能"></a>Map集合的基本功能</h3><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V   put(K key,V   value)</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>V   remove(Object key)</td>
+<td>根据键删除键值对元素</td>
+</tr>
+<tr>
+<td>void   clear()</td>
+<td>移除所有的键值对元素</td>
+</tr>
+<tr>
+<td>boolean containsKey(Object key)</td>
+<td>判断集合是否包含指定的键</td>
+</tr>
+<tr>
+<td>boolean containsValue(Object value)</td>
+<td>判断集合是否包含指定的值</td>
+</tr>
+<tr>
+<td>boolean isEmpty()</td>
+<td>判断集合是否为空</td>
+</tr>
+<tr>
+<td>int size()</td>
+<td>集合的长度，也就是集合中键值对的个数</td>
+</tr>
+</tbody></table>
+<h3 id="Map集合的获取功能"><a href="#Map集合的获取功能" class="headerlink" title="Map集合的获取功能"></a>Map集合的获取功能</h3><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>V   get(Object key)</td>
+<td>根据键获取值</td>
+</tr>
+<tr>
+<td>Set<K>   keySet()</td>
+<td>获取所有键的集合</td>
+</tr>
+<tr>
+<td>Collection<V>   values()</td>
+<td>获取所有值的集合</td>
+</tr>
+<tr>
+<td>Set&lt;Map.Entry&lt;K,V&gt;&gt;   entrySet()</td>
+<td>获取所有键值对对象的集合</td>
+</tr>
+</tbody></table>
+<pre><code class="java">// Set&lt;K&gt; keySet():获取所有键的集合
+Set&lt;String&gt; keySet = map.keySet();
+for(String key : keySet) &#123;
+    System.out.println(key);
+&#125;
+</code></pre>
+<h3 id="Map集合的遍历"><a href="#Map集合的遍历" class="headerlink" title="Map集合的遍历"></a>Map集合的遍历</h3><h4 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h4><pre><code class="java">Set&lt;String&gt; keySet = map.keySet();
+// 增强for
+for(String key : keySet) &#123;
+    String value = map.get(key);
+    sout(key + &quot;:&quot; + value)
+&#125;
+</code></pre>
+<h4 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h4><ul>
+<li>获取所有键值对对象的集合<ul>
+<li>Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet()：获取所有键值对对象的集合</li>
+</ul>
+</li>
+<li>遍历键值对对象的集合，得到每一个键值对对象<ul>
+<li>用增强for实现，得到每一个Map.Entry</li>
+</ul>
+</li>
+<li>根据键值对对象获取键和值<ul>
+<li>用getKey()得到键</li>
+<li>用getValue()得到值</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">// 获取键值对对象集合
+Set&lt;Map.Entry&lt;String, String&gt;&gt; entrySet = map.entrySet();
+for(Map.Entry&lt;String, String&gt; me: entrySet) &#123;
+    String key = me.getKey();
+    String value = me.getValue();
+&#125;
+</code></pre>
+<h2 id="Collections集合工具类"><a href="#Collections集合工具类" class="headerlink" title="Collections集合工具类"></a>Collections集合工具类</h2><h3 id="Collections概述和使用"><a href="#Collections概述和使用" class="headerlink" title="Collections概述和使用"></a>Collections概述和使用</h3><ul>
+<li><p>Collections类的作用</p>
+<p>​    是针对集合操作的工具类</p>
+</li>
+<li><p>Collections类常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public static void sort(List<T> list)</td>
+<td>将指定的列表按升序排序</td>
+</tr>
+<tr>
+<td>public static void reverse(List&lt;?&gt; list)</td>
+<td>反转指定列表中元素的顺序</td>
+</tr>
+<tr>
+<td>public static void shuffle(List&lt;?&gt; list)</td>
+<td>使用默认的随机源随机排列指定的列</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// 创建集合
+List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+
+Collections.sort(list, new Comparator&lt;Student&gt;() &#123;
+    @Override
+    public int compare(Student s1, Student s2) &#123;
+     // 按照年龄从小到大排序，年龄相同时，按照姓名的字母顺序排序
+    int num = s1.getAge() - s2.getAge();
+    int num2 = num == 0 ? s1.getName().compareTo(s2.getName()) : num;
+    return num2;
+  &#125;
+&#125;);
+Collections.reverse(list);
+Collections.shuffle(list);
 </code></pre>
 
                 </div>

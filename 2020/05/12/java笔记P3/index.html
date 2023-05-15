@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                java笔记P3
+            </div>
+            <div class="post-meta">
+                2020-05-12
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h2 id="Stream流"><a href="#Stream流" class="headerlink" title="Stream流"></a>Stream流</h2><p>按照下面的要求完成集合的创建和遍历</p>
+<ul>
+<li>创建一个集合，存储多个字符串元素</li>
+<li>把集合中所有以”张”开头的元素存储到一个新的集合</li>
+<li>把”张”开头的集合中的长度为3的元素存储到一个新的集合</li>
+<li>遍历上一步得到的集合</li>
+</ul>
+<pre><code class="java">// 创建一个集合，存储多个字符串元素
+ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+
+//Stream流来改进
+list.stream().filter(s -&gt; s.startsWith(&quot;张&quot;)).filter(s -&gt; s.length() == 3).forEach(System.out::println);
+</code></pre>
+<p>Stream流的好处</p>
+<ul>
+<li><p>直接阅读代码的字面意思即可完美展示无关逻辑方式的语义：获取流、过滤姓张、过滤长度为3、逐一打印</p>
+</li>
+<li><p>Stream流把真正的函数式编程风格引入到Java中</p>
+</li>
+</ul>
+<h2 id="Stream流的常见生成方式"><a href="#Stream流的常见生成方式" class="headerlink" title="Stream流的常见生成方式"></a>Stream流的常见生成方式</h2><p>生成Stream流的方式</p>
+<ul>
+<li><p>Collection体系集合</p>
+<p>使用默认方法stream()生成流， default Stream<E> stream()</p>
+</li>
+<li><p>Map体系集合</p>
+<p>把Map转成Set集合，间接的生成流</p>
+</li>
+<li><p>数组</p>
+<p>通过Stream接口的静态方法of(T… values)生成流</p>
+</li>
+</ul>
+<pre><code class="java">//Collection体系的集合可以使用默认方法stream()生成流
+        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+        Stream&lt;String&gt; listStream = list.stream();
+
+        Set&lt;String&gt; set = new HashSet&lt;String&gt;();
+        Stream&lt;String&gt; setStream = set.stream();
+
+        //Map体系的集合间接的生成流
+        Map&lt;String,Integer&gt; map = new HashMap&lt;String, Integer&gt;();
+        Stream&lt;String&gt; keyStream = map.keySet().stream();
+        Stream&lt;Integer&gt; valueStream = map.values().stream();
+        Stream&lt;Map.Entry&lt;String, Integer&gt;&gt; entryStream = map.entrySet().stream();
+
+        //数组可以通过Stream接口的静态方法of(T... values)生成流
+        String[] strArray = &#123;&quot;hello&quot;,&quot;world&quot;,&quot;java&quot;&#125;;
+        Stream&lt;String&gt; strArrayStream = Stream.of(strArray);
+        Stream&lt;String&gt; strArrayStream2 = Stream.of(&quot;hello&quot;, &quot;world&quot;, &quot;java&quot;);
+        Stream&lt;Integer&gt; intStream = Stream.of(10, 20, 30);
+</code></pre>
+<h3 id="Stream流中间操作方法"><a href="#Stream流中间操作方法" class="headerlink" title="Stream流中间操作方法"></a>Stream流中间操作方法</h3><p>概念</p>
+<ul>
+<li><p>中间操作的意思是，执行完此方法之后，Stream流依然可以继续执行其他操作。</p>
+</li>
+<li><p>常见方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Stream<T> filter(Predicate predicate)</td>
+<td>用于对流中的数据进行过滤</td>
+</tr>
+<tr>
+<td>Stream<T> limit(long maxSize)</td>
+<td>返回此流中的元素组成的流，截取前指定参数个数的数据</td>
+</tr>
+<tr>
+<td>Stream<T> skip(long n)</td>
+<td>跳过指定参数个数的数据，返回由该流的剩余元素组成的流</td>
+</tr>
+<tr>
+<td>static <T> Stream<T> concat(Stream a, Stream b)</td>
+<td>合并a和b两个流为一个流</td>
+</tr>
+<tr>
+<td>Stream<T> distinct()</td>
+<td>返回由该流的不同元素（根据Object.equals(Object) ）组成的流</td>
+</tr>
+<tr>
+<td>Stream<T> sorted()</td>
+<td>返回由此流的元素组成的流，根据自然顺序排序</td>
+</tr>
+<tr>
+<td>Stream<T> sorted(Comparator comparator)</td>
+<td>返回由该流的元素组成的流，根据提供的Comparator进行排序</td>
+</tr>
+<tr>
+<td><R> Stream<R> map(Function mapper)</td>
+<td>返回由给定函数应用于此流的元素的结果组成的流</td>
+</tr>
+<tr>
+<td>IntStream mapToInt(ToIntFunction mapper)</td>
+<td>返回一个IntStream其中包含将给定函数应用于此流的元素的结果</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// sorted代码演示
+// 按照字符串长度把数据在控制台输出
+        list.stream().sorted((s1,s2) -&gt; &#123;
+            int num = s1.length()-s2.length();
+            int num2 = num==0?s1.compareTo(s2):num;
+            return num2;
+        &#125;).forEach(System.out::println);
+
+// map&amp;mapToInt代码演示
+//int sum() 返回此流中元素的总和
+        int result = list.stream().mapToInt(Integer::parseInt).sum();
+        System.out.println(result);
+</code></pre>
+<h3 id="Stream流终结操作方法"><a href="#Stream流终结操作方法" class="headerlink" title="Stream流终结操作方法"></a>Stream流终结操作方法</h3><ul>
+<li><p>概念</p>
+<p>终结操作的意思是，执行完此方法之后，Stream流将不能再执行其他操作。</p>
+</li>
+<li><p>常见方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void forEach(Consumer action)</td>
+<td>对此流的每个元素执行操作</td>
+</tr>
+<tr>
+<td>long count()</td>
+<td>返回此流中的元素数</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h3><ul>
+<li><p>男演员只要名字为3个字的前三人</p>
+</li>
+<li><p>女演员只要姓林的，并且不要第一个</p>
+</li>
+<li><p>把过滤后的男演员姓名和女演员姓名合并到一起</p>
+</li>
+<li><p>把上一步操作后的元素作为构造方法的参数创建演员对象,遍历数据</p>
+</li>
+</ul>
+<pre><code class="java"> Stream.concat(manList.stream().filter(s -&gt; s.length() == 3).limit(3),
+                womanList.stream().filter(s -&gt; s.startsWith(&quot;林&quot;)).skip(1)).map(Actor::new).
+                forEach(p -&gt; System.out.println(p.getName()));
+</code></pre>
+<h3 id="Stream流的收集操作【"><a href="#Stream流的收集操作【" class="headerlink" title="Stream流的收集操作【"></a>Stream流的收集操作【</h3><ul>
+<li><p>概念</p>
+<p>对数据使用Stream流的方式操作完毕后，可以把流中的数据收集到集合中。</p>
+</li>
+<li><p>常用方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R collect(Collector collector)</td>
+<td>把结果收集到集合中</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>工具类Collectors提供了具体的收集方式</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public static <T> Collector toList()</td>
+<td>把元素收集到List集合中</td>
+</tr>
+<tr>
+<td>public static <T> Collector toSet()</td>
+<td>把元素收集到Set集合中</td>
+</tr>
+<tr>
+<td>public static  Collector toMap(Function keyMapper,Function valueMapper)</td>
+<td>把元素收集到Map集合中</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// 得到名字为3个字的流
+Stream&lt;String&gt; listStream = list.stream().filter(s -&gt; s.length() == 3);
+
+// 把使用Stream流操作完毕的数据收集到List集合中并遍历
+List&lt;String&gt; names = listStream.collect(Collectors.toList());
+
+Set&lt;Integer&gt; ages = setStream.collect(Collectors.toSet());
+
+Map&lt;String, Integer&gt; map = arrayStream.collect(Collectors.toMap(s -&gt; s.split(&quot;,&quot;)[0], s -&gt; Integer.parseInt(s.split(&quot;,&quot;)[1])));
+</code></pre>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><h4 id="类加载器的作用"><a href="#类加载器的作用" class="headerlink" title="类加载器的作用"></a>类加载器的作用</h4><ul>
+<li>负责将.class文件加载到内存中，并为之生成对应的 java.lang.Class 对象。虽然我们不用过分关心类加载机制，但是了解这个机制我们就能更好的理解程序的运行！    </li>
+</ul>
+<h4 id="JVM的类加载机制"><a href="#JVM的类加载机制" class="headerlink" title="JVM的类加载机制"></a>JVM的类加载机制</h4><ul>
+<li>全盘负责：就是当一个类加载器负责加载某个Class时，该Class所依赖的和引用的其他Class也将由该类加载器负责载入，除非显示使用另外一个类加载器来载入</li>
+<li>父类委托：就是当一个类加载器负责加载某个Class时，先让父类加载器试图加载该Class，只有在父类加载器无法加载该类时才尝试从自己的类路径中加载该类</li>
+<li>缓存机制：保证所有加载过的Class都会被缓存，当程序需要使用某个Class对象时，类加载器先从缓存区中搜索该Class，只有当缓存区中不存在该Class对象时，系统才会读取该类对应的二进制数据，并将其转换成Class对象，存储到缓存区</li>
+</ul>
+<h4 id="Java中的内置类加载器"><a href="#Java中的内置类加载器" class="headerlink" title="Java中的内置类加载器"></a>Java中的内置类加载器</h4><ul>
+<li>Bootstrap class loader：它是虚拟机的内置类加载器，通常表示为null ，并且没有父null</li>
+<li>Platform class loader：平台类加载器可以看到所有平台类 ，平台类包括由平台类加载器或其祖先定义的Java SE平台API，其实现类和JDK特定的运行时类</li>
+<li>System class loader：它也被称为应用程序类加载器 ，与平台类加载器不同。 系统类加载器通常用于定义应用程序类路径，模块路径和JDK特定工具上的类</li>
+<li>类加载器的继承关系：System的父加载器为Platform，而Platform的父加载器为Bootstrap</li>
+</ul>
+<h4 id="ClassLoader-中的两个方法"><a href="#ClassLoader-中的两个方法" class="headerlink" title="ClassLoader 中的两个方法"></a>ClassLoader 中的两个方法</h4><ul>
+<li><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static ClassLoader getSystemClassLoader()</td>
+<td>返回用于委派的系统类加载器</td>
+</tr>
+<tr>
+<td>ClassLoader getParent()</td>
+<td>返回父类加载器进行委派</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">ClassLoader c = ClassLoader.getSystemClassLoader();
+System.out.println(c); //AppClassLoader
+
+// ClassLoader getParent()：返回父类加载器进行委派
+ClassLoader c2 = c.getParent();
+System.out.println(c2); //PlatformClassLoader
+</code></pre>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><h3 id="反射的概述"><a href="#反射的概述" class="headerlink" title="反射的概述"></a>反射的概述</h3><ul>
+<li>是指在运行时去获取一个类的变量和方法信息。然后通过获取到的信息来创建对象，调用方法的一种机制。由于这种动态性，可以极大的增强程序的灵活性，程序不用在编译期就完成确定，在运行期仍然可以扩展</li>
+</ul>
+<h3 id="获取Class类对象的三种方式"><a href="#获取Class类对象的三种方式" class="headerlink" title="获取Class类对象的三种方式"></a>获取Class类对象的三种方式</h3><h4 id="三种方式分类"><a href="#三种方式分类" class="headerlink" title="三种方式分类"></a>三种方式分类</h4><ul>
+<li>类名.class属性</li>
+<li>对象名.getClass()方法</li>
+<li>Class.forName(全类名)方法</li>
+</ul>
+<pre><code class="java">//使用类的class属性来获取该类对应的Class对象
+        Class&lt;Student&gt; c1 = Student.class;
+        System.out.println(c1);
+
+        Class&lt;Student&gt; c2 = Student.class;
+        System.out.println(c1 == c2);
+        System.out.println(&quot;--------&quot;);
+
+        //调用对象的getClass()方法，返回该对象所属类对应的Class对象
+        Student s = new Student();
+        Class&lt;? extends Student&gt; c3 = s.getClass();
+        System.out.println(c1 == c3);
+        System.out.println(&quot;--------&quot;);
+
+        //使用Class类中的静态方法forName(String className)
+        Class&lt;?&gt; c4 = Class.forName(&quot;com.itheima_02.Student&quot;);
+        System.out.println(c1 == c4);
+</code></pre>
+<h3 id="反射获取构造方法并使用"><a href="#反射获取构造方法并使用" class="headerlink" title="反射获取构造方法并使用"></a>反射获取构造方法并使用</h3><h4 id="Class类获取构造方法对象的方法"><a href="#Class类获取构造方法对象的方法" class="headerlink" title="Class类获取构造方法对象的方法"></a>Class类获取构造方法对象的方法</h4><ul>
+<li><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Constructor&lt;?&gt;[] getConstructors()</td>
+<td>返回所有公共构造方法对象的数组</td>
+</tr>
+<tr>
+<td>Constructor&lt;?&gt;[] getDeclaredConstructors()</td>
+<td>返回所有构造方法对象的数组</td>
+</tr>
+<tr>
+<td>Constructor<T> getConstructor(Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个公共构造方法对象</td>
+</tr>
+<tr>
+<td>Constructor<T> getDeclaredConstructor(Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个构造方法对象</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">Class&lt;?&gt; c = Class.forName(&quot;com.colorful.Student&quot;);
+Constructor&lt;?&gt;[] cons = c.getDeclaredConstructors();
+for(Constructor con : cons) &#123;&#125;
+
+// Constructor提供了一个类的单个构造函数的信息和访问权限
+Constructor&lt;?&gt; con = c.getConstructor();
+
+// T newInstance(Object... initargs) 使用由此 Constructor对象表示的构造函数，使用指定的初始化参数来创建和初始化构造函数的声明类的新实例
+Object obj = con.newInstance();
+</code></pre>
+<h4 id="Constructor类用于创建对象的方法"><a href="#Constructor类用于创建对象的方法" class="headerlink" title="Constructor类用于创建对象的方法"></a>Constructor类用于创建对象的方法</h4><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T newInstance(Object…initargs)</td>
+<td>根据指定的构造方法创建对象</td>
+</tr>
+</tbody></table>
+<pre><code class="java">// 反射获取构造方法
+
+// 公有构造方法
+// ----------------------------------------------
+Constructor&lt;?&gt; con = c.getConstructor(String.class, int.class, String.class);
+
+Object obj = con.newInstance(&quot;林青霞&quot;, 30, &quot;西安&quot;);
+
+// 获取私有构造方法
+// ----------------------------------------------
+ Constructor&lt;?&gt; con = c.getDeclaredConstructor(String.class);
+
+// 暴力反射
+// public void setAccessible(boolean flag):值为true，取消访问检查
+con.setAccessible(true);
+
+Object obj = con.newInstance(&quot;林青霞&quot;);
+</code></pre>
+<h3 id="反射获取成员变量并使用"><a href="#反射获取成员变量并使用" class="headerlink" title="反射获取成员变量并使用"></a>反射获取成员变量并使用</h3><h4 id="Class类获取成员变量对象的方法"><a href="#Class类获取成员变量对象的方法" class="headerlink" title="Class类获取成员变量对象的方法"></a>Class类获取成员变量对象的方法</h4><ul>
+<li><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Field[] getFields()</td>
+<td>返回所有公共成员变量对象的数组</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredFields()</td>
+<td>返回所有成员变量对象的数组</td>
+</tr>
+<tr>
+<td>Field getField(String name)</td>
+<td>返回单个公共成员变量对象</td>
+</tr>
+<tr>
+<td>Field getDeclaredField(String name)</td>
+<td>返回单个成员变量对象</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="Field类用于给成员变量赋值的方法"><a href="#Field类用于给成员变量赋值的方法" class="headerlink" title="Field类用于给成员变量赋值的方法"></a>Field类用于给成员变量赋值的方法</h4><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void set(Object obj,Object value)</td>
+<td>给obj对象的成员变量赋值为value</td>
+</tr>
+</tbody></table>
+<pre><code class="java">
+// 获取Class对象
+Class&lt;?&gt; c = Class.forName(&quot;com.itheima_02.Student&quot;);
+
+Field[] fields = c.getDeclaredFields();
+for(Field field : fields) &#123;
+    System.out.println(field);
+&#125;
+
+Field addressField = c.getField(&quot;address&quot;);
+
+// 获取无参构造方法创建对象
+Constructor&lt;?&gt; con = c.getConstructor();
+Object obj = con.newInstance();
+
+// obj.addressField = &quot;西安&quot;;
+
+// Field提供有关类或接口的单个字段的信息和动态访问
+// void set(Object obj, Object value) 将指定的对象参数中由此 Field对象表示的字段设置为指定的新值
+addressField.set(obj,&quot;西安&quot;); //给obj的成员变量
+</code></pre>
+<h3 id="反射获取成员方法并使用"><a href="#反射获取成员方法并使用" class="headerlink" title="反射获取成员方法并使用"></a>反射获取成员方法并使用</h3><h4 id="Class类获取成员方法对象的方法"><a href="#Class类获取成员方法对象的方法" class="headerlink" title="Class类获取成员方法对象的方法"></a>Class类获取成员方法对象的方法</h4><ul>
+<li><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method[] getMethods()</td>
+<td>返回所有公共成员方法对象的数组，包括继承的</td>
+</tr>
+<tr>
+<td>Method[] getDeclaredMethods()</td>
+<td>返回所有成员方法对象的数组，不包括继承的</td>
+</tr>
+<tr>
+<td>Method getMethod(String name, Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个公共成员方法对象</td>
+</tr>
+<tr>
+<td>Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)</td>
+<td>返回单个成员方法对象</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="Method类用于执行方法的方法"><a href="#Method类用于执行方法的方法" class="headerlink" title="Method类用于执行方法的方法"></a>Method类用于执行方法的方法</h4><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Object invoke(Object obj,Object… args)</td>
+<td>调用obj对象的成员方法，参数是args,返回值是Object类型</td>
+</tr>
+</tbody></table>
+<pre><code class="java">// 获取Class对象
+Class&lt;?&gt; c = Class.forName(&quot;com.itheima_02.Student&quot;);
+
+// 返回一个包含 方法对象的数组
+Method[] methods = c.getDeclaredMethods();
+for(Method method : methods) &#123;
+    System.out.println(method);
+&#125;
+
+// public void method1()
+Method m = c.getMethod(&quot;method1&quot;);
+
+// 获取无参构造方法创建对象
+Constructor&lt;?&gt; con = c.getConstructor();
+Object obj = con.newInstance();
+
+// 在类或接口上提供有关单一方法的信息和访问权限
+// Object invoke(Object obj, Object... args) 在具有指定参数的指定对象上调用此 方法对象表示的基础方法
+// Object：返回值类型
+// obj：调用方法的对象
+// args：方法需要的参数
+m.invoke(obj);
+</code></pre>
+<h3 id="越过泛型检查"><a href="#越过泛型检查" class="headerlink" title="越过泛型检查"></a>越过泛型检查</h3><pre><code class="java">        // 创建集合
+        ArrayList&lt;Integer&gt; array = new ArrayList&lt;Integer&gt;();
+
+        Class&lt;? extends ArrayList&gt; c = array.getClass();
+        Method m = c.getMethod(&quot;add&quot;, Object.class);
+
+        m.invoke(array,&quot;hello&quot;);
+        m.invoke(array,&quot;world&quot;);
+        m.invoke(array,&quot;java&quot;);
+</code></pre>
+<h3 id="运行配置文件中指定类的指定方法"><a href="#运行配置文件中指定类的指定方法" class="headerlink" title="运行配置文件中指定类的指定方法"></a>运行配置文件中指定类的指定方法</h3><pre><code class="java">// 加载数据
+/*
+      className=com.itheima_06.Student
+      methodName=study
+*/
+Properties prop = new Properties();
+FileReader fr = new FileReader(&quot;myReflect\\class.txt&quot;);
+prop.load(fr);
+fr.close();
+
+String className = prop.getProperty(&quot;className&quot;);
+String methodName = prop.getProperty(&quot;methodName&quot;);
+
+// 通过反射来使用
+Class&lt;?&gt; c = Class.forName(className);
+
+Constructor&lt;?&gt; con = c.getConstructor();
+ Object obj = con.newInstance();
+
+Method m = c.getMethod(methodName);//study
+m.invoke(obj);
+</code></pre>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>

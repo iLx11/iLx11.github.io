@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                java笔记P2
+            </div>
+            <div class="post-meta">
+                2020-05-03
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h2 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h2><h3 id="File类概述和构造方法"><a href="#File类概述和构造方法" class="headerlink" title="File类概述和构造方法"></a>File类概述和构造方法</h3><ul>
+<li><p>File类介绍</p>
+<ul>
+<li>它是文件和目录路径名的抽象表示</li>
+<li>文件和目录是可以通过File封装成对象的</li>
+<li>对于File而言，其封装的并不是一个真正存在的文件，仅仅是一个路径名而已。它可以是存在的，也可以是不存在的。将来是要通过具体的操作把这个路径的内容转换为具体存在的</li>
+</ul>
+</li>
+<li><p>File类的构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>File(String   pathname)</td>
+<td>通过将给定的路径名字符串转换为抽象路径名来创建新的 File实例</td>
+</tr>
+<tr>
+<td>File(String   parent, String child)</td>
+<td>从父路径名字符串和子路径名字符串创建新的   File实例</td>
+</tr>
+<tr>
+<td>File(File   parent, String child)</td>
+<td>从父抽象路径名和子路径名字符串创建新的   File实例</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">File f1 = new File(&quot;E:\\test\\java.txt&quot;);
+File f2 = new File(&quot;E:\\test&quot;, &quot;java.txt&quot;);
+File f3 = new File(&quot;E:\\test&quot;);
+File f4 = new File(f3,&quot;java.txt&quot;);
+</code></pre>
+<h3 id="File类创建功能"><a href="#File类创建功能" class="headerlink" title="File类创建功能"></a>File类创建功能</h3><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public boolean createNewFile()</td>
+<td>当具有该名称的文件不存在时，创建一个由该抽象路径名命名的新空文件</td>
+</tr>
+<tr>
+<td>public boolean mkdir()</td>
+<td>创建由此抽象路径名命名的目录</td>
+</tr>
+<tr>
+<td>public boolean mkdirs()</td>
+<td>创建由此抽象路径名命名的目录，包括任何必需但不存在的父目录</td>
+</tr>
+</tbody></table>
+<h3 id="File类判断和获取功能"><a href="#File类判断和获取功能" class="headerlink" title="File类判断和获取功能"></a>File类判断和获取功能</h3><p>判断功能</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public   boolean isDirectory()</td>
+<td>测试此抽象路径名表示的File是否为目录</td>
+</tr>
+<tr>
+<td>public   boolean isFile()</td>
+<td>测试此抽象路径名表示的File是否为文件</td>
+</tr>
+<tr>
+<td>public   boolean   exists()</td>
+<td>测试此抽象路径名表示的File是否存在</td>
+</tr>
+</tbody></table>
+<p>获取功能</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public   String getAbsolutePath()</td>
+<td>返回此抽象路径名的绝对路径名字符串</td>
+</tr>
+<tr>
+<td>public   String getPath()</td>
+<td>将此抽象路径名转换为路径名字符串</td>
+</tr>
+<tr>
+<td>public   String getName()</td>
+<td>返回由此抽象路径名表示的文件或目录的名称</td>
+</tr>
+<tr>
+<td>public   String[] list()</td>
+<td>返回此抽象路径名表示的目录中的文件和目录的名称字符串数组</td>
+</tr>
+<tr>
+<td>public   File[] listFiles()</td>
+<td>返回此抽象路径名表示的目录中的文件和目录的File对象数组</td>
+</tr>
+</tbody></table>
+<pre><code class="java">// 获取文件名
+String[] strArray = f2.list();
+for(String str : strArray) &#123;
+   System.out.println(str);
+&#125;
+// 获取文件对象
+File[] fileArray = f2.listFiles();
+for(File file : fileArray) &#123;
+    if(file.isFile()) &#123;
+        sout(file.getName());
+    &#125;
+&#125;
+</code></pre>
+<h3 id="File类删除功能"><a href="#File类删除功能" class="headerlink" title="File类删除功能"></a>File类删除功能</h3><p>方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public boolean   delete()</td>
+<td>删除由此抽象路径名表示的文件或目录</td>
+</tr>
+</tbody></table>
+<h2 id="IO流"><a href="#IO流" class="headerlink" title="IO流"></a>IO流</h2><h3 id="IO流概述和分类"><a href="#IO流概述和分类" class="headerlink" title="IO流概述和分类"></a>IO流概述和分类</h3><ul>
+<li>IO流介绍<ul>
+<li>IO：输入/输出(Input/Output)</li>
+<li>流：是一种抽象概念，是对数据传输的总称。也就是说数据在设备间的传输称为流，流的本质是数据传输</li>
+<li>IO流就是用来处理设备间数据传输问题的。常见的应用：文件复制；文件上传；文件下载</li>
+</ul>
+</li>
+<li>IO流的分类<ul>
+<li>按照数据的流向<ul>
+<li>输入流：读数据</li>
+<li>输出流：写数据</li>
+</ul>
+</li>
+<li>按照数据类型来分<ul>
+<li>字节流<ul>
+<li>字节输入流</li>
+<li>字节输出流</li>
+</ul>
+</li>
+<li>字符流<ul>
+<li>字符输入流</li>
+<li>字符输出流</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IO流的使用场景<ul>
+<li>如果操作的是纯文本文件，优先使用字符流</li>
+<li>如果操作的是图片、视频、音频等二进制文件。优先使用字节流</li>
+<li>如果不确定文件类型，优先使用字节流。字节流是万能的流</li>
+</ul>
+</li>
+</ul>
+<h3 id="字节流写数据"><a href="#字节流写数据" class="headerlink" title="字节流写数据"></a>字节流写数据</h3><ul>
+<li><p>字节流抽象基类</p>
+<ul>
+<li>InputStream：这个抽象类是表示字节输入流的所有类的超类</li>
+<li>OutputStream：这个抽象类是表示字节输出流的所有类的超类</li>
+<li>子类名特点：子类名称都是以其父类名作为子类名的后缀</li>
+</ul>
+</li>
+<li><p>字节输出流</p>
+<ul>
+<li>FileOutputStream(String name)：创建文件输出流以指定的名称写入文件</li>
+</ul>
+</li>
+<li><p>使用字节输出流写数据的步骤</p>
+<ul>
+<li>创建字节输出流对象(调用系统功能创建了文件，创建字节输出流对象，让字节输出流对象指向文件)</li>
+<li>调用字节输出流对象的写数据方法</li>
+<li>释放资源(关闭此文件输出流并释放与此流相关联的任何系统资源)</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FileOutputStream(String name)</td>
+<td>创建文件输出流以指定的名称写入文件</td>
+</tr>
+<tr>
+<td>void close()</td>
+<td>关闭此文件输出流并释放与此流相关联的任何系统资源。</td>
+</tr>
+<tr>
+<td>void write(int b)</td>
+<td>将指定的字节写入此文件输出流</td>
+</tr>
+</tbody></table>
+<pre><code class="java">FileOutputStream fos = new FileOutputStream();
+fos.wirte(97);
+fos.close();
+</code></pre>
+<h3 id="字节流写数据的三种方式"><a href="#字节流写数据的三种方式" class="headerlink" title="字节流写数据的三种方式"></a>字节流写数据的三种方式</h3><p>写数据的方法分类</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void   write(int b)</td>
+<td>将指定的字节写入此文件输出流   一次写一个字节数据</td>
+</tr>
+<tr>
+<td>void   write(byte[] b)</td>
+<td>将 b.length字节从指定的字节数组写入此文件输出流   一次写一个字节数组数据</td>
+</tr>
+<tr>
+<td>void   write(byte[] b, int off, int len)</td>
+<td>将 len字节从指定的字节数组开始，从偏移量off开始写入此文件输出流   一次写一个字节数组的部分数据</td>
+</tr>
+</tbody></table>
+<h3 id="字节流写数据的两个小问题"><a href="#字节流写数据的两个小问题" class="headerlink" title="字节流写数据的两个小问题"></a>字节流写数据的两个小问题</h3><ul>
+<li><p>字节流写数据如何实现换行</p>
+<ul>
+<li>windows:\r\n</li>
+<li>linux:\n</li>
+<li>mac:\r</li>
+</ul>
+</li>
+<li><p>字节流写数据如何实现追加写入</p>
+<ul>
+<li>public FileOutputStream(String name,boolean append)</li>
+<li>创建文件输出流以指定的名称写入文件。如果第二个参数为true ，则字节将写入文件的末尾而不是开头</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">FileOutputStream fos = new FileOutputStream(&quot;myByteStream\\fos.txt&quot;,true);
+// 写数据
+for (int i = 0; i &lt; 10; i++) &#123;
+    fos.write(&quot;hello&quot;.getBytes());
+    fos.write(&quot;\r\n&quot;.getBytes());
+&#125;
+fos.close();
+</code></pre>
+<h3 id="字节流读数据-一次读一个字节数据"><a href="#字节流读数据-一次读一个字节数据" class="headerlink" title="字节流读数据(一次读一个字节数据)"></a>字节流读数据(一次读一个字节数据)</h3><ul>
+<li><p>字节输入流</p>
+<ul>
+<li>FileInputStream(String name)：通过打开与实际文件的连接来创建一个FileInputStream ，该文件由文件系统中的路径名name命名</li>
+</ul>
+</li>
+<li><p>字节输入流读取数据的步骤</p>
+<ul>
+<li>创建字节输入流对象</li>
+<li>调用字节输入流对象的读数据方法</li>
+<li>释放资源</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FileInputStream(String name)</td>
+<td>创建字节输入流对象</td>
+</tr>
+<tr>
+<td>void close()</td>
+<td>关闭此文件输出流并释放与此流相关联的任何系统资源。</td>
+</tr>
+<tr>
+<td>void read()</td>
+<td>读数据</td>
+</tr>
+</tbody></table>
+<pre><code class="java">int by;
+while ((by=fis.read())!=-1) &#123;
+   System.out.print((char)by);
+&#125;
+fis.close();
+</code></pre>
+<h3 id="字节流读数据-一次读一个字节数组数据"><a href="#字节流读数据-一次读一个字节数组数据" class="headerlink" title="字节流读数据(一次读一个字节数组数据)"></a>字节流读数据(一次读一个字节数组数据)</h3><ul>
+<li><p>一次读一个字节数组的方法</p>
+<ul>
+<li>public int read(byte[] b)：从输入流读取最多b.length个字节的数据</li>
+<li>返回的是读入缓冲区的总字节数,也就是实际的读取字节个数</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">byte[] bys = new byte[1024]; // 1024及其整数倍
+int len;
+while ((len=fis.read(bys))!=-1) &#123;
+   System.out.print(new String(bys,0,len));
+&#125;
+// 释放资源
+fis.close();
+</code></pre>
+<h2 id="字节缓冲流"><a href="#字节缓冲流" class="headerlink" title="字节缓冲流"></a>字节缓冲流</h2><h3 id="字节缓冲流构造方法"><a href="#字节缓冲流构造方法" class="headerlink" title="字节缓冲流构造方法"></a>字节缓冲流构造方法</h3><ul>
+<li><p>字节缓冲流介绍</p>
+<ul>
+<li>lBufferOutputStream：该类实现缓冲输出流。 通过设置这样的输出流，应用程序可以向底层输出流写入字节，而不必为写入的每个字节导致底层系统的调用</li>
+<li>lBufferedInputStream：创建BufferedInputStream将创建一个内部缓冲区数组。 当从流中读取或跳过字节时，内部缓冲区将根据需要从所包含的输入流中重新填充，一次很多字节</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BufferedOutputStream(OutputStream out)</td>
+<td>创建字节缓冲输出流对象</td>
+</tr>
+<tr>
+<td>BufferedInputStream(InputStream in)</td>
+<td>创建字节缓冲输入流对象</td>
+</tr>
+</tbody></table>
+<pre><code class="java">BufferedOutputStream bos = new BufferedOutputStream(new    FileOutputStream(&quot;myByteStream\\bos.txt&quot;));
+// 写数据
+bos.write(&quot;hello\r\n&quot;.getBytes());
+bos.write(&quot;world\r\n&quot;.getBytes());
+// 释放资源
+bos.close();
+
+byte[] bys = new byte[1024];
+int len;
+while ((len=fis.read(bys))!=-1) &#123;
+   fos.write(bys,0,len);
+&#125;
+</code></pre>
+<h2 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h2><h3 id="为什么会出现字符流"><a href="#为什么会出现字符流" class="headerlink" title="为什么会出现字符流"></a>为什么会出现字符流</h3><ul>
+<li><p>字符流的介绍</p>
+<p>由于字节流操作中文不是特别的方便，所以Java就提供字符流</p>
+<p>字符流 = 字节流 + 编码表</p>
+</li>
+<li><p>中文的字节存储方式</p>
+<p>用字节流复制文本文件时，文本文件也会有中文，但是没有问题，原因是最终底层操作会自动进行字节拼接成中文，如何识别是中文的呢？</p>
+<p>汉字在存储的时候，无论选择哪种编码存储，第一个字节都是负数</p>
+</li>
+</ul>
+<h3 id="字符串中的编码解码问题"><a href="#字符串中的编码解码问题" class="headerlink" title="字符串中的编码解码问题"></a>字符串中的编码解码问题</h3><ul>
+<li><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte[] getBytes()</td>
+<td>使用平台的默认字符集将该 String编码为一系列字节</td>
+</tr>
+<tr>
+<td>byte[] getBytes(String charsetName)</td>
+<td>使用指定的字符集将该 String编码为一系列字节</td>
+</tr>
+<tr>
+<td>String(byte[] bytes)</td>
+<td>使用平台的默认字符集解码指定的字节数组来创建字符串</td>
+</tr>
+<tr>
+<td>String(byte[] bytes, String charsetName)</td>
+<td>通过指定的字符集解码指定的字节数组来创建字符串</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// 定义一个字符串
+String s = &quot;中国&quot;;
+
+byte[] bys = s.getBytes(); //[-28, -72, -83, -27, -101, -67]
+byte[] bys = s.getBytes(&quot;UTF-8&quot;); //[-28, -72, -83, -27, -101, -67]
+byte[] bys = s.getBytes(&quot;GBK&quot;); //[-42, -48, -71, -6]
+System.out.println(Arrays.toString(bys));
+
+String ss = new String(bys);
+String ss = new String(bys,&quot;UTF-8&quot;);
+String ss = new String(bys,&quot;GBK&quot;);
+System.out.println(ss);
+</code></pre>
+<h3 id="字符流中的编码解码问题"><a href="#字符流中的编码解码问题" class="headerlink" title="字符流中的编码解码问题"></a>字符流中的编码解码问题</h3><ul>
+<li><p>字符流中和编码解码问题相关的两个类</p>
+<ul>
+<li><p>InputStreamReader：是从字节流到字符流的桥梁</p>
+<p>​    它读取字节，并使用指定的编码将其解码为字符</p>
+<p>​    它使用的字符集可以由名称指定，也可以被明确指定，或者可以接受平台的默认字符集</p>
+</li>
+<li><p>OutputStreamWriter：是从字符流到字节流的桥梁</p>
+<p>​    是从字符流到字节流的桥梁，使用指定的编码将写入的字符编码为字节</p>
+<p>​    它使用的字符集可以由名称指定，也可以被明确指定，或者可以接受平台的默认字符集</p>
+</li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>InputStreamReader(InputStream in)</td>
+<td>使用默认字符编码创建InputStreamReader对象</td>
+</tr>
+<tr>
+<td>InputStreamReader(InputStream in,String chatset)</td>
+<td>使用指定的字符编码创建InputStreamReader对象</td>
+</tr>
+<tr>
+<td>OutputStreamWriter(OutputStream out)</td>
+<td>使用默认字符编码创建OutputStreamWriter对象</td>
+</tr>
+<tr>
+<td>OutputStreamWriter(OutputStream out,String charset)</td>
+<td>使用指定的字符编码创建OutputStreamWriter对象</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">OutputStreamWriter osw = new OutputStreamWriter(new                 FileOutputStream(&quot;myCharStream\\osw.txt&quot;),&quot;GBK&quot;);
+osw.write(&quot;中国&quot;);
+osw.close();
+
+InputStreamReader isr = new InputStreamReader(new                   FileInputStream(&quot;myCharStream\\osw.txt&quot;),&quot;GBK&quot;);
+//一次读取一个字符数据
+int ch;
+while ((ch=isr.read())!=-1) &#123;
+    System.out.print((char)ch);
+&#125;
+isr.close();
+</code></pre>
+<h3 id="字符流写数据的5种方式"><a href="#字符流写数据的5种方式" class="headerlink" title="字符流写数据的5种方式"></a>字符流写数据的5种方式</h3><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void   write(int c)</td>
+<td>写一个字符</td>
+</tr>
+<tr>
+<td>void   write(char[] cbuf)</td>
+<td>写入一个字符数组</td>
+</tr>
+<tr>
+<td>void write(char[] cbuf, int off, int len)</td>
+<td>写入字符数组的一部分</td>
+</tr>
+<tr>
+<td>void write(String str)</td>
+<td>写一个字符串</td>
+</tr>
+<tr>
+<td>void write(String str, int off, int len)</td>
+<td>写一个字符串的一部分</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>刷新和关闭的方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>flush()</td>
+<td>刷新流，之后还可以继续写数据</td>
+</tr>
+<tr>
+<td>close()</td>
+<td>关闭流，释放资源，但是在关闭之前会先刷新流。一旦关闭，就不能再写数据</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="字符流读数据的2种方式"><a href="#字符流读数据的2种方式" class="headerlink" title="字符流读数据的2种方式"></a>字符流读数据的2种方式</h3><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int read()</td>
+<td>一次读一个字符数据</td>
+</tr>
+<tr>
+<td>int read(char[] cbuf)</td>
+<td>一次读一个字符数组数据</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="字符缓冲流"><a href="#字符缓冲流" class="headerlink" title="字符缓冲流"></a>字符缓冲流</h3><ul>
+<li><p>字符缓冲流介绍</p>
+<ul>
+<li><p>BufferedWriter：将文本写入字符输出流，缓冲字符，以提供单个字符，数组和字符串的高效写入，可以指定缓冲区大小，或者可以接受默认大小。默认值足够大，可用于大多数用途</p>
+</li>
+<li><p>BufferedReader：从字符输入流读取文本，缓冲字符，以提供字符，数组和行的高效读取，可以指定缓冲区大小，或者可以使用默认大小。 默认值足够大，可用于大多数用途</p>
+</li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BufferedWriter(Writer out)</td>
+<td>创建字符缓冲输出流对象</td>
+</tr>
+<tr>
+<td>BufferedReader(Reader in)</td>
+<td>创建字符缓冲输入流对象</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// BufferedWriter(Writer out)
+// 根据数据源创建字符输出流对象
+BufferedWriter bw = new BufferedWriter(new                                                           FileWriter(&quot;myCharStream\\bw.txt&quot;));
+bw.write(&quot;hello\r\n&quot;);
+bw.write(&quot;world\r\n&quot;);
+bw.close();
+</code></pre>
+<h3 id="字符缓冲流特有功能"><a href="#字符缓冲流特有功能" class="headerlink" title="字符缓冲流特有功能"></a>字符缓冲流特有功能</h3><ul>
+<li><p>方法介绍</p>
+<p>BufferedWriter：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void newLine()</td>
+<td>写一行行分隔符，行分隔符字符串由系统属性定义</td>
+</tr>
+</tbody></table>
+<p>BufferedReader:</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String readLine()</td>
+<td>读一行文字。 结果包含行的内容的字符串，不包括任何行终止字符如果流的结尾已经到达，则为null</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// 写数据
+for (int i = 0; i &lt; 10; i++) &#123;
+    bw.write(&quot;hello&quot; + i);
+    //bw.write(&quot;\r\n&quot;);
+    bw.newLine();
+    bw.flush();
+&#125;
+
+// 读数据
+String line;
+    while ((line=br.readLine())!=null) &#123;
+    System.out.println(line);
+&#125;
+br.close();
+</code></pre>
+<h2 id="复制文件异常"><a href="#复制文件异常" class="headerlink" title="复制文件异常"></a>复制文件异常</h2><pre><code class="java">    // JDK9的改进方案
+    private static void method4() throws IOException &#123;
+        FileReader fr = new FileReader(&quot;fr.txt&quot;);
+        FileWriter fw = new FileWriter(&quot;fw.txt&quot;);
+        try(fr;fw)&#123;
+            char[] chs = new char[1024];
+            int len;
+            while ((len = fr.read()) != -1) &#123;
+                fw.write(chs, 0, len);
+            &#125;
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+</code></pre>
+<h2 id="IO特殊操作流"><a href="#IO特殊操作流" class="headerlink" title="IO特殊操作流"></a>IO特殊操作流</h2><h3 id="标准输入流"><a href="#标准输入流" class="headerlink" title="标准输入流"></a>标准输入流</h3><ul>
+<li><p>System类中有两个静态的成员变量</p>
+<ul>
+<li>public static final InputStream in：标准输入流。通常该流对应于键盘输入或由主机环境或用户指定的另一个输入源</li>
+<li>public static final PrintStream out：标准输出流。通常该流对应于显示输出或由主机环境或用户指定的另一个输出目标</li>
+</ul>
+</li>
+<li><p>自己实现键盘录入数据</p>
+<pre><code class="java">public class SystemInDemo &#123;
+    public static void main(String[] args) throws IOException &#123;
+        // public static final InputStream in：标准输入流
+        // InputStream is = System.in;
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println(&quot;请输入一个字符串：&quot;);
+        String line = br.readLine();
+        System.out.println(&quot;你输入的字符串是：&quot; + line);
+
+        System.out.println(&quot;请输入一个整数：&quot;);
+        int i = Integer.parseInt(br.readLine());
+        System.out.println(&quot;你输入的整数是：&quot; + i);
+
+        // 自己实现键盘录入数据太麻烦了，所以Java就提供了一个类供我们使用
+        Scanner sc = new Scanner(System.in);
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id="标准输出流"><a href="#标准输出流" class="headerlink" title="标准输出流"></a>标准输出流</h3><ul>
+<li><p>System类中有两个静态的成员变量</p>
+<ul>
+<li>public static final InputStream in：标准输入流。通常该流对应于键盘输入或由主机环境或用户指定的另一个输入源</li>
+<li>public static final PrintStream out：标准输出流。通常该流对应于显示输出或由主机环境或用户指定的另一个输出目标</li>
+</ul>
+</li>
+<li><p>输出语句的本质：是一个标准的输出流</p>
+<ul>
+<li>PrintStream ps = System.out;</li>
+<li>PrintStream类有的方法，System.out都可以使用</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<pre><code class="java">public class SystemOutDemo &#123;
+    public static void main(String[] args) &#123;
+        // public static final PrintStream out：标准输出流
+        PrintStream ps = System.out;
+
+        //能够方便地打印各种数据值
+//        ps.print(&quot;hello&quot;);
+//        ps.print(100);
+
+//        ps.println(&quot;hello&quot;);
+//        ps.println(100);
+
+        // System.out的本质是一个字节输出流
+        System.out.println(&quot;hello&quot;);
+        System.out.println(100);
+
+        System.out.println();
+//        System.out.print();
+    &#125;
+&#125;
+</code></pre>
+</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="字符打印流"><a href="#字符打印流" class="headerlink" title="字符打印流"></a>字符打印流</h3><ul>
+<li><p>字符打印流构造房方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PrintWriter(String   fileName)</td>
+<td>使用指定的文件名创建一个新的PrintWriter，而不需要自动执行刷新</td>
+</tr>
+<tr>
+<td>PrintWriter(Writer   out, boolean autoFlush)</td>
+<td>创建一个新的PrintWriter    out：字符输出流    autoFlush： 一个布尔值，如果为真，则println ， printf ，或format方法将刷新输出缓冲区</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// 读写数据，复制文件, 不需要执行刷新
+String line;
+while ((line=br.readLine())!=null) &#123;
+    pw.println(line);
+&#125;
+</code></pre>
+<h3 id="对象序列化流"><a href="#对象序列化流" class="headerlink" title="对象序列化流"></a>对象序列化流</h3><ul>
+<li><p>对象序列化介绍</p>
+<ul>
+<li>对象序列化：就是将对象保存到磁盘中，或者在网络中传输对象</li>
+<li>这种机制就是使用一个字节序列表示一个对象，该字节序列包含：对象的类型、对象的数据和对象中存储的属性等信息</li>
+<li>字节序列写到文件之后，相当于文件中持久保存了一个对象的信息</li>
+<li>反之，该字节序列还可以从文件中读取回来，重构对象，对它进行反序列化</li>
+</ul>
+</li>
+<li><p>对象序列化流： ObjectOutputStream</p>
+<ul>
+<li>将Java对象的原始数据类型和图形写入OutputStream。 可以使用ObjectInputStream读取（重构）对象。 可以通过使用流的文件来实现对象的持久存储。 如果流是网络套接字流，则可以在另一个主机上或另一个进程中重构对象 </li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ObjectOutputStream(OutputStream out)</td>
+<td>创建一个写入指定的OutputStream的ObjectOutputStream</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>序列化对象的方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void writeObject(Object obj)</td>
+<td>将指定的对象写入ObjectOutputStream</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(&quot;myOtherStream\\oos.txt&quot;));
+
+// 创建对象
+Student s = new Student(&quot;林青霞&quot;,30);
+
+// void writeObject(Object obj)：将指定的对象写入ObjectOutputStream
+oos.writeObject(s);
+
+// 释放资源
+oos.close();
+</code></pre>
+<ul>
+<li><p>注意事项</p>
+<ul>
+<li>一个对象要想被序列化，该对象所属的类必须必须实现Serializable 接口</li>
+<li>Serializable是一个标记接口，实现该接口，不需要重写任何方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="对象反序列化流"><a href="#对象反序列化流" class="headerlink" title="对象反序列化流"></a>对象反序列化流</h3><ul>
+<li><p>对象反序列化流： ObjectInputStream</p>
+<ul>
+<li>ObjectInputStream反序列化先前使用ObjectOutputStream编写的原始数据和对象</li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ObjectInputStream(InputStream in)</td>
+<td>创建从指定的InputStream读取的ObjectInputStream</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>反序列化对象的方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Object readObject()</td>
+<td>从ObjectInputStream读取一个对象</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// ObjectInputStream(InputStream in)：创建从指定的InputStream读取的ObjectInputStream
+ObjectInputStream ois = new ObjectInputStream(new FileInputStream(&quot;myOtherStream\\oos.txt&quot;));
+
+// Object readObject()：从ObjectInputStream读取一个对象
+Object obj = ois.readObject();
+ 
+Student s = (Student) obj;
+System.out.println(s.getName() + &quot;,&quot; + s.getAge());
+
+ois.close();
+</code></pre>
+<h3 id="serialVersionUID-amp-transient"><a href="#serialVersionUID-amp-transient" class="headerlink" title="serialVersionUID&amp;transient"></a>serialVersionUID&amp;transient</h3><ul>
+<li><p>serialVersionUID</p>
+<ul>
+<li>用对象序列化流序列化了一个对象后，假如我们修改了对象所属的类文件，读取数据会不会出问题呢？<ul>
+<li>会出问题，会抛出InvalidClassException异常</li>
+</ul>
+</li>
+<li>如果出问题了，如何解决呢？<ul>
+<li>重新序列化</li>
+<li>给对象所属的类加一个serialVersionUID <ul>
+<li>private static final long serialVersionUID = 42L;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>transient</p>
+<ul>
+<li>如果一个对象中的某个成员变量的值不想被序列化，又该如何实现呢？<ul>
+<li>给该成员变量加transient关键字修饰，该关键字标记的成员变量不参与序列化过程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">public class Student implements Serializable &#123;
+    private static final long serialVersionUID = 42L;
+    private String name;
+//    private int age;
+    private transient int age;
+&#125;
+</code></pre>
+<h2 id="Properties集合"><a href="#Properties集合" class="headerlink" title="Properties集合"></a>Properties集合</h2><h3 id="Properties作为Map集合的使用"><a href="#Properties作为Map集合的使用" class="headerlink" title="Properties作为Map集合的使用"></a>Properties作为Map集合的使用</h3><p>Properties介绍</p>
+<ul>
+<li>是一个Map体系的集合类</li>
+<li>Properties可以保存到流中或从流中加载</li>
+<li>属性列表中的每个键及其对应的值都是一个字符串</li>
+</ul>
+<pre><code class="java">Properties prop = new Properties();
+// 存储元素
+prop.put(&quot;itheima001&quot;, &quot;林青霞&quot;);
+// 遍历集合
+Set&lt;Object&gt; keySet = prop.keySet();
+for (Object key : keySet) &#123;
+    Object value = prop.get(key);
+    System.out.println(key + &quot;,&quot; + value);
+&#125;
+</code></pre>
+<h3 id="Properties作为Map集合的特有方法"><a href="#Properties作为Map集合的特有方法" class="headerlink" title="Properties作为Map集合的特有方法"></a>Properties作为Map集合的特有方法</h3><p>特有方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Object   setProperty(String key, String value)</td>
+<td>设置集合的键和值，都是String类型，底层调用   Hashtable方法 put</td>
+</tr>
+<tr>
+<td>String   getProperty(String key)</td>
+<td>使用此属性列表中指定的键搜索属性</td>
+</tr>
+<tr>
+<td>Set<String>   stringPropertyNames()</td>
+<td>从该属性列表中返回一个不可修改的键集，其中键及其对应的值是字符串</td>
+</tr>
+</tbody></table>
+<pre><code class="java">// 创建集合对象
+Properties prop = new Properties();
+
+// 设置集合的键和值，都是String类型，底层调用Hashtable方法put
+prop.setProperty(&quot;itheima001&quot;, &quot;林青霞&quot;);
+
+//Set&lt;String&gt; stringPropertyNames()：从该属性列表中返回一个不可修改的键集，其中键及其对应的值是字符串
+Set&lt;String&gt; names = prop.stringPropertyNames();
+for (String key : names) &#123;
+//   System.out.println(key);
+     String value = prop.getProperty(key);
+     System.out.println(key + &quot;,&quot; + value);
+&#125;
+</code></pre>
+<h3 id="Properties和IO流相结合的方法"><a href="#Properties和IO流相结合的方法" class="headerlink" title="Properties和IO流相结合的方法"></a>Properties和IO流相结合的方法</h3><p>和IO流结合的方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void   load(InputStream inStream)</td>
+<td>从输入字节流读取属性列表（键和元素对）</td>
+</tr>
+<tr>
+<td>void   load(Reader reader)</td>
+<td>从输入字符流读取属性列表（键和元素对）</td>
+</tr>
+<tr>
+<td>void   store(OutputStream out, String comments)</td>
+<td>将此属性列表（键和元素对）写入此   Properties表中，以适合于使用   load(InputStream)方法的格式写入输出字节流</td>
+</tr>
+<tr>
+<td>void   store(Writer writer, String comments)</td>
+<td>将此属性列表（键和元素对）写入此   Properties表中，以适合使用   load(Reader)方法的格式写入输出字符流</td>
+</tr>
+</tbody></table>
+<pre><code class="java">private static void myLoad() throws IOException &#123;
+        Properties prop = new Properties();
+
+        //void load(Reader reader)：
+        FileReader fr = new FileReader(&quot;myOtherStream\\fw.txt&quot;);
+        prop.load(fr);
+        fr.close();
+
+        System.out.println(prop);
+&#125;
+
+private static void myStore() throws IOException &#123;
+        Properties prop = new Properties();
+
+        prop.setProperty(&quot;itheima003&quot;,&quot;王祖贤&quot;);
+
+        //void store(Writer writer, String comments)：
+        FileWriter fw = new FileWriter(&quot;myOtherStream\\fw.txt&quot;);
+        prop.store(fw,null);
+        fw.close();
+&#125;
+</code></pre>
+<h2 id="实现多线程"><a href="#实现多线程" class="headerlink" title="实现多线程"></a>实现多线程</h2><h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><ul>
+<li><p>进程：是正在运行的程序</p>
+<p>​    是系统进行资源分配和调用的独立单位</p>
+<p>​    每一个进程都有它自己的内存空间和系统资源</p>
+</li>
+<li><p>线程：是进程中的单个顺序控制流，是一条执行路径</p>
+<p>​    单线程：一个进程如果只有一条执行路径，则称为单线程程序</p>
+<p>​    多线程：一个进程如果有多条执行路径，则称为多线程程序</p>
+</li>
+</ul>
+<h3 id="实现多线程方式一：继承Thread类"><a href="#实现多线程方式一：继承Thread类" class="headerlink" title="实现多线程方式一：继承Thread类"></a>实现多线程方式一：继承Thread类</h3><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void run()</td>
+<td>在线程开启后，此方法将被调用执行</td>
+</tr>
+<tr>
+<td>void start()</td>
+<td>使此线程开始执行，Java虚拟机会调用run方法()</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>实现步骤</p>
+<ul>
+<li>定义一个类MyThread继承Thread类</li>
+<li>在MyThread类中重写run()方法</li>
+<li>创建MyThread类的对象</li>
+<li>启动线程</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">public class MyThread extends Thread &#123;
+    @Override
+    public void run() &#123;
+        for(int i=0; i&lt;100; i++) &#123;
+            System.out.println(i);
+        &#125;
+    &#125;
+&#125;
+public class MyThreadDemo &#123;
+    public static void main(String[] args) &#123;
+        MyThread my1 = new MyThread();
+        MyThread my2 = new MyThread();
+
+//        my1.run();
+//        my2.run();
+
+        // void start() 导致此线程开始执行; Java虚拟机调用此线程的run方法
+        my1.start();
+        my2.start();
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><p>为什么要重写run()方法？</p>
+<p>因为run()是用来封装被线程执行的代码</p>
+</li>
+<li><p>run()方法和start()方法的区别？</p>
+<p>run()：封装线程执行的代码，直接调用，相当于普通方法的调用</p>
+<p>start()：启动线程；然后由JVM调用此线程的run()方法</p>
+</li>
+</ul>
+<h3 id="设置和获取线程名称"><a href="#设置和获取线程名称" class="headerlink" title="设置和获取线程名称"></a>设置和获取线程名称</h3><ul>
+<li><p>方法介绍</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void  setName(String name)</td>
+<td>将此线程的名称更改为等于参数name</td>
+</tr>
+<tr>
+<td>String  getName()</td>
+<td>返回此线程的名称</td>
+</tr>
+<tr>
+<td>Thread  currentThread()</td>
+<td>返回对当前正在执行的线程对象的引用</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">public class MyThread extends Thread &#123;
+    public MyThread() &#123;&#125;
+    public MyThread(String name) &#123;
+        super(name);
+    &#125;
+    @Override
+    public void run() &#123;
+        for (int i = 0; i &lt; 100; i++) &#123;
+            System.out.println(getName()+&quot;:&quot;+i);
+        &#125;
+    &#125;
+&#125;
+
+my1.setName(&quot;高铁&quot;);
+my2.setName(&quot;飞机&quot;);
+
+// Thread(String name)
+MyThread my1 = new MyThread(&quot;高铁&quot;);
+MyThread my2 = new MyThread(&quot;飞机&quot;);
+
+my1.start();
+my2.start();
+
+// 返回对当前正在执行的线程对象的引用
+System.out.println(Thread.currentThread().getName());
+</code></pre>
+<h3 id="线程优先级【应用】"><a href="#线程优先级【应用】" class="headerlink" title="线程优先级【应用】"></a>线程优先级【应用】</h3><ul>
+<li><p>线程调度</p>
+<ul>
+<li><p>两种调度方式</p>
+<ul>
+<li>分时调度模型：所有线程轮流使用 CPU 的使用权，平均分配每个线程占用 CPU 的时间片</li>
+<li>抢占式调度模型：优先让优先级高的线程使用 CPU，如果线程的优先级相同，那么会随机选择一个，优先级高的线程获取的 CPU 时间片相对多一些</li>
+</ul>
+</li>
+<li><p>Java使用的是抢占式调度模型</p>
+</li>
+<li><p>随机性</p>
+<p>假如计算机只有一个 CPU，那么 CPU 在某一个时刻只能执行一条指令，线程只有得到CPU时间片，也就是使用权，才可以执行指令。所以说多线程程序的执行是有随机性，因为谁抢到CPU的使用权是不一定的</p>
+</li>
+</ul>
+</li>
+<li><p>优先级相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>final int getPriority()</td>
+<td>返回此线程的优先级</td>
+</tr>
+<tr>
+<td>final void setPriority(int newPriority)</td>
+<td>更改此线程的优先级                                                                                         线程默认优先级是5；线程优先级的范围是：1-10</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// public final int getPriority()：返回此线程的优先级
+System.out.println(tp1.getPriority()); //5
+
+// 设置正确的优先级
+tp1.setPriority(5);
+</code></pre>
+<h3 id="线程控制"><a href="#线程控制" class="headerlink" title="线程控制"></a>线程控制</h3><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static void sleep(long millis)</td>
+<td>使当前正在执行的线程停留（暂停执行）指定的毫秒数</td>
+</tr>
+<tr>
+<td>void join()</td>
+<td>等待这个线程死亡</td>
+</tr>
+<tr>
+<td>void setDaemon(boolean on)</td>
+<td>将此线程标记为守护线程，当运行的线程都是守护线程时，Java虚拟机将退出</td>
+</tr>
+</tbody></table>
+<pre><code class="java">public class ThreadSleep extends Thread &#123;
+    @Override
+    public void run() &#123;
+        for (int i = 0; i &lt; 100; i++) &#123;
+            System.out.println(getName() + &quot;:&quot; + i);
+            try &#123;
+                Thread.sleep(1000);
+            &#125; catch (InterruptedException e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+    &#125;
+&#125;
+// join 
+tj1.start();
+try &#123;
+     tj1.join();
+&#125; catch (InterruptedException e) &#123;
+     e.printStackTrace();
+&#125;
+
+//设置守护线程
+td1.setDaemon(true);
+td1.start();
+</code></pre>
+<h3 id="实现多线程方式二：实现Runnable接口"><a href="#实现多线程方式二：实现Runnable接口" class="headerlink" title="实现多线程方式二：实现Runnable接口"></a>实现多线程方式二：实现Runnable接口</h3><ul>
+<li><p>Thread构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Thread(Runnable target)</td>
+<td>分配一个新的Thread对象</td>
+</tr>
+<tr>
+<td>Thread(Runnable target, String name)</td>
+<td>分配一个新的Thread对象</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>实现步骤</p>
+<ul>
+<li>定义一个类MyRunnable实现Runnable接口</li>
+<li>在MyRunnable类中重写run()方法</li>
+<li>创建MyRunnable类的对象</li>
+<li>创建Thread类的对象，把MyRunnable对象作为构造方法的参数</li>
+<li>启动线程</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">public class MyRunnable implements Runnable &#123;
+    @Override
+    public void run() &#123;
+        for(int i=0; i&lt;100; i++) &#123;
+        System.out.println(Thread.currentThread().getName()+&quot;:&quot;+i);
+        &#125;
+    &#125;
+&#125;
+public class MyRunnableDemo &#123;
+    public static void main(String[] args) &#123;
+        //创建MyRunnable类的对象
+        MyRunnable my = new MyRunnable();
+
+        //创建Thread类的对象，把MyRunnable对象作为构造方法的参数
+        //Thread(Runnable target)
+        //Thread(Runnable target, String name)
+        Thread t1 = new Thread(my,&quot;高铁&quot;);
+        Thread t2 = new Thread(my,&quot;飞机&quot;);
+
+        //启动线程
+        t1.start();
+        t2.start();
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><p>多线程的实现方案有两种</p>
+<ul>
+<li>继承Thread类</li>
+<li>实现Runnable接口</li>
+</ul>
+</li>
+<li><p>相比继承Thread类，实现Runnable接口的好处</p>
+<ul>
+<li><p>避免了Java单继承的局限性</p>
+</li>
+<li><p>适合多个相同程序的代码去处理同一个资源的情况（买票），把线程和程序的代码、数据有效分离，较好的体现了面向对象的设计思想</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="同步代码块解决数据安全问题"><a href="#同步代码块解决数据安全问题" class="headerlink" title="同步代码块解决数据安全问题"></a>同步代码块解决数据安全问题</h3><ul>
+<li><p>安全问题出现的条件</p>
+<ul>
+<li><p>是多线程环境</p>
+</li>
+<li><p>有共享数据</p>
+</li>
+<li><p>有多条语句操作共享数据</p>
+</li>
+</ul>
+</li>
+<li><p>如何解决多线程安全问题呢?</p>
+<ul>
+<li>基本思想：让程序没有安全问题的环境</li>
+</ul>
+</li>
+<li><p>怎么实现呢?</p>
+<ul>
+<li><p>把多条语句操作共享数据的代码给锁起来，让任意时刻只能有一个线程执行即可</p>
+</li>
+<li><p>Java提供了同步代码块的方式来解决</p>
+</li>
+</ul>
+</li>
+<li><p>同步代码块格式：</p>
+<pre><code class="java">synchronized(任意对象) &#123; 
+    多条语句操作共享数据的代码 
+&#125;
+</code></pre>
+<p>synchronized(任意对象)：就相当于给代码加锁了，任意对象就可以看成是一把锁</p>
+</li>
+<li><p>同步的好处和弊端  </p>
+<ul>
+<li><p>好处：解决了多线程的数据安全问题</p>
+</li>
+<li><p>弊端：当线程很多时，因为每个线程都会去判断同步上的锁，这是很耗费资源的，无形中会降低程序的运行效率</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">private int tickets = 100;
+private Object obj = new Object();
+
+@Override
+public void run () &#123;
+    while(true) &#123;
+        // 同步代码块，异步同步化
+        synchronized (obj) &#123;
+            // 进程进来后会锁住代码块
+            try &#123;
+                t1.sleep(100);
+            &#125;catch (InterruptedException) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+        // 进程出来后会解锁
+    &#125;
+&#125;
+</code></pre>
+<h3 id="同步方法解决数据安全问题"><a href="#同步方法解决数据安全问题" class="headerlink" title="同步方法解决数据安全问题"></a>同步方法解决数据安全问题</h3><ul>
+<li><p>同步方法的格式</p>
+<p>同步方法：就是把synchronized关键字加到方法上</p>
+<pre><code class="java">修饰符 synchronized 返回值类型 方法名(方法参数) &#123; 
+    方法体；
+&#125;
+</code></pre>
+<p>同步方法的锁对象是什么呢?</p>
+<p>​    this</p>
+</li>
+<li><p>静态同步方法</p>
+<p>同步静态方法：就是把synchronized关键字加到静态方法上</p>
+<pre><code class="java">修饰符 static synchronized 返回值类型 方法名(方法参数) &#123; 
+    方法体；
+&#125;
+</code></pre>
+<p>同步静态方法的锁对象是什么呢?</p>
+<p>​    类名.class</p>
+</li>
+</ul>
+<pre><code class="java">@Override
+public void run () &#123;
+    while (true) &#123;
+        sellTicket();
+    &#125;
+&#125;
+
+// 同步方法
+private synchronized void sellTicket () &#123;
+    // 进程进来后会锁住代码块
+    try &#123;
+        t1.sleep(100);
+    &#125;catch (InterruptedException) &#123;
+        e.printStackTrace();
+    &#125;
+&#125;
+</code></pre>
+<h3 id="线程安全的类"><a href="#线程安全的类" class="headerlink" title="线程安全的类"></a>线程安全的类</h3><ul>
+<li><p>StringBuffer</p>
+<ul>
+<li><p>线程安全，可变的字符序列</p>
+</li>
+<li><p>从版本JDK 5开始，被StringBuilder 替代。 通常应该使用StringBuilder类，因为它支持所有相同的操作，但它更快，因为它不执行同步</p>
+</li>
+</ul>
+</li>
+<li><p>Vector</p>
+<ul>
+<li>从Java 2平台v1.2开始，该类改进了List接口，使其成为Java Collections Framework的成员。 与新的集合实现不同， Vector被同步。 如果不需要线程安全的实现，建议使用ArrayList代替Vector</li>
+</ul>
+</li>
+<li><p>Hashtable</p>
+<ul>
+<li>该类实现了一个哈希表，它将键映射到值。 任何非null对象都可以用作键或者值</li>
+<li>从Java 2平台v1.2开始，该类进行了改进，实现了Map接口，使其成为Java Collections Framework的成员。 与新的集合实现不同， Hashtable被同步。 如果不需要线程安全的实现，建议使用HashMap代替Hashtable</li>
+</ul>
+</li>
+</ul>
+<h3 id="Lock锁"><a href="#Lock锁" class="headerlink" title="Lock锁"></a>Lock锁</h3><p>虽然我们可以理解同步代码块和同步方法的锁对象问题，但是我们并没有直接看到在哪里加上了锁，在哪里释放了锁，为了更清晰的表达如何加锁和释放锁，JDK5以后提供了一个新的锁对象Lock</p>
+<p>Lock是接口不能直接实例化，这里采用它的实现类ReentrantLock来实例化</p>
+<ul>
+<li><p>ReentrantLock构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ReentrantLock()</td>
+<td>创建一个ReentrantLock的实例</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>加锁解锁方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void lock()</td>
+<td>获得锁</td>
+</tr>
+<tr>
+<td>void unlock()</td>
+<td>释放锁</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">private Lock lock = new ReentrantLock();
+
+while (true) &#123;
+    try &#123;
+        lock.lock();
+        try &#123;
+            // 执行
+        &#125;
+    &#125; finally &#123;
+        lock.unlock();
+    &#125;
+&#125;
+</code></pre>
+<h2 id="生产者消费者"><a href="#生产者消费者" class="headerlink" title="生产者消费者"></a>生产者消费者</h2><h3 id="生产者和消费者模式概述"><a href="#生产者和消费者模式概述" class="headerlink" title="生产者和消费者模式概述"></a>生产者和消费者模式概述</h3><ul>
+<li><p>概述</p>
+<p>生产者消费者模式是一个十分经典的多线程协作的模式，弄懂生产者消费者问题能够让我们对多线程编程的理解更加深刻。</p>
+<p>所谓生产者消费者问题，实际上主要是包含了两类线程：</p>
+<p>​    一类是生产者线程用于生产数据</p>
+<p>​    一类是消费者线程用于消费数据</p>
+<p>为了解耦生产者和消费者的关系，通常会采用共享的数据区域，就像是一个仓库</p>
+<p>生产者生产数据之后直接放置在共享数据区中，并不需要关心消费者的行为</p>
+<p>消费者只需要从共享数据区中去获取数据，并不需要关心生产者的行为</p>
+</li>
+<li><p>Object类的等待和唤醒方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void wait()</td>
+<td>导致当前线程等待，直到另一个线程调用该对象的 notify()方法或 notifyAll()方法</td>
+</tr>
+<tr>
+<td>void notify()</td>
+<td>唤醒正在等待对象监视器的单个线程</td>
+</tr>
+<tr>
+<td>void notifyAll()</td>
+<td>唤醒正在等待对象监视器的所有线程</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">//提供存储牛奶和获取牛奶的操作
+    public synchronized void put(int milk) &#123;
+        //如果有牛奶，等待消费
+        if(state) &#123;
+            try &#123;
+                wait();
+            &#125; catch (InterruptedException e) &#123;
+                e.printStackTrace();
+            &#125;
+        &#125;
+
+        //如果没有牛奶，就生产牛奶
+        this.milk = milk;
+        System.out.println(&quot;送奶工将第&quot; + this.milk + &quot;瓶奶放入奶箱&quot;);
+
+        //生产完毕之后，修改奶箱状态
+        state = true;
+
+        //唤醒其他等待的线程
+        notifyAll();
+    &#125;
+// 生产者和消费者
+public class Producer implements Runnable &#123;
+    private Box b;
+
+    public Producer(Box b) &#123;
+        this.b = b;
+    &#125;
+
+    @Override
+    public void run() &#123;
+        for(int i=1; i&lt;=30; i++) &#123;
+            b.put(i);
+        &#125;
+    &#125;
+&#125;
+
+public class Customer implements Runnable &#123;
+    private Box b;
+
+    public Customer(Box b) &#123;
+        this.b = b;
+    &#125;
+
+    @Override
+    public void run() &#123;
+        while (true) &#123;
+            b.get();
+        &#125;
+    &#125;
+&#125;
+
+//创建奶箱对象，这是共享数据区域
+        Box b = new Box();
+
+        //创建生产者对象，把奶箱对象作为构造方法参数传递，因为在这个类中要调用存储牛奶的操作
+        Producer p = new Producer(b);
+        //创建消费者对象，把奶箱对象作为构造方法参数传递，因为在这个类中要调用获取牛奶的操作
+        Customer c = new Customer(b);
+
+        //创建2个线程对象，分别把生产者对象和消费者对象作为构造方法参数传递
+        Thread t1 = new Thread(p);
+        Thread t2 = new Thread(c);
+
+        //启动线程
+        t1.start();
+        t2.start();
+</code></pre>
+<h2 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h2><h3 id="InetAddress【应用】"><a href="#InetAddress【应用】" class="headerlink" title="InetAddress【应用】"></a>InetAddress【应用】</h3><p>InetAddress：此类表示Internet协议（IP）地址</p>
+<ul>
+<li><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static InetAddress getByName(String host)</td>
+<td>确定主机名称的IP地址。主机名称可以是机器名称，也可以是IP地址</td>
+</tr>
+<tr>
+<td>String getHostName()</td>
+<td>获取此IP地址的主机名</td>
+</tr>
+<tr>
+<td>String getHostAddress()</td>
+<td>返回文本显示中的IP地址字符串</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">InetAddress address = InetAddress.getByName(&quot;192.168.1.66&quot;);
+
+// public String getHostName()：获取此IP地址的主机名
+String name = address.getHostName();
+// public String getHostAddress()：返回文本显示中的IP地址字符串
+String ip = address.getHostAddress();
+</code></pre>
+<h2 id="UDP通信程序"><a href="#UDP通信程序" class="headerlink" title="UDP通信程序"></a>UDP通信程序</h2><h3 id="UDP发送数据"><a href="#UDP发送数据" class="headerlink" title="UDP发送数据"></a>UDP发送数据</h3><ul>
+<li><p>Java中的UDP通信</p>
+<ul>
+<li>UDP协议是一种不可靠的网络协议，它在通信的两端各建立一个Socket对象，但是这两个Socket只是发送，接收数据的对象，因此对于基于UDP协议的通信双方而言，没有所谓的客户端和服务器的概念</li>
+<li>Java提供了DatagramSocket类作为基于UDP协议的Socket</li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DatagramSocket()</td>
+<td>创建数据报套接字并将其绑定到本机地址上的任何可用端口</td>
+</tr>
+<tr>
+<td>DatagramPacket(byte[] buf,int len,InetAddress add,int port)</td>
+<td>创建数据包,发送长度为len的数据包到指定主机的指定端口</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void send(DatagramPacket p)</td>
+<td>发送数据报包</td>
+</tr>
+<tr>
+<td>void close()</td>
+<td>关闭数据报套接字</td>
+</tr>
+<tr>
+<td>void receive(DatagramPacket p)</td>
+<td>从此套接字接受数据报包</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>发送数据的步骤</p>
+<ul>
+<li>创建发送端的Socket对象(DatagramSocket)</li>
+<li>创建数据，并把数据打包</li>
+<li>调用DatagramSocket对象的方法发送数据</li>
+<li>关闭发送端</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">DatagramSocket ds = new DatagramSocket();
+// 数据打包
+byte[] barr = &quot;hello&quot;.getBytes();
+DatagramPacket dp = new DatagramPacket(barr, barr.length(), InetAddres.getByName(&quot;192.168.1.1&quot;), 10086);
+
+// void send(DatagramPacket p) 从此套接字发送数据报包
+ds.send(dp);
+// void close() 关闭此数据报套接字
+ds.close();
+</code></pre>
+<h3 id="UDP接收数据"><a href="#UDP接收数据" class="headerlink" title="UDP接收数据"></a>UDP接收数据</h3><ul>
+<li><p>接收数据的步骤</p>
+<ul>
+<li>创建接收端的Socket对象(DatagramSocket)</li>
+<li>创建一个数据包，用于接收数据</li>
+<li>调用DatagramSocket对象的方法接收数据</li>
+<li>解析数据包，并把数据在控制台显示</li>
+<li>关闭接收端</li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DatagramPacket(byte[] buf, int len)</td>
+<td>创建一个DatagramPacket用于接收长度为len的数据包</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte[]  getData()</td>
+<td>返回数据缓冲区</td>
+</tr>
+<tr>
+<td>int  getLength()</td>
+<td>返回要发送的数据的长度或接收的数据的长度</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">DatagramSocket ds = new DatagramSocket(10086);
+
+while (true) &#123;
+    byte[] bys = new byte[1024];
+    DatagramPacket dp = new DatagramPacket(bys, bys.length());
+    // 调用DatagramSocket对象的方法接收数据
+    ds.receive(dp);
+    // 解析数据包，并把数据在控制台显示
+    System.out.println(&quot;数据是：&quot; + new String(dp.getData(), 0,                                             dp.getLength()));
+&#125;
+</code></pre>
+<h2 id="TCP通信程序"><a href="#TCP通信程序" class="headerlink" title="TCP通信程序"></a>TCP通信程序</h2><h3 id="TCP发送数据"><a href="#TCP发送数据" class="headerlink" title="TCP发送数据"></a>TCP发送数据</h3><ul>
+<li><p>Java中的TCP通信</p>
+<ul>
+<li>Java对基于TCP协议的的网络提供了良好的封装，使用Socket对象来代表两端的通信端口，并通过Socket产生IO流来进行网络通信。</li>
+<li>Java为客户端提供了Socket类，为服务器端提供了ServerSocket类</li>
+</ul>
+</li>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Socket(InetAddress address,int port)</td>
+<td>创建流套接字并将其连接到指定IP指定端口号</td>
+</tr>
+<tr>
+<td>Socket(String host, int port)</td>
+<td>创建流套接字并将其连接到指定主机上的指定端口号</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>InputStream  getInputStream()</td>
+<td>返回此套接字的输入流</td>
+</tr>
+<tr>
+<td>OutputStream getOutputStream()</td>
+<td>返回此套接字的输出流</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">Socket s = new Socket(&quot;192.168.1.1&quot;, 10086);
+
+// 获取输出流，写数据
+// OutputStream getOutputStream() 返回此套接字的输出流
+OutputStreams os = s.getOutputStream();
+os.wirte(&quot;hello&quot;.getBytes());
+
+// 释放资源
+s.close();
+</code></pre>
+<h3 id="TCP接收数据"><a href="#TCP接收数据" class="headerlink" title="TCP接收数据"></a>TCP接收数据</h3><ul>
+<li><p>构造方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ServerSocket(int port)</td>
+<td>创建绑定到指定端口的服务器套接字</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Socket accept()</td>
+<td>监听要连接到此的套接字并接受它</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">// 创建绑定到指定端口的服务器套接字
+ServerSocket ss = new ServerSocket(10086);
+Socket s = ss.accept();
+
+// 获取输入流，读数据，并把数据显示在控制台
+InputStream is = s.getInputStream();
+byte[] bys = new byte[1024];
+int len = is.read(bys);
+String data = new String(bys, 0, len);
+sout(data);
+
+// 释放资源
+s.close();
+ss.close();
+</code></pre>
+<ul>
+<li><p>案例分析</p>
+<ul>
+<li>创建客户端对象，创建输入流对象指向文件，每读入一行数据就给服务器输出一行数据，输出结束后使用shutdownOutput()方法告知服务端传输结束</li>
+<li>创建服务器对象，创建输出流对象指向文件，每接受一行数据就使用输出流输出到文件中，传输结束后。使用输出流给客户端反馈信息</li>
+<li>客户端接受服务端的回馈信息</li>
+</ul>
+</li>
+<li><p>相关方法</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void shutdownInput()</td>
+<td>将此套接字的输入流放置在“流的末尾”</td>
+</tr>
+<tr>
+<td>void shutdownOutput()</td>
+<td>禁止用此套接字的输出流</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<pre><code class="java">        // 发送数据 -----------------------------
+        // 封装文本文件的数据
+        BufferedReader br = new BufferedReader(new FileReader(&quot;myNet\\InetAddressDemo.java&quot;));        
+        // 封装输出流写数据(字符缓冲)
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+
+        String line;
+        while ((line=br.readLine())!=null) &#123;
+            bw.write(line);
+            bw.newLine();
+            bw.flush();
+        &#125;
+
+        // public void shutdownOutput()
+        s.shutdownOutput();
+
+        // 接收数据 -----------------------------
+        BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        //把数据写入文本文件
+        BufferedWriter bw = new BufferedWriter(new FileWriter(&quot;myNet\\Copy.java&quot;));
+
+        String line;
+        while ((line=br.readLine())!=null) &#123; //等待读取数据
+            bw.write(line);
+            bw.newLine();
+            bw.flush();
+        &#125;
+</code></pre>
+<h2 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h2><h3 id="体验Lambda表达式"><a href="#体验Lambda表达式" class="headerlink" title="体验Lambda表达式"></a>体验Lambda表达式</h3><ul>
+<li><p>案例需求</p>
+<p>启动一个线程，在控制台输出一句话：多线程程序启动了</p>
+</li>
+<li><p>实现方式一</p>
+<ul>
+<li>实现步骤<ul>
+<li>定义一个类MyRunnable实现Runnable接口，重写run()方法</li>
+<li>创建MyRunnable类的对象</li>
+<li>创建Thread类的对象，把MyRunnable的对象作为构造参数传递</li>
+<li>启动线程</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>实现方式二</p>
+<ul>
+<li>匿名内部类的方式改进</li>
+</ul>
+</li>
+<li><p>实现方式三</p>
+<ul>
+<li>Lambda表达式的方式改进</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">// 方式二
+new Thread(new Runnable () &#123;
+    @Override
+    public void run () &#123;
+        sout(&quot;多线程&quot;);
+    &#125;
+&#125;).start();
+
+// 方式三
+new Thread( () -&gt; &#123;
+    sout(&quot;多线程&quot;);
+&#125;).start();
+</code></pre>
+<ul>
+<li>函数式编程思想概述</li>
+</ul>
+<p>函数式思想则尽量忽略面向对象的复杂语法：“强调做什么，而不是以什么形式去做”</p>
+<p>而我们要学习的Lambda表达式就是函数式思想的体现</p>
+<h3 id="Lambda表达式的使用前提"><a href="#Lambda表达式的使用前提" class="headerlink" title="Lambda表达式的使用前提"></a>Lambda表达式的使用前提</h3><ul>
+<li>有一个接口</li>
+<li>接口中有且仅有一个抽象方法</li>
+</ul>
+<h4 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h4><pre><code class="java">public interface Addable &#123;
+    int add(int x,int y);
+&#125;
+
+public class AddableDemo &#123;
+    public static void main(String[] args) &#123;
+        //在主方法中调用useAddable方法
+        useAddable((int x,int y) -&gt; &#123;
+            return x + y;
+        &#125;);
+    &#125;
+    private static void useAddable(Addable a) &#123;
+        int sum = a.add(10, 20);
+        System.out.println(sum);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="Lambda表达式的省略模式"><a href="#Lambda表达式的省略模式" class="headerlink" title="Lambda表达式的省略模式"></a>Lambda表达式的省略模式</h3><ul>
+<li><p>省略的规则</p>
+<ul>
+<li>参数类型可以省略。但是有多个参数的情况下，不能只省略一个</li>
+<li>如果参数有且仅有一个，那么小括号可以省略</li>
+<li>如果代码块的语句只有一条，可以省略大括号和分号，和return关键字</li>
+</ul>
+</li>
+</ul>
+<h2 id="接口组成更新"><a href="#接口组成更新" class="headerlink" title="接口组成更新"></a>接口组成更新</h2><h3 id="接口组成更新概述"><a href="#接口组成更新概述" class="headerlink" title="接口组成更新概述"></a>接口组成更新概述</h3><ul>
+<li><p>常量</p>
+<p>public static final</p>
+</li>
+<li><p>抽象方法</p>
+<p>public abstract</p>
+</li>
+<li><p>默认方法(Java 8)</p>
+</li>
+<li><p>静态方法(Java 8)</p>
+</li>
+<li><p>私有方法(Java 9)</p>
+</li>
+</ul>
+<h3 id="接口中默认方法"><a href="#接口中默认方法" class="headerlink" title="接口中默认方法"></a>接口中默认方法</h3><ul>
+<li><p>格式</p>
+<p>public default 返回值类型 方法名(参数列表) {   }</p>
+</li>
+<li><p>范例</p>
+<pre><code class="java">public default void show3() &#123; 
+&#125;
+</code></pre>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li><p>默认方法不是抽象方法，所以不强制被重写。但是可以被重写，重写的时候去掉default关键字</p>
+</li>
+<li><p>public可以省略，default不能省略</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="接口中静态方法"><a href="#接口中静态方法" class="headerlink" title="接口中静态方法"></a>接口中静态方法</h3><ul>
+<li><p>格式</p>
+<p>public static 返回值类型 方法名(参数列表) {   }</p>
+</li>
+<li><p>范例</p>
+<pre><code class="java">public static void show() &#123;
+&#125;
+</code></pre>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li><p>静态方法只能通过接口名调用，不能通过实现类名或者对象名调用</p>
+</li>
+<li><p>public可以省略，static不能省略</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="接口中静态方法-1"><a href="#接口中静态方法-1" class="headerlink" title="接口中静态方法"></a>接口中静态方法</h3><ul>
+<li><p>格式</p>
+<p>public static 返回值类型 方法名(参数列表) {   }</p>
+</li>
+<li><p>范例</p>
+<pre><code class="java">public static void show() &#123;
+&#125;
+</code></pre>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li><p>静态方法只能通过接口名调用，不能通过实现类名或者对象名调用</p>
+</li>
+<li><p>public可以省略，static不能省略</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="方法引用符"><a href="#方法引用符" class="headerlink" title="方法引用符"></a>方法引用符</h3><ul>
+<li><p>方法引用符</p>
+<p>::  该符号为引用运算符，而它所在的表达式被称为方法引用</p>
+</li>
+<li><p>推导与省略 </p>
+<ul>
+<li>如果使用Lambda，那么根据“可推导就是可省略”的原则，无需指定参数类型，也无需指定的重载形式，它们都将被自动推导</li>
+<li>如果使用方法引用，也是同样可以根据上下文进行推导</li>
+<li>方法引用是Lambda的孪生兄弟</li>
+</ul>
+</li>
+</ul>
+<h3 id="引用类方法"><a href="#引用类方法" class="headerlink" title="引用类方法"></a>引用类方法</h3><p>​    引用类方法，其实就是引用类的静态方法</p>
+<ul>
+<li><p>格式</p>
+<p>类名::静态方法</p>
+</li>
+<li><p>范例</p>
+<p>Integer::parseInt</p>
+<p>Integer类的方法：public static int parseInt(String s) 将此String转换为int类型数据</p>
+</li>
+<li><p>练习描述</p>
+<ul>
+<li><p>定义一个接口(Converter)，里面定义一个抽象方法 int convert(String s);</p>
+</li>
+<li><p>定义一个测试类(ConverterDemo)，在测试类中提供两个方法</p>
+<ul>
+<li><p>一个方法是：useConverter(Converter c)</p>
+</li>
+<li><p>一个方法是主方法，在主方法中调用useConverter方法</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="java">public interface Converter &#123;
+    int convert(String s);
+&#125;
+public class ConverterDemo &#123;
+    public static void main(String[] args) &#123;
+        //Lambda写法
+        useConverter(s -&gt; Integer.parseInt(s));
+        //引用类方法
+        useConverter(Integer::parseInt);
+    &#125;
+    private static void useConverter(Converter c) &#123;
+        int number = c.convert(&quot;666&quot;);
+        System.out.println(number);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="引用对象的实例方法"><a href="#引用对象的实例方法" class="headerlink" title="引用对象的实例方法"></a>引用对象的实例方法</h3><p>引用对象的实例方法，其实就引用类中的成员方法</p>
+<ul>
+<li><p>格式</p>
+<p>对象::成员方法</p>
+</li>
+<li><p>范例</p>
+<p>“HelloWorld”::toUpperCase</p>
+<p>  String类中的方法：public String toUpperCase() 将此String所有字符转换为大写</p>
+</li>
+</ul>
+<pre><code class="java">public class PrintString &#123;
+    //把字符串参数变成大写的数据，然后在控制台输出
+    public void printUpper(String s) &#123;
+        String result = s.toUpperCase();
+        System.out.println(result);
+    &#125;
+&#125;
+// Lambda简化写法
+usePrinter(s -&gt; System.out.println(s.toUpperCase()));
+
+// 引用对象的实例方法
+PrintString ps = new PrintString();
+usePrinter(ps::printUpper);
+</code></pre>
+<h3 id="引用类"><a href="#引用类" class="headerlink" title="引用类"></a>引用类</h3><pre><code class="java">public interface MyString &#123;
+    String mySubString(String s,int x,int y);
+&#125;
+public static void main(String[] args) &#123;
+    // Lambda简化写法
+    useMyString((s,x,y) -&gt; s.substring(x,y));
+    // 引用类的实例方法
+    useMyString(String::substring);
+&#125;
+private static void useMyString(MyString my) &#123;
+    String s = my.mySubString(&quot;HelloWorld&quot;, 2, 5);
+    System.out.println(s);
+&#125;
+</code></pre>
+<h3 id="引用构造器"><a href="#引用构造器" class="headerlink" title="引用构造器"></a>引用构造器</h3><pre><code class="java">public interface StudentBuilder &#123;
+    Student build(String name,int age);
+&#125;
+public class StudentDemo &#123;
+    public static void main(String[] args) &#123;
+        //Lambda简化写法
+        useStudentBuilder((name,age) -&gt; new Student(name,age));
+        //引用构造器
+        useStudentBuilder(Student::new);
+    &#125;
+    private static void useStudentBuilder(StudentBuilder sb) &#123;
+        Student s = sb.build(&quot;林青霞&quot;, 30);
+        System.out.println(s.getName() + &quot;,&quot; + s.getAge());
+    &#125;
+&#125;
+</code></pre>
+<ul>
+<li><p>使用说明</p>
+<p>Lambda表达式被对象的实例方法替代的时候，它的形式参数全部传递给该方法作为参数</p>
+</li>
+</ul>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
