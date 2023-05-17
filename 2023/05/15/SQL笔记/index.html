@@ -188,7 +188,307 @@
             
                 <hr>
                 <div class="post-md">
-                    
+                    <h3 id="速查表"><a href="#速查表" class="headerlink" title="速查表"></a>速查表</h3><p><a target="_blank" rel="noopener" href="https://devhints.io/mysql">https://devhints.io/mysql</a></p>
+<h2 id="操作数据库、表"><a href="#操作数据库、表" class="headerlink" title="操作数据库、表"></a>操作数据库、表</h2><h3 id="操作数据库：CRUD"><a href="#操作数据库：CRUD" class="headerlink" title="操作数据库：CRUD"></a>操作数据库：CRUD</h3><h3 id="1-C-Create-创建"><a href="#1-C-Create-创建" class="headerlink" title="1. C(Create):创建"></a>1. C(Create):创建</h3><pre><code class="sql"> 创建数据库：
+ create database 数据库名称;
+ 创建数据库，判断不存在，再创建：
+ create database if not exists 数据库名称;
+ 创建数据库，并指定字符集
+ create database 数据库名称 character set 字符集名;
+
+ 练习： 创建db4数据库，判断是否存在，并制定字符集为gbk
+ create database if not exists db4 character set gbk;
+</code></pre>
+<h3 id="2-R-Retrieve-：查询"><a href="#2-R-Retrieve-：查询" class="headerlink" title="2. R(Retrieve)：查询"></a>2. R(Retrieve)：查询</h3><pre><code class="sql"> 查询所有数据库的名称:
+ show databases;
+ 查询某个数据库的字符集:查询某个数据库的创建语句
+ show create database 数据库名称;
+</code></pre>
+<h3 id="3-U-Update-修改"><a href="#3-U-Update-修改" class="headerlink" title="3. U(Update):修改"></a>3. U(Update):修改</h3><pre><code class="sql"> 修改数据库的字符集
+ alter database 数据库名称 character set 字符集名称;
+</code></pre>
+<h3 id="4-D-Delete-删除"><a href="#4-D-Delete-删除" class="headerlink" title="4. D(Delete):删除"></a>4. D(Delete):删除</h3><pre><code class="sql"> 删除数据库
+ drop database 数据库名称;
+ 判断数据库存在，存在再删除
+ drop database if exists 数据库名称;
+</code></pre>
+<h3 id="5-使用数据库"><a href="#5-使用数据库" class="headerlink" title="5. 使用数据库"></a>5. 使用数据库</h3><pre><code class="sql"> 查询当前正在使用的数据库名称
+ select database();
+ 使用数据库
+ use 数据库名称;
+</code></pre>
+<h2 id="操作表"><a href="#操作表" class="headerlink" title="操作表"></a>操作表</h2><h3 id="C-Create-创建"><a href="#C-Create-创建" class="headerlink" title="C(Create):创建"></a>C(Create):创建</h3><pre><code class="sql">
+ 1. 语法：
+ create table 表名(
+     列名1 数据类型1,
+     列名2 数据类型2,
+     ....
+     列名n 数据类型n
+ );
+ 注意：最后一列，不需要加逗号（,）
+ 数据库类型：
+     1. int：整数类型
+  age int,
+     2. double:小数类型
+  score double(5,2)
+     3. date:日期，只包含年月日，yyyy-MM-dd
+     4. datetime:日期，包含年月日时分秒     yyyy-MM-dd HH:mm:ss
+     5. timestamp:时间错类型    包含年月日时分秒     yyyy-MM-dd HH:mm:ss    
+  如果将来不给这个字段赋值，或赋值为null，则默认使用当前的系统时间，来自动赋值
+
+     6. varchar：字符串
+  name varchar(20):姓名最大20个字符
+  zhangsan 8个字符 张三 2个字符
+创建表
+ create table student(
+     id int,
+     name varchar(32),
+     age int ,
+     score double(4,1),
+     birthday date,
+     insert_time timestamp
+ );
+ 复制表：
+ create table 表名 like 被复制的表名;         
+</code></pre>
+<h3 id="R-Retrieve-：查询"><a href="#R-Retrieve-：查询" class="headerlink" title="R(Retrieve)：查询"></a>R(Retrieve)：查询</h3><pre><code class="sql">查询某个数据库中所有的表名称
+ show tables;
+ 查询表结构
+ desc 表名;
+</code></pre>
+<h3 id="U-Update-修改"><a href="#U-Update-修改" class="headerlink" title="U(Update):修改"></a>U(Update):修改</h3><pre><code class="sql">修改表名
+alter table 表名 rename to 新的表名;
+
+修改表的字符集
+alter table 表名 character set 字符集名称;
+
+添加一列
+alter table 表名 add 列名 数据类型;
+
+修改列名称 类型
+alter table 表名 change 列名 新列别 新数据类型;
+alter table 表名 modify 列名 新数据类型;
+</code></pre>
+<h3 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h3><pre><code class="sql">alter table 表名 drop 列名;
+</code></pre>
+<h3 id="D-Delete-删除"><a href="#D-Delete-删除" class="headerlink" title="D(Delete):删除"></a>D(Delete):删除</h3><pre><code class="sql">drop table 表名;
+drop table if exists 表名 ;  
+</code></pre>
+<h2 id="增删改表中数据"><a href="#增删改表中数据" class="headerlink" title="增删改表中数据"></a>增删改表中数据</h2><h3 id="添加数据："><a href="#添加数据：" class="headerlink" title="添加数据："></a>添加数据：</h3><pre><code class="sql"> insert into 表名(列名1,列名2,...列名n) values(值1,值2,...值n);
+    注意：
+ 1. 列名和值要一一对应。
+ 2. 如果表名后，不定义列名，则默认给所有列添加值
+ insert into 表名 values(值1,值2,...值n);
+ 3. 除了数字类型，其他类型需要使用引号(单双都可以)引起来
+</code></pre>
+<h3 id="删除数据："><a href="#删除数据：" class="headerlink" title="删除数据："></a>删除数据：</h3><pre><code class="sql">语法：
+ delete from 表名 [where 条件]
+注意：
+
+ 1. 如果不加条件，则删除表中所有记录。
+ 2. 如果要删除所有记录
+ 3. delete from 表名; -- 不推荐使用。有多少条记录就会执行多少次删除操作
+ 4. TRUNCATE TABLE 表名; -- 推荐使用，效率更高 先删除表，然后再创建一张一样的表。
+</code></pre>
+<h3 id="修改数据："><a href="#修改数据：" class="headerlink" title="修改数据："></a>修改数据：</h3><pre><code class="sql">语法：
+ update 表名 set 列名1 = 值1, 列名2 = 值2,... [where 条件];
+
+注意：
+
+ 1. 如果不加任何条件，则会将表中所有记录全部修改。
+</code></pre>
+<h2 id="查询表中的记录"><a href="#查询表中的记录" class="headerlink" title="查询表中的记录"></a>查询表中的记录</h2><ol>
+<li><h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3></li>
+</ol>
+<pre><code class="sql">select from 表名;
+
+    select
+ 字段列表
+    from
+ 表名列表
+    where
+ 条件列表
+    group by
+ 分组字段
+    having
+ 分组之后的条件
+    order by
+ 排序
+    limit
+ 分页限定
+</code></pre>
+<h3 id="2-基础查询"><a href="#2-基础查询" class="headerlink" title="2. 基础查询"></a>2. 基础查询</h3><pre><code class="sql"> 1. 多个字段的查询
+ select 字段名1，字段名2... from 表名；
+ 注意：
+ 如果查询所有字段，则可以使用*来替代字段列表。
+ 2. 去除重复：
+ distinct
+ 3. 计算列
+ 一般可以使用四则运算计算一些列的值。（一般只会进行数值型的计算）
+ ifnull(表达式1,表达式2)：null参与的运算，计算结果都为null
+ 表达式1：哪个字段需要判断是否为null
+ 如果该字段为null后的替换值。
+ 4. 起别名：
+ as：as也可以省略
+</code></pre>
+<h3 id="3-条件查询"><a href="#3-条件查询" class="headerlink" title="3. 条件查询"></a>3. 条件查询</h3><pre><code class="sql"> 1. where子句后跟条件
+ 2. 运算符
+ &gt; 、&lt; 、&lt;= 、&gt;= 、= 、&lt;&gt;
+ BETWEEN...AND 
+ IN( 集合) 
+ LIKE：模糊查询
+ 占位符：
+     _:单个任意字符
+     %：多个任意字符
+ IS NULL 
+ and 或 &amp;&amp;
+ or 或 || 
+ not 或 !
+  
+ -- 查询年龄大于等于20 小于等于30
+ 
+ SELECT FROM student WHERE age &gt;= 20 &amp;&amp; age &lt;=30;
+ SELECT FROM student WHERE age &gt;= 20 AND age &lt;=30;
+ SELECT FROM student WHERE age BETWEEN 20 AND 30;
+ 
+ -- 查询年龄22岁，18岁，25岁的信息
+ SELECT FROM student WHERE age = 22 OR age = 18 OR age = 25
+ SELECT FROM student WHERE age IN (22,18,25);
+ 
+ -- 查询英语成绩为null
+ (no) SELECT FROM student WHERE english = NULL; -- 不对的。null值不能使用 = （!=） 判断
+ 
+ SELECT FROM student WHERE english IS NULL;
+ 
+ -- 查询英语成绩不为null
+ SELECT FROM student WHERE english IS NOT NULL;
+</code></pre>
+<h3 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h3><pre><code class="sql">-- 查询姓马的有哪些？ like
+ SELECT FROM student WHERE NAME LIKE &#39;马%&#39;;
+ -- 查询姓名第二个字是化的人
+ 
+ SELECT FROM student WHERE NAME LIKE &quot;_化%&quot;;
+ 
+ -- 查询姓名是3个字的人
+ SELECT FROM student WHERE NAME LIKE &#39;___&#39;;
+</code></pre>
+<h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><h3 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h3><pre><code class="sql">语法：order by 子句
+order by 排序字段1 排序方式1 ，  排序字段2 排序方式2...
+    
+排序方式：
+ASC：升序，默认的。
+DESC：降序。
+    
+注意：
+如果有多个排序条件，则当前边的条件值一样时，才会判断第二条件。
+</code></pre>
+<h3 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h3><p>将一列数据作为一个整体，进行纵向的计算。</p>
+<pre><code class="sql">count：计算个数
+ -- 般选择非空的列：主键
+ count(*)
+max：计算最大值
+min：计算最小值
+sum：计算和
+avg：计算平均值
+    
+注意：聚合函数的计算，排除null值。
+解决方案：
+
+1. 选择不包含非空的列进行计算
+2. IFNULL函数
+</code></pre>
+<h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><pre><code class="sql">1. 语法：group by 分组字段；
+2. 注意：
+    1. 分组之后查询的字段：分组字段、聚合函数
+    2. where 和 having 的区别？
+        1. where 在分组之前进行限定，如果不满足条件，则不参与分组。having在分组之后进行限定，如果不满足结果，则不会被查询出来
+        2. where 后不可以跟聚合函数，having可以进行聚合函数的判断。
+
+-- 按照性别分组。分别查询男、女同学的平均分
+
+SELECT sex , AVG(math) FROM student GROUP BY sex;
+
+-- 按照性别分组。分别查询男、女同学的平均分,人数
+
+SELECT sex , AVG(math),COUNT(id) FROM student GROUP BY sex;
+
+--  按照性别分组。分别查询男、女同学的平均分,人数 要求：分数低于70分的人，不参与分组
+SELECT sex , AVG(math),COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex;
+
+--  按照性别分组。分别查询男、女同学的平均分,人数 要求：分数低于70分的人，不参与分组,分组之后。人数要大于2个人
+SELECT sex , AVG(math),COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex HAVING COUNT(id) &gt; 2;
+
+SELECT sex , AVG(math),COUNT(id) 人数 FROM student WHERE math &gt; 70 GROUP BY sex HAVING 人数 &gt; 2;
+</code></pre>
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><pre><code class="sql">语法：limit 开始的索引,每页查询的条数;
+
+公式：开始的索引 = （当前的页码 - 1）  每页显示的条数
+   -- 每页显示3条记录 
+SELECT  FROM student LIMIT 0,3; -- 第1页
+
+SELECT  FROM student LIMIT 3,3; -- 第2页
+
+SELECT  FROM student LIMIT 6,3; -- 第3页
+
+limit 是一个MySQL&quot;方言&quot;
+</code></pre>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>概念： 对表中的数据进行限定，保证数据的正确性、有效性和完整性。<br> 分类：</p>
+<p>主键约束：primary key</p>
+<p>非空约束：not null</p>
+<p>唯一约束：unique</p>
+<p>外键约束：foreign key</p>
+<p>自动增长： auto_increment</p>
+<p>默认： default ‘ ‘</p>
+<pre><code class="sql">创建表时添加约束
+CREATE TABLE stu(
+    id INT,
+    NAME VARCHAR(20) NOT NULL -- name为非空
+);
+-- 创建表完后，添加非空约束
+ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
+
+-- 删除name的非空约束
+ALTER TABLE stu MODIFY NAME VARCHAR(20);
+
+-- 删除自动增长
+ALTER TABLE stu MODIFY id INT;
+-- 添加自动增长
+ALTER TABLE stu MODIFY id INT AUTO_INCREMENT;
+
+
+create table 表名(
+-- .... 外键列
+constraint 外键名称 foreign key (外键列名称) references 主表名称(主表列名称)
+);
+-- 删除外键
+ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;
+
+-- 创建表之后，添加外键
+ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称);
+</code></pre>
+<h3 id="级联操作"><a href="#级联操作" class="headerlink" title="级联操作"></a>级联操作</h3><pre><code class="sql">-- 添加级联操作
+语法：ALTER TABLE 表名 ADD CONSTRAINT 外键名称 
+FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE  ;
+
+-- 分类：
+-- 级联更新：
+ON UPDATE CASCADE 
+-- 级联删除：
+ON DELETE CASCADE 
+</code></pre>
+<h3 id="数据库设计的范式"><a href="#数据库设计的范式" class="headerlink" title="数据库设计的范式"></a>数据库设计的范式</h3><p>设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。<br>        目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。</p>
+<h4 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h4><p>每一列都是不可分割的原子数据项</p>
+<h4 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h4><p>在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）<br> 几个概念：</p>
+<h4 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h4><p>A–&gt;B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A<br>            例如：学号–&gt;姓名。  （学号，课程名称） –&gt; 分数</p>
+<h4 id="完全函数依赖"><a href="#完全函数依赖" class="headerlink" title="完全函数依赖"></a>完全函数依赖</h4><p>A–&gt;B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。<br>        例如：（学号，课程名称） –&gt; 分数</p>
+<h4 id="部分函数依赖"><a href="#部分函数依赖" class="headerlink" title="部分函数依赖"></a>部分函数依赖</h4><p>A–&gt;B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。<br>    例如：（学号，课程名称） – &gt; 姓名</p>
+<h4 id="传递函数依赖"><a href="#传递函数依赖" class="headerlink" title="传递函数依赖"></a>传递函数依赖</h4><p>A–&gt;B, B – &gt;C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A<br>例如：学号–&gt;系名，系名–&gt;系主任</p>
+<h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><p>如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码<br>例如：该表中码为：（学号，课程名称）<br> 主属性：码属性组中的所有属性<br> 非主属性：除过码属性组的属性</p>
+<h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）</p>
+<h3 id="数据库的备份和还原"><a href="#数据库的备份和还原" class="headerlink" title="数据库的备份和还原"></a>数据库的备份和还原</h3><pre><code class="bash">#备份： 
+mysqldump -u用户名 -p密码 数据库名称 &gt; 保存的路径
+</code></pre>
+
                 </div>
 
                 <div class="menuShow">
