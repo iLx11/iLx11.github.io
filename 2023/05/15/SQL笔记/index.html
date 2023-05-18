@@ -220,36 +220,36 @@
 <h2 id="操作表"><a href="#操作表" class="headerlink" title="操作表"></a>操作表</h2><h3 id="C-Create-创建"><a href="#C-Create-创建" class="headerlink" title="C(Create):创建"></a>C(Create):创建</h3><pre><code class="sql">
  1. 语法：
  create table 表名(
-     列名1 数据类型1,
-     列名2 数据类型2,
-     ....
-     列名n 数据类型n
+ 列名1 数据类型1,
+ 列名2 数据类型2,
+ ....
+ 列名n 数据类型n
  );
  注意：最后一列，不需要加逗号（,）
  数据库类型：
-     1. int：整数类型
+ 1. int：整数类型
   age int,
-     2. double:小数类型
+ 2. double:小数类型
   score double(5,2)
-     3. date:日期，只包含年月日，yyyy-MM-dd
-     4. datetime:日期，包含年月日时分秒     yyyy-MM-dd HH:mm:ss
-     5. timestamp:时间错类型    包含年月日时分秒     yyyy-MM-dd HH:mm:ss    
+ 3. date:日期，只包含年月日，yyyy-MM-dd
+ 4. datetime:日期，包含年月日时分秒 yyyy-MM-dd HH:mm:ss
+ 5. timestamp:时间错类型包含年月日时分秒 yyyy-MM-dd HH:mm:ss
   如果将来不给这个字段赋值，或赋值为null，则默认使用当前的系统时间，来自动赋值
 
-     6. varchar：字符串
+ 6. varchar：字符串
   name varchar(20):姓名最大20个字符
   zhangsan 8个字符 张三 2个字符
 创建表
  create table student(
-     id int,
-     name varchar(32),
-     age int ,
-     score double(4,1),
-     birthday date,
-     insert_time timestamp
+ id int,
+ name varchar(32),
+ age int ,
+ score double(4,1),
+ birthday date,
+ insert_time timestamp
  );
  复制表：
- create table 表名 like 被复制的表名;         
+ create table 表名 like 被复制的表名; 
 </code></pre>
 <h3 id="R-Retrieve-：查询"><a href="#R-Retrieve-：查询" class="headerlink" title="R(Retrieve)：查询"></a>R(Retrieve)：查询</h3><pre><code class="sql">查询某个数据库中所有的表名称
  show tables;
@@ -275,7 +275,7 @@ alter table 表名 modify 列名 新数据类型;
 drop table if exists 表名 ;  
 </code></pre>
 <h2 id="增删改表中数据"><a href="#增删改表中数据" class="headerlink" title="增删改表中数据"></a>增删改表中数据</h2><h3 id="添加数据："><a href="#添加数据：" class="headerlink" title="添加数据："></a>添加数据：</h3><pre><code class="sql"> insert into 表名(列名1,列名2,...列名n) values(值1,值2,...值n);
-    注意：
+注意：
  1. 列名和值要一一对应。
  2. 如果表名后，不定义列名，则默认给所有列添加值
  insert into 表名 values(值1,值2,...值n);
@@ -302,19 +302,19 @@ drop table if exists 表名 ;
 </ol>
 <pre><code class="sql">select from 表名;
 
-    select
+select
  字段列表
-    from
+from
  表名列表
-    where
+where
  条件列表
-    group by
+group by
  分组字段
-    having
+having
  分组之后的条件
-    order by
+order by
  排序
-    limit
+limit
  分页限定
 </code></pre>
 <h3 id="2-基础查询"><a href="#2-基础查询" class="headerlink" title="2. 基础查询"></a>2. 基础查询</h3><pre><code class="sql"> 1. 多个字段的查询
@@ -338,8 +338,8 @@ drop table if exists 表名 ;
  IN( 集合) 
  LIKE：模糊查询
  占位符：
-     _:单个任意字符
-     %：多个任意字符
+ _:单个任意字符
+ %：多个任意字符
  IS NULL 
  and 或 &amp;&amp;
  or 或 || 
@@ -374,11 +374,11 @@ drop table if exists 表名 ;
 </code></pre>
 <h2 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h2><h3 id="排序查询"><a href="#排序查询" class="headerlink" title="排序查询"></a>排序查询</h3><pre><code class="sql">语法：order by 子句
 order by 排序字段1 排序方式1 ，  排序字段2 排序方式2...
-    
+
 排序方式：
 ASC：升序，默认的。
 DESC：降序。
-    
+
 注意：
 如果有多个排序条件，则当前边的条件值一样时，才会判断第二条件。
 </code></pre>
@@ -390,7 +390,7 @@ max：计算最大值
 min：计算最小值
 sum：计算和
 avg：计算平均值
-    
+
 注意：聚合函数的计算，排除null值。
 解决方案：
 
@@ -399,8 +399,8 @@ avg：计算平均值
 </code></pre>
 <h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><pre><code class="sql">1. 语法：group by 分组字段；
 2. 注意：
-    1. 分组之后查询的字段：分组字段、聚合函数
-    2. where 和 having 的区别？
+1. 分组之后查询的字段：分组字段、聚合函数
+2. where 和 having 的区别？
         1. where 在分组之前进行限定，如果不满足条件，则不参与分组。having在分组之后进行限定，如果不满足结果，则不会被查询出来
         2. where 后不可以跟聚合函数，having可以进行聚合函数的判断。
 
@@ -441,8 +441,8 @@ limit 是一个MySQL&quot;方言&quot;
 <p>默认： default ‘ ‘</p>
 <pre><code class="sql">创建表时添加约束
 CREATE TABLE stu(
-    id INT,
-    NAME VARCHAR(20) NOT NULL -- name为非空
+id INT,
+NAME VARCHAR(20) NOT NULL -- name为非空
 );
 -- 创建表完后，添加非空约束
 ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
@@ -476,17 +476,207 @@ ON UPDATE CASCADE
 -- 级联删除：
 ON DELETE CASCADE 
 </code></pre>
-<h3 id="数据库设计的范式"><a href="#数据库设计的范式" class="headerlink" title="数据库设计的范式"></a>数据库设计的范式</h3><p>设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。<br>        目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。</p>
+<h3 id="数据库设计的范式"><a href="#数据库设计的范式" class="headerlink" title="数据库设计的范式"></a>数据库设计的范式</h3><p>设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。<br>目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。</p>
 <h4 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h4><p>每一列都是不可分割的原子数据项</p>
 <h4 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h4><p>在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）<br> 几个概念：</p>
-<h4 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h4><p>A–&gt;B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A<br>            例如：学号–&gt;姓名。  （学号，课程名称） –&gt; 分数</p>
-<h4 id="完全函数依赖"><a href="#完全函数依赖" class="headerlink" title="完全函数依赖"></a>完全函数依赖</h4><p>A–&gt;B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。<br>        例如：（学号，课程名称） –&gt; 分数</p>
-<h4 id="部分函数依赖"><a href="#部分函数依赖" class="headerlink" title="部分函数依赖"></a>部分函数依赖</h4><p>A–&gt;B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。<br>    例如：（学号，课程名称） – &gt; 姓名</p>
+<h4 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h4><p>A–&gt;B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A<br>例如：学号–&gt;姓名。  （学号，课程名称） –&gt; 分数</p>
+<h4 id="完全函数依赖"><a href="#完全函数依赖" class="headerlink" title="完全函数依赖"></a>完全函数依赖</h4><p>A–&gt;B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。<br>例如：（学号，课程名称） –&gt; 分数</p>
+<h4 id="部分函数依赖"><a href="#部分函数依赖" class="headerlink" title="部分函数依赖"></a>部分函数依赖</h4><p>A–&gt;B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。<br>例如：（学号，课程名称） – &gt; 姓名</p>
 <h4 id="传递函数依赖"><a href="#传递函数依赖" class="headerlink" title="传递函数依赖"></a>传递函数依赖</h4><p>A–&gt;B, B – &gt;C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A<br>例如：学号–&gt;系名，系名–&gt;系主任</p>
 <h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><p>如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码<br>例如：该表中码为：（学号，课程名称）<br> 主属性：码属性组中的所有属性<br> 非主属性：除过码属性组的属性</p>
 <h4 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h4><p>在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）</p>
 <h3 id="数据库的备份和还原"><a href="#数据库的备份和还原" class="headerlink" title="数据库的备份和还原"></a>数据库的备份和还原</h3><pre><code class="bash">#备份： 
 mysqldump -u用户名 -p密码 数据库名称 &gt; 保存的路径
+</code></pre>
+<h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><pre><code class="sql"># 创建部门表
+CREATE TABLE dept(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(20)
+);
+INSERT INTO dept (NAME) VALUES (&#39;开发部&#39;),(&#39;市场部&#39;),(&#39;财务部&#39;);
+# 创建员工表
+CREATE TABLE emp (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    NAME VARCHAR(10),
+    gender CHAR(1), -- 性别
+    salary DOUBLE, -- 工资
+    join_date DATE, -- 入职日期
+    dept_id INT,
+    FOREIGN KEY (dept_id) REFERENCES dept(id) -- 外键，关联部门表(部门表的主键)
+);
+</code></pre>
+<h3 id="内连接查询"><a href="#内连接查询" class="headerlink" title="内连接查询"></a>内连接查询</h3><h4 id="隐式内连接：使用where条件消除无用数据"><a href="#隐式内连接：使用where条件消除无用数据" class="headerlink" title="隐式内连接：使用where条件消除无用数据"></a>隐式内连接：使用where条件消除无用数据</h4><pre><code class="sql">-- 查询所有员工信息和对应的部门信息
+
+ SELECT * FROM emp,dept WHERE emp.`dept_id` = dept.`id`;
+ 
+ -- 查询员工表的名称，性别。部门表的名称
+ SELECT emp.name,emp.gender,dept.name FROM emp,dept WHERE emp.`dept_id` = dept.`id`;
+ 
+ SELECT 
+     t1.name, -- 员工表的姓名
+     t1.gender,-- 员工表的性别
+     t2.name -- 部门表的名称
+ FROM
+     emp t1,
+     dept t2
+ WHERE 
+     t1.`dept_id` = t2.`id`;
+</code></pre>
+<h4 id="显式内连接："><a href="#显式内连接：" class="headerlink" title="显式内连接："></a>显式内连接：</h4><pre><code class="sql">select 字段列表 from 表名1 [inner] join 表名2 on 条件
+
+-- 例如：
+SELECT * FROM emp INNER JOIN dept ON emp.`dept_id` = dept.`id`;    
+SELECT * FROM emp JOIN dept ON emp.`dept_id` = dept.`id`;    
+</code></pre>
+<h3 id="外链接查询："><a href="#外链接查询：" class="headerlink" title="外链接查询："></a>外链接查询：</h3><h4 id="左外连接："><a href="#左外连接：" class="headerlink" title="左外连接："></a>左外连接：</h4><pre><code class="sql">select 字段列表 from 表1 left [outer] join 表2 on 条件；
+-- 查询的是左表所有数据以及其交集部分。
+
+-- 例子：
+-- 查询所有员工信息，如果员工有部门，则查询部门名称，没有部门，则不显示部门名称
+SELECT     t1.*,t2.`name` FROM emp t1 LEFT JOIN dept t2 ON t1.`dept_id` = t2.`id`;
+</code></pre>
+<h4 id="右外连接："><a href="#右外连接：" class="headerlink" title="右外连接："></a>右外连接：</h4><pre><code class="sql">select 字段列表 from 表1 right [outer] join 表2 on 条件；
+-- 查询的是右表所有数据以及其交集部分。
+
+-- 例子：
+SELECT FROM dept t2 RIGHT JOIN emp t1 ON t1.`dept_id` = t2.`id`;
+</code></pre>
+<h3 id="子查询："><a href="#子查询：" class="headerlink" title="子查询："></a>子查询：</h3><p>概念：查询中嵌套查询，称嵌套查询为子查询。</p>
+<pre><code class="sql">-- 查询工资最高的员工信息
+-- 1 查询最高的工资是多少 9000
+SELECT MAX(salary) FROM emp;
+
+-- 2 查询员工信息，并且工资等于9000的
+SELECT * FROM emp WHERE emp.`salary` = 9000;
+
+-- 一条sql就完成这个操作。子查询
+SELECT * FROM emp WHERE emp.`salary` = (SELECT MAX(salary) FROM emp);
+</code></pre>
+<h4 id="子查询不同情况"><a href="#子查询不同情况" class="headerlink" title="子查询不同情况"></a>子查询不同情况</h4><p>子查询的结果是单行单列的：</p>
+<pre><code class="sql">-- 子查询可以作为条件，使用运算符去判断。 运算符： &gt; &gt;= &lt; &lt;= =
+ 
+-- 查询员工工资小于平均工资的人
+SELECT * FROM emp WHERE emp.salary &lt; (SELECT AVG(salary) FROM emp);
+</code></pre>
+<p>子查询的结果是多行单列的：</p>
+<pre><code class="sql">-- 子查询可以作为条件，使用运算符in来判断
+
+-- 查询&#39;财务部&#39;和&#39;市场部&#39;所有的员工信息
+SELECT id FROM dept WHERE NAME = &#39;财务部&#39; OR NAME = &#39;市场部&#39;;
+SELECT * FROM emp WHERE dept_id = 3 OR dept_id = 2;
+
+-- 子查询
+SELECT * FROM emp WHERE dept_id IN (SELECT id FROM dept WHERE NAME = &#39;财务部&#39; OR NAME = &#39;市场部&#39;);
+</code></pre>
+<p>子查询的结果是多行多列的：</p>
+<pre><code class="sql">-- 子查询可以作为一张虚拟表参与查询
+
+-- 查询员工入职日期是2011-11-11日之后的员工信息和部门信息
+
+-- 子查询
+SELECT * FROM dept t1 ,(SELECT * FROM emp WHERE emp.`join_date` &gt; &#39;2011-11-11&#39;) t2
+WHERE t1.id = t2.dept_id;
+
+-- 普通内连接
+SELECT * FROM emp t1,dept t2 WHERE t1.`dept_id` = t2.`id` AND t1.`join_date` &gt;  &#39;2011-11-11&#39;
+</code></pre>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>如果一个包含多个步骤的业务操作，被事务管理，那么这些操作要么同时成功，要么同时失败</p>
+<p>开启事务： start transaction;</p>
+<p>回滚：rollback;</p>
+<p>提交：commit</p>
+<pre><code class="sql">START TRANSACTION;
+-- 1. 张三账户 -500
+
+UPDATE account SET balance = balance - 500 WHERE NAME = &#39;zhangsan&#39;;
+-- 2. 李四账户 +500
+-- 出错了...
+UPDATE account SET balance = balance + 500 WHERE NAME = &#39;lisi&#39;;
+
+-- 发现执行没有问题，提交事务
+COMMIT;
+
+-- 发现出问题了，回滚事务
+ROLLBACK;
+</code></pre>
+<h4 id="MySQL数据库中事务默认自动提交"><a href="#MySQL数据库中事务默认自动提交" class="headerlink" title="MySQL数据库中事务默认自动提交"></a>MySQL数据库中事务默认自动提交</h4><pre><code class="sql">-- 事务提交的两种方式：
+-- 自动提交：
+    -- mysql就是自动提交的
+    -- 一条DML(增删改)语句会自动提交一次事务。
+-- 手动提交：
+-- Oracle 数据库默认是手动提交事务,需要先开启事务，再提交
+
+-- 修改事务的默认提交方式：
+-- 查看事务的默认提交方式：
+SELECT @@autocommit; -- 1 代表自动提交  0 代表手动提交
+
+-- 修改默认提交方式： 
+set @@autocommit = 0;
+</code></pre>
+<h4 id="事务的四大特征："><a href="#事务的四大特征：" class="headerlink" title="事务的四大特征："></a>事务的四大特征：</h4><ol>
+<li>原子性：是不可分割的最小操作单位，要么同时成功，要么同时失败。</li>
+<li>持久性：当事务提交或回滚后，数据库会持久化的保存数据。</li>
+<li>隔离性：多个事务之间。相互独立。</li>
+<li>一致性：事务操作前后，数据总量不变</li>
+</ol>
+<h4 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h4><p>概念：多个事务之间隔离的，相互独立的。但是如果多个事务操作同一批数据，则会引发一些问题，设置不同的隔离级别就可以解决这些问题。</p>
+<h4 id="存在问题："><a href="#存在问题：" class="headerlink" title="存在问题："></a>存在问题：</h4><p>脏读：一个事务，读取到另一个事务中没有提交的数据</p>
+<p>不可重复读(虚读)：在同一个事务中，两次读取到的数据不一样。</p>
+<p>幻读：一个事务操作(DML)数据表中所有记录，另一个事务添加了一条数据，则第一个事务查询不到自己的修改。</p>
+<h4 id="隔离级别："><a href="#隔离级别：" class="headerlink" title="隔离级别："></a>隔离级别：</h4><h4 id="read-uncommitted：读未提交"><a href="#read-uncommitted：读未提交" class="headerlink" title="read uncommitted：读未提交"></a>read uncommitted：读未提交</h4><p>产生的问题：脏读、不可重复读、幻读</p>
+<h4 id="read-committed：读已提交-（Oracle）"><a href="#read-committed：读已提交-（Oracle）" class="headerlink" title="read committed：读已提交 （Oracle）"></a>read committed：读已提交 （Oracle）</h4><p>产生的问题：不可重复读、幻读</p>
+<h4 id="repeatable-read：可重复读-（MySQL默认）"><a href="#repeatable-read：可重复读-（MySQL默认）" class="headerlink" title="repeatable read：可重复读 （MySQL默认）"></a>repeatable read：可重复读 （MySQL默认）</h4><p>产生的问题：幻读</p>
+<h4 id="serializable：串行化"><a href="#serializable：串行化" class="headerlink" title="serializable：串行化"></a>serializable：串行化</h4><p>可以解决所有的问题</p>
+<pre><code class="sql">-- 注意：隔离级别从小到大安全性越来越高，但是效率越来越低
+-- 数据库查询隔离级别：
+    select @@tx_isolation;
+-- 数据库设置隔离级别：
+    set global transaction isolation level  级别字符串;
+</code></pre>
+<h3 id="SQL分类："><a href="#SQL分类：" class="headerlink" title="SQL分类："></a>SQL分类：</h3><p>DDL：操作数据库和表</p>
+<p>DML：增删改表中数据</p>
+<p>DQL：查询表中数据</p>
+<p>DCL：管理用户，授权</p>
+<h3 id="管理用户"><a href="#管理用户" class="headerlink" title="管理用户"></a>管理用户</h3><h4 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h4><pre><code class="sql">CREATE USER &#39;用户名&#39;@&#39;主机名&#39; IDENTIFIED BY &#39;密码&#39;;
+</code></pre>
+<h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><pre><code class="sql">DROP USER &#39;用户名&#39;@&#39;主机名&#39;;
+</code></pre>
+<h4 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h4><pre><code class="sql">UPDATE USER SET PASSWORD = PASSWORD(&#39;新密码&#39;) WHERE USER = &#39;用户名&#39;;
+UPDATE USER SET PASSWORD = PASSWORD(&#39;abc&#39;) WHERE USER = &#39;lisi&#39;;
+
+SET PASSWORD FOR &#39;用户名&#39;@&#39;主机名&#39; = PASSWORD(&#39;新密码&#39;);
+SET PASSWORD FOR &#39;root&#39;@&#39;localhost&#39; = PASSWORD(&#39;123&#39;);
+
+mysql中忘记了root用户的密码？
+    1. cmd -- &gt; net stop mysql 停止mysql服务 (需要管理员运行该cmd)
+    2. 使用无验证方式启动mysql服务： mysqld --skip-grant-tables
+    3. 打开新的cmd窗口,直接输入mysql命令，敲回车。就可以登录成功
+    4. use mysql;
+    5. update user set password = password(&#39;你的新密码&#39;) where user = &#39;root&#39;;
+    6. 关闭两个窗口
+    7. 打开任务管理器，手动结束mysqld.exe 的进程
+    8. 启动mysql服务
+    9. 使用新密码登录。
+</code></pre>
+<h4 id="查询用户"><a href="#查询用户" class="headerlink" title="查询用户"></a>查询用户</h4><pre><code class="sql">-- 1. 切换到mysql数据库
+USE myql;
+-- 2. 查询user表
+SELECT * FROM USER;
+
+-- * 通配符： % 表示可以在任意主机使用用户登录数据库
+</code></pre>
+<h3 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h3><h4 id="查询权限"><a href="#查询权限" class="headerlink" title="查询权限"></a>查询权限</h4><pre><code class="sql">-- 查询权限
+SHOW GRANTS FOR &#39;用户名&#39;@&#39;主机名&#39;;
+SHOW GRANTS FOR &#39;lisi&#39;@&#39;%&#39;;
+</code></pre>
+<h4 id="授予权限"><a href="#授予权限" class="headerlink" title="授予权限"></a>授予权限</h4><pre><code class="sql">-- 授予权限
+grant 权限列表 on 数据库名.表名 to &#39;用户名&#39;@&#39;主机名&#39;;
+
+-- 给张三用户授予所有权限，在任意数据库任意表上
+GRANT ALL ON *.* TO &#39;zhangsan&#39;@&#39;localhost&#39;;
+</code></pre>
+<h4 id="撤销权限"><a href="#撤销权限" class="headerlink" title="撤销权限"></a>撤销权限</h4><pre><code class="sql">-- 撤销权限：
+revoke 权限列表 on 数据库名.表名 from &#39;用户名&#39;@&#39;主机名&#39;;
+REVOKE UPDATE ON db3.`account` FROM &#39;lisi&#39;@&#39;%&#39;;
 </code></pre>
 
                 </div>
