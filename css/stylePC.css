@@ -168,6 +168,7 @@ a {
 html,
 body {
     height: 100%;
+    overflow: hidden;
 }
 
 
@@ -178,6 +179,7 @@ body {
     height: 100%;
     padding: 1em 1em;
     display: none;
+    overflow: hidden;
 }
 
 .paper-main {
@@ -188,12 +190,12 @@ body {
     margin: 0 auto;
     border-radius: 24px;
     position: relative;
-    overflow: hidden;
     z-index: 66;
     animation: move .7s ease;
     box-shadow: 0 0 0 1.6px rgba(51, 51, 51, 0.5);
     background: var(--bg-color-6);
     padding: 1em 1em;
+    overflow: hidden !important;
 }
 
 @keyframes move {
@@ -337,6 +339,7 @@ body {
     left: 0;
     background: var(--bg-color-5);
     border-radius: 15px;
+    z-index: 60;
 }
 
 .flex-block div:nth-child(8) {
@@ -413,7 +416,7 @@ body {
     position: absolute;
     left: 2.5%;
     top: 37%;
-    z-index: 64;
+    z-index: 67;
 }
 
 .collection #colSign {
@@ -489,6 +492,10 @@ body {
     z-index: 68;
     cursor: pointer;
 }
+#more-box {
+    width: 60%;
+    margin: 0 auto;
+}
 
 .moreContent {
     width: 100%;
@@ -498,10 +505,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 88;
     padding: 1em 0.9em;
     display: none;
     overflow: scroll;
+    z-index: 88 !important;
 }
 
 .moreContent h4 {
