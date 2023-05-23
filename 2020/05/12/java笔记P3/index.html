@@ -221,23 +221,23 @@ list.stream().filter(s -&gt; s.startsWith(&quot;张&quot;)).filter(s -&gt; s.len
 </li>
 </ul>
 <pre><code class="java">//Collection体系的集合可以使用默认方法stream()生成流
-        List&lt;String&gt; list = new ArrayList&lt;String&gt;();
-        Stream&lt;String&gt; listStream = list.stream();
+List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+Stream&lt;String&gt; listStream = list.stream();
 
-        Set&lt;String&gt; set = new HashSet&lt;String&gt;();
-        Stream&lt;String&gt; setStream = set.stream();
+Set&lt;String&gt; set = new HashSet&lt;String&gt;();
+Stream&lt;String&gt; setStream = set.stream();
 
-        //Map体系的集合间接的生成流
-        Map&lt;String,Integer&gt; map = new HashMap&lt;String, Integer&gt;();
-        Stream&lt;String&gt; keyStream = map.keySet().stream();
-        Stream&lt;Integer&gt; valueStream = map.values().stream();
-        Stream&lt;Map.Entry&lt;String, Integer&gt;&gt; entryStream = map.entrySet().stream();
+//Map体系的集合间接的生成流
+Map&lt;String,Integer&gt; map = new HashMap&lt;String, Integer&gt;();
+Stream&lt;String&gt; keyStream = map.keySet().stream();
+Stream&lt;Integer&gt; valueStream = map.values().stream();
+Stream&lt;Map.Entry&lt;String, Integer&gt;&gt; entryStream = map.entrySet().stream();
 
-        //数组可以通过Stream接口的静态方法of(T... values)生成流
-        String[] strArray = &#123;&quot;hello&quot;,&quot;world&quot;,&quot;java&quot;&#125;;
-        Stream&lt;String&gt; strArrayStream = Stream.of(strArray);
-        Stream&lt;String&gt; strArrayStream2 = Stream.of(&quot;hello&quot;, &quot;world&quot;, &quot;java&quot;);
-        Stream&lt;Integer&gt; intStream = Stream.of(10, 20, 30);
+//数组可以通过Stream接口的静态方法of(T... values)生成流
+String[] strArray = &#123;&quot;hello&quot;,&quot;world&quot;,&quot;java&quot;&#125;;
+Stream&lt;String&gt; strArrayStream = Stream.of(strArray);
+Stream&lt;String&gt; strArrayStream2 = Stream.of(&quot;hello&quot;, &quot;world&quot;, &quot;java&quot;);
+Stream&lt;Integer&gt; intStream = Stream.of(10, 20, 30);
 </code></pre>
 <h3 id="Stream流中间操作方法"><a href="#Stream流中间操作方法" class="headerlink" title="Stream流中间操作方法"></a>Stream流中间操作方法</h3><p>概念</p>
 <ul>
@@ -292,16 +292,16 @@ list.stream().filter(s -&gt; s.startsWith(&quot;张&quot;)).filter(s -&gt; s.len
 </ul>
 <pre><code class="java">// sorted代码演示
 // 按照字符串长度把数据在控制台输出
-        list.stream().sorted((s1,s2) -&gt; &#123;
-            int num = s1.length()-s2.length();
-            int num2 = num==0?s1.compareTo(s2):num;
-            return num2;
-        &#125;).forEach(System.out::println);
+list.stream().sorted((s1,s2) -&gt; &#123;
+int num = s1.length()-s2.length();
+int num2 = num==0?s1.compareTo(s2):num;
+return num2;
+&#125;).forEach(System.out::println);
 
 // map&amp;mapToInt代码演示
 //int sum() 返回此流中元素的总和
-        int result = list.stream().mapToInt(Integer::parseInt).sum();
-        System.out.println(result);
+int result = list.stream().mapToInt(Integer::parseInt).sum();
+System.out.println(result);
 </code></pre>
 <h3 id="Stream流终结操作方法"><a href="#Stream流终结操作方法" class="headerlink" title="Stream流终结操作方法"></a>Stream流终结操作方法</h3><ul>
 <li><p>概念</p>
@@ -337,8 +337,8 @@ list.stream().filter(s -&gt; s.startsWith(&quot;张&quot;)).filter(s -&gt; s.len
 </li>
 </ul>
 <pre><code class="java"> Stream.concat(manList.stream().filter(s -&gt; s.length() == 3).limit(3),
-                womanList.stream().filter(s -&gt; s.startsWith(&quot;林&quot;)).skip(1)).map(Actor::new).
-                forEach(p -&gt; System.out.println(p.getName()));
+    womanList.stream().filter(s -&gt; s.startsWith(&quot;林&quot;)).skip(1)).map(Actor::new).
+    forEach(p -&gt; System.out.println(p.getName()));
 </code></pre>
 <h3 id="Stream流的收集操作【"><a href="#Stream流的收集操作【" class="headerlink" title="Stream流的收集操作【"></a>Stream流的收集操作【</h3><ul>
 <li><p>概念</p>
@@ -392,7 +392,7 @@ Set&lt;Integer&gt; ages = setStream.collect(Collectors.toSet());
 Map&lt;String, Integer&gt; map = arrayStream.collect(Collectors.toMap(s -&gt; s.split(&quot;,&quot;)[0], s -&gt; Integer.parseInt(s.split(&quot;,&quot;)[1])));
 </code></pre>
 <h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><h4 id="类加载器的作用"><a href="#类加载器的作用" class="headerlink" title="类加载器的作用"></a>类加载器的作用</h4><ul>
-<li>负责将.class文件加载到内存中，并为之生成对应的 java.lang.Class 对象。虽然我们不用过分关心类加载机制，但是了解这个机制我们就能更好的理解程序的运行！    </li>
+<li>负责将.class文件加载到内存中，并为之生成对应的 java.lang.Class 对象。虽然我们不用过分关心类加载机制，但是了解这个机制我们就能更好的理解程序的运行！</li>
 </ul>
 <h4 id="JVM的类加载机制"><a href="#JVM的类加载机制" class="headerlink" title="JVM的类加载机制"></a>JVM的类加载机制</h4><ul>
 <li>全盘负责：就是当一个类加载器负责加载某个Class时，该Class所依赖的和引用的其他Class也将由该类加载器负责载入，除非显示使用另外一个类加载器来载入</li>
@@ -441,22 +441,22 @@ System.out.println(c2); //PlatformClassLoader
 <li>Class.forName(全类名)方法</li>
 </ul>
 <pre><code class="java">//使用类的class属性来获取该类对应的Class对象
-        Class&lt;Student&gt; c1 = Student.class;
-        System.out.println(c1);
+Class&lt;Student&gt; c1 = Student.class;
+System.out.println(c1);
 
-        Class&lt;Student&gt; c2 = Student.class;
-        System.out.println(c1 == c2);
-        System.out.println(&quot;--------&quot;);
+Class&lt;Student&gt; c2 = Student.class;
+System.out.println(c1 == c2);
+System.out.println(&quot;--------&quot;);
 
-        //调用对象的getClass()方法，返回该对象所属类对应的Class对象
-        Student s = new Student();
-        Class&lt;? extends Student&gt; c3 = s.getClass();
-        System.out.println(c1 == c3);
-        System.out.println(&quot;--------&quot;);
+//调用对象的getClass()方法，返回该对象所属类对应的Class对象
+Student s = new Student();
+Class&lt;? extends Student&gt; c3 = s.getClass();
+System.out.println(c1 == c3);
+System.out.println(&quot;--------&quot;);
 
-        //使用Class类中的静态方法forName(String className)
-        Class&lt;?&gt; c4 = Class.forName(&quot;com.itheima_02.Student&quot;);
-        System.out.println(c1 == c4);
+//使用Class类中的静态方法forName(String className)
+Class&lt;?&gt; c4 = Class.forName(&quot;com.itheima_02.Student&quot;);
+System.out.println(c1 == c4);
 </code></pre>
 <h3 id="反射获取构造方法并使用"><a href="#反射获取构造方法并使用" class="headerlink" title="反射获取构造方法并使用"></a>反射获取构造方法并使用</h3><h4 id="Class类获取构造方法对象的方法"><a href="#Class类获取构造方法对象的方法" class="headerlink" title="Class类获取构造方法对象的方法"></a>Class类获取构造方法对象的方法</h4><ul>
 <li><p>方法分类</p>
@@ -572,7 +572,7 @@ Class&lt;?&gt; c = Class.forName(&quot;com.itheima_02.Student&quot;);
 
 Field[] fields = c.getDeclaredFields();
 for(Field field : fields) &#123;
-    System.out.println(field);
+System.out.println(field);
 &#125;
 
 Field addressField = c.getField(&quot;address&quot;);
@@ -650,15 +650,15 @@ Object obj = con.newInstance();
 // args：方法需要的参数
 m.invoke(obj);
 </code></pre>
-<h3 id="越过泛型检查"><a href="#越过泛型检查" class="headerlink" title="越过泛型检查"></a>越过泛型检查</h3><pre><code class="java">        // 创建集合
-        ArrayList&lt;Integer&gt; array = new ArrayList&lt;Integer&gt;();
+<h3 id="越过泛型检查"><a href="#越过泛型检查" class="headerlink" title="越过泛型检查"></a>越过泛型检查</h3><pre><code class="java">// 创建集合
+ArrayList&lt;Integer&gt; array = new ArrayList&lt;Integer&gt;();
 
-        Class&lt;? extends ArrayList&gt; c = array.getClass();
-        Method m = c.getMethod(&quot;add&quot;, Object.class);
+Class&lt;? extends ArrayList&gt; c = array.getClass();
+Method m = c.getMethod(&quot;add&quot;, Object.class);
 
-        m.invoke(array,&quot;hello&quot;);
-        m.invoke(array,&quot;world&quot;);
-        m.invoke(array,&quot;java&quot;);
+m.invoke(array,&quot;hello&quot;);
+m.invoke(array,&quot;world&quot;);
+m.invoke(array,&quot;java&quot;);
 </code></pre>
 <h3 id="运行配置文件中指定类的指定方法"><a href="#运行配置文件中指定类的指定方法" class="headerlink" title="运行配置文件中指定类的指定方法"></a>运行配置文件中指定类的指定方法</h3><pre><code class="java">// 加载数据
 /*
@@ -682,6 +682,312 @@ Constructor&lt;?&gt; con = c.getConstructor();
 Method m = c.getMethod(methodName);//study
 m.invoke(obj);
 </code></pre>
+<h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><p>本质：是官方（sun公司）定义的一套操作所有关系型数据库的规则，即接口。各个数据库厂商去实现这套接口，提供数据库驱动jar包。我们可以使用这套接口（JDBC）编程，真正执行的代码是驱动jar包中的实现类。</p>
+<pre><code class="java">// 1. 导入驱动jar包
+// 2.注册驱动
+Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+
+// 3.获取数据库连接对象--------------------------------------
+Connection conn = DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/db3&quot;, &quot;root&quot;, &quot;root&quot;);
+
+// 4.定义sql语句--------------------------------------------
+String sql = &quot;update account set balance = 500 where id = 1&quot;;
+
+// 5.获取执行sql的对象 Statement-----------------------------
+    1. 获取执行sql 的对象
+    Statement createStatement()
+    PreparedStatement prepareStatement(String sql)  
+    2. 管理事务：
+    开启事务：setAutoCommit(boolean autoCommit) ：调用该方法设置参数为false，即开启事务
+    提交事务：commit() 
+    回滚事务：rollback()
+
+Statement stmt = conn.createStatement();
+
+// 6.执行sql-----------------------------------------------
+1. boolean execute(String sql) ：可以执行任意的sql 了解 
+2. int executeUpdate(String sql) ：执行DML（insert、update、delete）语句、DDL(create，alter、drop)语句
+返回值：影响的行数，可以通过这个影响的行数判断DML语句是否执行成功 返回值&gt;0的则执行成功，反之，则失败。
+3. ResultSet executeQuery(String sql)  ：执行DQL（select)语句
+
+int count = stmt.executeUpdate(sql);
+
+// 7.处理结果-----------------------------------------------
+System.out.println(count);
+// 8.释放资源
+stmt.close();
+conn.close();
+</code></pre>
+<h3 id="ResultSet"><a href="#ResultSet" class="headerlink" title="ResultSet"></a>ResultSet</h3><p>结果集对象,封装查询结果</p>
+<p>boolean next(): 游标向下移动一行，判断当前行是否是最后一行末尾(是否有数据)，如果是，则返回false，如果不是则返回true</p>
+<p>getXxx(参数):获取数据</p>
+<p>Xxx：代表数据类型   如： int getInt() ,String getString()</p>
+<p>参数：</p>
+<ol>
+<li>int：代表列的编号,从1开始   如： getString(1)</li>
+<li>String：代表列名称。 如： getDouble(“balance”)</li>
+</ol>
+<pre><code class="java">1. 游标向下移动一行
+2. 判断是否有数据
+3. 获取数据
+    
+ResultSet rs = stmt.executeQuery(sql);
+return rs.next();//如果有下一行，则返回true    
+
+// 循环判断游标是否是最后一行末尾。
+while(rs.next())&#123;
+    //获取数据
+    int id = rs.getInt(1);
+    String name = rs.getString(&quot;name&quot;);
+    double balance = rs.getDouble(3);
+    System.out.println(id + &quot;---&quot; + name + &quot;---&quot; + balance);
+&#125;
+</code></pre>
+<h3 id="SQL注入问题"><a href="#SQL注入问题" class="headerlink" title="SQL注入问题"></a>SQL注入问题</h3><p>在拼接sql时，有一些sql的特殊关键字参与字符串的拼接。会造成安全性问题</p>
+<p>解决sql注入问题：使用PreparedStatement对象来解决<br>预编译的SQL：参数使用?作为占位符</p>
+<pre><code class="java">// 定义sql
+//注意：sql的参数使用？作为占位符。 如：
+select * from user where username = ? and password = ?;
+
+// 获取执行sql语句的对象 
+PreparedStatement stmt = Connection.prepareStatement(String sql);
+// 给？赋值：
+方法： setXxx(参数1,参数2)
+参数1：？的位置编号 从1 开始
+参数2：？的值
+// 执行sql，接受返回结果，不需要传递sql语句
+// 处理结果
+// 释放资源
+</code></pre>
+<h2 id="JDBC工具类-：-JDBCUtils"><a href="#JDBC工具类-：-JDBCUtils" class="headerlink" title="JDBC工具类 ： JDBCUtils"></a>JDBC工具类 ： JDBCUtils</h2><p>配置文件<br>jdbc.properties<br>url=<br>user=<br>password=</p>
+<pre><code class="java">// 1. 创建Properties集合类。
+Properties pro = new Properties();
+
+//获取src路径下的文件的方式---&gt;ClassLoader 类加载器
+ClassLoader classLoader = JDBCUtils.class.getClassLoader();
+URL res  = classLoader.getResource(&quot;jdbc.properties&quot;);
+String path = res.getPath();
+System.out.println(path);///D:/IdeaProjects/itcast/out/production/day04_jdbc/jdbc.properties
+
+// 2. 加载文件
+// pro.load(new FileReader(&quot;D:\\IdeaProjects\\itcast\\day04_jdbc\\src\\jdbc.properties&quot;));
+pro.load(new FileReader(path));
+
+// 3. 获取数据，赋值
+url = pro.getProperty(&quot;url&quot;);
+user = pro.getProperty(&quot;user&quot;);
+password = pro.getProperty(&quot;password&quot;);
+driver = pro.getProperty(&quot;driver&quot;);
+// 4. 注册驱动
+Class.forName(driver);
+</code></pre>
+<h2 id="JDBC控制事务："><a href="#JDBC控制事务：" class="headerlink" title="JDBC控制事务："></a>JDBC控制事务：</h2><ol>
+<li>事务：一个包含多个步骤的业务操作。如果这个业务操作被事务管理，则这多个步骤要么同时成功，要么同时失败。</li>
+<li>操作：<ol>
+<li>开启事务</li>
+<li>提交事务</li>
+<li>回滚事务</li>
+</ol>
+</li>
+<li>使用Connection对象来管理事务<ul>
+<li>开启事务：setAutoCommit(boolean autoCommit) ：调用该方法设置参数为false，即开启事务<ul>
+<li>在执行sql之前开启事务</li>
+</ul>
+</li>
+<li>提交事务：commit() <ul>
+<li>当所有sql都执行完提交事务</li>
+</ul>
+</li>
+<li>回滚事务：rollback() <ul>
+<li>在catch中回滚事务</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code class="java">try &#123;
+conn.commit();
+&#125;catch(Exception e) &#123;
+    //事务回滚
+    try &#123;
+if(conn != null) &#123;
+    conn.rollback();
+&#125;
+    &#125; catch (SQLException e1) &#123;
+e1.printStackTrace();
+    &#125;
+    e.printStackTrace();
+&#125;finally &#123;
+    JDBCUtils.close(pstmt1,conn);
+JDBCUtils.close(pstmt2,null);
+&#125;
+</code></pre>
+<h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><ol>
+<li><p>概念：其实就是一个容器(集合)，存放数据库连接的容器。</p>
+<pre><code> 当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。
+</code></pre>
+</li>
+<li><p>好处：</p>
+<ol>
+<li>节约资源</li>
+<li>用户访问高效</li>
+</ol>
+</li>
+<li><p>实现：</p>
+<ol>
+<li><p>标准接口：DataSource   javax.sql包下的</p>
+<ol>
+<li>方法：<ul>
+<li>获取连接：getConnection()</li>
+<li>归还连接：Connection.close()。如果连接对象Connection是从连接池中获取的，那么调用Connection.close()方法，则不会再关闭连接了。而是归还连接</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>一般我们不去实现它，有数据库厂商来实现</p>
+<ol>
+<li>C3P0：数据库连接池技术</li>
+<li>Druid：数据库连接池实现技术，由阿里巴巴提供的</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="C3P0：数据库连接池技术"><a href="#C3P0：数据库连接池技术" class="headerlink" title="C3P0：数据库连接池技术"></a>C3P0：数据库连接池技术</h3><pre><code class="java">/*
+    1. 导入jar包 (两个) c3p0-0.9.5.2.jar mchange-commons-java-0.2.12.jar 
+    不要忘记导入数据库驱动jar包
+    2. 定义配置文件：
+    名称： c3p0.properties 或者 c3p0-config.xml
+    路径：直接将文件放在src目录下即可。
+    3. 创建核心对象 数据库连接池对象 ComboPooledDataSource
+    4. 获取连接： getConnection
+*/
+
+// 1.创建数据库连接池对象
+DataSource ds  = new ComboPooledDataSource();
+// 2. 获取连接对象
+Connection conn = ds.getConnection();
+</code></pre>
+<h3 id="Druid：数据库连接池"><a href="#Druid：数据库连接池" class="headerlink" title="Druid：数据库连接池"></a>Druid：数据库连接池</h3><pre><code class="java">/*
+    1. 导入jar包 druid-1.0.9.jar
+    2. 定义配置文件：
+    是properties形式的
+    可以叫任意名称，可以放在任意目录下
+    3. 加载配置文件。Properties
+    4. 获取数据库连接池对象：通过工厂来来获取  DruidDataSourceFactory
+    5. 获取连接：getConnection
+*/
+
+// 3.加载配置文件
+Properties pro = new Properties();
+InputStream is = DruidDemo.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);
+pro.load(is);
+// 4.获取连接池对象
+DataSource ds = DruidDataSourceFactory.createDataSource(pro);
+// 5.获取连接
+Connection conn = ds.getConnection();
+</code></pre>
+<h3 id="JDBCUtils"><a href="#JDBCUtils" class="headerlink" title="JDBCUtils"></a>JDBCUtils</h3><pre><code class="java">public class JDBCUtils &#123;
+  //1.定义成员变量 DataSource
+  private static DataSource ds ;
+  static&#123;
+      try &#123;
+          //1.加载配置文件
+          Properties pro = new Properties();
+          pro.load(JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;));
+          //2.获取DataSource
+          ds = DruidDataSourceFactory.createDataSource(pro);
+      &#125; catch (IOException e) &#123;
+          e.printStackTrace();
+      &#125; catch (Exception e) &#123;
+          e.printStackTrace();
+      &#125;
+  &#125;
+
+  /**
+   * 获取连接
+   */
+  public static Connection getConnection() throws SQLException &#123;
+      return ds.getConnection();
+  &#125;
+  /**
+   * 获取连接池方法
+   */
+  public static DataSource getDataSource()&#123;
+      return  ds;
+  &#125;
+  /**
+   * 释放资源
+   */
+  public static void close(ResultSet rs, Statement stmt,Connection conn)&#123;
+     /* if(stmt != null)&#123;
+          try &#123;
+              stmt.close();
+          &#125; catch (SQLException e) &#123;
+              e.printStackTrace();
+          &#125;
+      &#125;
+      if(conn != null)&#123;
+          try &#123;
+              conn.close();//归还连接
+          &#125; catch (SQLException e) &#123;
+              e.printStackTrace();
+          &#125;
+      &#125;*/
+     close(null,stmt,conn);
+  &#125;
+</code></pre>
+<h2 id="Spring-JDBC"><a href="#Spring-JDBC" class="headerlink" title="Spring JDBC"></a>Spring JDBC</h2><p>Spring框架对JDBC的简单封装。提供了一个JDBCTemplate对象简化JDBC的开发</p>
+<pre><code class="java">1. 导入jar包
+2. 创建JdbcTemplate对象。依赖于数据源DataSource
+  * JdbcTemplate template = new JdbcTemplate(ds);
+
+3. 调用JdbcTemplate的方法来完成CRUD的操作
+  * update():执行DML语句。增、删、改语句
+    String sql = &quot;delete from emp where id = ?&quot;;
+    int count = template.update(sql, 1015);
+
+  * queryForMap():查询结果将结果集封装为map集合，将列名作为key，将值作为value 将这条记录封装为一个map集合
+      * 注意：这个方法查询的结果集长度只能是1
+    String sql = &quot;select * from emp where id = ? or id = ?&quot;;
+    Map&lt;String, Object&gt; map = template.queryForMap(sql, 1001,1002);
+
+  * queryForList():查询结果将结果集封装为list集合
+      * 注意：将每一条记录封装为一个Map集合，再将Map集合装载到List集合中
+    String sql = &quot;select * from emp&quot;;
+    List&lt;Map&lt;String, Object&gt;&gt; list = template.queryForList(sql);    
+  * query():查询结果，将结果封装为JavaBean对象
+      * query的参数：RowMapper
+    * 一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
+    * new BeanPropertyRowMapper&lt;类型&gt;(类型.class)
+    String sql = &quot;select * from emp&quot;;
+    List&lt;Emp&gt; list = template.query(sql, new BeanPropertyRowMapper&lt;Emp&gt;(Emp.class));
+
+  * queryForObject：查询结果，将结果封装为对象
+      * 一般用于聚合函数的查询
+  String sql = &quot;select count(id) from emp&quot;;
+  Long total = template.queryForObject(sql, Long.class);    
+</code></pre>
+<h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><p>Maven 是一个项目管理工具，它包含了一个项目对象模型 (POM：Project Object Model)，一组标准集合，一个项目生命周期(Project Lifecycle)，一个依赖管理系统(Dependency Management System)，和用来运行定义在生命周期阶段(phase)中插件(plugin)目标(goal)的逻辑。 </p>
+<h3 id="Maven-工程的目录结构"><a href="#Maven-工程的目录结构" class="headerlink" title="Maven 工程的目录结构"></a>Maven 工程的目录结构</h3><p>src/main/java —— 存放项目的.java 文件<br>src/main/resources —— 存放项目资源文件，如spring, hibernate 配置文件<br>src/test/java —— 存放所有单元测试.java 文件，如JUnit 测试类<br>src/test/resources —— 测试资源文件<br>target —— 项目输出位置，编译后的class 文件会输出到此目录<br>pom.xml——maven 项目核心配置文件 </p>
+<h3 id="Maven常用命令"><a href="#Maven常用命令" class="headerlink" title="Maven常用命令"></a>Maven常用命令</h3><h4 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h4><p>compile 是 maven 工程的编译命令，作用是将 src/main/java 下的文件编译为 class 文件输出到 target<br>目录下。 </p>
+<h4 id="test"><a href="#test" class="headerlink" title="test"></a>test</h4><p>test 是maven 工程的测试命令 mvn test，会执行src/test/java 下的单元测试类。<br>cmd 执行mvn test 执行src/test/java 下单元测试类，</p>
+<h4 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h4><p>clean 是maven 工程的清理命令，执行 clean 会删除target 目录及内容。 </p>
+<h4 id="package"><a href="#package" class="headerlink" title="package"></a>package</h4><p>package 是maven 工程的打包命令，对于java 工程执行package 打成jar 包，对于web 工程打成war<br>包。 </p>
+<h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><p>install 是maven 工程的安装命令，执行install 将maven 打成jar 包或war 包发布到本地仓库。<br>从运行结果中，可以看出：<br>当后面的命令执行时，前面的操作过程也都会自动执行， </p>
+<h4 id="Maven-指令的生命周期"><a href="#Maven-指令的生命周期" class="headerlink" title="Maven 指令的生命周期"></a>Maven 指令的生命周期</h4><p>maven 对项目构建过程分为三套相互独立的生命周期，请注意这里说的是“三套”，而且“相互独立”，<br>这三套生命周期分别是： </p>
+<p>Clean Lifecycle 在进行真正的构建之前进行一些清理工作。<br>Default Lifecycle 构建的核心部分，编译，测试，打包，部署等等。<br>Site Lifecycle 生成项目报告，站点，发布站点。 </p>
+<h3 id="maven-的概念模型"><a href="#maven-的概念模型" class="headerlink" title="maven 的概念模型"></a>maven 的概念模型</h3><p>Maven 包含了一个项目对象模型 (Project Object Model)，一组标准集合，一个项目生命周期(Project<br>Lifecycle)，一个依赖管理系统(Dependency Management System)，和用来运行定义在生命周期阶段<br>(phase)中插件(plugin)目标(goal)的逻辑。 </p>
+<h4 id="项目对象模型-Project-Object-Model"><a href="#项目对象模型-Project-Object-Model" class="headerlink" title="项目对象模型 (Project Object Model)"></a>项目对象模型 (Project Object Model)</h4><p>一个maven 工程都有一个pom.xml 文件，通过pom.xml 文件定义项目的坐标、项目依赖、项目信息、<br>插件目标等。 </p>
+<h4 id="依赖管理系统-Dependency-Management-System"><a href="#依赖管理系统-Dependency-Management-System" class="headerlink" title="依赖管理系统(Dependency Management System)"></a>依赖管理系统(Dependency Management System)</h4><p>通过maven 的依赖管理对项目所依赖的jar 包进行统一管理。<br>比如：项目依赖junit4.9，通过在pom.xml 中定义junit4.9 的依赖即使用junit4.9，如下所示是junit4.9<br>的依赖定义： </p>
+<h4 id="一个项目生命周期-Project-Lifecycle"><a href="#一个项目生命周期-Project-Lifecycle" class="headerlink" title="一个项目生命周期(Project Lifecycle)"></a>一个项目生命周期(Project Lifecycle)</h4><p> 使用maven 完成项目的构建，项目构建包括：清理、编译、测试、部署等过程，maven 将这些<br>过程规范为一个生命周期，</p>
+<h3 id="idea-开发-maven-项目"><a href="#idea-开发-maven-项目" class="headerlink" title="idea 开发 maven 项目"></a>idea 开发 maven 项目</h3><p>打开 -&gt; File -&gt; Settings 配置 maven </p>
+<h3 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h3><p>A 依赖 B，需要在 A 的 pom.xml 文件中添加 B 的坐标，添加坐标时需要指定依赖范围，依赖范围包括： </p>
+<p> compile：编译范围，指A 在编译时依赖B，此范围为默认依赖范围。编译范围的依赖会用在<br>编译、测试、运行，由于运行时需要所以编译范围的依赖会被打包。 </p>
+<p> provided：provided 依赖只有在当JDK 或者一个容器已提供该依赖之后才使用， provided 依<br>赖在编译和测试时需要，在运行时不需要，比如：servlet api 被tomcat 容器提供。 </p>
+<p> runtime：runtime 依赖在运行和测试系统的时候需要，但在编译的时候不需要。比如：jdbc<br>的驱动包。由于运行时需要所以runtime 范围的依赖会被打包。 </p>
+<p> test：test 范围依赖 在编译和运行时都不需要，它们只有在测试编译和测试运行阶段可用，<br>比如：junit。由于运行时不需要所以test 范围依赖不会被打包。 </p>
+<p> system：system 范围依赖与 provided 类似，但是你必须显式的提供一个对于本地系统中JAR<br>文件的路径，需要指定systemPath 磁盘路径，system 依赖不推荐使用。 </p>
 
                 </div>
 
