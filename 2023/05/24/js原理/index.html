@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                js原理
+            </div>
+            <div class="post-meta">
+                2023-05-24
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>基本类型存储在栈，被引用或拷贝，会创建一个完全相等的变量</p>
+<p>引用类型存储在堆，存储地址，多个引用指向同一地址，并涉及到共享</p>
+<p>”共享“：</p>
+<pre><code class="js">let a = &#123;
+    name: &#39;aa&#39;,
+    age: 20
+&#125;
+function cc (o) &#123; 
+    o.age = 30;
+    o = &#123;
+        name: &#39;bb&#39;,
+        age: 40
+    &#125;
+    return o;
+&#125;
+let b = cc(a);
+// b.age = 40;     a.age = 30
+</code></pre>
+<h2 id="数据类型检测"><a href="#数据类型检测" class="headerlink" title="数据类型检测"></a>数据类型检测</h2><h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><pre><code class="js">typeof 1 // &#39;number&#39;
+typeof &#39;1&#39; // &#39;string&#39;
+typeof undefined // &#39;undefined&#39;
+typeof true // &#39;boolean&#39;
+typeof Symbol // &#39;symbol&#39;
+typeof null // &#39;object&#39;(*)
+typeof []/&#123;&#125;/console // &#39;object&#39;
+typeof console.log // &#39;function&#39;
+</code></pre>
+<p>判断null</p>
+<pre><code class="js">if(? === null)
+</code></pre>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p>new 一个对象就是原型链继承上面的对象，通过instanceof 能判断这个对象是否是之前构造函数生成的对象</p>
+<pre><code class="js">let str = new String(&#39;aaa&#39;);
+str instanceof String // true
+let str = &#39;aaa&#39;
+str instanceof String // false
+</code></pre>
+<p>自己实现底层instanceof </p>
+<pre><code class="js">function myInstanceof (left, right) &#123;
+    // 如果是基本数据类型，直接返回false
+    if(typeof left != &#39;object&#39; || left === null) return false;
+    // Object.getPrototypeOf() 能够拿到参数的原型对象
+    let proto = Object.getPrototypeOf(left);
+    while((proto = Object.getPrototypeOf(proto)) !== null) &#123;
+        if(proto === right.prototype) return true;
+    &#125;
+&#125;
+myInstanceOf(new Number(234), Number);
+</code></pre>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>instanceof 可以准确判断引用数据类型，不能正确判断基本数据类型</p>
+<p>typeof 可以判断剧本数据类型，但只能判断一个 function 引用类型</p>
+<h3 id="Object-prototype-toString"><a href="#Object-prototype-toString" class="headerlink" title="Object.prototype.toString()"></a>Object.prototype.toString()</h3><p>对于Object 对象，可以直接调用 toString()， 其他对象需要 通过 call</p>
+<pre><code class="js">Object.prototype.toString(&#123;&#125;) // [object Object]
+Object.prototype.toString(&#123;&#125;) // [object Object]
+Object.prototype.toString(1) // [object Number]
+Object.prototype.toString(&#39;1&#39;) // [object String]
+Object.prototype.toString(true) // [object Boolean]
+Object.prototype.toString(function() &#123;&#125;) // [object Function]
+Object.prototype.toString(null/ undifined) // [.. Null/ Undefined]
+Object.prototype.toString(/123/g) // RegExp
+Object.prototype.toString(new Date()) // Date
+Object.prototype.toString([])    // Array
+Object.prototype.toString(document) // HTMLDocument
+Object.prototype.toString([])     // Window
+</code></pre>
+<h3 id="实现全局通用类型判断"><a href="#实现全局通用类型判断" class="headerlink" title="实现全局通用类型判断"></a>实现全局通用类型判断</h3><pre><code class="js">function getType (obj) &#123;
+    let type = typeof obj
+    if(typeof obj !== &#39;object&#39;) &#123;
+        return type;
+    &#125;
+    // 通过正则获取结果
+    return Oject.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, &#39;$1&#39;);
+&#125;
+</code></pre>
+<h2 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h2><h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><p>Number() / parseInt() / parseFloat() / toString() / String()  / Boolean()</p>
+<h4 id="Number-转换规则"><a href="#Number-转换规则" class="headerlink" title="Number 转换规则"></a>Number 转换规则</h4><ul>
+<li>布尔值： 1 、0</li>
+<li>数组： 返回自身</li>
+<li>null： 0</li>
+<li>undefined： NaN</li>
+<li>字符串：纯数字（包含16进制，正负号）；有效浮点转为浮点数值；空字符串转为 0；如果不是以上则返回 NaN</li>
+<li>Symbol：抛出错误</li>
+</ul>
+<h4 id="Boolean-转换规则"><a href="#Boolean-转换规则" class="headerlink" title="Boolean 转换规则"></a>Boolean 转换规则</h4><p>除了 undefined / null / false / ‘’ / 0 / NaN 为false ，其他为 true</p>
+<h4 id="String-运算符转换规则"><a href="#String-运算符转换规则" class="headerlink" title="String 运算符转换规则"></a>String 运算符转换规则</h4><ul>
+<li>null 转换为 ‘null’</li>
+<li>undefined 转换为 undefined</li>
+<li>true 转换为 ‘true’，false 转换为 ‘false’</li>
+<li>数字转换遵循通用规则，极大极小的数字使用指数形式</li>
+</ul>
+<h4 id="NaN的概念"><a href="#NaN的概念" class="headerlink" title="NaN的概念"></a>NaN的概念</h4><p>NaN 是一个全局对象的属性，NaN 是一个全局对象的属性，NaN是一种特殊的Number类型</p>
+<h4 id="什么时候返回NaN-（开篇第二道题也得到解决）"><a href="#什么时候返回NaN-（开篇第二道题也得到解决）" class="headerlink" title="什么时候返回NaN （开篇第二道题也得到解决）"></a>什么时候返回NaN （开篇第二道题也得到解决）</h4><ul>
+<li>无穷大除以无穷大</li>
+<li>给任意负数做开方运算</li>
+<li>算数运算符与不是数字或无法转换为数字的操作数一起使用</li>
+<li>字符串解析成数字</li>
+</ul>
+<h4 id="toString和String的区别"><a href="#toString和String的区别" class="headerlink" title="toString和String的区别"></a>toString和String的区别</h4><ul>
+<li><p>toString()可以将数据都转为字符串，但是null和undefined不可以转换</p>
+<pre><code class="js">console.log(null.toString())
+// 报错 TypeError: Cannot read property &#39;toString&#39; of null
+
+console.log(undefined.toString())
+// 报错 TypeError: Cannot read property &#39;toString&#39; of undefined
+</code></pre>
+</li>
+<li><p>String</p>
+<p>String()可以将null和undefined转换为字符串，但是没法转进制字符串</p>
+<pre><code class="js">console.log(String(null));
+// null
+console.log(String(undefined));
+// undefine
+</code></pre>
+</li>
+<li><p>toString()括号中可以写数字，代表进制</p>
+<ul>
+<li>二进制：.toString(2)</li>
+</ul>
+</li>
+</ul>
+<h3 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h3><p>通过逻辑运算符，关系运算符，相等运算符，或if/while条件操作，如果两个类型不相同，就会隐式转换</p>
+<h4 id="‘-’-的转换规则"><a href="#‘-’-的转换规则" class="headerlink" title="‘==’ 的转换规则"></a>‘==’ 的转换规则</h4><ul>
+<li>如果类型相同，无法转换</li>
+<li>其中一个是 null / undefined， 另一个操作符也必须为 null / undefined，才为true</li>
+<li>其中一个是 Symbol 类型，返回 false</li>
+<li>string 与 number 类型，则转为 number</li>
+<li>其中一个为 boolean 转为 number</li>
+<li>其中一个 为 object 且另一方为 stirng/ number/ symbol ，会将 object 转为原始类型再进行判断 （调用 object 的 valueof / toString)</li>
+</ul>
+<h4 id="‘-’的转换规则"><a href="#‘-’的转换规则" class="headerlink" title="‘+’的转换规则"></a>‘+’的转换规则</h4><p>数字相加（两边都为数字）， 字符串拼接（两边都为字符串）<br>特殊规则：</p>
+<ul>
+<li>其中一个为字符串，另一个是 undefined / null / boolean 则调用 toString() 方法进行拼接</li>
+<li>如果是纯对象，数组，正则等， 则默认调用对象的转换方法存在优先级</li>
+<li>其中一个是数字，另一个是 undefined/ null / boolean / number 会转为数字再运算</li>
+</ul>
+<h4 id="object-的转换规则"><a href="#object-的转换规则" class="headerlink" title="object 的转换规则"></a>object 的转换规则</h4><p>对象转换会先调用内置的[ToPrimitive] 函数</p>
+<ul>
+<li>如果部署了 Symbol.toPrimitive 方法，优先调用再返回</li>
+<li>调用 valueOf() 如果为基础类型，则返回</li>
+<li>调用 toString() 如果为基础类型，则返回</li>
+<li>如果都没有基础类型，则报错</li>
+</ul>
+<pre><code class="js">let obj = &#123;
+    value: 1,
+    valueOf() &#123;
+        return 2;
+    &#125;,
+    toString() &#123;
+        return &#39;3&#39;;
+    &#125;,
+    [Symbol.toPrimitive]() &#123;
+        return 4;
+    &#125;
+&#125;
+console.log(obj + 1)
+// 5 -&gt; Symbol.toPrimitive
+// 3 -&gt; valueOf
+// 31 -&gt; toString
+</code></pre>
+<h4 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h4><pre><code class="js">10 + &#123;&#125;
+// 10[object Object]
+&#123;&#125; + 10
+// 10]
+[1, 2, undefined, 4, 5] + 10
+// &quot;1,2,,4,510&quot;
+</code></pre>
+<h1 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h1><h2 id="浅拷贝的原理和实现"><a href="#浅拷贝的原理和实现" class="headerlink" title="浅拷贝的原理和实现"></a>浅拷贝的原理和实现</h2><p>如果对象属性是基本类型，复制的就是基本类型的值，如果是引用类型，复制的就是内存地址，一个对象改变则另一个也改变</p>
+<h3 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h3><p>该方法可以用于对象合并，可以进行浅拷贝。第一个参数是拷贝的目标，后面的参数是拷贝的来源对象（可以多个来源）</p>
+<pre><code class="js">Object.assign(target, ...sources);
+</code></pre>
+<p>注意：</p>
+<ul>
+<li>不会拷贝对象的继承属性</li>
+<li>不拷贝不可枚举属性</li>
+<li>可以拷贝 Symbol 类型的属性</li>
+</ul>
+<pre><code class="js">Object.defineProperty(obj1, &#39;innumerable&#39;, &#123;
+    value: &#39;不可枚举属性&#39;,
+    enumerable: false
+&#125;)
+let obj2 = &#123;&#125;;
+Object.assign(obj2, obj1);
+</code></pre>
+<h3 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h3><pre><code class="js">let cloneObj = &#123; ...obj&#125;;
+</code></pre>
+<p>如果属性都为基本类型的值，使用扩展运算符会更加方便</p>
+<h3 id="concat-拷贝数组"><a href="#concat-拷贝数组" class="headerlink" title="concat 拷贝数组"></a>concat 拷贝数组</h3><p>只能用于数组的浅拷贝，比较局限</p>
+<pre><code class="js">let newarr = arr.concat();
+</code></pre>
+<h3 id="slice-拷贝数组"><a href="#slice-拷贝数组" class="headerlink" title="slice 拷贝数组"></a>slice 拷贝数组</h3><pre><code class="js">arr.slice(begin, end);
+</code></pre>
+<h3 id="手动实现浅拷贝"><a href="#手动实现浅拷贝" class="headerlink" title="手动实现浅拷贝"></a>手动实现浅拷贝</h3><pre><code class="js">function shallowClone (target) &#123;
+    if(typeof target === &#39;object&#39; &amp;&amp; target !== null) &#123;
+        const cloneT = Array.isArray(target) ? [] : &#123;&#125;;
+        for(let prop in target) &#123;
+            // 只检查对象的自有属性
+            if(target.hasOwnProperty(prop)) &#123;
+                cloneT[prop] = target[prop];
+            &#125;
+        &#125;
+        return cloneT;
+    &#125;
+    return target;
+&#125;
+</code></pre>
+<h2 id="深拷贝的原理和实现"><a href="#深拷贝的原理和实现" class="headerlink" title="深拷贝的原理和实现"></a>深拷贝的原理和实现</h2><p>深拷贝对于复杂的引用类型数据类型，其在堆内存中完全开辟一块内存地址</p>
+<h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h3><pre><code class="js">let obj1 = &#123;a: 1, b: [1, 2, 3]&#125;;
+let obj2 = JSON.parse(JSON.stringify(obj1));
+</code></pre>
+<ul>
+<li>拷贝的对象有函数、undefined、symbol，序列化后键值对会消失</li>
+<li>Date 引用类型会变为字符串</li>
+<li>无法拷贝不可枚举属性</li>
+<li>RegExp 引用类型会变为空对象</li>
+<li>NaN Infinity -Infinity，序列化后会变为null</li>
+<li>无法拷贝对象循环应用 （obj[key] = obj）</li>
+</ul>
+<h3 id="手写递归实现"><a href="#手写递归实现" class="headerlink" title="手写递归实现"></a>手写递归实现</h3><pre><code class="js">function deepClone (obj) &#123;
+    let cloneObj= &#123;&#125;;
+    for(let key in obj) &#123;
+        if(typeof obj[key] === &#39;object&#39; &amp;&amp; typeof obj[key] !== null) &#123;
+            cloneOb[key] = deepClone(obj[key]);
+        &#125;else &#123;
+            cloneObj[key] = obj[key];
+        &#125;
+    &#125;
+    return cloneObj;
+&#125;
+</code></pre>
+<p>问题：</p>
+<ul>
+<li>不能复制不可枚举属性以及Symbol 类型</li>
+<li>只针对普通的引用类型，对于Array, Date, RegExp, Error, Function 不能正确拷贝</li>
+<li>没有解决循环引用</li>
+</ul>
+<h3 id="改进版递归实现"><a href="#改进版递归实现" class="headerlink" title="改进版递归实现"></a>改进版递归实现</h3><ul>
+<li>针对不可枚举属性，以及Symbol 类型，可以用 Reflect.ownKeys方法实现</li>
+<li>当参数为Date RegExp 类型，直接生成一个实例返回</li>
+<li>利用 Object.getOwnPropertyDescriptors 可以获得对象的所有属性，结合 Object 的 create 方法创建一个新对象，并继承传入对象的的原型链</li>
+<li>利用 WeakMap 类型作为 Hash 表，为弱引用类型，可以有效防止内存泄漏，</li>
+</ul>
+<pre><code class="js">const deepClone = function(obj, hash = new WeakMap()) &#123;
+    // 日期对象
+    if(obj.constructor == Date) return new Date(obj);
+    // 正则对象
+    if(obj.construtor == RegExp) return new RegExp(obj);
+    // 循环引用用weakmap 解决
+    if(hash.has(obj)) return hash.get(obj);
+    // 获取所有属性
+    let allDesc = Object.getOwnPropertyDescriptors(obj);
+    // 传入所有键的特性
+    let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc);
+    // 继承原型链
+    hash.set(obj, cloneObj);
+    // 针对不可枚举属性
+    for(let key in Reflect.ownKeys(obj)) &#123;
+        cloneObj[key] = (isComplexDataType(obj[key]) &amp;&amp; typeof obj[key] !== &#39;function&#39;) ? deepClone(obj[key], hash) : obj[key];
+    &#125;
+    return cloneObj;
+&#125;
+</code></pre>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="js-实现继承的方式"><a href="#js-实现继承的方式" class="headerlink" title="js 实现继承的方式"></a>js 实现继承的方式</h2><h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3>
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
