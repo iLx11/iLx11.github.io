@@ -438,6 +438,7 @@ let obj2 = JSON.parse(JSON.stringify(obj1));
     // 获取所有属性
     let allDesc = Object.getOwnPropertyDescriptors(obj);
     // 传入所有键的特性
+    // Object.create(proto[,propertiesObject])
     let cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc);
     // 继承原型链
     hash.set(obj, cloneObj);
@@ -448,7 +449,564 @@ let obj2 = JSON.parse(JSON.stringify(obj1));
     return cloneObj;
 &#125;
 </code></pre>
-<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="js-实现继承的方式"><a href="#js-实现继承的方式" class="headerlink" title="js 实现继承的方式"></a>js 实现继承的方式</h2><h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="js-实现继承的方式"><a href="#js-实现继承的方式" class="headerlink" title="js 实现继承的方式"></a>js 实现继承的方式</h2><h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p>每个构造函数都有一个原型对象， 原型对象包含一个指向构造函数的指针，而实例则包含一个原型对象指针</p>
+<pre><code class="js">function Parent() &#123;
+    this.name = &#39;Parent&#39;;
+&#125;
+function Child() &#123;
+    this.age = 10;
+&#125;
+Child.prototype = new Parent();
+</code></pre>
+<p>缺点：</p>
+<p>实例使用同一个原型对象，内存空间是共享的</p>
+<h3 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h3><pre><code class="js">function Parent() &#123;
+    this.name = &#39;Parent&#39;;
+&#125;
+Parent.prototype.getName = function() &#123;
+    return this.name;
+&#125;
+function Child() &#123;
+    Parent.call(this);
+&#125;
+let Child = new Child();
+Child.name = &#39;Parent&#39; // 不报错
+Child.getName(); // 报错
+</code></pre>
+<p>缺点：</p>
+<p>父类的引用属性不会共享，只能继承实例属性和方法， 不能继承原型属性或方法</p>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><p>结合前两种</p>
+<pre><code class="js">function Parent() &#123;
+    this.name = &#39;Parent&#39;;
+    this.arr = [1, 2, 3];
+&#125;
+Parent.prototype.getName = function() &#123;
+    return this.name;
+&#125;
+function Child() &#123;
+    // 第二次调用
+    Parent.call(this);
+&#125;
+// 第一次调用
+Child.prototype = new Parent();
+// 手动构造器，指向自己的构造函数
+Child.constructor.prototype = Child;
+</code></pre>
+<p>缺点：</p>
+<p>Parent 被构造了两次，造成了性能开销</p>
+<h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><pre><code class="js">let Parent = &#123;
+    name: &#39;name&#39;,
+    getName() &#123;
+        return this.name
+    &#125;
+&#125;
+let Child = Object.create(Parent);
+</code></pre>
+<p>缺点：</p>
+<p>多个实例的引用类型指向相同的内存</p>
+<h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p>原型式继承获得目标对象的浅拷贝， 然后利用浅拷贝能力进行增强，添加方法</p>
+<pre><code class="js">let Parent = &#123;
+    name: &#39;name&#39;,
+    friend: 10,
+    getName() &#123;
+        return this.name
+    &#125;
+&#125;
+function clone(original) &#123;
+    let clone = Object.create(original);
+    clone.getFriend = function() &#123;
+        return this.friend;
+    &#125;
+    return clone;
+&#125;
+let Child = clone(Parent);
+</code></pre>
+<h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><p>想对最优的解决方法</p>
+<pre><code class="js">function clone(Parent, Child) &#123;
+    // 使用 Object.create() 方法减少组合继承种一次构造
+    Child.prototype = Object.create(Parent.prototype);
+    chile.prototype.constuctor = Child;
+&#125;
+function Parent &#123;
+    this.name = &#39;Parent&#39;;
+&#125;
+Parent.prototype = getName() &#123;
+    return this.name;
+&#125;
+function Child() &#123;
+    Parent.call(this);
+&#125;
+clone(Parent, Child);
+Child.prototype.getFriend = function() &#123;
+    return this.friend;
+&#125;
+let Child1 = new Child();
+</code></pre>
+<h3 id="extends-关键字，使用的也是寄生组合式继承"><a href="#extends-关键字，使用的也是寄生组合式继承" class="headerlink" title="extends 关键字，使用的也是寄生组合式继承"></a>extends 关键字，使用的也是寄生组合式继承</h3><h2 id="new-原理"><a href="#new-原理" class="headerlink" title="new 原理"></a>new 原理</h2><h3 id="生成步骤"><a href="#生成步骤" class="headerlink" title="生成步骤"></a>生成步骤</h3><ol>
+<li>创建一个新对象</li>
+<li>将构造函数的作用域赋给新对象（this 指向新对象）</li>
+<li>执行构造函数的代码 （新对象添加属性）</li>
+<li>返回新对象</li>
+</ol>
+<h4 id="当构造函数中有-return-一个对象的操作"><a href="#当构造函数中有-return-一个对象的操作" class="headerlink" title="当构造函数中有 return 一个对象的操作"></a>当构造函数中有 return 一个对象的操作</h4><p>当构造函数 return 一个新对象与 this 无关时， new 会直接返回新对象，而不通过执行步骤</p>
+<pre><code class="js">function Person() &#123;
+    this.name = &#39;people&#39;;
+    return &#123;
+        age: 18
+    &#125;
+&#125;
+let p1 = new Person();
+console.log(p1) // &#123; age: 18 &#125;
+</code></pre>
+<h2 id="apply-amp-call-amp-bind-原理"><a href="#apply-amp-call-amp-bind-原理" class="headerlink" title="apply &amp; call &amp; bind 原理"></a>apply &amp; call &amp; bind 原理</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>三个方法是挂在 Function 对象上的三个方法，调用三个方法必须是一个函数</p>
+<p>tihsArg 表示所指向的对象</p>
+<pre><code class="js">func.call(thisArg, param1, param2, ..);
+func.apply(thisArg, [param1, param2]);
+func.bind(thisArg, param1, param2);
+</code></pre>
+<ul>
+<li>call , apply 改变this 指向后立即执行</li>
+<li>bind 改变后并不立即执行</li>
+</ul>
+<h4 id="理解借用的原理"><a href="#理解借用的原理" class="headerlink" title="理解借用的原理"></a>理解借用的原理</h4><pre><code class="js">let a = &#123;
+    name: &#39;aaa&#39;,
+    getName(msg) &#123;
+        return this.name + this.msg;
+    &#125;
+&#125;
+let b = &#123;
+    name: &#39;bbb&#39;
+&#125;
+console.log(a.getName.call(b, &#39;-&gt;message&#39;)) // bbb-&gt;message
+console.log(a.getName.apply(b, [&#39;-&gt;message&#39;])) // bbb-&gt;message
+let name = a.getName(b, &#39;-&gt;message&#39;)
+name(); // bbb-&gt;message
+</code></pre>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><h4 id="判断数据类型"><a href="#判断数据类型" class="headerlink" title="判断数据类型"></a>判断数据类型</h4><pre><code class="js">Object.prototype.call(obj).replace(//);
+</code></pre>
+<h4 id="类数组借用方法"><a href="#类数组借用方法" class="headerlink" title="类数组借用方法"></a>类数组借用方法</h4><pre><code class="js">let arrLike = &#123;
+    0: &#39;aa&#39;,
+    1: &#39;bb&#39;,
+    length: 2
+&#125;
+Array.prototype.push.call(arrLike, &#39;cc&#39;, &#39;dd&#39;);
+// &#123;..2: &#39;cc&#39;, 3: &#39;dd&#39;, length: 4&#125;
+</code></pre>
+<h4 id="获取最大最小值"><a href="#获取最大最小值" class="headerlink" title="获取最大最小值"></a>获取最大最小值</h4><p>减少展开数组的一步</p>
+<pre><code class="js">let arr = [12, 324, 12 , 4, 456];
+const max = Math.max.apply(Math, arr);
+</code></pre>
+<p>-</p>
+<h3 id="手动实现-call-apply"><a href="#手动实现-call-apply" class="headerlink" title="手动实现 call, apply"></a>手动实现 call, apply</h3><p>eval() 函数计算 JavaScript 字符串，并把它作为脚本代码来执行。</p>
+<p>如果参数是一个表达式，eval() 函数将执行表达式。如果参数是JavaScript语句，eval()将执行 JavaScript 语句（代码）。</p>
+<pre><code class="js">Function.prototype.call = function(context, ...args) &#123;
+    // 判断context是否有传值，没有则默认为window
+    let context = context || window;
+    // 将被调用的方法设置为context的属性（修改this指向为context）
+    context.fn = this;
+    let result = eval(&#39;context.fn(..args)&#39;);
+    // 删除手动增加的属性方法
+    delete context.fn;
+    return result;
+&#125;
+Function.prototype.apply = function(context, args) &#123;
+    let context = context || window;
+    context.fn = this;
+    let result = eval(&#39;context.fn(..args)&#39;);
+    delete context.fn;
+    return result;
+&#125;
+</code></pre>
+<h3 id="bind-的实现"><a href="#bind-的实现" class="headerlink" title="bind 的实现"></a>bind 的实现</h3><p>不需要直接执行，所以不需要 eval，而是需要通过一个函数的方式将结果返回</p>
+<pre><code class="js">Function.prototype.bind = function(context, ...args) &#123;
+    if(typeof this !== &#39;function&#39;) throw Error(&quot;must function&quot;);
+    let self = this;
+    let fbound = function() &#123;
+        self.apply(this.intanceof self ? this : context, args.concat(Array.prototype.slice.call(arguments)));
+    &#125;
+    if(this.prototype) &#123;
+        fbound.prototype = Object.create(this.prototype);
+    &#125;
+    return fbound;
+&#125;
+</code></pre>
+<p>实现bind 的核心是返回的时候需要返回函数，且返回过程的原型链的属性不能丢失，所以需要 Object.create() 方法</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>是指有权访问另外一个函数作用域中的变量的函数，内层函数访问外层函数的作用域</p>
+<h3 id="解决循环输出"><a href="#解决循环输出" class="headerlink" title="解决循环输出"></a>解决循环输出</h3><pre><code class="js">fon(var i = 0; i &lt; 5; i ++) &#123;
+    setTimeout(() =&gt; &#123;
+        console.log(i);
+    &#125;, 0);
+&#125;
+// 666666
+</code></pre>
+<p>解释：</p>
+<ol>
+<li>setTimeout 为宏任务， js  单线程 eventLoop 机制，在主线程同步任务执行完成之后才执行宏任务</li>
+<li>setTimeout 函数也为闭包，寻找父级作用域 window 的全局变量，执行之前 i 已经为6</li>
+</ol>
+<p>解决：</p>
+<h4 id="利用-IIFE"><a href="#利用-IIFE" class="headerlink" title="利用 IIFE"></a>利用 IIFE</h4><pre><code class="js">for(var i = 0; i &lt; 5; i ++) &#123;
+    (function(j) &#123;
+        setTimeout(() =&gt; &#123;
+           console.log(j)
+        &#125;);
+    &#125;)(i);
+&#125;
+</code></pre>
+<h4 id="利用-let-块级作用域"><a href="#利用-let-块级作用域" class="headerlink" title="利用 let 块级作用域"></a>利用 let 块级作用域</h4><pre><code class="js">for(let i = 0; i &lt; 5; i ++) &#123;
+    setTimeout(() =&gt; &#123;
+        console.log(i);
+    &#125;, 0);
+&#125;
+</code></pre>
+<h4 id="定时器传入第三个参数"><a href="#定时器传入第三个参数" class="headerlink" title="定时器传入第三个参数"></a>定时器传入第三个参数</h4><pre><code class="js">setTimeout(() =&gt; &#123;
+    console.log(i);
+&#125;, 0, i);
+</code></pre>
+<h2 id="手动实现-stringify"><a href="#手动实现-stringify" class="headerlink" title="手动实现 stringify"></a>手动实现 stringify</h2><p>通过 typeof 根据数据类型来处理不同情况</p>
+<pre><code class="js">function jsonStringify(data) &#123;
+    let type = typeof data;
+    if(type !== &#39;object&#39;) &#123;
+        let result = data;
+        if(Number.isNaN(data) || data == Infinity) &#123;
+            result = &quot;null&quot;;
+        &#125;else if(type === &#39;function&#39; || type === &#39;undefined&#39; || type === &#39;symbol&#39;) &#123;
+            result = undefined;
+        &#125;else if(type === &#39;string&#39;) &#123;
+            result = `$&#123; data &#125;`;
+        &#125;
+        return String(result);
+    &#125;else if(type === &#39;object&#39;) &#123;
+        if(data === null) &#123;
+            return &quot;null&quot;;
+        // Date 对象
+        &#125;else if(data.toJSON &amp;&amp; typeof data.toJSON === &#39;function&#39;) &#123;
+            return jsonStringify(data.toJSON());
+        // 处理数组
+        &#125;else if(data instanceof Array) &#123;
+            let result = [];
+               // 数组需要判断每一项
+            data.forEach((o, i) =&gt; &#123;
+                if(typeof o === &#39;undefined&#39; || typeof o === &#39;function&#39; || typeof o === &#39;symbol&#39;) &#123;
+                    result[i] = &quot;null&quot;;
+                &#125;else &#123;
+                    result[i] = jsonStringify(o);
+                &#125;
+            &#125;);
+            return `$&#123;result&#125;`.replace(/&#39;/, &quot;&quot;);
+        // 处理对象
+        &#125;else &#123;
+            let result = [];
+            Object.keys(data).forEach((o, i) =&gt; &#123;
+                // 忽略 symbol
+                if(typeof o !== &#39;symbol&#39;) &#123;
+                    if(data[o] !== undefined typeof data[o] !== &#39;function&#39; || typeof data[o] !== &#39;symbol&#39;) &#123;
+                         result.push(`$&#123;o&#125;:$&#123;jsonStringify(data[o])&#125;`)   
+                    &#125;
+                &#125;
+            &#125;)
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>​    </p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from()"></a>Array.from()</h3><p>从一个类数组的可迭代对象中创建一个新的数组实例，返回新数组，步改变原对象</p>
+<p>三个参数：</p>
+<ol>
+<li>类似数组的对象，必须</li>
+<li>加工函数， 经过加工和再返回</li>
+<li>this 作用域，表示加工函数执行时的 this 的值</li>
+</ol>
+<pre><code class="js">let obj = &#123;0: &#39;a&#39;, 1: &#39;b&#39;, 2: &#39;c&#39;, length: 3&#125;;
+Array.from(obj, (value) =&gt; value.repeat(3))
+// String
+Array.from(&#39;abc&#39;) // [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+// Set
+Array.from(new Set([&#39;a&#39;, &#39;b&#39;])) // [&#39;a&#39;, &#39;b&#39;]
+// Map
+Array.from(new Map([1, &#39;a&#39;], [2, &#39;b&#39;])) // [[1, &#39;a&#39;], [2, &#39;b&#39;]]
+</code></pre>
+<h3 id="判断数组的-6种方法"><a href="#判断数组的-6种方法" class="headerlink" title="判断数组的 6种方法"></a>判断数组的 6种方法</h3><pre><code class="js">let arr = [];
+// 1. es6 isArray()
+Array.isArray(arr)
+// 2. instanceof 
+arr instanceof Array
+// 3. constructor === Array
+arr.constructor === Array
+// 4. Object.prototype.isPrototypeOf
+// 对象的原型（__proto__）指向Object的原型（prototype）
+Array.prototype.isPrototypeOf(arr)
+// 5. getPrototypeOf
+Object.getPrototypeOf(arr) === Array.prototype()
+// 6. prototype.toString
+Object.prototype.call(arr) === &#39;[object Array]&#39;
+</code></pre>
+<h3 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h3><p>callback:</p>
+<ol>
+<li>previousValue : 上一次调用的返回值</li>
+<li>currentValue: 当前处理元素</li>
+<li>current: 当前处理元素下标</li>
+<li>array: 调用的数组</li>
+</ol>
+<p>initialValue: 可选初始值</p>
+<h1 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a>类数组</h1><h3 id="种类"><a href="#种类" class="headerlink" title="种类"></a>种类</h3><ol>
+<li>函数的参数对象 arguments</li>
+<li>getElementsBy… 获得的 HTMLCollection</li>
+<li>querySelector 获得的 NodeList</li>
+</ol>
+<h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><h4 id="遍历参数"><a href="#遍历参数" class="headerlink" title="遍历参数"></a>遍历参数</h4><pre><code class="js">for(let i = 0; i &lt; arguments.length; i ++) &#123;
+    console.log(arguments[i])
+&#125;
+</code></pre>
+<h4 id="链接字符串"><a href="#链接字符串" class="headerlink" title="链接字符串"></a>链接字符串</h4><pre><code class="js">let args = Array.prototype.slice.call(argument, 1);
+return args.join(&#39;,&#39;)
+</code></pre>
+<h4 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h4><pre><code class="js">function foo() &#123;
+    bar.apply(this, arguments);
+&#125;
+function bar(a, b, c) &#123;
+    console.log(a, b, c);
+&#125;
+// 通过 apply 将 foo 的参数给 bar
+foo(1, 2, 3);
+</code></pre>
+<h3 id="类数组转数组"><a href="#类数组转数组" class="headerlink" title="类数组转数组"></a>类数组转数组</h3><pre><code class="js">let args = Array.from(arguments);
+
+let args = [...arguments];
+
+sum(..args)
+</code></pre>
+<h4 id="借用方法高级写法"><a href="#借用方法高级写法" class="headerlink" title="借用方法高级写法"></a>借用方法高级写法</h4><pre><code class="js">Array.prototype.slice.call(arguments);
+// ==
+[].slice(arguments);
+</code></pre>
+<h2 id="数组扁平化"><a href="#数组扁平化" class="headerlink" title="数组扁平化"></a>数组扁平化</h2><h3 id="普通递归"><a href="#普通递归" class="headerlink" title="普通递归"></a>普通递归</h3><pre><code class="js">function flatten(arr) &#123;
+    let result = [];
+    for(let i &lt; arr.length; i ++) &#123;
+        if(Array.isArray(arr[i])) &#123;
+            result = result.concat(flatten(arr[i]));
+        &#125;else &#123;
+            result.push(arr[i]);
+        &#125;    
+    &#125;
+    return result;
+&#125;
+</code></pre>
+<h3 id="reduce-迭代"><a href="#reduce-迭代" class="headerlink" title="reduce 迭代"></a>reduce 迭代</h3><pre><code class="js">function flatten(arr) &#123;
+    return arr.reduce((pre, cur) =&gt; Array.isArray(cur) ?  pre.concat(flatten(cur)) : pre.push(cur), []);
+&#125;
+</code></pre>
+<h3 id="扩展运算符-1"><a href="#扩展运算符-1" class="headerlink" title="扩展运算符"></a>扩展运算符</h3><pre><code class="js">function flatten(arr) &#123;
+    // 一层层展开
+    while(arr.some(o =&gt; Array.isArray(o))) &#123;
+        arr = [].concat(...arr);
+    &#125;
+    return arr;
+&#125;
+</code></pre>
+<h3 id="split-与-toString-共同处理"><a href="#split-与-toString-共同处理" class="headerlink" title="split 与 toString 共同处理"></a>split 与 toString 共同处理</h3><pre><code class="js">function flatten(arr) &#123;
+    return arr.toString().split(&#39;,&#39;);
+&#125;
+</code></pre>
+<h3 id="调用-falt"><a href="#调用-falt" class="headerlink" title="调用 falt"></a>调用 falt</h3><pre><code class="js">return flat(Infinity);
+</code></pre>
+<h3 id="正则和-JSON-方法"><a href="#正则和-JSON-方法" class="headerlink" title="正则和 JSON 方法"></a>正则和 JSON 方法</h3><pre><code class="js">function flatten(arr) &#123;
+    return JSON.parse(`[$&#123;JSON.stringify(arr).replace(/(\[|\])/g, &#39;&#39;)&#125;]`);
+&#125;
+</code></pre>
+<h2 id="sort-底层原理"><a href="#sort-底层原理" class="headerlink" title="sort 底层原理"></a>sort 底层原理</h2><ol>
+<li>当 n &lt; = 10 时， 采用插入排序</li>
+<li>当 n &gt; 10 时，采用三路快速排序</li>
+<li>10 &lt; n &lt;= 1000，采用中位数作为哨兵元素</li>
+<li>n &gt; 1000 每隔 200 ~ 215 个元素挑一个元素放在新数组中，排序后找出中位数</li>
+</ol>
+<h3 id="push-底层"><a href="#push-底层" class="headerlink" title="push 底层"></a>push 底层</h3><pre><code class="js">Array.prototype.push = function(...items) &#123;
+    // 先转为对象
+    let O = Object(this);
+    // 设置默认为0 -&gt; lenght || 0
+    let len = this.length &gt;&gt;&gt; 0;
+    // 参数数量
+    let argCount = items.length &gt;&gt;&gt; 0
+    // 2 ^ 53 - 1 js 能表示的最大数
+    if(len + argCount &gt;  2 ** 53 - 1) &#123;
+        throw new TypeError(&quot;over the max value&quot;)
+    &#125;
+    for(let i = 0; i &lt; argCount; i ++) &#123;
+        O[len + i] = items[i];
+    &#125;
+    let newLength = len + argCount;
+    O.lenght = newLength;
+    return newLength;
+&#125;
+</code></pre>
+<h1 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h1><h3 id="同步："><a href="#同步：" class="headerlink" title="同步："></a>同步：</h3><p>执行代码时，在改代码没有得到返回结果之前，其他代码无法执行， 一旦执行完成拿到结果就会执行其他代码。也就是会阻塞之后的代码执行。</p>
+<h3 id="异步："><a href="#异步：" class="headerlink" title="异步："></a>异步：</h3><p>一段代码异步过程调用发出后，这段代码不会立刻得到返回结果，而是在发出后通过回调函数处理调用之后拿到结果。不会阻塞后面代码执行。</p>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>早年的异步编程采用回调函数的方式，如事件回调。会存在回调地狱的问题。</p>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>没有根本解决回调地狱问题，换了一种写法，提升了可读性</p>
+<pre><code class="js">function read(url) &#123;
+    return new Promise((resolve, reject) =&gt; &#123;
+        fs.read(url, &#39;utf-8&#39;, (err, data) =&gt; &#123;
+            if(err) reject(err);
+            resolve(data);
+        &#125;)
+    &#125;)
+&#125;
+Promise.all([read(A), read(B)]).then(data =&gt; &#123;
+    console.log(data);
+&#125;).catch(err =&gt; console.log(data));
+</code></pre>
+<h3 id="执行过程的状态"><a href="#执行过程的状态" class="headerlink" title="执行过程的状态"></a>执行过程的状态</h3><ol>
+<li>待定 （pending）： 初始状态，没有被完成，也没有被拒绝</li>
+<li>已完成（fulfilled）：操作成功完成</li>
+<li>已拒绝（rejected）：操作失败</li>
+</ol>
+<p>三大技术手段解决回调地狱：</p>
+<p>回调函数延迟绑定，返回值穿透， 错误冒泡</p>
+<p>回调函数不是直接声明的，而是通过后面的 then 方法传入，延迟传入，也就是回调函数延迟绑定</p>
+<p>根据 then 中回调函数的传入值创建不同类型 promise 然后把返回的Promise 穿透到外层，以供后续调用</p>
+<pre><code class="js">let x = readFilePromise(&#39;x.json&#39;).then(data =&gt; readFilePromise(&#39;x.json&#39;));
+x.then();
+</code></pre>
+<p>前面产生的错误会一直向后传递， 被 catch 接收，错误冒泡</p>
+<pre><code class="js">readFilePromise(&#39;x.json&#39;, then(data =&gt; readFilePromise(&#39;&#39;))).then().then().catch(err =&gt; //xxx)
+</code></pre>
+<h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><h4 id="Promise-all-iterable"><a href="#Promise-all-iterable" class="headerlink" title="Promise.all(iterable)"></a>Promise.all(iterable)</h4><p>参数为可迭代对象，如数组</p>
+<ol>
+<li>当所有结果成功返回时按请求顺序返回成功</li>
+<li>其中有一个失败方法时，则进入失败方法</li>
+</ol>
+<h4 id="allSettled"><a href="#allSettled" class="headerlink" title="allSettled"></a>allSettled</h4><p>参数为数组，返回新的Promise</p>
+<p>全部处理完后拿到每个 Promise 状态， 不管是否成功</p>
+<pre><code class="js">const resolved = Promise.resolve(2);
+const rejected= Promise.reject(-1);
+const allSettledPromise = Promise.allSettled([resolve, rejected]);
+allSettledPromise.then(results =&gt; console.log(results));
+// result: 
+[
+    &#123;status: &#39;fulfilled&#39;, value: 2&#125;,
+    &#123;status: &#39;rejected&#39;, reason: -1&#125;
+]
+</code></pre>
+<h4 id="any"><a href="#any" class="headerlink" title="any"></a>any</h4><p>只要有一个为 fulfilled 最后返回的实例就是 fulfilled 状态，否则为 rejected</p>
+<h4 id="race"><a href="#race" class="headerlink" title="race"></a>race</h4><p>race 方法返回一个 Promise，只要参数的 Promise 之中有一个实例率先改变状态，则 race 方法的返回状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给 race 方法的回调函数。</p>
+<h5 id="图片加载业务："><a href="#图片加载业务：" class="headerlink" title="图片加载业务："></a>图片加载业务：</h5><pre><code class="js">// 请求资源
+function requestImg() &#123;
+    let p = new Promise(function(resolve, reject) &#123;
+        let img = new Image();
+        img.onload = function() &#123;resolve(img);&#125;
+        img.src = &#39;http://xxx&#39;;
+    &#125;)
+&#125;
+// 延时函数
+function timeout() &#123;
+    let p = new Promise((resolve, reject) =&gt; &#123;
+        setTimeout(() =&gt; &#123;reject(&#39;图片请求超时&#39;);&#125;, 5000);
+    &#125;)
+&#125;
+Promise.race([requestImg(), timeout()]).then(result =&gt; &#123;console.log)(result)&#125;).catch(reason =&gt; &#123;console.log(reason)&#125;);
+</code></pre>
+<h2 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h2><p>可以交出函数的执行权，可以看为异步任务的容器，需要暂停时，用yield语法标注</p>
+<pre><code class="js">function* gen() &#123;
+    let a = yield 1;
+    let b = yield (function()&#123;return 2&#125;)();
+    return 3;
+&#125;
+// 程序阻塞不会执行任何语句
+let g = gen();
+g.next(); // &#123;value: 1, done: false&#125;
+g.next(); // &#123;value: 2, done: false&#125;
+g.next(); // &#123;value: 3, done: true&#125;
+g.next(); // &#123;value: undefined, done: true&#125;
+</code></pre>
+<h3 id="Genetator-和-Promise"><a href="#Genetator-和-Promise" class="headerlink" title="Genetator 和 Promise"></a>Genetator 和 Promise</h3><pre><code class="js">const gen = function* () &#123;
+    const data1 = yield readFilePromise(&#39;&#39;);
+    console.log(data2.toString());
+    const data2 = yield readFilePromise(&#39;&#39;);
+    console.log(data2.toString());
+&#125;
+let g = gen();
+function run(gen) &#123;
+    const next = (err, data) =&gt; &#123;
+        let res = gen.next(data);
+        if(res.done) return;
+        res.value.then(next);
+    &#125;
+    next();
+&#125;
+run(g);
+</code></pre>
+<h3 id="co-函数库"><a href="#co-函数库" class="headerlink" title="co 函数库"></a>co 函数库</h3><pre><code class="js">const con = require(&#39;co&#39;);
+let g = gen();
+co(g).then(res =&gt; &#123;
+    console.log(res);
+&#125;)
+</code></pre>
+<h2 id="async-await"><a href="#async-await" class="headerlink" title="async / await"></a>async / await</h2><p>是 Generator 函数的语法糖，代码更为清晰，使异步同步化</p>
+<pre><code class="js">function testWait() &#123;
+    return new Promise((resolve, reject) =&gt; &#123;
+        setTimeout(function() &#123;
+            console.log(&quot;test&quot;);
+            resolve();
+        &#125;, 1000);
+    &#125;)
+&#125;
+async function test() &#123;
+    await testWait();
+    console.log(&quot;hello&quot;);
+&#125;
+// test hello
+</code></pre>
+<h3 id="async-函数对-Generator-的改进"><a href="#async-函数对-Generator-的改进" class="headerlink" title="async 函数对 Generator 的改进"></a>async 函数对 Generator 的改进</h3><ol>
+<li>内置执行器： Generator 函数执行必须依靠执行器，因为不能一次性执行完。 async 不使用 next 方法，自带执行器，会自动执行。</li>
+<li>适用性更好： await 关键词之后可以不受约束</li>
+<li>可读性更好： 语义清晰明了</li>
+</ol>
+<h2 id="JavaScript-内存管理"><a href="#JavaScript-内存管理" class="headerlink" title="JavaScript 内存管理"></a>JavaScript 内存管理</h2><p>在 javascript 中创建变量时， 系统会自动给对象分配对应的内存</p>
+<p>简单数据类型 -》 （stack）  引用数据类型 -》 （heap）</p>
+<h3 id="Chrome-内存回收机制"><a href="#Chrome-内存回收机制" class="headerlink" title="Chrome 内存回收机制"></a>Chrome 内存回收机制</h3><p>V8 引擎将堆内存分为两类，新生代回收和老生代回收机制</p>
+<h4 id="新生代内存回收"><a href="#新生代内存回收" class="headerlink" title="新生代内存回收"></a>新生代内存回收</h4><p>在64位下分配 32MB ，新生代变量存活时间短， 不太容易产生太大的内存压力。</p>
+<p>内存分为作用两个空间 from - to。当浏览器开始进行内存垃圾回收时，引擎会将左边的对象检查一遍， 如果是存活对象，就会复制到右边的空间去，如果不是存活的就直接进行系统回收。当左边内存没有对象时， 等有新生代对象产生时， 内存则左右对调，循环处理。</p>
+<h4 id="内存碎片处理"><a href="#内存碎片处理" class="headerlink" title="内存碎片处理"></a>内存碎片处理</h4><p>利用 Scavenge 算法处理内存碎片， 使其紧密排列</p>
+<h4 id="老生代内存回收"><a href="#老生代内存回收" class="headerlink" title="老生代内存回收"></a>老生代内存回收</h4><p>如果新生代中的变量经过回收之后依然存在，那么就会被放入老生代内存中。只要是经历过一次 Scavenge 算法回收的就可以晋升为老生代内存的对象。进入老生代内存后就不能再用 Scavenge 的算法了。因为不适合内存比较大的。</p>
+<p>老生代中采用 Mark-Sweep (标记清除) 和 Mark-Compact (标记整理) 的策略</p>
+<h4 id="Mark-Sweep-标记清除"><a href="#Mark-Sweep-标记清除" class="headerlink" title="Mark-Sweep (标记清除)"></a>Mark-Sweep (标记清除)</h4><p>首先它会遍历堆上的所有的对象，分别对它们打上标记；然后在代码执行过程结束之后，对使用过的变量取消标记。那么没取消标记的就是没有使用过的变量，因此在清除阶段，就会把还有标记的进行整体清除，从而释放内存空间。</p>
+<h4 id="Mark-Compact-标记整理"><a href="#Mark-Compact-标记整理" class="headerlink" title="Mark-Compact (标记整理)"></a>Mark-Compact (标记整理)</h4><p>为了方便解决浏览器中的内存碎片问题，标记整理这个策略被提出。这个策略是在标记清除的基础上演进而来的，和标记清除来对比来看，标记整理添加了活动对象整理阶段，处理过程中会将所有的活动对象<code>往一端靠拢</code>，整体移动完成后，直接清理掉边界外的内存。</p>
+<h2 id="内存泄露与优化"><a href="#内存泄露与优化" class="headerlink" title="内存泄露与优化"></a>内存泄露与优化</h2><h3 id="内存泄漏场景"><a href="#内存泄漏场景" class="headerlink" title="内存泄漏场景"></a>内存泄漏场景</h3><ol>
+<li>过多的缓存未释放</li>
+<li>闭包太多未释放</li>
+<li>定时器太多或回调太多</li>
+<li>太多的无效的 DOIM 未释放</li>
+<li>全局变量太多</li>
+</ol>
+<h2 id="浏览器Eventloop"><a href="#浏览器Eventloop" class="headerlink" title="浏览器Eventloop"></a>浏览器Eventloop</h2><h4 id="调用堆栈-call-stack-负责跟踪所用要执行的代码"><a href="#调用堆栈-call-stack-负责跟踪所用要执行的代码" class="headerlink" title="调用堆栈 (call stack) 负责跟踪所用要执行的代码"></a>调用堆栈 (call stack) 负责跟踪所用要执行的代码</h4><p>每当一个函数执行完成，就会从堆栈中弹出 (pop) 该执行完成函数，有代码需要执行就进行 push</p>
+<h4 id="事件队列-event-queue-负责将新的-function-发送到队列中进行处理"><a href="#事件队列-event-queue-负责将新的-function-发送到队列中进行处理" class="headerlink" title="事件队列 (event queue) 负责将新的 function 发送到队列中进行处理"></a>事件队列 (event queue) 负责将新的 function 发送到队列中进行处理</h4><h4 id="每当调用事件队列-event-queue-中的异步函数时，-都将其发送到浏览器"><a href="#每当调用事件队列-event-queue-中的异步函数时，-都将其发送到浏览器" class="headerlink" title="每当调用事件队列 (event queue) 中的异步函数时， 都将其发送到浏览器"></a>每当调用事件队列 (event queue) 中的异步函数时， 都将其发送到浏览器</h4><p>根据从调用堆栈收到的命令，API 开始自己的单线程操作。其中 setTimeout 方法就是一个比较典型的例子，在堆栈中处理 setTimeout 操作时，会将其发送到相应的 API，该 API 一直等到指定的时间将此操作送回进行处理。它将操作发送到事件队列（event queue）。这样，就有了一个循环系统，用于在 JavaScript 中运行异步操作。</p>
+<h4 id="JavaScript-语言本身是单线程的，而浏览器-API-充当单独的线程"><a href="#JavaScript-语言本身是单线程的，而浏览器-API-充当单独的线程" class="headerlink" title="JavaScript 语言本身是单线程的，而浏览器 API 充当单独的线程"></a>JavaScript 语言本身是单线程的，而浏览器 API 充当单独的线程</h4><p>事件循环（Eventloop）促进了这一过程，它会不断检查调用堆栈是否为空。如果为空，则从事件队列中添加新的函数进入调用栈（call stack）；如果不为空，则处理当前函数的调用。</p>
+<h4 id="Eventloop-通过内部两个队列来实现-Event-Queue-放进来的异步任务"><a href="#Eventloop-通过内部两个队列来实现-Event-Queue-放进来的异步任务" class="headerlink" title="Eventloop 通过内部两个队列来实现 Event Queue 放进来的异步任务"></a>Eventloop 通过内部两个队列来实现 Event Queue 放进来的异步任务</h4><p>以 setTimeout 为代表的任务被称为宏任务，放到宏任务队列（macrotask queue）中；而以 Promise&nbsp;为代表的任务被称为微任务，放到微任务队列（microtask queue）中。</p>
+<ol>
+<li>JavaScript 引擎首先从宏任务队列（macrotask queue）中取出第一个任务</li>
+<li>执行完毕后，再将微任务（microtask queue）中的所有任务取出，按照顺序分别全部执行（这里包括不仅指开始执行时队列里的微任务），如果在这一步过程中产生新的微任务，也需要执行</li>
+<li>然后再从宏任务队列中取下一个，执行完毕后，再次将 microtask queue 中的全部取出，循环往复，直到两个 queue 中的任务都取完</li>
+</ol>
+<h4 id="一次-Eventloop-循环会处理一个宏任务和所有这次循环中产生的微任务"><a href="#一次-Eventloop-循环会处理一个宏任务和所有这次循环中产生的微任务" class="headerlink" title="一次 Eventloop 循环会处理一个宏任务和所有这次循环中产生的微任务"></a>一次 Eventloop 循环会处理一个宏任务和所有这次循环中产生的微任务</h4><h2 id="js代码执行"><a href="#js代码执行" class="headerlink" title="js代码执行"></a>js代码执行</h2><h3 id="V8-引擎介绍"><a href="#V8-引擎介绍" class="headerlink" title="V8 引擎介绍"></a>V8 引擎介绍</h3><p>V8 是众多浏览器的 JS 引擎中性能表现最好的一个，并且它是 Chrome 的内核，Node.js 也是基于 V8 引擎研发的。</p>
+<h3 id="执行阶段"><a href="#执行阶段" class="headerlink" title="执行阶段"></a>执行阶段</h3><ul>
+<li>Parse 阶段：V8 引擎负责将 JS 代码转换成 AST（抽象语法树）；</li>
+<li>Ignition 阶段：解释器将 AST 转换为字节码，解析执行字节码也会为下一个阶段优化编译提供需要的信息；</li>
+<li>TurboFan 阶段：编译器利用上个阶段收集的信息，将字节码优化为可以执行的机器码；</li>
+<li>Orinoco 阶段：垃圾回收阶段，将程序中不再使用的内存空间进行回收。</li>
+</ul>
+<h3 id="生成-AST"><a href="#生成-AST" class="headerlink" title="生成 AST"></a>生成 AST</h3><h4 id="词法分析："><a href="#词法分析：" class="headerlink" title="词法分析："></a>词法分析：</h4><p>这个阶段会将源代码拆成最小的、不可再分的词法单元，称为 token。比如这行代码 var a =1；通常会被分解成 var 、a、=、2、; 这五个词法单元。另外刚才代码中的空格在 JavaScript 中是直接忽略的。</p>
+<h4 id="语法分析："><a href="#语法分析：" class="headerlink" title="语法分析："></a>语法分析：</h4><p>这个过程是将词法单元转换成一个由元素逐级嵌套所组成的代表了程序语法结构的树，这个树被称为抽象语法树。</p>
+<h2 id="宏任务与微任务"><a href="#宏任务与微任务" class="headerlink" title="宏任务与微任务"></a>宏任务与微任务</h2><h3 id="宏任务"><a href="#宏任务" class="headerlink" title="宏任务"></a>宏任务</h3><ol>
+<li>渲染事件（解析DOM 计算布局 绘制）</li>
+<li>用户交互事件</li>
+<li>setTimeout, setInterval</li>
+<li>网络请求完成，文件读写完成事件</li>
+</ol>
+<h3 id="微任务"><a href="#微任务" class="headerlink" title="微任务"></a>微任务</h3><ul>
+<li>使用 MutationObserver 监控某个 DOM 节点，或者为这个节点添加、删除部分子节点，当 DOM 节点发生变化时，就会产生 DOM 变化记录的微任务。</li>
+<li>使用 Promise，当调用 Promise.resolve() 或者 Promise.reject() 的时候，也会产生微任务。</li>
+</ul>
+
                 </div>
 
                 <div class="menuShow">
