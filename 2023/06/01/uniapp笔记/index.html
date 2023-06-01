@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                uniapp笔记
+            </div>
+            <div class="post-meta">
+                2023-06-01
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><h3 id="创建-uniapp-应用"><a href="#创建-uniapp-应用" class="headerlink" title="创建 uniapp 应用"></a>创建 uniapp 应用</h3><pre><code class="bash">// 创建以 javascript 开发的工程
+npx degit dcloudio/uni-preset-vue#vite my-vue3-project-name
+// 创建以 typescript 开发的工程
+npx degit dcloudio/uni-preset-vue#vite-ts my-vue3-project-name
+</code></pre>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><pre><code class="bash">npm i
+- cnpm i
+- yarn install
+</code></pre>
+<h3 id="安装依赖sass"><a href="#安装依赖sass" class="headerlink" title="安装依赖sass"></a>安装依赖sass</h3><pre><code class="js">npm i sass
+- cnpm i sass
+</code></pre>
+<h3 id="运行h5-模块"><a href="#运行h5-模块" class="headerlink" title="运行h5 模块"></a>运行h5 模块</h3><pre><code class="bash">yarn dev:h5
+- npm run dev:h5
+</code></pre>
+<h3 id="卸载不需要的包"><a href="#卸载不需要的包" class="headerlink" title="卸载不需要的包"></a>卸载不需要的包</h3><pre><code class="bash">npm uninstall vue-i18n
+</code></pre>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="uniapp-生成二维码"><a href="#uniapp-生成二维码" class="headerlink" title="uniapp 生成二维码"></a>uniapp 生成二维码</h2><h4 id="将-uqrcode-js-文件放在-src-utils目录"><a href="#将-uqrcode-js-文件放在-src-utils目录" class="headerlink" title="将 uqrcode.js 文件放在 src\utils目录"></a>将 uqrcode.js 文件放在 src\utils目录</h4><h4 id="main-ts-文件"><a href="#main-ts-文件" class="headerlink" title="main.ts 文件"></a>main.ts 文件</h4><pre><code class="ts">// 导入
+import &#123; createSSRApp &#125; from &#39;vue&#39;
+import App from &#39;./App.vue&#39;
+import uQRCode from &#39;./utils/uqrcode.js&#39;
+
+export function createApp() &#123;
+    const app = createSSRApp(App);
+    // 挂载到全局
+    app.config.globalProperties.$uqrcode = uQRCode
+    return &#123;
+        app
+    &#125;
+&#125;
+</code></pre>
+<h3 id="index-vue"><a href="#index-vue" class="headerlink" title="index.vue"></a>index.vue</h3><pre><code class="vue">&lt;template&gt;
+&lt;!-- 显示二维码 --&gt;
+  &lt;div id=&quot;qrcodeBox&quot; v-if=&quot;qrcodeShow&quot;&gt;
+    &lt;canvas id=&quot;qrcode&quot; canvas-id=&quot;qrcode&quot; style=&quot;width: 320px; height: 320px&quot; /&gt;
+    &lt;div id=&quot;notice&quot;&gt;请截图保存后，进行扫描导入&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script setup lang=&quot;ts&quot;&gt;
+import &#123; getCurrentInstance &#125; from &#39;vue&#39;
+const &#123; proxy &#125; = getCurrentInstance() as any
+// 二维码生成
+const genQrcode = function (text: string) &#123;
+  try &#123;
+    proxy.$uqrcode.make(&#123;
+      canvasId: &#39;qrcode&#39;,
+      componentInstance: this,
+      text: text,
+      size: 320,
+      margin: 0,
+      backgroundColor: &#39;#ffffff&#39;,
+      foregroundColor: &#39;#000000&#39;,
+      fileType: &#39;jpg&#39;,
+      errorCorrectLevel: proxy.$uqrcode.errorCorrectLevel.H,
+      success: (res) =&gt; &#123;
+        infoShow(&#39;二维码生成成功&#39;)
+      &#125;,
+      fail() &#123;
+        infoShow(&#39;二维码生成失败&#39;)
+      &#125;
+    &#125;)
+  &#125; catch (error) &#123;
+    console.log(error)
+    infoShow(&#39;发生未知错误，生成失败，请使用文本导入&#39;)
+  &#125;
+&#125;
+&lt;/script&gt;
+</code></pre>
+<h2 id="加密和解密"><a href="#加密和解密" class="headerlink" title="加密和解密"></a>加密和解密</h2><h3 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h3><pre><code class="bash">npm install crypto-js
+</code></pre>
+<h3 id="src-utils-目录下"><a href="#src-utils-目录下" class="headerlink" title="src/utils 目录下"></a>src/utils 目录下</h3><pre><code class="js">
+import CryptoJS from &#39;crypto-js&#39;
+ 
+/**
+ * AES 加密
+ * @param word: 需要加密的文本
+ * KEY: // 需要前后端保持一致
+ * mode: ECB // 需要前后端保持一致
+ * pad: Pkcs7 //前端 Pkcs7 对应 后端 Pkcs5
+ */
+const KEY = CryptoJS.enc.Utf8.parse(&#39;d7b85f6e214abcde&#39;)
+ 
+export const AES_Encrypt = (plaintext) =&gt; &#123;
+  let ciphertext = CryptoJS.AES.encrypt(plaintext, KEY, &#123;
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  &#125;).toString()
+  return ciphertext
+&#125;
+ 
+/**
+ * AES 解密
+ * @param jsonStr
+ */
+export const AES_Decrypt = (jsonStr) =&gt; &#123;
+  let plaintext = CryptoJS.AES.decrypt(jsonStr, KEY, &#123;
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  &#125;).toString(CryptoJS.enc.Utf8)
+ 
+  return plaintext
+&#125;
+</code></pre>
+<h3 id="main-ts"><a href="#main-ts" class="headerlink" title="main.ts"></a>main.ts</h3><pre><code class="ts">import &#123; AES_Encrypt, AES_Decrypt &#125; from &#39;./utils/aes.js&#39;
+export function createApp() &#123;
+    const app = createSSRApp(App);
+    // 挂载到全局
+    app.config.globalProperties.$AES_Encrypt = AES_Encrypt
+    app.config.globalProperties.$AES_Decrypt = AES_Decrypt
+    return &#123;
+        app
+    &#125;
+&#125;
+</code></pre>
+<h2 id="uniapp-动画"><a href="#uniapp-动画" class="headerlink" title="uniapp 动画"></a>uniapp 动画</h2><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p><a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/api/ui/animation.html">https://uniapp.dcloud.net.cn/api/ui/animation.html</a></p>
+<pre><code class="vue">&lt;view id=&quot;toolBox&quot; :animation=&quot;boxAnimate&quot;&gt;&lt;/view&gt;
+&lt;script setup lang=&quot;ts&quot;&gt;
+// 创建变量存放动画操作
+let boxAnimate = ref(&#123;&#125;)
+// 动画
+onShow(() =&gt; &#123;
+  let animation = uni.createAnimation()
+  proxy.animation = animation
+  boxShowAnimation();
+&#125;)
+const boxShowAnimation = function () &#123;
+  // 调用动画操作方法后要调用 step() 来表示一组动画完成
+  proxy.animation.translate(0).opacity(1).step(&#123;
+    duration: 1000,
+    timingFunction: &#39;ease&#39;
+  &#125;)
+  boxAnimate.value = proxy.animation.export()
+&#125;    
+&lt;/script&gt;
+</code></pre>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
