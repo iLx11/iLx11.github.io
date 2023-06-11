@@ -180,7 +180,7 @@
     <div class="post-main">
         
             <div class="post-main-title">
-                算法笔记
+                算法笔记P1
             </div>
             <div class="post-meta">
                 2022-11-30
@@ -653,6 +653,8 @@ PNode InitList(int value) &#123;
             struct ListNode* temp = cur-&gt;next;
             cur-next = cur-&gt;next-&gt;next;
             free(temp);
+        &#125;else &#123;
+            cur = cur-&gt;next;
         &#125;
     &#125;
     return head;
@@ -1299,10 +1301,12 @@ PNode delReverseN(PNode head, int N) &#123;
     return NULL;
 &#125;
 </code></pre>
-<h2 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h2><p>(x + y) * 2 = x + y + n (y + z)</p>
+<h2 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h2><p>相遇时： slow指针走过的节点数为: <code>x + y</code>， fast指针走过的节点数：<code>x + y + n (y + z)</code>，n为fast指针在环内走了n圈才遇到slow指针， （y+z）为 一圈内节点的个数A。</p>
+<p>因为fast指针是一步走两个节点，slow指针一步走一个节点， 所以 fast指针走过的节点数 = slow指针走过的节点数 * 2：</p>
+<p>(x + y) * 2 = x + y + n (y + z)</p>
 <p>x = (n - 1) (y + z) + z</p>
-<p>当 n = 0 时</p>
-<p>x = z</p>
+<p>当 n = 1 时， 表示快指针走了一圈就相遇了</p>
+<p>x = z， 分别从头节点和相遇节点出发指针，则相遇节点即为入口节点</p>
 <h5 id="c-21"><a href="#c-21" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">ListNode* findSycle (ListNode* head) &#123;
     ListNode* slow = head;
     ListNode* fast = head;
@@ -1390,10 +1394,10 @@ PNode delReverseN(PNode head, int N) &#123;
 <h2 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h2><p>“eat -&gt; “ate”</p>
 <h5 id="c-23"><a href="#c-23" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">bool wordDiff(String s, String t) &#123;
     int word[26] = &#123;0&#125;;
-    for(int i = 0; i &lt; s.sise(); i ++) &#123;
+    for(int i = 0; i &lt; s.size(); i ++) &#123;
         word[s[i] - &#39;a&#39;] ++;
     &#125;
-    for(int i = 0; i &lt; t.sizs(); i ++) &#123;
+    for(int i = 0; i &lt; t.size(); i ++) &#123;
         word[t[i] - &#39;a&#39;] --;
     &#125;
        for(int i = 0; i &lt; 26; i ++) &#123;
@@ -1472,12 +1476,12 @@ PNode delReverseN(PNode head, int N) &#123;
 <h5 id="java-15"><a href="#java-15" class="headerlink" title="java"></a>java</h5><pre><code class="java">public int[] intersection(int[] nums1, int[] nums2) &#123;
     Set&lt;Integer&gt; result_set = new Set&lt;&gt;();
     Set&lt;Integer&gt; nums_set = new Set&lt;&gt;();
-    for(int i = 0; i &lt; nums1.length; i ++) &#123;
-        nums_set.add(nums1[i]);
+    for(int i : nums1) &#123;
+        nums_set.add(i);
     &#125;
-    for(int i = 0; i &lt; nums2.length; i ++) &#123;
-        if(nums_set.contains(nums2[i])) &#123;
-            result_set.add(nums2[i]);
+    for(int i : nums2) &#123;
+        if(nums_set.contains(i) &#123;
+            result_set.add(i);
         &#125;
     &#125;
     //将结果几何转为数组
@@ -1587,6 +1591,7 @@ int isHappy(int n) &#123;
         newSet.add(n);
         n = getSum(n);
     &#125;
+    return n == 1;
 &#125;
 </code></pre>
 <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><table>
@@ -1725,11 +1730,12 @@ int* doubleSum(int* nums, int numSize, int target, int* reSize) &#123;
     Map&lt;Integer, Integer&gt; resMap = new HashMap&lt;&gt; ();
     for(int i = 0; i &lt; nums.length; i ++) &#123;
         int findNum = target - nums[i];
-        if(resMap.contains(findNum)) &#123;
+        if(resMap.containsKey(findNum)) &#123;
                result[0] = i;
-            result[1] = get(findNum);
+            result[1] = resMap.get(findNum);
             break;
         &#125;
+           resMap.put(nums[i], i);
     &#125;
     return result;
 &#125;
@@ -2032,7 +2038,8 @@ int** threeSum(int* nums, int numsSize, int returnSize) &#123;
     &#125;
 &#125;
 </code></pre>
-<h2 id="四数之和-1"><a href="#四数之和-1" class="headerlink" title="四数之和"></a>四数之和</h2><h4 id="双指针法-3"><a href="#双指针法-3" class="headerlink" title="双指针法"></a>双指针法</h4><h5 id="c-36"><a href="#c-36" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt; num, int target) &#123;
+<h2 id="四数之和-1"><a href="#四数之和-1" class="headerlink" title="四数之和"></a>四数之和</h2><h4 id="双指针法-3"><a href="#双指针法-3" class="headerlink" title="双指针法"></a>双指针法</h4><p>遍历前两项，双指针后两项</p>
+<h5 id="c-36"><a href="#c-36" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt; num, int target) &#123;
     //排序 
     sort(num.begin(), num.end());
        vector&lt;vector&lt;int&gt;&gt; result;
@@ -2234,7 +2241,7 @@ string reverseString(string s, int k) &#123;
 </code></pre>
 <h4 id="双指针法-4"><a href="#双指针法-4" class="headerlink" title="双指针法"></a>双指针法</h4><h5 id="c-39"><a href="#c-39" class="headerlink" title="c"></a>c</h5><pre><code class="c">char* reverse(char* s, int k) &#123;
     int len = strlen(s);
-    for(int i = 0; i &lt; len; i += (2 * K)) &#123;
+    for(int i = 0; i &lt; len; i += (2 * k)) &#123;
         int left = i;
         int right = i + k - 1;
         while(left &lt; right) &#123;
@@ -2328,18 +2335,18 @@ string reverseString(string s, int k) &#123;
 <h5 id="js-23"><a href="#js-23" class="headerlink" title="js"></a>js</h5><pre><code class="js">function replaceSpace(s) &#123;
     let array = Array.from(s);
     //计算空格
-    let count = 0;
-    for(let i = 0; i &lt; s.length; i ++) &#123;
-        if(s[i] == &#39; &#39;) count ++;
+    let oldLen = array.length;
+    for(let i = 0; i &lt; array.length; i ++) &#123;
+        if(array[i] == &#39; &#39;) array.push(&#39;  &#39;);
     &#125;
-    for(let i = s.length - 1, j = (s.length + count * 2); i &gt;= 0; i --, j --) &#123;
-        if(s[i] == &#39; &#39;) &#123;
-            s[j] = &#39;0&#39;;
-               s[j - 1] = &#39;2&#39;;
-            s[j - 2] = &#39;%&#39;;
+    for(let i = oldLen - 1, j = array.length - 1; i &gt;= 0; i --, j --) &#123;
+        if(array[i] == &#39; &#39;) &#123;
+            array[j] = &#39;0&#39;;
+               array[j - 1] = &#39;2&#39;;
+            array[j - 2] = &#39;%&#39;;
             j -= 2;
         &#125;else &#123;
-            s[j] = s[i];
+            array[j] = array[i];
         &#125;
     &#125;
     return array.join(&#39;&#39;);
@@ -2392,9 +2399,7 @@ void removeExtraSpaces(string&amp; s) &#123;
             if(slow != 0) s[slow ++] = &#39; &#39;;
             //将非空格赋值
                while(i &lt; s.size() &amp;&amp; s[i] != &#39; &#39;) &#123;
-                s[slow] = s[i];
-                   slow ++;
-                i ++;
+                s[slow ++] = s[i ++];
             &#125;
         &#125;
     &#125;
@@ -2548,7 +2553,8 @@ public String reverseWords(String s) &#123;
     &#125;
 &#125;
 </code></pre>
-<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><h5 id="c-43"><a href="#c-43" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">void getNext(int* next, string needle) &#123;
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><p>前缀减一</p>
+<h5 id="c-43"><a href="#c-43" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">void getNext(int* next, string needle) &#123;
     int j = -1;
     next[0] = j;
     for(int i = 1; i &lt; needle.size(); i ++) &#123;
@@ -2562,12 +2568,12 @@ public String reverseWords(String s) &#123;
     &#125;
 &#125;
 int strStr(string haystack, string needle) &#123;
-    int j = 0;
+    int j = -1;
     if(needle.size() == 0) retrun 0;
     int next[needle.size()] &#123;0&#125;;
-    getNext(next);
+    getNext(next, needle);
     for(int i = 0; i &lt; haystack.size(), i ++) &#123;
-        while(j &gt; 0 &amp;&amp; haystack[i] != needle[j + 1]) &#123;
+        while(j &gt;= 0 &amp;&amp; haystack[i] != needle[j + 1]) &#123;
             j = next[j];
         &#125;
         if(haystack[i] == needle[j + 1]) &#123;
@@ -2586,7 +2592,7 @@ int strStr(string haystack, string needle) &#123;
     int j = -1;
     next[0] = j;
     int len = strlen(s);
-    for(int i = 0; i &lt; len; i ++) &#123;
+    for(int i = 1; i &lt; len; i ++) &#123;
         while(j &gt;= 0 &amp;&amp; s[i] != s[j + 1]) &#123;
             //回退
             j = next[j];
@@ -2613,7 +2619,7 @@ int strStr(char* haystack, char* needle) &#123;
 <h5 id="js-25"><a href="#js-25" class="headerlink" title="js"></a>js</h5><pre><code class="js">function getNext(next, s) &#123;
     let j = -1;
     next[0] = j;
-    for(let i = 0; i &lt; s.length; i ++) &#123;
+    for(let i = 1; i &lt; s.length; i ++) &#123;
         while(j != -1 &amp;&amp; s[i] != s[j + 1]) j = next[-1];
         if(s[i] == s[j + 1]) j ++;
         next[i] = j;
@@ -2634,11 +2640,26 @@ function strStr(haystack, needle) &#123;
     char[] charA = s.toCharArray();
     int j = -1;
     next[0] = j;
-    for(int i = 0; i &lt; charA.length(); i ++) &#123;
+    for(int i = 1; i &lt; charA.length(); i ++) &#123;
         while(j != -1 &amp;&amp; charA[i] != charA[j + 1]) j = next[j];
         if(charA[i] == charA[j + 1]) j ++;
         next[i] = j;
     &#125;
+&#125;
+// 前缀表不减一
+private getNext(int[] next, String s) &#123;
+    int j = 0; 
+    next[j] = j;
+    char[] charA = s.toCharArray();
+    for(int i = 1; i &lt; charA.length(); i ++) &#123;
+        while(j &gt; 0 &amp;&amp; charA[i] !== charA[j]) &#123;
+            j = next[j - 1];
+        &#125;
+        if(charA[i] == charA[j]) &#123;
+            j ++;
+        &#125;
+           next[j] = j;
+    &#125; 
 &#125;
 public int strStr(String haystack, String needle) &#123;
     char[] hchar = haystack.toCharArray();
@@ -2654,7 +2675,9 @@ public int strStr(String haystack, String needle) &#123;
 &#125;
 </code></pre>
 <h2 id="重复的子字符串"><a href="#重复的子字符串" class="headerlink" title="重复的子字符串"></a>重复的子字符串</h2><p>给定一个非空的字符串，判断它是否可以由它的一个子串重复多次构成。给定的字符串只含有小写英文字母，并且长度不超过10000。</p>
-<p>示例 1:<br>输入: “abab”<br>输出: True<br>解释: 可由子字符串 “ab” 重复两次构成。</p>
+<p>示例 1:<br>输入: “abab”<br>输出: True<br>解释: 可由子字符串 “ab” 重复两次构成</p>
+<p>思路： 如果字符串重复，获取最长相等前后缀，是除去一个子串的长度</p>
+<p><code>abcabcabc</code>abc</p>
 <h5 id="c-45"><a href="#c-45" class="headerlink" title="c++"></a>c++</h5><pre><code class="c++">void getNext(int* next, string s) &#123;
     //自减一
     int j = -1;
@@ -2755,7 +2778,7 @@ public bool isRepeated(String s) &#123;
                     stackOut.push(stackIn.top());
                     stackIn.pop();
                 &#125;
-                int result = stackOut.top();
+                 int result = stackOut.top();
                 stackOut.pop();
                 return result;
             &#125;
@@ -2783,8 +2806,7 @@ MyQueue* queue() &#123;
     return queue;
 &#125;
 int push(MyQueue* que, int x) &#123;
-    que-&gt;stackIn[stackInTop] = x;
-    stackInTop ++;
+    que-&gt;stackIn[que-&gt;stackInTop ++] = x;
     return x;
 &#125;
 int pop(MyQueue* que) &#123;
@@ -2846,8 +2868,8 @@ void freeMyQueue(MyQueue* que) &#123;
     Stack&lt;Integer&gt; stackOut;
        //初始化
     public Solution() &#123;
-         stackIn = new StackIn&lt;&gt; ();
-        stackOut = new StackOut&lt;&gt; ();
+         stackIn = new Stack&lt;&gt; ();
+        stackOut = new Stack&lt;&gt; ();
     &#125;
     //队列添加元素
     public void push(int val) &#123;
@@ -2957,7 +2979,7 @@ int pop(Que* que, int size) &#123;
        while(size --) &#123;
         Qpush(que, que-&gt;head-&gt;val);
         Qpop(que);
-    &#125;
+    &#125;`
     int result = que-&gt;head-&gt;val;
     Qpop(que);
     return result;
@@ -2966,7 +2988,7 @@ int pop(Que* que, int size) &#123;
 <h5 id="js-28"><a href="#js-28" class="headerlink" title="js"></a>js</h5><pre><code class="js">class MyStack &#123;
     let que;
     constructor() &#123;
-        que = []&#39;&#39;
+        que = [];
     &#125;
     push(val) &#123;
         this.que.shift(val);
@@ -3023,10 +3045,8 @@ int pop(Que* que, int size) &#123;
             stack.push(&quot;)&quot;);
         &#125;else if(s[i] == stack.top()) &#123;
             stack.pop();
-        &#125;else if(stack.empty() || s[i] != stack.top()) &#123;
+        &#125;else (stack.empty() || s[i] != stack.top()) &#123;
             return false;
-        &#125;else &#123;
-            stack.pop();
         &#125;
     &#125;
     //为空则匹配成功
@@ -3035,26 +3055,37 @@ int pop(Que* que, int size) &#123;
 </code></pre>
 <h5 id="c-51"><a href="#c-51" class="headerlink" title="c"></a>c</h5><pre><code class="c">typedef struct stack &#123;
     int stackTop;
-    int stack[100];
+    char stack[100];
 &#125;Stack;
 Stack* stackInit(Stack* stack) &#123;
     stack-&gt;stackTop = 0;
     return stack;
+&#125;
+int match(char par, Stack* stack) &#123;
+    switch(par) &#123;
+        case &#39;]&#39;:
+            return stack-&gt;stack[--stack-&gt;stackTop] != &#39;[&#39;;
+        case &#39;)&#39;:
+            return stack-&gt;stack[--stack-&gt;stackTop] ！= &#39;(&#39;;
+        case &#39;&#125;&#39;:
+            return stack-&gt;stack[--stack-&gt;stackTop] != &#39;&#123;&#39;;
+    &#125;
+    return 0;
 &#125;
 int isValid(Stack* stack, char* s) &#123;
     int len = strlen(s);
     stackInit();
     for(int i = 0; i &lt; len; i ++) &#123;
         if(s[i] == &#39;[&#39; || s[i] == &#39;&#123;&#39; || s[i] == &#39;(&#39;) &#123;
-            stack[stackTop ++] = s[i];
-        &#125;else if(stackTop == 0 || s[i] != stack[stackTop - 1]) &#123;
+            stack-&gt;stack[stack-&gt;stackTop ++] = s[i];
+        &#125;else if(stack-&gt;stackTop == 0 || match(s[i], stack)) &#123;
             return -1;
         &#125;else &#123;
             //栈弹出
-            stackTop --;
+            stack-&gt;stackTop --;
         &#125;
     &#125;
-    return stackTop == 0 ? 1 : -1;
+    return stack-&gt;stackTop == 0 ? 1 : -1;
 &#125;
 </code></pre>
 <h5 id="js-29"><a href="#js-29" class="headerlink" title="js"></a>js</h5><pre><code class="js">function isValid(s) &#123;
@@ -3077,7 +3108,22 @@ int isValid(Stack* stack, char* s) &#123;
     return !stack.length;
 &#125;
 </code></pre>
-<h5 id="js-优化版"><a href="#js-优化版" class="headerlink" title="js 优化版"></a>js 优化版</h5><pre><code class="js">
+<h5 id="js-优化版"><a href="#js-优化版" class="headerlink" title="js 优化版"></a>js 优化版</h5><pre><code class="js">function isValid(s) &#123;
+    let stack = [];
+    let map = &#123;
+        &quot;&#123;&quot;: &quot;&#125;&quot;,
+        &quot;[&quot;: &quot;]&quot;,
+        &quot;(&quot;: &quot;)&quot;
+    &#125;
+    for(let i of s) &#123;
+           if(map.hasOwnProperty(i)) &#123;
+            stack.push(map[i]);
+        &#125;else &#123;
+            if(i != stack.pop()) return false;
+        &#125;
+    &#125;
+    return !stack.length;
+&#125;
 </code></pre>
 <h2 id="删除字符串中的所有相邻重复项"><a href="#删除字符串中的所有相邻重复项" class="headerlink" title="删除字符串中的所有相邻重复项"></a>删除字符串中的所有相邻重复项</h2><p>给出由小写字母组成的字符串 S，重复项删除操作会选择两个相邻且相同的字母，并删除它们。</p>
 <p>在 S 上反复执行重复项删除操作，直到无法继续删除。</p>
@@ -3087,6 +3133,7 @@ int isValid(Stack* stack, char* s) &#123;
 <li>输入：”abbaca”</li>
 <li>输出：”ca”</li>
 </ul>
+<p>c++</p>
 <pre><code class="c++">string findNeiborDel(string s) &#123;
     stack&lt;char&gt; stack;
     for(int i = 0; i &lt; s.size(); i ++) &#123;
@@ -3106,7 +3153,8 @@ int isValid(Stack* stack, char* s) &#123;
     return result;
 &#125;
 </code></pre>
-<h5 id="直接将字符串作为栈"><a href="#直接将字符串作为栈" class="headerlink" title="直接将字符串作为栈"></a>直接将字符串作为栈</h5><pre><code class="c++">string findNeiborDel(string s) &#123;
+<h5 id="直接将字符串作为栈"><a href="#直接将字符串作为栈" class="headerlink" title="直接将字符串作为栈"></a>直接将字符串作为栈</h5><p>c++</p>
+<pre><code class="c++">string findNeiborDel(string s) &#123;
        string result;
     for(char a : s) &#123;
         if(result.empty() || result.back() != a) &#123;
@@ -3116,6 +3164,34 @@ int isValid(Stack* stack, char* s) &#123;
         &#125;
     &#125;
     return result;
+&#125;
+</code></pre>
+<p>js</p>
+<pre><code class="js">function findNeibor(s) &#123;
+    let result = [];
+    for(let i of a) &#123;
+        if(i == result[result.length]) result.pop();
+        else if(!result.length || i != result[result.length]) result.push(i);
+    &#125;
+    return result.join(&#39;&#39;);
+&#125;
+</code></pre>
+<p>java</p>
+<pre><code class="js">public String findNeibor(String s) &#123;
+    StringBuilder sr = new StringBuilder();
+    int top = -1;
+    for(int i = 0; i &lt; s.length(); i ++) &#123;
+        char c = s.charAt(i);
+        if(top != -1 || sr.charAt(top) == c) &#123;
+            sr.deleteCharAt(top);
+            top --;
+        &#125;
+        else if(sr.charAt(top) != c) &#123;
+            sr.append(c);
+            top ++;
+        &#125;
+    &#125;
+    return sr;
 &#125;
 </code></pre>
 <h3 id="逆波兰表达式求值"><a href="#逆波兰表达式求值" class="headerlink" title="逆波兰表达式求值"></a>逆波兰表达式求值</h3><p>根据 逆波兰表示法，求表达式的值。</p>
@@ -3240,1429 +3316,6 @@ int isValid(Stack* stack, char* s) &#123;
                 &#125;
         &#125;
 </code></pre>
-<h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h3 id="二叉树的存储方式"><a href="#二叉树的存储方式" class="headerlink" title="二叉树的存储方式"></a>二叉树的存储方式</h3><p><strong>二叉树可以链式存储，也可以顺序存储。</strong></p>
-<p>那么链式存储方式就用指针， 顺序存储的方式就是用数组。</p>
-<p>顾名思义就是顺序存储的元素在内存是连续分布的，而链式存储则是通过指针把分布在散落在各个地址的节点串联一起。</p>
-<p>链式存储如图：</p>
-<p><img src="https://img-blog.csdnimg.cn/2020092019554618.png" alt="img"></p>
-<p>链式存储是大家很熟悉的一种方式，那么我们来看看如何顺序存储呢？</p>
-<p>其实就是用数组来存储二叉树，顺序存储的方式如图：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200920200429452.png" alt="img"></p>
-<p>用数组来存储二叉树如何遍历的呢？</p>
-<p><strong>如果父节点的数组下标是 i，那么它的左孩子就是 i * 2 + 1，右孩子就是 i * 2 + 2。</strong></p>
-<p>但是用链式表示的二叉树，更有利于我们理解，所以一般我们都是用链式存储二叉树。</p>
-<h3 id="二叉树种类"><a href="#二叉树种类" class="headerlink" title="二叉树种类"></a>二叉树种类</h3><h4 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h4><p>满二叉树：如果一棵二叉树只有度为0的结点和度为2的结点，并且度为0的结点在同一层上，则这棵二叉树为满二叉树。</p>
-<h4 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h4><p>完全二叉树的定义如下：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层，则该层包含 1~ 2^(h-1)  个节点。</p>
-<h4 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h4><h5 id="二叉搜索树是一个有序树。"><a href="#二叉搜索树是一个有序树。" class="headerlink" title="二叉搜索树是一个有序树。"></a><strong>二叉搜索树是一个有序树</strong>。</h5><ul>
-<li>若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值；</li>
-<li>若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；</li>
-<li>它的左、右子树也分别为二叉排序树</li>
-</ul>
-<h4 id="平衡二叉搜索树"><a href="#平衡二叉搜索树" class="headerlink" title="平衡二叉搜索树"></a>平衡二叉搜索树</h4><p>平衡二叉搜索树：又被称为AVL（Adelson-Velsky and Landis）树，且具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。</p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><pre><code class="c++">struct TreeNode&#123;
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(val): val(val), left(NULL), right(NULL) &#123;&#125;
-&#125;
-</code></pre>
-<p>JavaScript</p>
-<pre><code class="js">class TreeNode &#123;
-    val;
-    left;
-    right;
-    constructor(val = 0, left = null, right = null) &#123;
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="二叉树的递归遍历"><a href="#二叉树的递归遍历" class="headerlink" title="二叉树的递归遍历"></a>二叉树的递归遍历</h3><h5 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h5><pre><code class="c++">vector&lt;int&gt; traversal(TreeNode* cur, vector&lt;int&gt;&amp; num) &#123;
-    if(cur == NULL) return;
-    //根节点
-    num.push_back(cur-&gt;val);
-    //左子树
-    traversal(cur-&gt;left, num);
-    //右子树
-    traversal(cur-&gt;right, num);
-&#125;
- preorderTraversal(TreeNode* tree) &#123;
-    //定义结果数组
-    vector&lt;int&gt; result;
-    traversal(tree, result);
-    return result;
-&#125;
-</code></pre>
-<h5 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h5><pre><code class="c++">//左子树
-traversal(cur-&gt;left, num);
-//根节点
-num.push_back(cur-&gt;val);
-//右子树
-traversal(cur-&gt;right, num);
-</code></pre>
-<h5 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h5><pre><code class="c++">//左子树
-traversal(cur-&gt;left, num);
-//右子树
-traversal(cur-&gt;right, num);
-//根节点
-num.push_back(cur-&gt;val);
-</code></pre>
-<h3 id="二叉树的迭代遍历"><a href="#二叉树的迭代遍历" class="headerlink" title="二叉树的迭代遍历"></a>二叉树的迭代遍历</h3><h5 id="前序遍历-1"><a href="#前序遍历-1" class="headerlink" title="前序遍历"></a>前序遍历</h5><pre><code class="c++">vector&lt;int&gt; preorderTraversal(TreeNode* tree) &#123;
-       vector&lt;int&gt; result;
-    //使用栈来存储节点
-    stack&lt;TreeNode*&gt; st;
-    //前序遍历先储存根节点
-    st.push(tree);
-    while(! st.empty()) &#123;
-        TreeNode* cur = st.top();
-        //将根节点的值放入结果数组中
-        result.push_back(cur-&gt;val);
-        st.pop();
-           //入栈时先右后左，出栈则为先左后右
-        if(cur-&gt;right) st.push(cur-&gt;right);
-        if(cur-&gt;left) st.push(cur-&gt;left);
-    &#125;
-    return result;
-&#125;
-</code></pre>
-<h5 id="中序遍历-1"><a href="#中序遍历-1" class="headerlink" title="中序遍历"></a>中序遍历</h5><pre><code class="c++">//思路是先把所有的左子树存入栈
-vector&lt;int&gt; InorderTraversal(TreeNode* tree) &#123;
-    vector&lt;int&gt; result;
-    stack&lt;TreeNode*&gt; st;
-    TreeNode* cur = tree;
-    while(cur != NULL || ! st.empty()) &#123;
-        //判断是否到最后一个左子树
-        if(cur != NULL) &#123;
-            st.push(cur);
-            cur = cur-&gt;left;
-        &#125;else &#123;
-            //获取最后一个左子树
-            cur = st.top();
-            st.pop();
-            result.push_back(cur-&gt;val);
-            //遍历所有左子树最近的右子树
-            cur = cur-&gt;right;
-        &#125;
-    &#125;
-    return result;
-&#125;
-</code></pre>
-<h5 id="后序遍历-1"><a href="#后序遍历-1" class="headerlink" title="后序遍历"></a>后序遍历</h5><p>先序遍历是中左右，后续遍历是左右中，那么我们只需要调整一下先序遍历的代码顺序，就变成中右左的遍历顺序，然后在反转result数组，输出的结果顺序就是左右中了</p>
-<pre><code class="c++">vector&lt;int&gt; postorderTraversal(TreeNode* tree) &#123;
-       vector&lt;int&gt; result;
-    //使用栈来存储节点
-    stack&lt;TreeNode*&gt; st;
-    //前序遍历先储存根节点
-    st.push(tree);
-    while(! st.empty()) &#123;
-        TreeNode* cur = st.top();
-        //将根节点的值放入结果数组中
-        result.push_back(cur-&gt;val);
-        st.pop();
-           //入栈时先左后左，出栈则为先右后左
-        if(cur-&gt;left) st.push(cur-&gt;left);
-        if(cur-&gt;right) st.push(cur-&gt;right);
-    &#125;
-    reverse(result.begin(), result.end());
-    return result;
-&#125;
-</code></pre>
-<h3 id="二叉树的统一迭代法"><a href="#二叉树的统一迭代法" class="headerlink" title="二叉树的统一迭代法"></a>二叉树的统一迭代法</h3><h5 id="中序遍历-2"><a href="#中序遍历-2" class="headerlink" title="中序遍历"></a>中序遍历</h5><pre><code class="c++">vector&lt;int&gt; inorderTraversal(TreeNode* tree) &#123;
-    vector&lt;int&gt; result;
-    stack&lt;TreeNode*&gt; st;
-    if(tree != NULL) st.push(tree);
-    while(!st.empty()) &#123;
-        TreeNode* cur = st.top();
-        if(cur != NULL) &#123;
-            //中序遍历一次放入右，中，左
-            //不为空再放入栈中
-            if(cur-&gt;right) st.push(cur-&gt;right);
-            
-            //放入根节点
-            st.push(cur);
-            //用 NULL 作为标识来表示已经访问过根节点
-            st.push(NULL);
-            //放入左子树
-            if(cur-&gt;left) st.push(cur-&gt;left);
-           //为空表示所有节点遍历完成
-        &#125;else &#123;
-            //弹出NULL
-            st.pop();
-            cur = st.top();
-            st.pop();
-            result.push_back(cur-&gt;value);
-        &#125;
-    &#125;
-    return result;
-&#125;
-</code></pre>
-<h5 id="后序遍历-2"><a href="#后序遍历-2" class="headerlink" title="后序遍历"></a>后序遍历</h5><pre><code class="c++">vector&lt;int&gt; postorderTraversal(TreeNode* tree) &#123;
-    vector&lt;int&gt; result;
-    stack&lt;TreeNode*&gt; st;
-    if(tree != NULL) st.push(tree);
-    while(! st.empty()) &#123;
-        TreeNode* cur = st.top();
-        if(cur != NULL) &#123;
-            //后序遍历先放入根节点
-            st.pop();
-            st.push(cur);
-            st.push(NULL);
-            
-            if(cur-&gt;right) st.push(cur-&gt;right);
-            if(cur-&gt;left) st.push(cur-&gt;left);
-        &#125;else &#123;
-            //删除 NULL
-            st.pop();
-            cur = st.top();
-            result.push_back(cur-&gt;val);
-            st.pop();
-        &#125;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="二叉树的层序遍历"><a href="#二叉树的层序遍历" class="headerlink" title="二叉树的层序遍历"></a>二叉树的层序遍历</h3><pre><code class="c++">vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* tree) &#123;
-    //构建一个队列来遍历每一层
-    queue&lt;TreeNode*&gt; que;
-       vector&lt;vector&lt;int&gt;&gt; result;
-    if(tree != NULL) que.push(tree);
-    while(!que.empty()) &#123;
-        //构建每一层的容器
-        vector&lt;int&gt; res;
-        //计算每一层的数量
-        int size = que.size();
-        for(int i = 0; i &lt; size; i ++) &#123;
-            TreeNode* cur = que.front;
-            res.push_back(cur-&gt;val);
-            que.pop();
-            if(cur-&gt;right) que.push(cur-&gt;right);
-            if(cur-&gt;left) que.push(cur-&gt;left);
-        &#125;
-        result.push_back(res);
-    &#125;
-    return result;
-&#125;
-</code></pre>
-<h3 id="翻转二叉树"><a href="#翻转二叉树" class="headerlink" title="翻转二叉树"></a>翻转二叉树</h3><h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><pre><code class="c++">TreeNode* reverseTree(TreeNode* tree) &#123;
-    if(tree == NULL) return tree;
-    swap(tree-&gt;right, tree-&gt;left);
-    reverseTree(tree-&gt;left);
-    reverseTree(tree-&gt;right);
-    return tree;
-&#125;
-</code></pre>
-<h5 id="迭代法-2"><a href="#迭代法-2" class="headerlink" title="迭代法"></a>迭代法</h5><p>在前中后遍历时将结果数组的代码替换为</p>
-<pre><code class="c++">swap(cur-&gt;left, cur-&gt;right);
-</code></pre>
-<h3 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h3><p>给定一个二叉树，检查它是否是镜像对称的</p>
-<h5 id="递归法-3"><a href="#递归法-3" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">bool compare(TreeNode* left, TreeNode* right) &#123;
-    if(left == NULL &amp;&amp; right == NULL) return true;
-    else if(left != NULL &amp;&amp; right == NULL) return false;
-    else if(left == NULL &amp;&amp; right != NULL) return false;
-    else if(left-&gt;val != right-&gt;val) return false;
-    
-    bool outside = compare(left-&gt;left, right-&gt;right);
-    bool inside = compare(left-&gt;right, right-&gt;left);
-    return outside &amp;&amp; inside;
-&#125;
-bool isSymmetric(TreeNode* tree) &#123;
-    if(tree == NULL) return true;
-    //判断二叉树是否对称，只需要判断根节点的左右子树是否对称
-    return compare(tree-&gt;left, tree-&gt;right);
-&#125;
-</code></pre>
-<h5 id="迭代法-3"><a href="#迭代法-3" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">bool isSymmetric(TreeNode* tree) &#123;
-    //使用队列来逐个判断子树是否对称（使用其他数据结构也可以）
-    queue&lt;TreeNode*&gt; que;
-       if(tree == NULL) return true;
-    que.push(tree-&gt;left);
-    que.push(tree-&gt;right);
-    while(!que.empty()) &#123;
-        TreeNode* left = que.front(); que.pop();
-        TreeNode* right = que.front(); que.pop();
-        if(left == NULL &amp;&amp; right == NULL) &#123;
-            return true;
-        &#125;
-        if(!left || !right || (left-&gt;val != right-&gt;val)) &#123;
-            return false;
-        &#125;
-        que.push(left-&gt;left);
-        que.push(right-&gt;right);
-        que.push(left-&gt;right);
-        que.push(right-&gt;left);
-    &#125;
-    return true;
-&#125;
-</code></pre>
-<h3 id="二叉树的最大深度"><a href="#二叉树的最大深度" class="headerlink" title="二叉树的最大深度"></a>二叉树的最大深度</h3><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
-<h5 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h5><pre><code class="c++">int getDepth(TreeNode* tree) &#123;
-    if(tree == NUll) return 0;
-    return 1 + max(getDepth(tree-&gt;left), getDepth(tree-&gt;right));
-&#125;
-</code></pre>
-<h5 id="前序遍历-2"><a href="#前序遍历-2" class="headerlink" title="前序遍历"></a>前序遍历</h5><pre><code class="c++">class Solution &#123;
-    public:
-    int result;
-    void getDepth(TreeNode* tree, int depth) &#123;
-        result = result &gt; depth ? result : depth;
-        if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right == NULL) return;
-        if(tree-&gt;left) &#123;
-            getDepth(tree-&gt;left, depth + 1);
-        &#125;
-        if(tree-&gt;rigth) &#123;
-            getDepth(tree-&gt;right, depth + 1);
-        &#125;
-        return ;
-    &#125;
-    int getMax(TreeNode* tree) &#123;
-        int result = 0;
-        if(tree == NULL) return result;
-        getDepth(tree, 1);
-        return result;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="迭代法的层序遍历"><a href="#迭代法的层序遍历" class="headerlink" title="迭代法的层序遍历"></a>迭代法的层序遍历</h5><pre><code class="c++">int getDepth(TreeNode* tree) &#123;
-    int depth = 0;
-    queue&lt;TreeNode*&gt; que;
-    que.push(tree);
-    while(! que.empty()) &#123;
-        int size = que.size();
-        depth ++;
-        for(int i = 0; i &lt; size; i ++) &#123;
-            TreeNode* cur = que.front();
-            que.pop();
-            if(cur-&gt;left) que.push(cur-&gt;left);
-            if(cur-&gt;right) que.push(cur-&gt;right);
-        &#125;
-    &#125;
-    return depth;
-&#125;
-</code></pre>
-<h4 id="N叉树的最大深度"><a href="#N叉树的最大深度" class="headerlink" title="N叉树的最大深度"></a>N叉树的最大深度</h4><h5 id="递归法-4"><a href="#递归法-4" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">int maxDepth(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-    int depth = 0;
-    for(int i = 0; i &lt; tree-&gt;children.size(); i ++) &#123;
-        depth = max(depth, maxDepth(tree-&gt;chidren[i]));
-    &#125;
-    return depth + 1;
-&#125;
-</code></pre>
-<h5 id="迭代法-4"><a href="#迭代法-4" class="headerlink" title="迭代法"></a>迭代法</h5><p>层序遍历</p>
-<pre><code class="c++">int maxDepth(TreeNode* tree) &#123;
-    int depth = 0;
-    queue&lt;int&gt; que;
-    que.push(tree);
-    while(! que.empty()) &#123;
-        int size = que.size();
-        depth ++;
-        for(int i = 0; i &lt; size; i ++) &#123;
-            TreeNode* cur = que.front();
-            que.pop();
-            for(int j = 0; j &lt; cur-&gt;children.size(); j ++) &#123;
-                if(que.children[j]) que.push(cur-&gt;children[j]);
-            &#125;
-        &#125;
-    &#125;
-    return depth;
-&#125;
-</code></pre>
-<h3 id="二叉树的最小深度"><a href="#二叉树的最小深度" class="headerlink" title="二叉树的最小深度"></a>二叉树的最小深度</h3><p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量</p>
-<h5 id="递归法-5"><a href="#递归法-5" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">int getMinDepth(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-       if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right! = NULL) &#123;
-        return 1 + getMinDepth(tree-&gt;right);
-    &#125;
-    if(tree-&gt;left != NULL &amp;&amp; tree-&gt;right == NULL) &#123;
-        return 1 + getMinDepth(tree-&gt;left);
-    &#125;
-    return 1 + min(getMinDepth(tree-&gt;left), getMinDepth(tree-&gt;rigth));
-&#125;
-</code></pre>
-<h5 id="迭代法-5"><a href="#迭代法-5" class="headerlink" title="迭代法"></a>迭代法</h5><p>层序遍历</p>
-<pre><code class="c++">int getMinDepth(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-    queue&lt;TreeNode*&gt; que;
-    int depth = 0;
-    que.push(tree);
-    while(! que.empty()) &#123;
-        int size = que.size();
-        depth ++;
-        for(int i = 0; i &lt; size; i ++) &#123;
-            TreeNode* cur = que.front();
-            que.pop();
-            if(cur-&gt;left) que.push(cur-&gt;left);
-            if(cur-&gt;right) que.push(cur-&gt;right);
-            //当左右子树都为空的时候则为最小深度
-            if(! cur-&gt;left &amp;&amp; ! cur-&gt;right) &#123;
-                return depth;
-            &#125;
-        &#125;
-    &#125;
-    return depth;
-&#125;
-</code></pre>
-<h3 id="完全二叉树的节点数"><a href="#完全二叉树的节点数" class="headerlink" title="完全二叉树的节点数"></a>完全二叉树的节点数</h3><h4 id="普通二叉树"><a href="#普通二叉树" class="headerlink" title="普通二叉树"></a>普通二叉树</h4><h5 id="递归法-6"><a href="#递归法-6" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">int countNode(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-    return conutNode(tree-&gt;left) + countNode(tree-&gt;right) + 1;
-&#125;
-</code></pre>
-<h5 id="迭代法-6"><a href="#迭代法-6" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">//层序遍历
-int count;
-for(;i &lt; size;) count ++;
-</code></pre>
-<h4 id="完全二叉树-1"><a href="#完全二叉树-1" class="headerlink" title="完全二叉树"></a>完全二叉树</h4><p>完全二叉树只有两种情况，情况一：就是满二叉树，情况二：最后一层叶子节点没有满。</p>
-<p>可以看出如果整个树不是满二叉树，就递归其左右孩子，直到遇到满二叉树为止，用公式计算这个子树（满二叉树）的节点数量。</p>
-<p>–&gt; 判断一个左子树或者右子树是不是满二叉树</p>
-<p>在完全二叉树中，如果递归向左遍历的<code>深度</code>等于递归向右遍历的<code>深度</code>，那说明就是满二叉树</p>
-<pre><code class="c++">int countNodes(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-    TreeNode* left = tree-&gt;left;
-    TreeNodse* right = tree-&gt;right:
-    int leftCount = 0, rightCount = 0;
-    //完全二叉树中，左子树的数量若等于右子树的数量则说明是满二叉树，可以根据公式计算节点数量
-    while(left) &#123;
-        left = left-&gt;left;
-        leftCount ++;
-    &#125;
-    while(right) &#123;
-        right = right-&gt;right;
-        rightCount ++;
-    &#125;
-    if(leftCount == rightCount) &#123;
-        //(2 ^ h) - 1
-        return (2 &lt;&lt; leftCount) - 1;
-    &#125;
-    //若不为满二叉树，则寻找子树的满二叉树
-    return countNodes(tree-&gt;left) + countNodes(tree-&gt;right) + 1;
-&#125;
-</code></pre>
-<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
-<p>本题中，一棵高度平衡二叉树定义为：一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。</p>
-<pre><code class="c++">class Solution &#123;
-    public: 
-    int getHeight(TreeNode* node) &#123;
-        if(node == NULL) return 0;
-        //若递归时返回 -1 则都返回 -1
-        int leftH = getHeight(node-&gt;left);
-        if(leftH == -1) return -1;
-        int rightH = getHeight(node-&gt;right);
-        if(rightH == -1) return -1;
-        //若相差大于1，则说明不为平衡二叉树, 或者返回深度
-        return abs(leftH - rightH) &gt; 1 ? -1 : max(leftH, rightH);
-    &#125;
-    bool isBalanced(TreeNode* tree) &#123;
-        return getHeight(tree);
-    &#125;
-&#125;
-</code></pre>
-<h3 id="二叉树的所有路径"><a href="#二叉树的所有路径" class="headerlink" title="二叉树的所有路径"></a>二叉树的所有路径</h3><p>这道题目要求从根节点到叶子的路径，所以需要前序遍历，这样才方便让父节点指向孩子节点，找到对应的路径。</p>
-<p>在这道题目中将第一次涉及到回溯，因为我们要把路径记录下来，需要回溯来回退一个路径再进入另一个路径。</p>
-<p>前序遍历以及回溯的过程如图：</p>
-<p><img src="https://img-blog.csdnimg.cn/20210204151702443.png" alt="257.二叉树的所有路径"></p>
-<p>我们先使用递归的方式，来做前序遍历。<strong>要知道递归和回溯就是一家的，本题也需要回溯。</strong></p>
-<pre><code class="c++">class Solution &#123;
-    public:
-    void traversal(TreeNode* node, vector&lt;int&gt; path, vector&lt;string&gt; result) &#123;
-        //通过不断的递归，将路径的值写入容器
-        path += to_string(node-&gt;val);
-        //递归的终止条件，遍历到叶子节点则回溯上一个，延展到其他路径
-        if(node-&gt;left == NULL &amp;&amp; node-&gt;right == NULL) &#123;
-               //将路经以 val -&gt; val 写入
-            string paths;
-            //最后一个元素另外写入
-            for(int i = 0; i &lt; path.size() - 1; i ++) &#123;
-                paths += to_string(path[i]);
-                paths += &quot;-&gt;&quot;;
-            &#125;
-            paths += to_string(path[path.size() - 1]);
-               result.push_back(paths);
-            return ;
-        &#125;
-        //左子树的路径记录
-        if(node-&gt;left) &#123;
-            traversal(node-&gt;left, path, result);
-            //进行回溯，上一代码有结果后，删除一个节点以更改路径
-            path.pop_back();
-        &#125;
-        if(node-&gt;right) &#123;
-            traversal(node-&gt;right, path, result);
-            path.pop_back();
-        &#125;
-    &#125;
-       vector&lt;string&gt; binaryTreePaths(TreeNode* tree) &#123;
-        vector&lt;string&gt; result;
-        vector&lt;int&gt; path;
-        traversal(tree, path, result);
-        return result;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="左叶子之和"><a href="#左叶子之和" class="headerlink" title="左叶子之和"></a>左叶子之和</h3><pre><code class="c++">int sumOfLeftLeaves(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-    if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right) return 0;
-    //递归左子树
-    int leftValue = sumOfLeftLeaves(tree-&gt;left); 
-    //如果有左子树且左子树的左右都为空,则为叶子节点
-    if(tree-&gt;left &amp;&amp; !tree-&gt;left-&gt;left &amp;&amp; !tree-&gt;right-&gt;right) &#123;
-        leftValue = tree-&gt;left-&gt;val;
-    &#125;
-    //递归右子树
-    int rightValue = sumOfLeftLeaves(tree-&gt;right);
-    return  leftValue + rightValue;
-&#125;
-</code></pre>
-<h5 id="迭代法（前）"><a href="#迭代法（前）" class="headerlink" title="迭代法（前）"></a>迭代法（前）</h5><pre><code class="c++">int sumOfLeftLeaves(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-    int result = 0;
-    stack&lt;TreeNode*&gt; st;
-    st.push(tree);
-    while(! st.empty()) &#123;
-        TreeNode* cur = st.top();
-        st.pop();
-        if(cur-&gt;left &amp;&amp; !cur-&gt;left-&gt;left &amp;&amp; !cur-&gt;left-&gt;right) &#123;
-            result += cur-&gt;left-&gt;val;
-           &#125;
-        if(cur-&gt;left) st.push(cur-&gt;left);
-        if(cur-&gt;right) st.push(cur-&gt;right);
-    &#125;
-    return result;
-&#125;
-</code></pre>
-<h3 id="找树左下角的值"><a href="#找树左下角的值" class="headerlink" title="找树左下角的值"></a>找树左下角的值</h3><p>给定一个二叉树，在树的最后一行找到最左边的值。</p>
-<h5 id="递归法-7"><a href="#递归法-7" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">class Solution &#123;
-    public:
-    int result;
-    int maxDepth = MAX_DEPTH;
-    //使用 depth 来递归深度
-    void traversal(TreeNode* node, int depth) &#123;
-        if(tree == NULL) return 0; 
-        //找到叶子节点则执行最终逻辑
-        if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right == NULL) &#123;
-            if(depth &gt; maxDepth) &#123;
-                maxDepth = depth;
-                result = node-&gt;val;
-            &#125;
-            return ;
-        &#125;
-        //左子树
-        if(tree-&gt;left) &#123;
-            depth ++;
-            traversal(node-&gt;left, depth);
-            //进行回溯到上一个节点，往下进行递归，需要回溯来找最大深度
-            depth --;
-        &#125;
-        //右子树
-        if(tree-&gt;right) &#123;
-            depth ++;
-            traversal(node-&gt;right, depth);
-            depth --;
-        &#125;
-        return ;
-    &#125;
-    int findBottomLeftValue(TreeNode* tree) &#123;
-        int depth = 0;
-        traversal(tree, depth);
-        return result;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="迭代法-7"><a href="#迭代法-7" class="headerlink" title="迭代法"></a>迭代法</h5><p>层序遍历</p>
-<pre><code class="c++">int findBottomLeftValue(TreeNode* tree) &#123;
-    if(tree == NULL) return 0;
-    int result = 0;
-    queue&lt;TreeNode*&gt; que;
-    que.push(tree);
-    while(! que.empty()) &#123;
-        int size = que.size();
-        for(int i = 0; i &lt; size; i ++) &#123;
-            TreeNode* cur = que.front();
-            que.pop();
-            if(i == 0) result = cur-&gt;val;
-            if(cur-&gt;left) que.push(cur-&gt;left);
-            if(cur-&gt;right) que.push(cur-&gt;right);
-        &#125;
-    &#125;
-    return result;
-&#125;
-</code></pre>
-<h3 id="路径总和"><a href="#路径总和" class="headerlink" title="路径总和"></a>路径总和</h3><p>给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。</p>
-<p>bool</p>
-<h5 id="递归-2"><a href="#递归-2" class="headerlink" title="递归"></a>递归</h5><pre><code class="c++">bool traversal(TreeNode* node, int sum) &#123;
-    //如果遍历到叶子节点，并且sum 为 0 的时候说明存在路径
-    if(!node-&gt;left &amp;&amp; !node-&gt;right &amp;&amp; sum == 0) return true;
-    //否则不存在
-    if(!node-&gt;left &amp;&amp; !node-&gt;right) return false;
-    if(node-&gt;left) &#123;
-        sum -= node-&gt;left-&gt;val;
-        traversal(node-&gt;left, sum);
-        //回溯到上一节点，将减去的值恢复
-        sum += node-&gt;left-&gt;val;
-    &#125;
-    if(node-&gt;right) &#123;
-           /*
-               隐藏回溯
-               traversal(node-&gt;rigth, sum - node-&gt;val);
-           */
-           sum -= node-&gt;right-&gt;val;
-        traversal(node-&gt;right, sum);
-        //回溯到上一节点，将减去的值恢复
-        sum += node-&gt;right-&gt;val;
-    &#125;
-    return false;
-&#125;
-bool hasPathSum(TreeNode* tree, int sum) &#123;
-    if(tree == NULL) return 0;
-    return traversal(tree, sum);
-&#125;
-</code></pre>
-<h5 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h5><p>在栈中保存一个容器，容器包含当前节点以及路径到此节点相加的值</p>
-<pre><code class="c++">bool hasPathSum(TreeNode* tree, int sum) &#123;
-    if(tree == NULL) return 0;
-       stack&lt;pair&lt;TreeNode*, int&gt;&gt; st;
-    st.push(pair&lt;TreeNode*, int&gt; (tree, 0));
-    while(! st.empty()) &#123;
-           pair&lt;TreeNode*, int&gt; node = st.top();
-        st.pop();
-        //判断叶子节点来执行
-        if(!node.first-&gt;left &amp;&amp; !node.first-&gt;right &amp;&amp; sum = node.second) return true;
-        //遍历左子树和右子树
-        if(node.first-&gt;left) &#123;
-            st.push(pair&lt;TreeNode*, int&gt; (node.first-&gt;left, node.second + node.first-&gt;left.val));
-        &#125;
-        if(node.first-&gt;right) &#123;
-            st.push(pair&lt;TreeNode*, int&gt; (node.first-&gt;right, node.second + node.second-&gt;right.val));
-        &#125;
-        return false;
-    &#125;
-&#125;
-</code></pre>
-<h3 id="路径总和-ii"><a href="#路径总和-ii" class="headerlink" title="路径总和 ii"></a>路径总和 ii</h3><p>计算出所有相加为 sum 的路径并放在结果数组</p>
-<h5 id="递归法-8"><a href="#递归法-8" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">class Solution &#123;
-    public:
-    vector&lt;vector&lt;int&gt;&gt; result;
-    vector&lt;int&gt; path;
-    void traversal(TreeNode* node, int count) &#123;
-           //判断为叶子节点执行
-        if(!node-&gt;left &amp;&amp; !node-&gt;right &amp;&amp; count == 0) &#123;
-            result.push_back(path);
-              return ;
-        &#125;
-        if(!node-&gt;left &amp;&amp; !node-&gt;right) return;
-        //左右子树遍历
-        if(node-&gt;left) &#123;
-            count -= node-&gt;left-&gt;val;
-            path.push_back(node-&gt;left-&gt;val);
-            traversal(node-&gt;left, count);
-            //回溯
-            count += node-&gt;val;
-            path.pop();
-        &#125;
-        if(node-&gt;right) &#123;
-               count -= node-&gt;right-&gt;val;
-            path.push_back(node-&gt;right-&gt;val);
-            traversal(node-&gt;rigth, count);
-            //回溯
-            count += node-&gt;right-&gt;val;
-            path.pop();
-        &#125;
-        return ;
-    &#125;
-     vector&lt;vector&lt;int&gt;&gt; pathSum(TreeNode* tree, int sum) &#123;
-        if(tree ==     NULL) return;
-        traversal(tree, sum);
-        return result;
-    &#125;   
-&#125;
-</code></pre>
-<h3 id="从中序和后序遍历构建二叉树"><a href="#从中序和后序遍历构建二叉树" class="headerlink" title="从中序和后序遍历构建二叉树"></a>从中序和后序遍历构建二叉树</h3><p>就是以 后序数组的最后一个元素为切割点，先切中序数组，根据中序数组，反过来再切后序数组。一层一层切下去，每次后序数组最后一个元素就是节点元素。</p>
-<p>流程如图：</p>
-<p><img src="https://img-blog.csdnimg.cn/20210203154249860.png" alt="106.从中序与后序遍历序列构造二叉树"></p>
-<p>说到一层一层切割，就应该想到了递归。</p>
-<p>来看一下一共分几步：</p>
-<ul>
-<li>第一步：如果数组大小为零的话，说明是空节点了。</li>
-<li>第二步：如果不为空，那么取后序数组最后一个元素作为节点元素。</li>
-<li>第三步：找到后序数组最后一个元素在中序数组的位置，作为切割点</li>
-<li>第四步：切割中序数组，切成中序左数组和中序右数组 （顺序别搞反了，一定是先切中序数组）</li>
-<li>第五步：切割后序数组，切成后序左数组和后序右数组</li>
-<li>第六步：递归处理左区间和右区间</li>
-</ul>
-<pre><code class="c++">class Solution &#123;
-    TreeNode* traversal(vector&lt;int&gt; inorder, vector&lt;int&gt; postorder) &#123;
-        //设定终止条件
-        if(inorder.size() == 0) return     NULL;
-        //让后序遍历的最后一个节点作为根节点
-        int rootValue = postorder[postorder.size() - 1];
-        //创建一个新节点
-        TreeNode* tree = new TreeNode(rootValue);
-        
-        //以后序数组的最后一个元素为界，分割前序数组
-        int delimiterInorder;
-        for(delimiterInorder = 0; delimiterInorder &lt; inorder.size(); delimiterInorder ++) &#123;
-            if(inorder[delimiterInorder] == rootValue);
-        &#125;
-        //开始切割前序数组
-        //左前序数组[0, delimiterInorder)
-        vector&lt;int&gt; leftInorder(inorder.begin(), inorder.begin() + delimiterInorder);
-        //右前序数组[delimiterInorder + 1, inorder.end);
-        vector&lt;int&gt; rightInorder(delimiterInorder + 1, inorder.end());
-        
-        //后序数组删除最后一位，重新定义内存
-        postorder.resize(postorder.size() - 1);
-        
-        //用前序数组切割后序数组
-        //左后序数组
-        vector&lt;int&gt; leftPostorder(postorder.begin(), postorder.begin() + leftInorder.size());
-        vector&lt;int&gt; rightPostorder(postorder.begin() + leftInorder.size(), postorder.end());
-        
-        //进行左子树递归
-        tree-&gt;left = traversal(leftInorder, leftPostorder);
-        //右子树递归
-           tree-&gt;right = traversal(rightInorder, rightPostorder);
-        
-        return tree;
-    &#125;
-      TreeNode* buildTree(vector&lt;int&gt; inorder, vector&lt;int&gt; postorder) &#123;
-        if(inorder.size() == 0 || postorder.size() == 0) return NULL;
-        return traversal(inorder, postorder);
-    &#125;
-&#125;
-</code></pre>
-<h5 id="优化版"><a href="#优化版" class="headerlink" title="优化版"></a>优化版</h5><pre><code class="c++">TreeNode* traversal (vector&lt;int&gt;&amp; inorder, int inorderBegin, int inorderEnd, vector&lt;int&gt;&amp; postorder, int postorderBegin, int postorderEnd) 
-    
-        // 切割中序数组
-        // 左中序区间，左闭右开[leftInorderBegin, leftInorderEnd)
-        int leftInorderBegin = inorderBegin;
-        int leftInorderEnd = delimiterIndex;
-        // 右中序区间，左闭右开[rightInorderBegin, rightInorderEnd)
-        int rightInorderBegin = delimiterIndex + 1;
-        int rightInorderEnd = inorderEnd;
-
-        // 切割后序数组
-        // 左后序区间，左闭右开[leftPostorderBegin, leftPostorderEnd)
-        int leftPostorderBegin =  postorderBegin;
-        int leftPostorderEnd = postorderBegin + delimiterIndex - inorderBegin; // 终止位置是 需要加上 中序区间的大小size
-        // 右后序区间，左闭右开[rightPostorderBegin, rightPostorderEnd)
-        int rightPostorderBegin = postorderBegin + (delimiterIndex - inorderBegin);
-        int rightPostorderEnd = postorderEnd - 1; // 排除最后一个元素，已经作为节点了
-
-        root-&gt;left = traversal(inorder, leftInorderBegin, leftInorderEnd,  postorder, leftPostorderBegin, leftPostorderEnd);
-        root-&gt;right = traversal(inorder, rightInorderBegin, rightInorderEnd, postorder, rightPostorderBegin, rightPostorderEnd);
-</code></pre>
-<h3 id="前序遍历和后序遍历构造二叉树"><a href="#前序遍历和后序遍历构造二叉树" class="headerlink" title="前序遍历和后序遍历构造二叉树"></a>前序遍历和后序遍历构造二叉树</h3><pre><code class="c++">// 切割中序数组
-        // 中序左区间，左闭右开[leftInorderBegin, leftInorderEnd)
-        int leftInorderBegin = inorderBegin;
-        int leftInorderEnd = delimiterIndex;
-        // 中序右区间，左闭右开[rightInorderBegin, rightInorderEnd)
-        int rightInorderBegin = delimiterIndex + 1;
-        int rightInorderEnd = inorderEnd;
-
-        // 切割前序数组
-        // 前序左区间，左闭右开[leftPreorderBegin, leftPreorderEnd)
-        int leftPreorderBegin =  preorderBegin + 1;
-        int leftPreorderEnd = preorderBegin + 1 + delimiterIndex - inorderBegin; // 终止位置是起始位置加上中序左区间的大小size
-        // 前序右区间, 左闭右开[rightPreorderBegin, rightPreorderEnd)
-        int rightPreorderBegin = preorderBegin + 1 + (delimiterIndex - inorderBegin);
-        int rightPreorderEnd = preorderEnd;
-</code></pre>
-<h3 id="最大二叉树"><a href="#最大二叉树" class="headerlink" title="最大二叉树"></a>最大二叉树</h3><p>给定一个不含重复元素的整数数组。一个以此数组构建的最大二叉树定义如下：</p>
-<ul>
-<li>二叉树的根是数组中的最大元素。</li>
-<li>左子树是通过数组中最大值左边部分构造出的最大二叉树。</li>
-<li>右子树是通过数组中最大值右边部分构造出的最大二叉树。</li>
-</ul>
-<p>通过给定的数组构建最大二叉树，并且输出这个树的根节点。</p>
-<pre><code class="c++">class Solution &#123;
-    public:
-    TreeNode* traversal(vector&lt;int&gt; nums, int left, int right) &#123;
-        if(right &gt;= left) return nullptr;
-        
-        int maxValueIndex = left;
-        for(int i = left + 1; i &lt; right; i ++) &#123;
-            if(nums[i] &gt; nums[maxValueIndex]) maxValueIndex = i;
-        &#125;
-        //创建新的节点，值为数组的最大值
-        TreeNode* tree = new TreeNode(nums[maxValueIndex]);
-        
-        //表示区间[nums.begin(), maxValueIndex)
-        int leftNum = nums.begin() + maxValueIndex;
-        int rightNum = maxValueIndex + 1;
-        
-        //节点的左子树
-        tree-&gt;left = traversal(nums, nums.begin(), nums.begin() + maxValueIndex);
-        //节点右子树
-        tree-&gt;right = traversal(nums, maxValueIndex + 1, nums.end());
-        
-        return tree;
-    &#125;
-    TreeNode* constructMaximumBinaryTree(vector&lt;int&gt; nums) &#123;
-        return traversal(nums, 0, nums.size());
-    &#125;
-&#125;
-</code></pre>
-<h3 id="合并二叉树"><a href="#合并二叉树" class="headerlink" title="合并二叉树"></a>合并二叉树</h3><p>给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。</p>
-<p>你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。</p>
-<h5 id="递归法-9"><a href="#递归法-9" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">//更改t1的结构
-TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) &#123;
-    if(t1 == NULL) return t2;
-    if(t2 == NULL) return t1;
-    
-    t1-&gt;val += t2-&gt;val;
-    t1-&gt;left = mergeTrees(t1-&gt;left, t2-&gt;left);
-    t2-&gt;right = mergeTree(t1-&gt;right, t2-&gt;right);
-    return t1;
-&#125;
-//重新构建一个二叉树
-TreeNode* mergeTrees(TreeNode* t1, TreeNode * t2) &#123;
-    if(t1 == NULL) return t1;
-    if(t2 == NULL) return t2;
-    TreeNode* tree = new TreeNode(0);
-    tree-&gt;val = t1-&gt;val + t2-&gt;val;
-    tree-&gt;left = mergeTrees(t1-&gt;left, t2-&gt;left);
-    tree-&gt;right = mergeTrees(t1-&gt;right, t2-&gt;right);
-    return tree;
-&#125;
-</code></pre>
-<h5 id="迭代法-8"><a href="#迭代法-8" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">TreeNode* mergeTree(TreeNode* t1, TreeNode* t2) &#123;
-    if(t1 == NULL) return t1;
-    if(t2 ==NULL) return t2;
-    queue&lt;TreeNode*&gt; que;
-    que.push(t1);
-    que.push(t2);
-    while(! que.empty()) &#123;
-        TreeNode* tree1 = que.front(); que.pop();
-        TreeNode* tree2 = que.front(); que.pop();
-        tree1-&gt;val += tree2-&gt;val;
-        
-        if(tree1-&gt;left != NULL &amp;&amp; tree2-&gt;left != NULL) &#123;
-            que.push(tree1-&gt;left);
-            que.push(tree2-&gt;left);
-        &#125;
-        if(tree1-&gt;right != NULL &amp;&amp; tree2-&gt;right != NULL) &#123;
-            que.push(tree1-&gt;right);
-            que.push(tree2-&gt;right);
-        &#125;
-        if(tree1-&gt;left != NULL &amp;&amp; tree2-&gt;left == NULL) &#123;
-            tree1-&gt;left = tree1-&gt;left;
-        &#125;
-        if(tree1-&gt;right == NULL &amp;&amp; tree2-&gt;right != NULL) &#123;
-            tree1-&gt;right = tree2-&gt;right;
-        &#125;
-    &#125;
-    return tree1;
-&#125;
-</code></pre>
-<h5 id="使用指针直接更改树"><a href="#使用指针直接更改树" class="headerlink" title="使用指针直接更改树"></a>使用指针直接更改树</h5><pre><code class="c++">void traversal(TreeNode** t1, TreeNode** t2) &#123;
-    if((*t1) == NULL &amp;&amp; (*t2) == NULL) return ;
-    if((*t1) != NULL &amp;&amp; (*t2) != NULL) &#123;
-        (*t1)-&gt;val += (*t2)-&gt;val;
-    &#125;
-    if((*t1) != NULL &amp;&amp; (*t2) == NULL) &#123;
-        return ;
-    &#125;
-    if((*t1) == NULL &amp;&amp; (*t2) != NULL) &#123;
-        *t1 = *t2;
-    &#125;
-    traversal((*t1)-&gt;left, (*t2)-&gt;left);
-       traversal((*t1)-&gt;right, (*t2)-&gt;right);
-&#125;
-TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) &#123;
-    if(t1 == NULL &amp;&amp; t2 == NULL) return NULL;
-    //传递引用，形参就为指针的指针
-    traversal(&amp;t1, &amp;t2);
-    return t1;
-&#125;
-</code></pre>
-<h3 id="二叉搜索树的搜索"><a href="#二叉搜索树的搜索" class="headerlink" title="二叉搜索树的搜索"></a>二叉搜索树的搜索</h3><p>因为二叉搜索树的节点是有序的，所以可以有方向的去搜索。</p>
-<p>如果root-&gt;val &gt; val，搜索左子树，如果root-&gt;val &lt; val，就搜索右子树，最后如果都没有搜索到，就返回NULL</p>
-<h5 id="递归法-10"><a href="#递归法-10" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">TreeNode* searchBST(TreeNode* node, int val) &#123;
-    if(node == NULL &amp;&amp; node-&gt;val == val) return node;
-    if(node-&gt;val &gt; val) return searchBST(node-&gt;left, val);
-    if(node-&gt;val &lt; val) return searchBST(node-&gt;right, val);
-    return NULL;
-&#125;
-</code></pre>
-<h5 id="迭代法-9"><a href="#迭代法-9" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">TreeNode* searchBST(TreeNode* tree, int val) &#123;
-    while(tree != NULL) &#123;
-        if(tree-&gt;val &gt; val) &#123;
-            tree = tree-&gt;left;
-        &#125;else if(tree-&gt;val &lt; val) &#123;
-            tree = tree-&gt;right;
-        &#125;else &#123;
-            return tree;
-        &#125;
-    &#125;
-    return NULL;
-&#125;
-</code></pre>
-<h3 id="验证二叉搜索树"><a href="#验证二叉搜索树" class="headerlink" title="验证二叉搜索树"></a>验证二叉搜索树</h3><p>给定一个二叉树，判断其是否是一个有效的二叉搜索树。</p>
-<p>假设一个二叉搜索树具有如下特征：</p>
-<ul>
-<li>节点的左子树只包含小于当前节点的数。</li>
-<li>节点的右子树只包含大于当前节点的数。</li>
-<li>所有左子树和右子树自身必须也是二叉搜索树。</li>
-</ul>
-<h5 id="递归法-11"><a href="#递归法-11" class="headerlink" title="递归法"></a>递归法</h5><pre><code class="c++">class Solution &#123;
-       public:
-    vector&lt;int&gt; result;
-    void traversal(TreeNode* node) &#123;
-        if(node == NULL) return ;
-        //遍历到最左边的叶子节点
-        traversal(node-&gt;left);
-        //从后往前开始记录
-        result.push_back(node-&gt;val);
-        traversal(node-&gt;right);
-    &#125;
-    bool isBST(TreeNode* tree) &#123;
-           if(tree == NULL) return false;
-        traversal(tree);
-        //判断结果数组是否有序递增，有序说明是搜索树
-        for(int i = 0; i &lt; result.size(); i ++) &#123;
-            if(result[i] &lt; result[i - 1]) return false;
-        &#125;
-        return true;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="递归法2"><a href="#递归法2" class="headerlink" title="递归法2"></a>递归法2</h5><p>利用不断遍历，寻找有序的最大值，有序则代表搜索树合理</p>
-<pre><code class="c++">long long MaxValue = LONG_INT;
-bool isVaildBST(TreeNode* tree) &#123;
-    if(tree == NULL) return ;
-    //中序遍历
-    bool left = isVaildBST(tree-&gt;left);
-    
-    if(MaxValue &lt; tree-&gt;val) MaxValue = tree-&gt;val;
-    else return false;
-    //右子树
-    bool right = isVaildBST(tree-&gt;right);
-    
-    return left &amp;&amp; right;
-&#125;
-</code></pre>
-<h5 id="迭代法-10"><a href="#迭代法-10" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">bool isVaildBST(TreeNode* tree) &#123;
-    stack&lt;TreeNode*&gt; st;
-    TreeNode* cur = tree;
-    TreeNode* pre = NULL;
-       while(cur != NULL &amp;&amp; ! st.empty()) &#123;
-        if(cur != NULL) &#123;
-            st.push(cur);
-               cur = cur-&gt;left;
-        &#125;else &#123;
-            cur = st.top();
-            st.pop();
-            //若当前的节点的值小于前一个节点，说明不是有序递增
-            if(pre != NULL &amp;&amp; cur-&gt;val &lt;= pre-&gt;val) return false;
-            
-            //记录当前节点作为前一个节点
-            pre = cur;
-               cur = cur-&gt;right;
-        &#125;
-    &#125;
-    return true;
-&#125;
-</code></pre>
-<h3 id="二叉搜索树的最小绝对差"><a href="#二叉搜索树的最小绝对差" class="headerlink" title="二叉搜索树的最小绝对差"></a>二叉搜索树的最小绝对差</h3><p>给你一棵所有节点为非负值的二叉搜索树，请你计算树中任意两节点的差的绝对值的最小值。</p>
-<h5 id="递归法-12"><a href="#递归法-12" class="headerlink" title="递归法"></a>递归法</h5><p>中序遍历</p>
-<pre><code class="c++">class Solution &#123;
-    public:
-    vector&lt;int&gt; vec;
-    void traversal(TreeNode* tree) &#123;
-        if(tree == NULL) return;
-        if(tree-&gt;left) traversal(tree-&gt;left);
-        result.push_back(tree-&gt;val);
-        if(tree-&gt;right) traversal(tree-&gt;right);
-    &#125;
-    int getMinimumDifference(TreeNode* tree) &#123;
-        traversal(tree);
-           if(vec.size() &lt; 2) return ;
-        int result = INT_MAX;
-        for(int i = 0; i &lt; vec.size(); i ++) &#123;
-               result = min(result, vec[i] - vec[i - 1]);
-        &#125;
-        return result;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="递归法2-1"><a href="#递归法2-1" class="headerlink" title="递归法2"></a>递归法2</h5><p>记录前一个节点，与当前节点做比对</p>
-<pre><code class="c++">class Solution &#123;
-    public:
-    int result = INT_MAX;
-    TreeNode* pre = NULL;
-    void traversal(TreeNode* tree) &#123;
-           if(tree == NULL) return ;
-           traversal(tree-&gt;left);
-        if(pre != NULL) &#123;
-            result = min(result, tree-&gt;val - pre-&gt;val);
-        &#125;
-        pre = tree;
-           traversal(tree-&gt;right);
-    &#125;
-    int getMinimumDifference(TreeNode* tree) &#123;
-        if(tree == NULL) return;
-        traversal(tree);
-        return result;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="迭代法-11"><a href="#迭代法-11" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">int getMinimumDifference(TreeNode* tree) &#123;
-    stack&lt;TreeNode*&gt; st;
-    TreeNode* cur = tree;
-    TreeNode* pre = NULL;
-    int result = INT_MAX;
-    while(cur != NULL || ! st.empty()) &#123;
-        if(cur != NULL) &#123;
-            st.push(cur);
-            st.pop();
-            cur = cur-&gt;left;
-        &#125;else &#123;
-            cur = st.top();
-            if(pre != NULL) &#123;
-                   result = min(result, cur-&gt;val - pre-&gt;val);
-            &#125;
-            pre = cur;
-            cur = cur-&gt;rigth;
-        &#125;
-    &#125;
-    return result;
-&#125;
-</code></pre>
-<h3 id="二叉搜索树的众数"><a href="#二叉搜索树的众数" class="headerlink" title="二叉搜索树的众数"></a>二叉搜索树的众数</h3><p>给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。</p>
-<p>假定 BST 有如下定义：</p>
-<ul>
-<li>结点左子树中所含结点的值小于等于当前结点的值</li>
-<li>结点右子树中所含结点的值大于等于当前结点的值</li>
-<li>左子树和右子树都是二叉搜索树</li>
-</ul>
-<h4 id="如果不是二叉搜索树"><a href="#如果不是二叉搜索树" class="headerlink" title="如果不是二叉搜索树"></a>如果不是二叉搜索树</h4><ol>
-<li>这个树都遍历了，用map统计频率</li>
-<li>把统计的出来的出现频率（即map中的value）排个序</li>
-</ol>
-<p>要把map转化数组即vector，再进行排序，当然vector里面放的也是<code>pair&lt;int, int&gt;</code>类型的数据，第一个int为元素，第二个int为出现频率。</p>
-<p>​    3.    取前面高频的元素</p>
-<pre><code class="c++">class Solution &#123;
-    private:
-    //递归遍历节点，将节点的值和频率存储在map中
-    void traversal(TreeNode* node, unorder_map map) &#123;
-        if(node == NULL) return ;
-        map[node-&gt;val] ++;
-        traversal(node-&gt;left);
-        traversal(node-&gt;right);
-    &#125;
-    //定义排序方式
-    bool cmp(const pair&lt;int, int&gt;&amp; a, const pair&lt;int, int&gt;&amp; b) &#123;
-        //升序排序
-        return a.second &gt; b.second;
-    &#125;
-    public:
-    vector&lt;int&gt; findMode(TreeNode* tree) &#123;
-        vector&lt;int&gt; result;
-        unorder_map&lt;int, int&gt; map;
-        if(tree == NULL) return result;
-        traversal(tree, map);
-        vector&lt;pair&lt;int, int&gt;&gt; vec(map.begin(), map.end());
-        //进行排序
-        sort(vec.begin(), vec.end(), cmp);
-        result.push_back(vec[0].first);
-        for(int i = 0; i &lt; vec.size(); i ++) &#123;
-            if(vec[i].second == vec[0].second) 
-                result.push_back(vec[i]);
-        &#125;
-        return result;
-    &#125;
-&#125;
-</code></pre>
-<h4 id="如果是二叉搜索树"><a href="#如果是二叉搜索树" class="headerlink" title="如果是二叉搜索树"></a>如果是二叉搜索树</h4><pre><code class="c++">class Solution &#123;
-    private:
-    int count = 0;
-    int maxCount = 0;
-    TreeNode* cur = NULL;
-    vector&lt;int&gt; result
-    //中序遍历
-    void traversal(TreeNode* tree) &#123;
-        if(tree == NULL) return ;
-        //左
-        traversal(tree-&gt;left);
-        //中
-        if(pre == NULL) &#123;
-            count = 1;
-        &#125;else if(pre-&gt;val == tree-&gt;val) &#123;
-            count ++;
-        &#125;else &#123;
-            count = 1;
-        &#125;
-        pre = cur;
-        if(count == maxCount) &#123;
-            result.push_back(tree-&gt;val);
-        &#125;
-        if(count &gt; maxCount) &#123;
-            maxCount = count;
-            result.clear();
-            result.push_back(tree-&gt;val);
-        &#125;
-        //右
-        traversal(tree-&gt;right);
-        return ;
-    &#125;
-    public:
-    vector&lt;int&gt; findMode(TreeNode* tree) &#123;
-        count = 0;
-        maxCount = 0;
-        TreeNode* pre = NULL;
-        result.clear();
-        traversal(tree);
-        return result;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="迭代法-12"><a href="#迭代法-12" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">vector&lt;int&gt; findMode(TreeNode* tree) &#123;
-    int count = 0;
-    int maxCount = 0;
-    TreeNode* cur = tree;
-    vector&lt;int&gt; result;
-    stack&lt;int&gt; st;
-    //中序遍历
-    while(cur != NULL &amp;&amp; ! st.empty()) &#123;
-        if(cur != NULL) &#123;
-            st.push(cur);
-            cur = cur-&gt;left;
-        &#125;else &#123;
-            cur = st.top();
-            st.pop();
-            if(tree == NULL) return ;
-            //左
-            traversal(tree-&gt;left);
-            //中
-            //第一个节点
-            if(pre == NULL) &#123;
-                count = 1;
-            &#125;else if(pre-&gt;val == tree-&gt;val) &#123;
-                count ++;
-            &#125;else &#123;
-                count = 1;
-            &#125;
-            pre = cur;
-            if(count == maxCount) &#123;
-                result.push_back(tree-&gt;val);
-            &#125;
-            if(count &gt; maxCount) &#123;
-                maxCount = count;
-                result.clear();
-                result.push_back(tree-&gt;val);
-            &#125;
-            cur = cur-right;
-        &#125;
-    &#125;
-       return result;
-&#125;
-</code></pre>
-<h3 id="二叉树最近的公共祖先"><a href="#二叉树最近的公共祖先" class="headerlink" title="二叉树最近的公共祖先"></a>二叉树最近的公共祖先</h3><pre><code class="c++">TreeNode* lowestCommonAncestor(TreeNode* tree, TreeNode* p, TreeNode* q)  &#123;
-       if(q == tree || p == tree || tree == NULL) return NULL;
-    TreeNode* left = lowestCommonAncestor(tree-&gt;left);
-    TreeNode* right = lowestCommonAncestor(tree-&gt;right);
-    if(left != NULL &amp;&amp; right != NULL) return tree;
-    if(left == NULL &amp;&amp; right != NULL) return right;
-    else if(left != NULL &amp;&amp; right == NULL) return left;
-    else if(left == NULL &amp;&amp; right == NULL) return NULL;
-&#125;
-</code></pre>
-<h3 id="二叉搜索树最近的公共祖先"><a href="#二叉搜索树最近的公共祖先" class="headerlink" title="二叉搜索树最近的公共祖先"></a>二叉搜索树最近的公共祖先</h3><pre><code class="c++">TreeNode* traversal(TreeNode* tree, TreeNode* p, TreeNode* q) &#123;
-    if(tree == NULL) return tree;
-       //从左开始遍历
-    if(tree-&gt;val &gt; p-&gt;val &amp;&amp; tree-&gt;val &gt; q-&gt;val) &#123;
-        TreeNode* left = traversal(tree-&gt;left);
-        if(left != NULL) &#123;
-            return left;
-        &#125;
-    &#125;
-    //从右开始遍历
-    if(tree-&gt;val &lt; p-&gt;val &amp;&amp; tree-&gt;val &lt; q-&gt;val) &#123;
-        TreeNode* right = traversal(tree-&gt;right);
-        if(right != NULL) &#123;
-             return right;
-        &#125;
-    &#125;
-    //处在中间范围内的节点
-    return tree;
-&#125;
-</code></pre>
-<h3 id="迭代法-13"><a href="#迭代法-13" class="headerlink" title="迭代法"></a>迭代法</h3><pre><code class="c++">TreeNode* lowestCommonAncestor(TreeNode* tree, TreeNode* p, TreeNode* q) &#123;
-    while(tree != NULL) &#123;
-        if(tree-&gt;val &gt; p-&gt;val &amp;&amp; tree-&gt;val &gt; q-&gt;val) &#123;
-               tree = tree-&gt;left;
-        &#125;else if(tree-&gt;val &lt; p-&gt;val &amp;&amp; tree-&gt;val &lt; q-&gt;val) &#123;
-            tree = tree-&gt;right;
-        &#125;else &#123;
-            return tree;
-        &#125;
-    &#125;
-    return NULL;
-&#125;
-</code></pre>
-<h3 id="二叉搜索树的插入操作"><a href="#二叉搜索树的插入操作" class="headerlink" title="二叉搜索树的插入操作"></a>二叉搜索树的插入操作</h3><h5 id="递归法-13"><a href="#递归法-13" class="headerlink" title="递归法"></a>递归法</h5><p>（有返回值）</p>
-<pre><code class="c++">TreeNode* traversal(TreeNode* tree, int val) &#123;
-    //结束条件
-       if(tree == NULL) &#123;
-        TreeNode* node = new TreeNode(val);
-        return node;
-    &#125;
-    //判断值是否大于或是小于来决定遍历方向,并直接添加节点
-    if(tree-&gt;val &gt; val) tree-&gt;left = traversal(tree-&gt;left, val);
-    if(tree-&gt;val &lt; val) tree-&gt;right = traversal(tree-&gt;right, val);
-    
-    //返回原节点
-    return tree;
-&#125;
-</code></pre>
-<p>（无返回值） </p>
-<pre><code class="c++">class Solution &#123;
-    public:
-    TreeNode* parent;
-    void traversal(TreeNode* tree, int val) &#123;
-        if(tree == NULL) &#123;
-            TreeNode* node = new TreeNode(val);
-            if(val &gt; parent-&gt;val) parent-&gt;right = node;
-            else parent-&gt;left = node;
-            return ;
-        &#125;
-        //记录当前的节点，作为下一节点的父节点
-        parent = tree;
-        if(tree-&gt;val &gt; val) traversal(tree-&gt;left, val);
-        else if(tree-val &lt; val) traversal(tree-&gt;right, val);
-        return ;
-    &#125;
-    TreeNode* insertIntoBST(TreeNode* tree, int val) &#123;
-        parent = new TreeNode(0);
-        if(tree == NULL) &#123;
-            TreeNode* newNode = TreeNode(val);
-        &#125;
-        traversal(tree, val);
-        return tree;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="迭代法-14"><a href="#迭代法-14" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">TreeNode* insertIntoBST(TreeNode* tree) &#123;
-    if(tree == NULL) &#123;
-        TreeNode* node = new TreeNode(val);
-        return node;
-    &#125;
-    TreeNode* cur = tree;
-    //记录上一个节点
-    TreeNode* parent = tree;
-    while(cur != NULL) &#123;
-        parent = cur;
-        if(cur-&gt;val &gt; val) cur = cur-&gt;left;
-        else if(cur-&gt;val &lt; val) cur = cur-&gt;right;
-    &#125;
-    //到空节点，定义一个新的节点
-    TreeNode* node = new TreeNode(val);
-    if(val &gt; parent-&gt;val) parent-&gt;right = node;
-    else if(val &lt; parent-&gt;val) parent-&gt;left = node;
-    return node;
-&#125;
-</code></pre>
-<h3 id="删除二叉搜索树的节点"><a href="#删除二叉搜索树的节点" class="headerlink" title="删除二叉搜索树的节点"></a>删除二叉搜索树的节点</h3><p>有以下五种情况：</p>
-<ul>
-<li>第一种情况：没找到删除的节点，遍历到空节点直接返回了</li>
-<li>找到删除的节点<ul>
-<li>第二种情况：左右孩子都为空（叶子节点），直接删除节点， 返回NULL为根节点</li>
-<li>第三种情况：删除节点的左孩子为空，右孩子不为空，删除节点，右孩子补位，返回右孩子为根节点</li>
-<li>第四种情况：删除节点的右孩子为空，左孩子不为空，删除节点，左孩子补位，返回左孩子为根节点</li>
-<li>第五种情况：左右孩子节点都不为空，则将删除节点的左子树头结点（左孩子）放到删除节点的右子树的最左面节点的左孩子上，返回删除节点右孩子为新的根节点。</li>
-</ul>
-</li>
-</ul>
-<h5 id="迭代法-15"><a href="#迭代法-15" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">TreeNode* deleteNode(TreeNode* tree, int key) &#123;
-    if(tree == NULL) return tree;
-    if(tree-&gt;val ==key) &#123;
-        //左右孩子都为空
-        if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right == NULL) &#123;
-            delete tree;
-        &#125;
-        //左节点为空
-        else if(tree-&gt;left == NULL &amp;&amp; tree-&gt;right != NULL) &#123;
-            TreeNode* temp = tree;
-            delete temp;
-            return tree;
-        &#125;
-        //右节点为空
-           else if(tree-&gt;right != NULL &amp;&amp; tree-&gt;left == NULL) &#123;
-            TreeNode* temp = tree;
-            delete temp;
-            return tree;
-        &#125;
-           //左右节点都不为空
-        else &#123;
-            TreeNode* cur = tree-&gt;right;
-            while(cur-&gt;left != NULL) &#123;
-                cur = cur-&gt;left;
-            &#125;
-            cur-&gt;left = tree-&gt;left;
-            tree = tree-&gt;right;
-            TreeNode* temp = tree;
-            delete temp;
-            return tree;
-        &#125;
-    &#125;
-    if(tree-&gt;val &gt; key) tree-left = traversal(tree-&gt;left);
-    if(tree-&gt;val &lt; key) tree-&gt;right = traversal(tree-&gt;right);
-    return tree;
-&#125;
-</code></pre>
-<h3 id="修剪二叉搜索树"><a href="#修剪二叉搜索树" class="headerlink" title="修剪二叉搜索树"></a>修剪二叉搜索树</h3><p>给定一个二叉搜索树，同时给定最小边界L 和最大边界 R。通过修剪二叉搜索树，使得所有节点的值在[L, R]中 (R&gt;=L) 。你可能需要改变树的根节点，所以结果应当返回修剪好的二叉搜索树的新的根节点。</p>
-<pre><code class="c++">TreeNode* trimBST(TreeNode* tree, int L, int R) &#123;
-    if(tree == NULL) return tree;
-    if(tree-&gt;val &gt; R) &#123;
-        TreeNode* left = traversal(tree-&gt;left);
-        return left;
-    &#125; 
-    if(tree-&gt;val &lt; L) &#123;
-        TreeNode* right = traversal(tree-&gt;right);
-        return right;
-    &#125;
-    tree-&gt;left = traversal(tree-&gt;left);
-    tree-&gt;right = traversal(tree-&gt;right);
-    return tree;
-&#125;
-</code></pre>
-<h5 id="迭代法-16"><a href="#迭代法-16" class="headerlink" title="迭代法"></a>迭代法</h5><p>因为二叉搜索树的有序性，不需要使用栈模拟递归的过程。</p>
-<p>在剪枝的时候，可以分为三步：</p>
-<ul>
-<li>将root移动到[L, R] 范围内，注意是左闭右闭区间</li>
-<li>剪枝左子树</li>
-<li>剪枝右子树</li>
-</ul>
-<pre><code class="c++">TreeNode* trimBST(TreeNode* tree, int L, int R) &#123;
-    if(tree == NULL) return NULL;
-    //将节点移动到[L, R] 范围内
-    while(tree != NULL &amp;&amp; (tree-&gt;val &lt; L || tree-&gt;val &gt; R)) &#123;
-        if(tree-&gt;val &gt; L) tree = tree-&gt;left;
-        else tree = tree-&gt;right;
-    &#125;
-    //修剪左子树
-    TreeNode* cur = tree;
-    while(cur != NULL) &#123;
-        while(cur-&gt;left != NULL &amp;&amp; cur-&gt;left-&gt;val &lt; L) &#123;
-            cur-&gt;left = cur-&gt;left-&gt;right;
-        &#125;
-        cur = cur-&gt;left;
-    &#125;
-    //恢复当前节点
-    cur = tree;
-    //修剪右子树
-    while(cur != NULL) &#123;
-        while(cur-&gt;right != NULL &amp;&amp; cur-&gt;right-&gt;val &gt; L) &#123;
-            cur-&gt;right = cur-&gt;right-&gt;left;
-        &#125;
-        cur = cur-&gt;right;
-    &#125;
-    return tree;
-&#125;
-</code></pre>
-<h4 id="将有序数组转换为二叉搜索树"><a href="#将有序数组转换为二叉搜索树" class="headerlink" title="将有序数组转换为二叉搜索树"></a>将有序数组转换为二叉搜索树</h4><p>将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。</p>
-<p>本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。</p>
-<pre><code class="c++">class Solution &#123;
-    private:
-    TreeNode* traversal(vector&lt;int&gt; nums, int left, int right) &#123;
-        if(left &gt; right) return NULL;
-        int mid = left + ((left + right) / 2);
-        TreeNode* newNode = TreeNode(nums[mid]);
-        newNode-&gt;left = traversal(nums, left, mid - 1);
-        newNode-&gt;right = traversal(nums, mid + 1, right);
-        return newNode;
-    &#125;
-    public:
-    TreeNode* sortedArrayToBST(vector&lt;int&gt; nums) &#123;
-        TreeNode* node = traversal(nums, 0, nums.size() - 1);
-        return node;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="迭代法-17"><a href="#迭代法-17" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">TreeNode* sortedArrayToBST(vector&lt;int&gt; nums) &#123;
-    if(nums.size() == 0) return NULL;
-    //创建一个节点
-    TreeNode* node = new TreeNode(0);
-    //创建三个队列，存放新创建的节点，左数组区间，和右数组区间
-    queue&lt;TreeNode*&gt; nodeQ;
-    queue&lt;int&gt; leftQ;
-    queue&lt;int&gt; rightQ;
-    nodeQ.push(node);
-    leftQ.push(0);
-    rightQ.push(nums.size() - 1);
-    while(! nodeQ.empty()) &#123;
-        TreeNode* cur = nodeQ.front();
-        nodeQ.pop();
-        int left = leftQ.front();
-        leftQ.pop();
-        int right = rightQ.front();
-        rightQ.pop();
-        int mid = left + ((left + right) / 2);
-        //给节点赋值
-        node-&gt;val = nums[mid];
-        //处理左边的节点
-        if(left &lt; mid - 1) &#123;
-              node-&gt;left = new TreeNode(0);
-            nodeQ.push(node-&gt;left);
-            leftQ.push(left);
-            rightQ.push(mid - 1);
-        &#125;
-        //处理左边的节点
-        if(right &gt; mid + 1) &#123;
-            node-&gt;right = new TreeNode(0);
-            nodeQ.push(node-&gt;right);
-            leftQ.push(mid + 1);
-            rightQ.push(right);
-        &#125;
-    &#125;
-    return node;
-&#125;
-</code></pre>
-<h3 id="把二叉搜索树转换为累加树"><a href="#把二叉搜索树转换为累加树" class="headerlink" title="把二叉搜索树转换为累加树"></a>把二叉搜索树转换为累加树</h3><p>给出二叉 搜索 树的根节点，该树的节点值各不相同，请你将其转换为累加树（Greater Sum Tree），使每个节点 node 的新值等于原树中大于或等于 node.val 的值之和。</p>
-<h5 id="我们需要反中序遍历这个二叉树，然后顺序累加就可以了。"><a href="#我们需要反中序遍历这个二叉树，然后顺序累加就可以了。" class="headerlink" title="我们需要反中序遍历这个二叉树，然后顺序累加就可以了。"></a>我们需要反中序遍历这个二叉树，然后顺序累加就可以了。</h5><pre><code class="c++">class Solution &#123;
-    private:
-    int pre;
-    void traversal(TreeNode* node) &#123;
-        if(node == NULL) return ;
-        //反中序遍历
-        traversal(node-&gt;right);
-           node-&gt;val += pre;
-        pre = node-&gt;val;
-        treversal(node-&gt;left);
-    &#125;
-    public:
-    TreeNode* convertBST(TreeNode* tree) &#123;
-        pre = 0;
-        traversal(tree);
-           return tree;
-    &#125;
-&#125;
-</code></pre>
-<h5 id="迭代法-18"><a href="#迭代法-18" class="headerlink" title="迭代法"></a>迭代法</h5><pre><code class="c++">TreeNode* convertBST(TreeNode* tree) &#123;
-    int pre = 0;
-       if(tree == NULL) return tree;
-    stack&lt;int&gt; st;
-    TreeNode* cur = tree;
-    while(cur != NULL &amp;&amp; ! st.empty()) &#123;
-        if(cur != NULL) &#123;
-            st.push(cur);
-            cur = cur-&gt;right;
-        &#125;else &#123;
-            cur = st.top();
-            st.pop();
-               cur-&gt;val += pre;
-            pre = cur-&gt;val;
-            cur = cur-&gt;right;
-        &#125;
-    &#125;
-    return tree;
-&#125;
-</code></pre>
-<ul>
-<li>涉及到二叉树的构造，无论普通二叉树还是二叉搜索树一定前序，都是先构造中节点。</li>
-<li>求普通二叉树的属性，一般是后序，一般要通过递归函数的返回值做计算。</li>
-<li>求二叉搜索树的属性，一定是中序了，要不白瞎了有序性了。</li>
-</ul>
-<p>注意在普通二叉树的属性中，我用的是一般为后序，例如单纯求深度就用前序，[二叉树：找所有路径 ]也用了前序，这是为了方便让父节点指向子节点。</p>
 
                 </div>
 

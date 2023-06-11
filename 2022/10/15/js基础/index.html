@@ -180,7 +180,7 @@
     <div class="post-main">
         
             <div class="post-main-title">
-                js面试基础
+                js基础
             </div>
             <div class="post-meta">
                 2022-10-15
@@ -188,7 +188,55 @@
             
                 <hr>
                 <div class="post-md">
-                    <h2 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h2><p>六种类型，Undefined, Null, Boolean, String , Number,Object ,Symbol</p>
+                    <h2 id="js-技巧"><a href="#js-技巧" class="headerlink" title="js 技巧"></a>js 技巧</h2><h3 id="浮点数转为整数（Float-to-Integer）🦊"><a href="#浮点数转为整数（Float-to-Integer）🦊" class="headerlink" title="浮点数转为整数（Float to Integer）🦊"></a>浮点数转为整数（<code>Float to Integer</code>）🦊</h3><p>我们一般将浮点数转化为整数会用到<code>Math.floor()</code>、<code>Math.ceil()</code>、<code>Math.round()</code>。但其实有一个更快的方式：</p>
+<pre><code class="js">console.log(~~6.95); // 6
+console.log(6.95 &gt;&gt; 0); // 6
+console.log(6.95 &lt;&lt; 0); // 6
+console.log(6.95 | 0); // 6
+// &gt;&gt;&gt;不可对负数取整
+console.log(6.95 &gt;&gt;&gt; 0); // 6
+</code></pre>
+<h3 id="获取数组中的最后一项-🦁"><a href="#获取数组中的最后一项-🦁" class="headerlink" title="获取数组中的最后一项 🦁"></a>获取数组中的最后一项 🦁</h3><p>通常，获取数组最后一项，我们用的比较多的是：</p>
+<pre><code class="js">let arr = [0, 1, 2, 3, 4, 5];
+const last = arr[arr.length - 1];
+console.log(last);
+
+Output: 5;
+</code></pre>
+<p>但我们也可以通过<code>slice</code>操作来实现：</p>
+<pre><code class="js">let arr = [0, 1, 2, 3, 4, 5];
+const last = arr.slice(-1)[0];
+console.log(last);
+
+Output: 5;
+</code></pre>
+<h3 id="求幂运算-🍜"><a href="#求幂运算-🍜" class="headerlink" title="求幂运算 🍜"></a>求幂运算 🍜</h3><p>平时我们实现指数运算，用的比较多的应该是<code>Math.pow()</code>，比如求<code>2^10</code>：</p>
+<pre><code class="js">console.log(Math.pow(2, 10));
+</code></pre>
+<p>在<code>ES7</code>中引入了指数运算符<code>**</code>，<code>**</code>具有与<code>Math.pow()</code>一样的计算结果。</p>
+<pre><code class="sj">console.log(2 ** 10); // 输出1024
+</code></pre>
+<h3 id="避免多条件并列-🦀"><a href="#避免多条件并列-🦀" class="headerlink" title="避免多条件并列 🦀"></a>避免多条件并列 🦀</h3><p>开发中有时会遇到多个条件，执行相同的语句，也就是多个<code>||</code>这种：</p>
+<pre><code class="js">if (status === &#39;process&#39; || status === &#39;wait&#39; || status === &#39;fail&#39;) &#123;
+  doSomething()
+&#125;
+</code></pre>
+<p>这种写法语义性、可读性都不太好。可以通过<code>switch case</code>或<code>includes</code>这种进行改造。</p>
+<p><code>switch case</code></p>
+<pre><code class="js">switch(status) &#123;
+  case &#39;process&#39;:
+  case &#39;wait&#39;:
+  case &#39;fail&#39;:
+    doSomething()
+&#125;
+</code></pre>
+<p><code>includes</code></p>
+<pre><code class="js">const enum = [&#39;process&#39;, &#39;wait&#39;, &#39;fail&#39;]
+if (enum.includes(status)) &#123;
+  doSomething()
+&#125;
+</code></pre>
+<h2 id="内置类型"><a href="#内置类型" class="headerlink" title="内置类型"></a>内置类型</h2><p>六种类型，Undefined, Null, Boolean, String , Number,Object ,Symbol</p>
 <blockquote>
 <p>基本数据类型：Undefined, Null, Boolean, String , Number</p>
 </blockquote>
@@ -237,9 +285,14 @@ numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
 <h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>创建 -&gt; 执行 -&gt; 回收</p>
 <p>创建阶段做了三件事：</p>
 <ul>
-<li>确定 this 的值，也被称为 <code>This Binding</code></li>
-<li>LexicalEnvironment（词法环境） 组件被创建</li>
-<li>VariableEnvironment（变量环境） 组件被创建</li>
+<li><p>确定 this 的值，也被称为 <code>This Binding</code></p>
+<p>在全局执行上下文中，<code>this</code> 的值指向全局对象，在浏览器中，<code>this</code> 的值指向 window 对象。</p>
+<p>在函数执行上下文中，<code>this</code> 的值取决于函数的调用方式。如果它被一个对象引用调用，那么 <code>this</code> 的值被设置为该对象，否则 <code>this</code> 的值被设置为全局对象或 <code>undefined</code>（严格模式下）。</p>
+</li>
+<li><p>LexicalEnvironment（词法环境） 组件被创建</p>
+</li>
+<li><p>VariableEnvironment（变量环境） 组件被创建</p>
+</li>
 </ul>
 <p>执行阶段</p>
 <p>如果 <code>Javascript</code> 引擎在源代码中声明的实际位置找不到变量的值，那么将为其分配 <code>undefined</code> 值</p>
@@ -256,13 +309,23 @@ numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
 <blockquote>
 <p>作用域背后地原理是<code>词法环境</code></p>
 </blockquote>
-<p>词法环境由两部分组成：</p>
+<ol start="2">
+<li><p>在词法环境中，有两个组成部分：（1）<strong>环境记录（environment record）</strong> （2）<strong>对外部环境的引用</strong></p>
 <ol>
-<li><p>环境记录， 这其实就是JavaScript用来存变量地地方，一个key-value对在这里被成为一个binding。</p>
-<p>是一个没有外部环境的词法环境，其外部环境引用为<code>null</code>，有一个全局对象，<code>this</code> 的值指向这个全局对象 </p>
-</li>
-<li><p>外部环境的引用</p>
-<p>用户在函数中定义的变量被存储在环境记录中，包含了<code>arguments</code> 对象，外部环境的引用可以是全局环境，也可以是包含内部函数的外部函数环境 </p>
+<li><strong>环境记录</strong>是存储变量和函数声明的实际位置。</li>
+<li><strong>对外部环境的引用</strong>意味着它可以访问其外部词法环境。</li>
+</ol>
+<p><strong>词法环境</strong>有两种类型：</p>
+<ul>
+<li><strong>全局环境</strong>（在全局执行上下文中）是一个没有外部环境的词法环境。全局环境的外部环境引用为 <strong>null</strong>。它拥有一个全局对象（window 对象）及其关联的方法和属性（例如数组方法）以及任何用户自定义的全局变量，<code>this</code> 的值指向这个全局对象。</li>
+<li><strong>函数环境</strong>，用户在函数中定义的变量被存储在<strong>环境记录</strong>中。对外部环境的引用可以是全局环境，也可以是包含内部函数的外部函数环境。</li>
+</ul>
+<p><strong>注意：</strong> 对于<strong>函数环境</strong>而言，<strong>环境记录</strong> 还包含了一个 <code>arguments</code> 对象，该对象包含了索引和传递给函数的参数之间的映射以及传递给函数的参数的<strong>长度（数量）</strong>。</p>
+<p><strong>环境记录</strong> 同样有两种类型（如下所示）：</p>
+<ul>
+<li><strong>声明性环境记录</strong> 存储变量、函数和参数。一个函数环境包含声明性环境记录。</li>
+<li><strong>对象环境记录</strong> 用于定义在全局执行上下文中出现的变量和函数的关联。全局环境包含对象环境记录。</li>
+</ul>
 </li>
 </ol>
 <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包就是当一个函数即使是在它的词法作用域之外被调用时，也可以记住并访问它的词法作用域。</p>
