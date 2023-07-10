@@ -227,7 +227,7 @@ npm install
 <p>js中操作数据: xxx.value</p>
 <p>模板中操作数据: 不需要.value</p>
 </blockquote>
-<pre><code class="ts">import &#123; ref &#125; from &#39;vue&#39;
+<pre><code class="vue">import &#123; ref &#125; from &#39;vue&#39;
 
 export default &#123;
     setup() &#123;
@@ -242,6 +242,22 @@ export default &#123;
         &#125;
     &#125;
 &#125;
+</code></pre>
+<h3 id="获取元素"><a href="#获取元素" class="headerlink" title="获取元素"></a>获取元素</h3><pre><code class="vue">&lt;div ref=&quot;divRef&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+const divRef = ref&lt;HTMLElement | null&gt;(null)
+console.log(divRef.value.property)
+&lt;/script&gt;
+</code></pre>
+<h3 id="v-for-ref"><a href="#v-for-ref" class="headerlink" title="v-for ref"></a>v-for ref</h3><pre><code class="vue">&lt;template&gt;
+&lt;div v-for=&quot;&quot; :ref=&quot;getDom&quot;&gt;&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+const lis: HTMLElement[] = new Array()
+const getDom = (el: HTMLElement) =&gt; lis.push(el)
+&lt;/script&gt;
 </code></pre>
 <h2 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h2><h4 id="定义多个数据响应式"><a href="#定义多个数据响应式" class="headerlink" title="定义多个数据响应式"></a>定义多个数据响应式</h4><blockquote>
 <p>const proxy = reactive(obj): 接收一个普通对象然后返回该普通对象的响应式代理器对象</p>
@@ -623,6 +639,39 @@ setup() &#123;
         &#125;
     &#125;
 &lt;/script&gt;
+</code></pre>
+<pre><code class="ts">// 自定义复制指令
+const vCopy = &#123;
+  mounted: (el: any, &#123; value &#125;: any) =&gt; &#123;
+    el.$value = value
+    el.handler = () =&gt; &#123;
+      if (!el.$value) &#123;
+        infoShow(&#39;内容为空&#39;)
+        return
+      &#125;
+      uni.setClipboardData(&#123;
+        data: el.$value,
+        success() &#123;
+          infoShow(&#39;复制成功&#39;)
+        &#125;,
+        fail() &#123;
+          infoShow(&#39;复制失败&#39;)
+        &#125;,
+        showToast: false
+      &#125;)
+    &#125;
+    //绑定事件
+    el.addEventListener(&#39;click&#39;, el.handler)
+  &#125;,
+  //当传进来的值更新的时候触发
+  updated(el, &#123; value &#125;) &#123;
+    el.$value = value
+  &#125;,
+  //指令与元素解绑的时候
+  unMounted(el) &#123;
+    el.removeEventListener(&#39;click&#39;, el.handler)
+  &#125;
+&#125;
 </code></pre>
 <h2 id="响应式数据的判断"><a href="#响应式数据的判断" class="headerlink" title="响应式数据的判断"></a>响应式数据的判断</h2><ul>
 <li>isRef: 检查一个值是否为一个 ref 对象</li>

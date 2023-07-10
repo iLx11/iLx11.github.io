@@ -341,6 +341,214 @@ numbersCloseEnoughToEqual( 0.0000001, 0.0000002 );    // false
 </ul>
 </blockquote>
 <p>一般函数的词法环境在函数返回后就被销毁，但是闭包会保存对创建时所在词法环境的引用，即便创建时所在的执行上下文被销毁，但创建时所在词法环境依然存在，以达到延长变量的生命周期的目的</p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a>proto</h2><p><strong>proto</strong> 是一个内部属性，不建议对其进行直接操作。 而是建议通过prototype来进行操作。</p>
+<blockquote>
+<p>每个函数都有一个特殊的属性叫作原型prototype</p>
+<p>一个对象的__proto__总是指向它的构造函数的prototype</p>
+</blockquote>
+<p>当我们访问一个对象的属性的时候，引擎首先会在当前对象进行查找，如果找不到就会访问该对象的<code>__proto__</code>， 如果<code>__proto__</code>有了，就返回，如果没有则递归执行上述过程，直到<code>__proto__</code> 为 <code>null</code>。</p>
+<p><img src="https://gitee.com/iLx1/resource-img/raw/master/images.jpg" alt="img"></p>
+<h1 id="this"><a href="#this" class="headerlink" title="this"></a>this</h1><blockquote>
+<p>this的设计目的就是指向函数运行时所在的环境</p>
+</blockquote>
+<h2 id="判定this指向"><a href="#判定this指向" class="headerlink" title="判定this指向"></a>判定this指向</h2><h3 id="一、默认绑定"><a href="#一、默认绑定" class="headerlink" title="一、默认绑定"></a>一、默认绑定</h3><p>1、严格模式下</p>
+<p>不能将全局对象<code>window</code>作为默认绑定，此时<code>this</code>会绑定到<code>undefined</code>，但是在严格模式下调用函数则不会影响默认绑定。</p>
+<p>2、非严格模式下</p>
+<p>this指向全局对象</p>
+<h3 id="二、隐式绑定"><a href="#二、隐式绑定" class="headerlink" title="二、隐式绑定"></a>二、隐式绑定</h3><p>当函数作为对象的属性存在，通过<strong>对象属性执行函数</strong>时，此时隐式绑定规则会将<code>this</code>绑定到对象上；</p>
+<blockquote>
+<p>赋值操作后执行函数，会应用默认绑定</p>
+</blockquote>
+<blockquote>
+<p>函数传参也是一种隐式赋值，此时在回调函数中会丢失this绑定。(函数定义位置不在对象内)</p>
+</blockquote>
+<h4 id="隐式绑定的隐式丢失问题"><a href="#隐式绑定的隐式丢失问题" class="headerlink" title="隐式绑定的隐式丢失问题"></a>隐式绑定的隐式丢失问题</h4><p>隐式绑定的基本概念大家应该都清楚了，不过其实有一个关于隐式绑定的常用考点，那就是<strong>隐式丢失问题</strong>。</p>
+<blockquote>
+<p>隐式丢失其实就是被隐式绑定的函数在特定的情况下会丢失绑定对象。</p>
+</blockquote>
+<p>有两种情况容易发生隐式丢失问题：</p>
+<ul>
+<li>使用另一个变量来给函数取别名</li>
+<li>将函数作为参数传递时会被隐式赋值，回调函数丢失this绑定</li>
+</ul>
+<pre><code class="js">function foo () &#123;
+  console.log(this.a)
+&#125;;
+var obj = &#123; a: 1, foo &#125;;
+var a = 2;
+var foo2 = obj.foo;
+var obj2 = &#123; a: 3, foo2: obj.foo &#125;
+
+function doFoo (fn) &#123;
+  console.log(this)
+  fn()
+&#125;
+obj.foo(); // 1
+foo2(); // 2
+obj2.foo2(); // 3
+dofoo(obj.foo) // 2
+</code></pre>
+<p><code>foo2</code>函数内部的函数<code>foo1</code>我们使用<code>call</code>来显式绑定<code>obj</code>，就算后面再用<code>call</code>来绑定<code>window</code>也没有用了。</p>
+<pre><code class="js">function foo1 () &#123;
+  console.log(this.a)
+&#125;
+var a = 1
+var obj = &#123;
+  a: 2
+&#125;
+
+var foo2 = function () &#123;
+  foo1.call(obj)
+&#125;
+
+foo2() // 2
+foo2.call(window) // 2
+</code></pre>
+<h3 id="三、显式绑定"><a href="#三、显式绑定" class="headerlink" title="三、显式绑定"></a>三、显式绑定</h3><blockquote>
+<p>通过call apply bind绑定</p>
+</blockquote>
+<p><code>call</code>做了哪些事儿。</p>
+<ul>
+<li>将函数设为对象的属性</li>
+<li>指定函数的this，并进行传参</li>
+<li>执行&amp;删除函数</li>
+<li>判定如果没有指定要绑定的this，非严格模式下默认指向全局对象</li>
+</ul>
+<pre><code class="js">foo.call(obj); // Heternally  调用call方法后强行将foo函数的this指向来obj对象上
+
+foo.call(obj).call(obj1); // Heternally  多次调用call方法，以第一次为准
+
+foo.call();// zl 没有传入指定对象，所以this默认指向全局对象
+</code></pre>
+<h4 id="四、通过new绑定"><a href="#四、通过new绑定" class="headerlink" title="四、通过new绑定"></a>四、通过new绑定</h4><p><code>new</code>后，执行了什么操作：</p>
+<ul>
+<li>它创建（构造）了一个全新的对象</li>
+<li>它会被执行[[Prototype]]（也就是__proto__）链接</li>
+<li>它使this指向新创建的对象</li>
+<li>通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上</li>
+<li>如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用</li>
+</ul>
+<p>在使用<code>new</code>调用构造函数后，会构造一个新对象并将函数调用中的<code>this</code>绑定到新对象上。</p>
+<pre><code class="js">var person1 = new Person(&quot;person1&quot;);
+// 可以看为
+var person1 = &#123;
+    name: &#39;person1&#39;,
+    foo: function () &#123;
+        console.log(this.name)
+        return function () &#123;
+            console.log(this.name)
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="箭头函数的this指向"><a href="#箭头函数的this指向" class="headerlink" title="箭头函数的this指向"></a>箭头函数的this指向</h3><blockquote>
+<p>根据它外层（函数/全局）作用域来决定</p>
+</blockquote>
+<p>箭头函数不能沿用以上的绑定this指向的方法</p>
+<p><strong>它里面的<code>this</code>是由外层作用域来决定的，且指向函数定义时的this而非执行时</strong>。</p>
+<p><code>它里面的this是由外层作用域来决定的</code>啥意思呢？来看看这句话：</p>
+<blockquote>
+<p>箭头函数中没有 this 绑定，必须通过查找作用域链来决定其值，如果箭头函数被非箭头函数包含，则 this 绑定的是最近一层非箭头函数的 this，否则，this 为 undefined。</p>
+</blockquote>
+<pre><code class="js">var name = &#39;window&#39;
+function Person (name) &#123;
+  this.name = name
+  this.foo1 = function () &#123;
+    console.log(this.name)
+    return function () &#123;
+      console.log(this.name)
+    &#125;
+  &#125;
+  this.foo2 = function () &#123;
+    console.log(this.name)
+    return () =&gt; &#123;
+      console.log(this.name)
+    &#125;
+  &#125;
+  this.foo3 = () =&gt; &#123;
+    console.log(this.name)
+    return function () &#123;
+      console.log(this.name)
+    &#125;
+  &#125;
+  this.foo4 = () =&gt; &#123;
+    console.log(this.name)
+    return () =&gt; &#123;
+      console.log(this.name)
+    &#125;
+  &#125;
+&#125;
+var person1 = new Person(&#39;person1&#39;)
+person1.foo1()() // &#39;person1&#39; &#39;window&#39;
+person1.foo2()() // &#39;person1&#39; &#39;person1&#39;
+person1.foo3()() // &#39;person1&#39; &#39;window&#39;
+person1.foo4()() // &#39;person1&#39; &#39;person1&#39;
+</code></pre>
+<p><strong>箭头函数结合<code>.call</code>的题目</strong></p>
+<pre><code class="js">var name = &#39;window&#39;
+var obj1 = &#123;
+  name: &#39;obj1&#39;,
+  foo1: function () &#123;
+    console.log(this.name)
+    return () =&gt; &#123;
+      console.log(this.name)
+    &#125;
+  &#125;,
+  foo2: () =&gt; &#123;
+    console.log(this.name)
+    return function () &#123;
+      console.log(this.name)
+    &#125;
+  &#125;
+&#125;
+var obj2 = &#123;
+  name: &#39;obj2&#39;
+&#125;
+obj1.foo1.call(obj2)() // &#39;obj2&#39; &#39;obj2&#39;
+obj1.foo1().call(obj2) // &#39;obj1&#39; &#39;obj1&#39;
+obj1.foo2.call(obj2)() // &#39;window&#39; &#39;window&#39;
+obj1.foo2().call(obj2) // &#39;window&#39; &#39;obj2&#39;
+</code></pre>
+<p><strong>避免使用的场景</strong></p>
+<ol>
+<li>使用箭头函数定义对象的方法</li>
+</ol>
+<pre><code class="javascript">let obj = &#123;
+    value: &#39;LinDaiDai&#39;,
+    getValue: () =&gt; console.log(this.value)
+&#125;
+obj.getValue() // undefined
+</code></pre>
+<ol>
+<li>定义原型方法</li>
+</ol>
+<pre><code class="javascript">function Foo (value) &#123;
+    this.value = value
+&#125;
+Foo.prototype.getValue = () =&gt; console.log(this.value)
+
+const foo1 = new Foo(1)
+foo1.getValue() // undefined
+</code></pre>
+<ol>
+<li>构造函数使用箭头函数</li>
+</ol>
+<pre><code class="js">const Foo = (value) =&gt; &#123;
+    this.value = value;
+&#125;
+const foo1 = new Foo(1)
+// 事实上直接就报错了 Uncaught TypeError: Foo is not a constructor
+console.log(foo1);
+</code></pre>
+<ol>
+<li>作为事件的回调函数</li>
+</ol>
+<pre><code class="js">const button = document.getElementById(&#39;myButton&#39;);
+button.addEventListener(&#39;click&#39;, () =&gt; &#123;
+    console.log(this === window); // =&gt; true
+    this.innerHTML = &#39;Clicked button&#39;;
+&#125;);
+</code></pre>
 <h1 id="原型和继承"><a href="#原型和继承" class="headerlink" title="原型和继承"></a>原型和继承</h1><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承是一种代码复用的方式。在面向对象编程中，继承是一个很重要的点。</p>
 <h3 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h3><p>在JS中继承背后的原理是原型<code>prototype</code>, 这种实现继承的方式，我们称之为原型继承。</p>
 <pre><code class="js">function Parent() &#123;
@@ -424,56 +632,567 @@ console.log(Function); // -&gt; ƒ Function() &#123; [native code] &#125;Copy to
 <li>所有的object对象，都是由全局内置函数Object创建的</li>
 <li>所有的函数对象，都是由全局内置函数Function创建的</li>
 </ul>
-<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a>proto</h2><p><strong>proto</strong> 是一个内部属性，不建议对其进行直接操作。 而是建议通过prototype来进行操作。</p>
-<blockquote>
-<p>每个函数都有一个特殊的属性叫作原型prototype</p>
-<p>一个对象的__proto__总是指向它的构造函数的prototype</p>
-</blockquote>
-<p>当我们访问一个对象的属性的时候，引擎首先会在当前对象进行查找，如果找不到就会访问该对象的<code>__proto__</code>， 如果<code>__proto__</code>有了，就返回，如果没有则递归执行上述过程，直到<code>__proto__</code> 为 <code>null</code>。</p>
-<p><img src="https://gitee.com/iLx1/resource-img/raw/master/images.jpg" alt="img"></p>
-<h1 id="this"><a href="#this" class="headerlink" title="this"></a>this</h1><blockquote>
-<p>this的设计目的就是指向函数运行时所在的环境</p>
-</blockquote>
-<h3 id="判定this指向"><a href="#判定this指向" class="headerlink" title="判定this指向"></a>判定this指向</h3><h4 id="一、默认绑定"><a href="#一、默认绑定" class="headerlink" title="一、默认绑定"></a>一、默认绑定</h4><p>1、严格模式下</p>
-<p>不能将全局对象<code>window</code>作为默认绑定，此时<code>this</code>会绑定到<code>undefined</code>，但是在严格模式下调用函数则不会影响默认绑定。</p>
-<p>2、非严格模式下</p>
-<p>this指向全局对象</p>
-<h4 id="二、隐式绑定"><a href="#二、隐式绑定" class="headerlink" title="二、隐式绑定"></a>二、隐式绑定</h4><p>当函数作为对象的属性存在，通过<strong>对象属性执行函数</strong>时，此时隐式绑定规则会将<code>this</code>绑定到对象上；</p>
-<blockquote>
-<p>赋值操作后执行函数，会应用默认绑定</p>
-</blockquote>
-<blockquote>
-<p>函数传参也是一种隐式赋值，此时在回调函数中会丢失this绑定。(函数定义位置不在对象内)</p>
-</blockquote>
-<h4 id="三、显式绑定"><a href="#三、显式绑定" class="headerlink" title="三、显式绑定"></a>三、显式绑定</h4><blockquote>
-<p>通过call apply bind绑定</p>
-</blockquote>
-<p><code>call</code>做了哪些事儿。</p>
-<ul>
-<li>将函数设为对象的属性</li>
-<li>指定函数的this，并进行传参</li>
-<li>执行&amp;删除函数</li>
-<li>判定如果没有指定要绑定的this，非严格模式下默认指向全局对象</li>
-</ul>
-<pre><code class="js">foo.call(obj); // Heternally  调用call方法后强行将foo函数的this指向来obj对象上
+<h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><h2 id="对象的属性"><a href="#对象的属性" class="headerlink" title="对象的属性"></a>对象的属性</h2><h3 id="属性分类"><a href="#属性分类" class="headerlink" title="属性分类"></a>属性分类</h3><p>1.数据属性4个特性: configurable(可配置),enumerable(可枚举),writable(可修改),value(属性值)</p>
+<p>2.访问器属性2个特性: get(获取),set(设置)</p>
+<p>3.内部属性 由JavaScript引擎内部使用的属性; 不能直接访问,但是可以通过对象内置方法间接访问,如:[[Prototype]]可以通过                Object.getPrototypeOf()访问; 内部属性用[[]]包围表示,是一个抽象操作,没有对应字符串类型的属性名,如[[Prototype]].</p>
+<h3 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h3><p>1.定义:将一个属性的所有特性编码成一个对象返回 </p>
+<p>2.描述符的属性有:数据属性和访问器属性 </p>
+<p>3.使用范围: 作为方法Object.defineProperty, Object.getOwnPropertyDescriptor, Object.create的第二个参数,</p>
+<h3 id="属性描述符的默认值"><a href="#属性描述符的默认值" class="headerlink" title="属性描述符的默认值"></a>属性描述符的默认值</h3><p>1.访问对象存在的属性</p>
+<table>
+<thead>
+<tr>
+<th>特性名</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>对应属性值</td>
+</tr>
+<tr>
+<td>get</td>
+<td>对应属性值</td>
+</tr>
+<tr>
+<td>set</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>writable</td>
+<td>true</td>
+</tr>
+<tr>
+<td>enumerable</td>
+<td>true</td>
+</tr>
+<tr>
+<td>configurable</td>
+<td>true</td>
+</tr>
+<tr>
+<td>所以通过上面三种声明方法已存在的属性都是有这些默认描述符</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>2.访问对象不存在的属性 </p>
+<table>
+<thead>
+<tr>
+<th>特性名</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>get</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>set</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>writable</td>
+<td>false</td>
+</tr>
+<tr>
+<td>enumerable</td>
+<td>false</td>
+</tr>
+<tr>
+<td>configurable</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<h3 id="描述符属性的使用规则"><a href="#描述符属性的使用规则" class="headerlink" title="描述符属性的使用规则"></a>描述符属性的使用规则</h3><p>get,set与wriable,value是互斥的,如果有交集设置会报错</p>
+<h3 id="属性定义"><a href="#属性定义" class="headerlink" title="属性定义"></a>属性定义</h3><p>1.定义属性的函数有两个:Object.defineProperty和Object.defineProperties.</p>
+<p>例如: </p>
+<pre><code class="js">Object.defineProperty(obj, propName, desc)
 
-foo.call(obj).call(obj1); // Heternally  多次调用call方法，以第一次为准
-
-foo.call();// zl 没有传入指定对象，所以this默认指向全局对象
+Object.defineProperty(obj, &quot;name&quot;, &#123;value: &quot;aaa&quot;&#125;)
 </code></pre>
-<h4 id="四、通过new绑定"><a href="#四、通过new绑定" class="headerlink" title="四、通过new绑定"></a>四、通过new绑定</h4><p><code>new</code>后，执行了什么操作：</p>
-<ul>
-<li>它创建（构造）了一个全新的对象</li>
-<li>它会被执行[[Prototype]]（也就是__proto__）链接</li>
-<li>它使this指向新创建的对象</li>
-<li>通过new创建的每个对象将最终被[[Prototype]]链接到这个函数的prototype对象上</li>
-<li>如果函数没有返回对象类型Object(包含Functoin, Array, Date, RegExg, Error)，那么new表达式中的函数调用将返回该对象引用</li>
-</ul>
-<p>在使用<code>new</code>调用构造函数后，会构造一个新对象并将函数调用中的<code>this</code>绑定到新对象上。</p>
-<h4 id="箭头函数的this指向"><a href="#箭头函数的this指向" class="headerlink" title="箭头函数的this指向"></a>箭头函数的this指向</h4><blockquote>
-<p>根据它外层（函数/全局）作用域来决定</p>
+<p>2.在引擎内部,会转换成这样的方法调用: </p>
+<pre><code class="js">obj.[[DefineOwnProperty]](propName, desc, true)
+</code></pre>
+<h3 id="属性赋值"><a href="#属性赋值" class="headerlink" title="属性赋值"></a>属性赋值</h3><p>1.赋值运算符(=)就是在调用[[Put]].比如: obj.prop = v;</p>
+<p>2.在引擎内部,会转换成这样的方法调用: </p>
+<pre><code class="js">obj.[[Put]](&quot;prop&quot;, v, isStrictModeOn)
+</code></pre>
+<h3 id="判断对象的属性"><a href="#判断对象的属性" class="headerlink" title="判断对象的属性"></a>判断对象的属性</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>含义</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>in</td>
+<td>如果指定的属性在指定的对象或其原型链中，则in 运算符返回true</td>
+<td>‘name’ in test        //true</td>
+</tr>
+<tr>
+<td>hasOwnProperty()</td>
+<td>只判断自身属性</td>
+<td>test.hasOwnProperty(‘name’)        //true</td>
+</tr>
+<tr>
+<td>.或[]</td>
+<td>对象或原型链上不存在该属性，则会返回undefined</td>
+<td>test.name            //“lei”   test[“name”]  //“lei”</td>
+</tr>
+</tbody></table>
+<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><h3 id="一级对象遍历方法"><a href="#一级对象遍历方法" class="headerlink" title="一级对象遍历方法"></a>一级对象遍历方法</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>特性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>for … in</td>
+<td>遍历对象自身的和继承的可枚举属性(不含Symbol属性)</td>
+</tr>
+<tr>
+<td>Object.keys(obj)</td>
+<td>返回一个数组,包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性)</td>
+</tr>
+<tr>
+<td>Object.getOwnPropertyNames(obj)</td>
+<td>返回一个数组,包括对象自身的所有可枚举和不可枚举属性(不含Symbol属性)</td>
+</tr>
+<tr>
+<td>Object.getOwnPropertySymbols(obj)</td>
+<td>返回一个数组,包含对象自身的所有Symbol属性</td>
+</tr>
+<tr>
+<td>Reflect.ownKeys(obj)</td>
+<td>返回一个数组,包含对象自身的所有(不枚举、可枚举和Symbol)属性</td>
+</tr>
+<tr>
+<td>Reflect.enumerate(obj)</td>
+<td>返回一个Iterator对象,遍历对象自身的和继承的所有可枚举属性(不含Symbol属性)</td>
+</tr>
+</tbody></table>
+<p>总结:</p>
+<p>1.只有Object.getOwnPropertySymbols(obj)和Reflect.ownKeys(obj)可以拿到Symbol属性</p>
+<p>2.只有Reflect.ownKeys(obj)可以拿到不可枚举属性</p>
+<h2 id="数据拦截"><a href="#数据拦截" class="headerlink" title="数据拦截"></a>数据拦截</h2><p>定义:利用对象内置方法,设置属性,进而改变对象的属性值</p>
+<h3 id="Object-defineProterty"><a href="#Object-defineProterty" class="headerlink" title="Object.defineProterty"></a>Object.defineProterty</h3><p>1.ES5出来的方法; </p>
+<p>2.三个参数:对象(必填),属性值(必填),描述符(可选); </p>
+<p>3.defineProterty的描述符属性</p>
+<pre><code class="makefile">数据属性:value,writable,configurable,enumerable
+访问器属性:get,set
+注:不能同时设置value和writable,这两对属性是互斥的
+</code></pre>
+<p>4.拦截对象的两种情况:</p>
+<pre><code class="js">let obj = &#123;name:&#39;&#39;,age:&#39;&#39;,sex:&#39;&#39;  &#125;,
+    defaultName = [&quot;这是姓名默认值1&quot;,&quot;这是年龄默认值1&quot;,&quot;这是性别默认值1&quot;];
+  Object.keys(obj).forEach(key =&gt; &#123;
+    Object.defineProperty(obj, key, &#123;
+      get() &#123;
+        return defaultName;
+      &#125;,
+      set(value) &#123;
+        defaultName = value;
+      &#125;
+    &#125;);
+  &#125;);
+
+  let objOne=&#123;&#125;,defaultNameOne=&quot;这是默认值2&quot;;
+  Object.defineProperty(obj, &#39;name&#39;, &#123;
+      get() &#123;
+        return defaultNameOne;
+      &#125;,
+      set(value) &#123;
+        defaultNameOne = value;
+      &#125;
+  &#125;);
+  console.log(objOne.name);
+  objOne.name = &quot;这是改变值2&quot;;
+  console.log(objOne.name);
+</code></pre>
+<p>5.拦截数组变化的情况</p>
+<pre><code class="js">let a=&#123;&#125;;
+bValue=1;
+Object.defineProperty(a,&quot;b&quot;,&#123;
+    set:function(value)&#123;
+        bValue=value;
+        console.log(&quot;setted&quot;);
+    &#125;,
+    get:function()&#123;
+        return bValue;
+    &#125;
+&#125;);
+a.b;//1
+a.b=[];//setted
+a.b=[1,2,3];//setted
+a.b[1]=10;//无输出
+a.b.push(4);//无输出
+a.b.length=5;//无输出
+a.b;//[1,10,3,4,undefined];
+</code></pre>
+<p>结论:defineProperty无法检测数组索引赋值,改变数组长度的变化; 但是通过数组方法来操作可以检测到</p>
+<h3 id="多级嵌套对象监听"><a href="#多级嵌套对象监听" class="headerlink" title="多级嵌套对象监听"></a>多级嵌套对象监听</h3><pre><code class="js"> let info = &#123;&#125;;
+  function observe(obj) &#123;
+    // 判断是否为引用类型
+    if (!obj || typeof obj !== &quot;object&quot;) return;
+    for (var i in obj) &#123;
+      definePro(obj, i, obj[i]);
+    &#125;
+  &#125;
+
+  function definePro(obj, key, value) &#123;
+    observe(value);
+    Object.defineProperty(obj, key, &#123;
+      get: function() &#123;
+        return value;
+      &#125;,
+      set: function(newval) &#123;
+        console.log(&quot;检测变化&quot;, newval);
+        value = newval;
+      &#125;
+    &#125;);
+  &#125;
+  definePro(info, &quot;friends&quot;, &#123; name: &quot;张三&quot; &#125;);
+  info.friends.name = &quot;李四&quot;;
+</code></pre>
+<h3 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h3><blockquote>
+<ol>
+<li>复制代码不能监听数组索引赋值和改变长度的变化</li>
+<li>必须深层遍历嵌套的对象,因为defineProterty只能劫持对象的属性,因此我们需要对每个对象的每个属性进行遍历，如果属性值也是对象那么需要深度遍历,显然能劫持一个完整的对象是更好的选择</li>
+</ol>
 </blockquote>
-<p>箭头函数不能沿用以上的绑定this指向的方法</p>
+<h2 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h2><p>1.ES6出来的方法,实质是对对象做了一个拦截,并提供了13个处理方法</p>
+<p>2.两个参数:对象和行为函数</p>
+<pre><code class="js">  let handler = &#123;
+    get(target, key, receiver) &#123;
+      console.log(&quot;get&quot;, key);
+      return Reflect.get(target, key, receiver);
+    &#125;,
+    set(target, key, value, receiver) &#123;
+      console.log(&quot;set&quot;, key, value);
+      return Reflect.set(target, key, value, receiver);
+    &#125;
+  &#125;;
+  let proxy = new Proxy(obj, handler);
+  proxy.name = &quot;李四&quot;;
+  proxy.age = 24;
+</code></pre>
+<h4 id="多级对象或多级数组"><a href="#多级对象或多级数组" class="headerlink" title="多级对象或多级数组"></a>多级对象或多级数组</h4><pre><code class="js">//这是proxy的handler
+let handler = &#123;
+    get(target, property) &#123;
+        console.log(&#39;get:&#39; + property)
+        return Reflect.get(target, property);
+    &#125;,
+    set(target, property, value) &#123;
+        console.log(&#39;set:&#39; + property + &#39;=&#39; + value);
+        return Reflect.set(target, property, value);
+    &#125;
+&#125;
+//传递两个参数，一个是object, 一个是proxy的handler
+//如果是不是嵌套的object，直接加上proxy返回，如果是嵌套的object，那么进入addSubProxy进行递归。 
+function toDeepProxy(object, handler) &#123;
+    if (!isPureObject(object)) addSubProxy(object, handler); 
+    return new Proxy(object, handler);
+
+//这是一个递归函数，目的是遍历object的所有属性，如果不是pure object,那么就继续遍历object的属性的属性，如果是pure object那么就加上proxy
+    function addSubProxy(object, handler) &#123;
+        for (let prop in object) &#123;
+            if ( typeof object[prop] == &#39;object&#39;) &#123;
+                if (!isPureObject(object[prop])) addSubProxy(object[prop], handler);
+                object[prop] = new Proxy(object[prop], handler);
+            &#125;
+        &#125;
+        object = new Proxy(object, handler)
+    &#125;
+
+//是不是一个pure object,意思就是object里面没有再嵌套object了
+    function isPureObject(object) &#123;
+        if (typeof object!== &#39;object&#39;) &#123;
+            return false;
+        &#125; else &#123;
+            for (let prop in object) &#123;
+                if (typeof object[prop] == &#39;object&#39;) &#123;
+                    return false;
+                &#125;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;
+//变成监听对象
+obj = toDeepProxy(obj, handler);
+objArr = toDeepProxy(objArr, handler);
+</code></pre>
+<p>3.问题和优点 </p>
+<p>reflect对象没有构造函数 可以监听数组索引赋值,改变数组长度的变化, 是直接监听对象的变化,不用深层遍历</p>
+<h3 id="defineProterty和proxy的对比"><a href="#defineProterty和proxy的对比" class="headerlink" title="defineProterty和proxy的对比"></a>defineProterty和proxy的对比</h3><p>1.defineProterty是es5的标准,proxy是es6的标准;</p>
+<p>2.proxy可以监听到数组索引赋值,改变数组长度的变化;</p>
+<p>3.proxy是监听对象,不用深层遍历,defineProterty是监听属性;</p>
+<p>3.利用defineProterty实现双向数据绑定(vue2.x采用的核心) 4.利用proxy实现双向数据绑定(vue3.x会采用)</p>
+<h3 id="…args剩余参数和-arguments对象的区别"><a href="#…args剩余参数和-arguments对象的区别" class="headerlink" title="…args剩余参数和 arguments对象的区别"></a>…args剩余参数和 arguments对象的区别</h3><p>剩余参数和 arguments对象之间的区别主要有三个：</p>
+<blockquote>
+<p> 1.剩余参数只包含那些没有对应形参的实参，而 arguments 对象包含了传给函数的所有实参。<br> 2.arguments对象不是一个真正的数组，而剩余参数是真正的 Array实例，也就是说你能够在它上面直接使用所有的数组方法，比如 sort，map，forEach或pop。<br> 3.arguments对象还有一些附加的属性 （如callee属性）。</p>
+</blockquote>
+<h3 id="当前日期天数"><a href="#当前日期天数" class="headerlink" title="当前日期天数"></a>当前日期天数</h3><pre><code class="js">const dayOfYear = date =&gt;
+Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+
+dayOfYear(new Date()); // 285
+</code></pre>
+<h3 id="返回当前24小时制时间的字符串"><a href="#返回当前24小时制时间的字符串" class="headerlink" title="返回当前24小时制时间的字符串"></a>返回当前24小时制时间的字符串</h3><pre><code class="js">const getColonTimeFromDate = date =&gt; date.toTimeString().slice(0, 8);
+
+getColonTimeFromDate(new Date()); // &quot;08:38:00&quot;
+</code></pre>
+<h3 id="返回日期间的天数"><a href="#返回日期间的天数" class="headerlink" title="返回日期间的天数"></a>返回日期间的天数</h3><pre><code class="javascript">const getDaysDiffBetweenDates = (dateInitial, dateFinal) =&gt;
+  (dateFinal - dateInitial) / (1000 * 3600 * 24);
+  
+getDaysDiffBetweenDates(new Date(&#39;2019-01-01&#39;), new Date(&#39;2019-10-14&#39;)); // 286
+</code></pre>
+<h3 id="检查值是否为特定类型。"><a href="#检查值是否为特定类型。" class="headerlink" title="检查值是否为特定类型。"></a>检查值是否为特定类型。</h3><pre><code class="typescript">const is = (type, val) =&gt; ![, null].includes(val) &amp;&amp; val.constructor === type;
+
+is(Map, new Map()); // true
+is(RegExp, /./g); // true
+is(Set, new Set()); // true
+is(WeakMap, new WeakMap()); // true
+is(WeakSet, new WeakSet()); // true
+is(String, &#39;&#39;); // true
+is(String, new String(&#39;&#39;)); // true
+</code></pre>
+<h3 id="全等判断"><a href="#全等判断" class="headerlink" title="全等判断"></a>全等判断</h3><p>在两个变量之间进行深度比较以确定它们是否全等。</p>
+<p><strong>此代码段精简的核心在于<code>Array.prototype.every()</code>的使用。</strong></p>
+<pre><code class="js">const equals = (a, b) =&gt; &#123;
+  if (a === b) return true;
+  if (a instanceof Date &amp;&amp; b instanceof Date) return a.getTime() === b.getTime();
+  if (!a || !b || (typeof a !== &#39;object&#39; &amp;&amp; typeof b !== &#39;object&#39;)) return a === b;
+  if (a.prototype !== b.prototype) return false;
+  let keys = Object.keys(a);
+  if (keys.length !== Object.keys(b).length) return false;
+  return keys.every(k =&gt; equals(a[k], b[k]));
+&#125;;
+</code></pre>
+<h3 id="转义HTML"><a href="#转义HTML" class="headerlink" title="转义HTML"></a>转义<code>HTML</code></h3><p>用来防<code>XSS</code>攻击啦。</p>
+<pre><code class="js">const escapeHTML = str =&gt;
+  str.replace(
+    /[&amp;&lt;&gt;&#39;&quot;]/g,
+    tag =&gt;
+      (&#123;
+        &#39;&amp;&#39;: &#39;&amp;amp;&#39;,
+        &#39;&lt;&#39;: &#39;&amp;lt;&#39;,
+        &#39;&gt;&#39;: &#39;&amp;gt;&#39;,
+        &quot;&#39;&quot;: &#39;&amp;#39;&#39;,
+        &#39;&quot;&#39;: &#39;&amp;quot;&#39;
+      &#125;[tag] || tag)
+  );
+
+escapeHTML(&#39;&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;&#39;); // &#39;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Me &amp;amp; you&amp;lt;/a&amp;gt;&#39;
+</code></pre>
+<h1 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h1><h3 id="数字千分位"><a href="#数字千分位" class="headerlink" title="数字千分位"></a>数字千分位</h3><p>方法一：</p>
+<pre><code class="js">function thousandNum(num = 0) &#123;
+  const str = (+num).toString().split(&quot;.&quot;);
+  const int = nums =&gt; nums.split(&quot;&quot;).reverse().reduceRight((t, v, i) =&gt; t + (i % 3 ? v : `$&#123;v&#125;,`), &quot;&quot;).replace(/^,|,$/g, &quot;&quot;);
+  const dec = nums =&gt; nums.split(&quot;&quot;).reduce((t, v, i) =&gt; t + ((i + 1) % 3 ? v : `$&#123;v&#125;,`), &quot;&quot;).replace(/^,|,$/g, &quot;&quot;);
+  return str.length &gt; 1 ? `$&#123;int(str[0])&#125;.$&#123;dec(str[1])&#125;` : int(str[0]);
+&#125;
+
+thousandNum(1234); // &quot;1,234&quot;
+thousandNum(1234.00); // &quot;1,234&quot;
+thousandNum(0.1234); // &quot;0.123,4&quot;
+console.log(thousandNum(1234.5678)); // &quot;1,234.567,8&quot;
+</code></pre>
+<p>方法二</p>
+<pre><code class="js">console.log(&#39;1234567890&#39;.replace(/\B(?=(\d&#123;3&#125;)+(?!\d))/g, &quot;,&quot;))
+console.log((1234567890).toLocaleString())
+</code></pre>
+<h3 id="判断小数是否相等"><a href="#判断小数是否相等" class="headerlink" title="判断小数是否相等"></a>判断小数是否相等</h3><p>肯定有人会说这还不简单，直接用’===’比较；<br> 实际上0.1+0.2 !==0.3，因为计算机不能精确表示0.1， 0.2这样的浮点数，所以相加就不是0.3了</p>
+<pre><code class="js">Number.EPSILON=(function()&#123;   //解决兼容性问题
+    return Number.EPSILON?Number.EPSILON:Math.pow(2,-52);
+&#125;)();
+//上面是一个自调用函数，当JS文件刚加载到内存中，就会去判断并返回一个结果
+function numbersequal(a,b)&#123; 
+    return Math.abs(a-b)&lt;Number.EPSILON;
+  &#125;
+//接下来再判断   
+const a=0.1+0.2, b=0.3;
+console.log(numbersequal(a,b)); //这里就为true了
+</code></pre>
+<h3 id="双位运算符"><a href="#双位运算符" class="headerlink" title="双位运算符"></a>双位运算符</h3><p>双位运算符比Math.floor(),Math.ceil()速度快</p>
+<pre><code class="js">~~7.5                // 7
+Math.ceil(7.5)       // 8
+Math.floor(7.5)      // 7
+
+
+~~-7.5                // -7
+Math.floor(-7.5)     // -8
+Math.ceil(-7.5)      // -7
+</code></pre>
+<p>所以负数时，双位运算符和Math.ceil结果一致，正数时和Math.floor结果一致</p>
+<h3 id="判断奇偶"><a href="#判断奇偶" class="headerlink" title="判断奇偶"></a>判断奇偶</h3><pre><code class="js">const num=5;
+!!(num &amp; 1) // true
+!!(num % 2) // true
+</code></pre>
+<h3 id="判断数据类型"><a href="#判断数据类型" class="headerlink" title="判断数据类型"></a>判断数据类型</h3><pre><code class="js">function dataTypeJudge(val, type) &#123;
+  const dataType = Object.prototype.toString.call(val).replace(/\[object (\w+)\]/, &quot;$1&quot;).toLowerCase();
+  return type ? dataType === type : dataType;
+&#125;
+</code></pre>
+<h3 id="使用Boolean过滤数组假值"><a href="#使用Boolean过滤数组假值" class="headerlink" title="使用Boolean过滤数组假值"></a>使用Boolean过滤数组假值</h3><pre><code class="js">const compact = arr =&gt; arr.filter(Boolean)
+compact([0, 1, false, 2, &#39;&#39;, 3, &#39;a&#39;, &#39;e&#39; * 23, NaN, &#39;s&#39;, 34])  //[ 1, 2, 3, &#39;a&#39;, &#39;s&#39;, 34 ]
+</code></pre>
+<h3 id="在指定数组中获取指定长度的随机数"><a href="#在指定数组中获取指定长度的随机数" class="headerlink" title="在指定数组中获取指定长度的随机数"></a>在指定数组中获取指定长度的随机数</h3><pre><code class="js">// 使用Fisher-Yates算法对数组中的元素进行随机选择。
+const sampleSize = ([...arr], n = 1) =&gt; &#123;
+  let m = arr.length;
+  while (m) &#123;
+    const i = Math.floor(Math.random() * m--);
+    [arr[m], arr[i]] = [arr[i], arr[m]];
+  &#125;
+  return arr.slice(0, n);
+&#125;;
+
+sampleSize([1, 2, 3], 2); // [3,1]
+sampleSize([1, 2, 3], 4); // [2,3,1]
+</code></pre>
+<h3 id="根据parent-id生成树结构（阿里一面真题）"><a href="#根据parent-id生成树结构（阿里一面真题）" class="headerlink" title="根据parent_id生成树结构（阿里一面真题）"></a>根据<code>parent_id</code>生成树结构（阿里一面真题）</h3><p>根据每项的<code>parent_id</code>，生成具体树形结构的对象。</p>
+<pre><code class="js">const nest = (items, id = null, link = &#39;parent_id&#39;) =&gt;
+  items
+    .filter(item =&gt; item[link] === id)
+    .map(item =&gt; (&#123; ...item, children: nest(items, item.id) &#125;));
+</code></pre>
+<p>用法：</p>
+<pre><code class="js">const comments = [
+  &#123; id: 1, parent_id: null &#125;,
+  &#123; id: 2, parent_id: 1 &#125;,
+  &#123; id: 3, parent_id: 1 &#125;,
+  &#123; id: 4, parent_id: 2 &#125;,
+  &#123; id: 5, parent_id: 4 &#125;
+];
+const nestedComments = nest(comments); // [&#123; id: 1, parent_id: null, children: [...] &#125;]
+</code></pre>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h3 id="捕获函数运行异常"><a href="#捕获函数运行异常" class="headerlink" title="捕获函数运行异常"></a>捕获函数运行异常</h3><p>该代码段执行一个函数，返回结果或捕获的错误对象。</p>
+<pre><code class="javascript">onst attempt = (fn, ...args) =&gt; &#123;
+  try &#123;
+    return fn(...args);
+  &#125; catch (e) &#123;
+    return e instanceof Error ? e : new Error(e);
+  &#125;
+&#125;;
+var elements = attempt(function(selector) &#123;
+  return document.querySelectorAll(selector);
+&#125;, &#39;&gt;_&gt;&#39;);
+if (elements instanceof Error) elements = []; // elements = []
+</code></pre>
+<h3 id="简单的发布-订阅模式"><a href="#简单的发布-订阅模式" class="headerlink" title="简单的发布/订阅模式"></a>简单的发布/订阅模式</h3><p>创建一个发布/订阅（发布-订阅）事件集线，有<code>emit</code>，<code>on</code>和<code>off</code>方法。</p>
+<ol>
+<li>使用<code>Object.create(null)</code>创建一个空的<code>hub</code>对象。</li>
+<li><code>emit</code>，根据<code>event</code>参数解析处理程序数组，然后<code>.forEach()</code>通过传入数据作为参数来运行每个处理程序。</li>
+<li><code>on</code>，为事件创建一个数组（若不存在则为空数组），然后<code>.push()</code>将处理程序添加到该数组。</li>
+<li><code>off</code>，用<code>.findIndex()</code>在事件数组中查找处理程序的索引，并使用<code>.splice()</code>删除。</li>
+</ol>
+<pre><code class="js">const createEventHub = () =&gt; (&#123;
+  hub: Object.create(null),
+  emit(event, data) &#123;
+    (this.hub[event] || []).forEach(handler =&gt; handler(data));
+  &#125;,
+  on(event, handler) &#123;
+    if (!this.hub[event]) this.hub[event] = [];
+    this.hub[event].push(handler);
+  &#125;,
+  off(event, handler) &#123;
+    const i = (this.hub[event] || []).findIndex(h =&gt; h === handler);
+    if (i &gt; -1) this.hub[event].splice(i, 1);
+    if (this.hub[event].length === 0) delete this.hub[event];
+  &#125;
+&#125;);
+</code></pre>
+<p>用法：</p>
+<pre><code class="js">const handler = data =&gt; console.log(data);
+const hub = createEventHub();
+let increment = 0;
+
+// 订阅，监听不同事件
+hub.on(&#39;message&#39;, handler);
+hub.on(&#39;message&#39;, () =&gt; console.log(&#39;Message event fired&#39;));
+hub.on(&#39;increment&#39;, () =&gt; increment++);
+
+// 发布：发出事件以调用所有订阅给它们的处理程序，并将数据作为参数传递给它们
+hub.emit(&#39;message&#39;, &#39;hello world&#39;); // 打印 &#39;hello world&#39; 和 &#39;Message event fired&#39;
+hub.emit(&#39;message&#39;, &#123; hello: &#39;world&#39; &#125;); // 打印 对象 和 &#39;Message event fired&#39;
+hub.emit(&#39;increment&#39;); // increment = 1
+
+// 停止订阅
+hub.off(&#39;message&#39;, handler);
+</code></pre>
+<h3 id="只调用一次的函数"><a href="#只调用一次的函数" class="headerlink" title="只调用一次的函数"></a>只调用一次的函数</h3><pre><code class="js">const once = fn =&gt; &#123;
+  let called = false
+  return function () &#123;
+    if (!called) &#123;
+      called = true
+      fn.apply(this, arguments)
+    &#125;
+  &#125;
+&#125;;
+</code></pre>
+<h3 id="以键的路径扁平化对象"><a href="#以键的路径扁平化对象" class="headerlink" title="以键的路径扁平化对象"></a>以键的路径扁平化对象</h3><p>使用递归。</p>
+<ol>
+<li>利用<code>Object.keys(obj)</code>联合<code>Array.prototype.reduce()</code>，以每片叶子节点转换为扁平的路径节点。</li>
+<li>如果键的值是一个对象，则函数使用调用适当的自身<code>prefix</code>以创建路径<code>Object.assign()</code>。</li>
+<li>否则，它将适当的前缀键值对添加到累加器对象。</li>
+<li><code>prefix</code>除非您希望每个键都有一个前缀，否则应始终省略第二个参数。</li>
+</ol>
+<pre><code class="js">const flattenObject = (obj, prefix = &#39;&#39;) =&gt;
+  Object.keys(obj).reduce((acc, k) =&gt; &#123;
+    const pre = prefix.length ? prefix + &#39;.&#39; : &#39;&#39;;
+    if (typeof obj[k] === &#39;object&#39;) Object.assign(acc, flattenObject(obj[k], pre + k));
+    else acc[pre + k] = obj[k];
+    return acc;
+  &#125;, &#123;&#125;);
+  
+flattenObject(&#123; a: &#123; b: &#123; c: 1 &#125; &#125;, d: 1 &#125;); // &#123; &#39;a.b.c&#39;: 1, d: 1 &#125;
+</code></pre>
+<h3 id="以键的路径展开对象"><a href="#以键的路径展开对象" class="headerlink" title="以键的路径展开对象"></a>以键的路径展开对象</h3><p>与上面的相反，展开对象。</p>
+<pre><code class="javascript">const unflattenObject = obj =&gt;
+  Object.keys(obj).reduce((acc, k) =&gt; &#123;
+    if (k.indexOf(&#39;.&#39;) !== -1) &#123;
+      const keys = k.split(&#39;.&#39;);
+      Object.assign(
+        acc,
+        JSON.parse(
+          &#39;&#123;&#39; +
+            keys.map((v, i) =&gt; (i !== keys.length - 1 ? `&quot;$&#123;v&#125;&quot;:&#123;` : `&quot;$&#123;v&#125;&quot;:`)).join(&#39;&#39;) +
+            obj[k] +
+            &#39;&#125;&#39;.repeat(keys.length)
+        )
+      );
+    &#125; else acc[k] = obj[k];
+    return acc;
+  &#125;, &#123;&#125;);
+  
+unflattenObject(&#123; &#39;a.b.c&#39;: 1, d: 1 &#125;); // &#123; a: &#123; b: &#123; c: 1 &#125; &#125;, d: 1 &#125;
+</code></pre>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h3 id="返回字符串的字节长度"><a href="#返回字符串的字节长度" class="headerlink" title="返回字符串的字节长度"></a>返回字符串的字节长度</h3><pre><code class="scss">const byteSize = str =&gt; new Blob([str]).size;
+
+byteSize(&#39;😀&#39;); // 4
+byteSize(&#39;Hello World&#39;); // 11
+</code></pre>
+<h3 id="每个单词首字母大写"><a href="#每个单词首字母大写" class="headerlink" title="每个单词首字母大写"></a>每个单词首字母大写</h3><pre><code class="js">const capitalizeEveryWord = str =&gt; str.replace(/\b[a-z]/g, char =&gt; char.toUpperCase());
+
+capitalizeEveryWord(&#39;hello world!&#39;); // &#39;Hello World!&#39;
+</code></pre>
+<h3 id="将多行字符串拆分为行数组。"><a href="#将多行字符串拆分为行数组。" class="headerlink" title="将多行字符串拆分为行数组。"></a>将多行字符串拆分为行数组。</h3><p>使用<code>String.prototype.split()</code>和正则表达式匹配换行符并创建一个数组。</p>
+<pre><code class="js">const splitLines = str =&gt; str.split(/\r?\n/);
+
+splitLines(&#39;This\nis a\nmultiline\nstring.\n&#39;); // [&#39;This&#39;, &#39;is a&#39;, &#39;multiline&#39;, &#39;string.&#39; , &#39;&#39;]
+</code></pre>
+<h3 id="删除字符串中的HTMl标签"><a href="#删除字符串中的HTMl标签" class="headerlink" title="删除字符串中的HTMl标签"></a>删除字符串中的<code>HTMl</code>标签</h3><p>从字符串中删除<code>HTML / XML</code>标签。</p>
+<p>使用正则表达式从字符串中删除<code>HTML / XML</code> 标记。</p>
+<pre><code class="js">const stripHTMLTags = str =&gt; str.replace(/&lt;[^&gt;]*&gt;/g, &#39;&#39;);
+
+stripHTMLTags(&#39;&lt;p&gt;&lt;em&gt;lorem&lt;/em&gt; &lt;strong&gt;ipsum&lt;/strong&gt;&lt;/p&gt;&#39;); // &#39;lorem ipsum&#39;
+</code></pre>
 <h1 id="数组的操作方法"><a href="#数组的操作方法" class="headerlink" title="数组的操作方法"></a>数组的操作方法</h1><h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><blockquote>
 <ul>
 <li>push() 尾部添加，改变原数组，返回新长度</li>

@@ -188,7 +188,130 @@
             
                 <hr>
                 <div class="post-md">
-                    <h1 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h1><h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h5 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h5><h5 id="“-“-将多行宏拼接为一行"><a href="#“-“-将多行宏拼接为一行" class="headerlink" title="“\“ 将多行宏拼接为一行"></a>“\“ 将多行宏拼接为一行</h5><pre><code class="c">//获取最大值
+                    <h1 id="C语言"><a href="#C语言" class="headerlink" title="C语言"></a>C语言</h1><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>整数</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">存储大小</th>
+<th align="left">值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">char</td>
+<td align="left">1 byte</td>
+<td align="left">-128 到 127 或 0 到 255</td>
+</tr>
+<tr>
+<td align="left">unsigned char</td>
+<td align="left">1 byte</td>
+<td align="left">0 到 255</td>
+</tr>
+<tr>
+<td align="left">signed char</td>
+<td align="left">1 byte</td>
+<td align="left">-128 到 127</td>
+</tr>
+<tr>
+<td align="left">int</td>
+<td align="left">2 或 4 bytes</td>
+<td align="left">-32,768 到 32,767 或 -2,147,483,648 到 2,147,483,647</td>
+</tr>
+<tr>
+<td align="left">unsigned int</td>
+<td align="left">2 或 4 bytes</td>
+<td align="left">0 到 65,535 或 0 到 4,294,967,295</td>
+</tr>
+<tr>
+<td align="left">short</td>
+<td align="left">2 bytes</td>
+<td align="left">-32,768 到 32,767</td>
+</tr>
+<tr>
+<td align="left">unsigned short</td>
+<td align="left">2 bytes</td>
+<td align="left">0 到 65,535</td>
+</tr>
+<tr>
+<td align="left">long</td>
+<td align="left">4 bytes</td>
+<td align="left">-2,147,483,648 到 2,147,483,647</td>
+</tr>
+<tr>
+<td align="left">unsigned long</td>
+<td align="left">4 bytes</td>
+<td align="left">0 到 4,294,967,295</td>
+</tr>
+</tbody></table>
+<p>浮点数</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">存储大小</th>
+<th align="left">值范围</th>
+<th align="left">精度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">float</td>
+<td align="left">4 byte</td>
+<td align="left">1.2E-38 到 3.4E+38</td>
+<td align="left">6 位小数</td>
+</tr>
+<tr>
+<td align="left">double</td>
+<td align="left">8 byte</td>
+<td align="left">2.3E-308 到 1.7E+308</td>
+<td align="left">15 位小数</td>
+</tr>
+<tr>
+<td align="left">long double</td>
+<td align="left">10 byte</td>
+<td align="left">3.4E-4932 到 1.1E+4932</td>
+<td align="left">19 位小数</td>
+</tr>
+</tbody></table>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>以下是各种类型的整数常量的实例：</p>
+<pre><code class="c">85         /* 十进制 */
+0213       /* 八进制 */
+0x4b       /* 十六进制 */
+30         /* 整数 */
+30u        /* 无符号整数 */
+30l        /* 长整数 */
+30ul       /* 无符号长整数 */
+</code></pre>
+<h2 id="存储类"><a href="#存储类" class="headerlink" title="存储类"></a>存储类</h2><h3 id="static-存储类"><a href="#static-存储类" class="headerlink" title="static 存储类"></a>static 存储类</h3><p><strong>static</strong> 存储类指示编译器在程序的生命周期内保持局部变量的存在，而不需要在每次它进入和离开作用域时进行创建和销毁。</p>
+<p>因此，使用 static 修饰局部变量可以在函数调用之间<code>保持局部变量的值</code>。</p>
+<p>static 修饰符也可以应用于全局变量。当 static 修饰全局变量时，会使变量的作用域限制在声明它的文件内。</p>
+<p>在 C 编程中，当 <strong>static</strong> 用在类数据成员上时，会导致仅有一个该成员的副本被类的所有对象共享。</p>
+<h3 id="extern-存储类"><a href="#extern-存储类" class="headerlink" title="extern 存储类"></a>extern 存储类</h3><p><strong>extern</strong> 存储类用于提供一个全局变量的引用，全局变量对所有的程序文件都是可见的。当您使用 ‘extern’ 时，对于无法初始化的变量，会把变量名指向一个之前定义过的存储位置。</p>
+<p>当您有多个文件且定义了一个可以在其他文件中使用的全局变量或函数时，可以在其他文件中使用 <em>extern</em> 来得到已定义的变量或函数的引用。可以这么理解，<em>extern</em> 是用来在另一个文件中声明一个全局变量或函数。</p>
+<p>extern 修饰符通常用于当有两个或多个文件共享相同的全局变量或函数的时候，如下所示：</p>
+<p><strong>第一个文件：main.c</strong></p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+ 
+int count ;
+extern void write_extern();
+ 
+main()
+&#123;
+   count = 5;
+   write_extern();
+&#125;
+</code></pre>
+<p><strong>第二个文件：support.c</strong></p>
+<pre><code class="c">#include &lt;stdio.h&gt;
+ 
+extern int count;
+ 
+void write_extern(void)
+&#123;
+   printf(&quot;count is %d\n&quot;, count);
+&#125;
+</code></pre>
+<h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p>“\“ 将多行宏拼接为一行</p>
+<pre><code class="c">//获取最大值
 #define Max(a, b) (&#123;\
     //根据参数获取类型
     __typeof(a) _a = (a);\
@@ -219,7 +342,7 @@ printf(&quot;%d&quot;, xxx);
 //函数上方添加，将会优先于 main 函数
 __attribute__((constructor))
 </code></pre>
-<h5 id="宏定义debug"><a href="#宏定义debug" class="headerlink" title="宏定义debug"></a>宏定义debug</h5><pre><code class="c">//后期去掉debug
+<h4 id="宏定义debug"><a href="#宏定义debug" class="headerlink" title="宏定义debug"></a>宏定义debug</h4><pre><code class="c">//后期去掉debug
 #ifdef DEBUG
 #define  log(frm, args...) &#123;\
     ...
@@ -227,7 +350,9 @@ __attribute__((constructor))
 #else 
 #define log(frm, args...)
 </code></pre>
-<h5 id="字符转化大小写"><a href="#字符转化大小写" class="headerlink" title="字符转化大小写"></a>字符转化大小写</h5><pre><code class="c">#define CONVERT(c) (((c) &gt;= &#39;A&#39; &amp;&amp; (c) &lt;= &#39;Z&#39;) ? ((c) - &#39;A&#39; + &#39;a&#39;) : (c))
+<h4 id="字符转化大小写"><a href="#字符转化大小写" class="headerlink" title="字符转化大小写"></a>字符转化大小写</h4><pre><code class="c">#define CONVERT(c) (((c) &gt;= &#39;A&#39; &amp;&amp; (c) &lt;= &#39;Z&#39;) ? ((c) - &#39;A&#39; + &#39;a&#39;) : (c))
+</code></pre>
+<h4 id="C语言宏函数返回数组个数"><a href="#C语言宏函数返回数组个数" class="headerlink" title="C语言宏函数返回数组个数"></a>C语言宏函数返回数组个数</h4><pre><code class="c">#define ARR_SIZE(arr)  (sizeof((arr)) / sizeof((arr[0])))
 </code></pre>
 <p>当表达式中存在有符号类型和无符号类型时所有的操作，</p>
 <p>数都自动转换为无符号类型。</p>
@@ -266,7 +391,7 @@ int *pp = (int *)realloc(p, size*sizeof(int));
 <p><code>如果size非常大</code>，系统内存申请失败，返回NULL,原来的内存不会释放。注意：如果扩容后的内存空间较原空间小，将会出现数据丢失，如果直接realloc(p, 0);相当于free(p).</p>
 <h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><pre><code class="c">char a[] = &quot;hello&quot;;
 </code></pre>
-<h5 id="指针指向字符数组"><a href="#指针指向字符数组" class="headerlink" title="指针指向字符数组"></a>指针指向字符数组</h5><pre><code class="c">char *p
+<h4 id="指针指向字符数组"><a href="#指针指向字符数组" class="headerlink" title="指针指向字符数组"></a>指针指向字符数组</h4><pre><code class="c">char *p
 p = a; 
 // p = &amp;a[0]
 </code></pre>
@@ -293,9 +418,68 @@ void move(char *p) &#123;
     return ;
 &#125;
 </code></pre>
-<h4 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h4><pre><code class="c">//p 为函数的地址
+<p>字符串操作</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">函数 &amp; 目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left"><strong>strcpy(s1, s2);</strong> 复制字符串 s2 到字符串 s1。</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><strong>strcat(s1, s2);</strong> 连接字符串 s2 到字符串 s1 的末尾。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><strong>strlen(s1);</strong> 返回字符串 s1 的长度。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><strong>strcmp(s1, s2);</strong> 如果 s1 和 s2 是相同的，则返回 0；如果 s1&lt;s2 则返回小于 0；如果 s1&gt;s2 则返回大于 0。</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><strong>strchr(s1, ch);</strong> 返回一个指针，指向字符串 s1 中字符 ch 的第一次出现的位置。</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"><strong>strstr(s1, s2);</strong> 返回一个指针，指向字符串 s1 中字符串 s2 的第一次出现的位置。</td>
+</tr>
+</tbody></table>
+<h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><pre><code class="c">//p 为函数的地址
 //p = strcmp
-void process(char *a, char *b, int(* p)(const char*, const char *))
+void process(char *a, char *b, int(* p)(const char*, const char *));
+// 声明
+int (* funcName) (int, int);
+// 定义
+funcName = FUNC;
+funcName = &amp;FUNC;
+// 调用
+funcName();
+(* funcName)();
+</code></pre>
+<h4 id="函数指针数组"><a href="#函数指针数组" class="headerlink" title="函数指针数组"></a>函数指针数组</h4><pre><code class="c">int (* funcName[3])(int, int) = &#123; func1, func2, func3 &#125;
+</code></pre>
+<h3 id="二维数组指针"><a href="#二维数组指针" class="headerlink" title="二维数组指针"></a>二维数组指针</h3><h4 id="二维数组指针传递"><a href="#二维数组指针传递" class="headerlink" title="二维数组指针传递"></a>二维数组指针传递</h4><h5 id="1-传递时指指定列数"><a href="#1-传递时指指定列数" class="headerlink" title="1.传递时指指定列数"></a>1.传递时指指定列数</h5><pre><code class="c">void foo(int a[][3], int m, int n)
+</code></pre>
+<h5 id="2-参数声明为一个指向数组的指针"><a href="#2-参数声明为一个指向数组的指针" class="headerlink" title="2.参数声明为一个指向数组的指针"></a>2.参数声明为一个指向数组的指针</h5><pre><code class="c">void foo(int (*a)[3], int m, int n)
+    
+// *(*(p+1)+1)表示第 1 行第 1 个元素的值
+// a[i][j] == p[i][j] == *(a[i]+j) == *(p[i]+j) == *(*(a+i)+j) == *(*(p+i)+j)    
+</code></pre>
+<h5 id="3-把参数声明为指向指针的指针"><a href="#3-把参数声明为指向指针的指针" class="headerlink" title="3.把参数声明为指向指针的指针"></a>3.把参数声明为指向指针的指针</h5><pre><code class="c">void foo(int **a, int m, int n)
+    
+    int a[2][3] = &#123;
+        &#123;1,2,3&#125;,
+        &#123;4,5,6&#125;
+    &#125;;
+    int * p[3] = &#123;a[0], a[1], a[2]&#125;;
+    foo(p, 2, 3);
 </code></pre>
 <h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><blockquote>
 <p>默认用最大的字节来对齐</p>
@@ -374,6 +558,41 @@ void QueInit(Que* que) &#123;
     free(temp);
 &#125;
 </code></pre>
+<h2 id="qsort"><a href="#qsort" class="headerlink" title="qsort"></a>qsort</h2><pre><code class="c">// 按名字排序
+
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+ 
+struct Stu
+&#123;
+    char name[20];
+    int age;
+&#125;;
+// 比较结构体的成员
+int cmp_stu_by_name(const void* e1, const void* e2)
+&#123;
+    //strcmp --&gt; &gt;0 ==0 &lt;0
+    return strcmp(((struct Stu*)e1)-&gt;name, ((struct Stu*)e2)-&gt;name);
+&#125;
+
+// 比较数字
+int int_cmp(const void* e1, const void* e2)
+&#123;
+    return (*(int*)e1 - *(int*)e2);
+&#125;
+
+ 
+int main()
+&#123;
+    struct Stu s[] = &#123; &#123;&quot;zhangsan&quot;, 15&#125;, &#123;&quot;lisi&quot;, 30&#125;, &#123;&quot;wangwu&quot;, 25&#125; &#125;;
+    int sz = sizeof(s) / sizeof(s[0]);
+    // 排序
+    qsort(s, sz, sizeof(s[0]), cmp_stu_by_name);
+    
+    return 0;
+&#125;
+</code></pre>
 <h2 id="共用体"><a href="#共用体" class="headerlink" title="共用体"></a>共用体</h2><blockquote>
 <p>将几种不同类型的变量存放在同一内存单元中，实现覆盖技术</p>
 </blockquote>
@@ -386,19 +605,6 @@ void QueInit(Que* que) &#123;
     &#125; ip;
     unsigned int num;
 &#125;
-</code></pre>
-<h2 id="传递二维数组"><a href="#传递二维数组" class="headerlink" title="传递二维数组"></a>传递二维数组</h2><h5 id="1-传递时指指定列数"><a href="#1-传递时指指定列数" class="headerlink" title="1.传递时指指定列数"></a>1.传递时指指定列数</h5><pre><code class="c">void foo(int a[][3], int m, int n)
-</code></pre>
-<h5 id="2-参数声明为一个指向数组的指针"><a href="#2-参数声明为一个指向数组的指针" class="headerlink" title="2.参数声明为一个指向数组的指针"></a>2.参数声明为一个指向数组的指针</h5><pre><code class="c">void foo(int (*a)[3], int m, int n)
-</code></pre>
-<h5 id="3-把参数声明为指向指针的指针"><a href="#3-把参数声明为指向指针的指针" class="headerlink" title="3.把参数声明为指向指针的指针"></a>3.把参数声明为指向指针的指针</h5><pre><code class="c">void foo(int **a, int m, int n)
-    
-    int a[2][3] = &#123;
-        &#123;1,2,3&#125;,
-        &#123;4,5,6&#125;
-    &#125;;
-    int * p[3] = &#123;a[0], a[1], a[2]&#125;;
-    foo(p, 2, 3);
 </code></pre>
 <h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><pre><code class="c++">//输出
 std::cout &lt;&lt; &quot;123123\n&quot;;
