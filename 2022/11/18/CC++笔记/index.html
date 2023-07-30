@@ -481,6 +481,17 @@ funcName();
     int * p[3] = &#123;a[0], a[1], a[2]&#125;;
     foo(p, 2, 3);
 </code></pre>
+<h4 id="二维数组，计算大小的小总结："><a href="#二维数组，计算大小的小总结：" class="headerlink" title="二维数组，计算大小的小总结："></a>二维数组，计算大小的小总结：</h4><pre><code class="c">二维数组中：int a[3][4] = &#123; 0 &#125;;
+
+计算整个数组的大小： sizeof(a); 
+计算整个第一行的大小： sizeof(a[0]); sizeof(*a);
+
+计算第一行第二个元素的大小：  sizeof(a[0][1]); sizeof(*(a[0] + 1));
+计算第一行第二个元素的地址的大小： sizeof(&amp;a[0][1]); sizeof(a[0] + 1);
+
+计算第二行的大小： sizeof(a[1]); sizeof(*(a + 1)); sizeof(*(&amp;a[0] + 1));
+计算第二行的地址的大小： sizeof(&amp;a[1]); sizeof(a + 1); sizeof(&amp;a[0] + 1);
+</code></pre>
 <h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><blockquote>
 <p>默认用最大的字节来对齐</p>
 </blockquote>
@@ -604,6 +615,144 @@ int main()
         unsigned char a4;
     &#125; ip;
     unsigned int num;
+&#125;
+</code></pre>
+<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2><pre><code class="c">#include &lt;time.h&gt;
+
+time_t current_time;
+time(&amp;current_time);
+printf(&quot;%d&quot;, current_time);
+</code></pre>
+<h3 id="定义毫秒时间戳"><a href="#定义毫秒时间戳" class="headerlink" title="定义毫秒时间戳"></a>定义毫秒时间戳</h3><pre><code class="c">#if defined(_WIN32)
+#include &lt;sys/timeb.h&gt;
+#endif
+#if defined(__unix__)
+#include &lt;sys/time.h&gt;
+#endif
+
+typedef long long long_time_t;
+
+long_time_t time_in_millisecond(void) &#123;
+#if defined(_WIN32)
+    struct timeb time_buffer;
+    ftime(&amp;time_buffer);
+    return time_buffer.time * 1000LL + time_buffer.millitm;
+    // unix || 苹果
+#elif defined(__unix__) || defined(__APPLE__)
+    struct timeval  time_value;
+    gettimeofday(&amp;time_value, NULL);
+    return time_value.tv_sec * 1000LL + time_value.tv_usec / 1000;
+    // C11
+#elif defined(__STDC__) &amp;&amp; __STDC_VERSION__ = 201112L
+    struct timespec timespec_value;
+    timespec_get(&amp;timespec_value, TIME_UTC);
+    return timespec_value.tv_sec * 1000LL + timespec_value.tv_nsec / 1000000;
+#else
+    time_t current_time = time(NULL);
+    return current_time * 1000;
+#endif
+    
+&#125;
+</code></pre>
+<h3 id="获取日历时间"><a href="#获取日历时间" class="headerlink" title="获取日历时间"></a>获取日历时间</h3><pre><code class="c">time_t = current_time;
+time(&amp;current_time);
+struct tm* calendar_time = localtime(&amp;current_time);
+// calendar_time.tm_year / tm_mon / tm_mday / tm_hour / tm_min / tm_sec
+</code></pre>
+<h4 id="日历时间转时间戳"><a href="#日历时间转时间戳" class="headerlink" title="日历时间转时间戳"></a>日历时间转时间戳</h4><pre><code class="c">time_t current_time2 = mktime(calendar_time);
+</code></pre>
+<h3 id="格式化时间"><a href="#格式化时间" class="headerlink" title="格式化时间"></a>格式化时间</h3><pre><code class="c">// Min Nov 9 06:59:47 2020
+asctime(calendar_time);
+ctime(&amp;current_time);
+
+// 2020-11-09 06:59:47
+char current_time_s[20];
+// &quot;%F %T&quot;
+size_t size = strftime(current_time_s, 20, &quot;%Y-%m-%d %H:%M:%S&quot;, calendar_time);
+</code></pre>
+<h3 id="解析时间"><a href="#解析时间" class="headerlink" title="解析时间"></a>解析时间</h3><pre><code class="c">char* time = &quot;2020-11-09 06:59:47&quot;;
+struct tm parsed_time;
+// 返回解析不了的字符串
+char* unparsed_string = strptime(time, &quot;%F %T&quot;, &amp;parse_time);
+// parsed_time.tm_year
+</code></pre>
+<h3 id="计算时间差"><a href="#计算时间差" class="headerlink" title="计算时间差"></a>计算时间差</h3><pre><code class="c">// 真实世界时间差
+time_t start_time = time(NULL);
+//
+time_t end_time = time(NULL);
+double diff = difftime(start_time, end_time);
+// 处理器消耗时间
+clock_t start_time_c = clock();
+//
+clock_t end_time_c = clock();
+// (end_time_c - start_time_c) * 1.0 / CLOCKS_PER_SEC);
+</code></pre>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><h3 id="读写文件"><a href="#读写文件" class="headerlink" title="读写文件"></a>读写文件</h3><h4 id="字符读取"><a href="#字符读取" class="headerlink" title="字符读取"></a>字符读取</h4><pre><code class="c">// 定义异常情况
+#define COPY_SUCCESS 0
+#define ...
+
+
+while(1) &#123;
+    // 一个字符读取
+    int next = fgetc(file);
+    // 判断结尾以及是否有问题出现
+    if(next == EOF) &#123;
+        if(ferror(src_file)) &#123;
+            result = COPY_SRC_READ_ERROR;
+        &#125; else if(feof(src_file)) &#123;
+               result = COPY_SUCCESS;
+        &#125; else if&#123;
+            result = COPY_UNKNOWN_ERROR;
+        &#125;
+        break;
+    &#125;
+    if(fputs(next, dest_file) == EOF) &#123;
+        result = COPY_DEST_WRITE_ERROR;
+        break;
+    &#125;
+&#125;
+fclose(src_file);
+fclose(dest_file);
+</code></pre>
+<h4 id="按行读取"><a href="#按行读取" class="headerlink" title="按行读取"></a>按行读取</h4><pre><code class="c">char buffer[BUFFER_SIZE];
+char* next;
+while(1) &#123;
+    next = fgets(buffer, BUFFER_SIZSE, src_file);
+    if(! next) &#123;
+        if(ferror(src_file)) &#123;
+            result = COPY_SRC_READ_ERROR;
+        &#125; else if(feof(src_file)) &#123;
+            result = COPY_SUCCESS;
+        &#125; else &#123;
+            result = COPY_UNKNOWN_ERROR;
+        &#125;
+        break;
+    &#125;
+    if(fputs(next, dest_file) == EOF) &#123;
+        result = COPY_DEST_WRITE_ERROR;
+        break;
+    &#125;
+&#125;
+fclose(src_file);
+fclose(dest_file);
+</code></pre>
+<h3 id="设置编码格式"><a href="#设置编码格式" class="headerlink" title="设置编码格式"></a>设置编码格式</h3><pre><code class="c">setlocale(LC_ALL, &quot;zh_CN.utf-8&quot;);
+</code></pre>
+<h3 id="读写字节"><a href="#读写字节" class="headerlink" title="读写字节"></a>读写字节</h3><pre><code class="c">char buffer[BUFFER_SIZE];
+while(1) &#123;
+    // 读取的字符数
+    size_t bytes_read = fread(buffer, sizeof(char), BUFFER_SIZE, stdin)
+    // 读完    
+    if(bytes_read &lt; BUFFER_SIZE) &#123;
+           if(feof(stdin)) &#123;
+            puts(&quot;EOF&quot;);
+               fwrite(buffer, sizeof(buffer[0]), bytes_read, stdout);
+        &#125; else if(ferror(stdin)) &#123;
+            perror(&quot;ERROR&quot;);
+        &#125;
+        break;
+    &#125;
+    fwrite(buffer, sizeof(char), BUFFER_SIZE, stdout);
 &#125;
 </code></pre>
 <h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><pre><code class="c++">//输出
@@ -801,7 +950,10 @@ pfAdd pAdd = (pfAdd) Add;
 
 pxAdd(100, 100);
 </code></pre>
-<h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3><p>在同一个作用域内，可以声明几个功能类似的同名函数，但是这些同名函数的形式参数（指参数的个数、类型或者顺序）必须不同。不能仅通过返回类型的不同来重载函数。</p>
+<h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><h3 id="struct-与-class-区别"><a href="#struct-与-class-区别" class="headerlink" title="struct 与 class 区别"></a>struct 与 class 区别</h3><p>C++ 中的 struct 可以包含成员函数，也能继承，也可以实现多态。</p>
+<p>但在 C++ 中，使用 class 时，类中的成员默认都是 <code>private</code> 属性的，而使用 struct 时，结构体中的成员默认都是 public 属性的。class 继承默认是 private 继承，而 struct 继承默认是 public 继承。</p>
+<p>C++ 中的 class 可以使用模板，而 struct 不能使用模板。</p>
+<h2 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h2><h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3><p>在同一个作用域内，可以声明几个功能类似的同名函数，但是这些同名函数的形式参数（指参数的个数、类型或者顺序）必须不同。不能仅通过返回类型的不同来重载函数。</p>
 <pre><code class="c++">void print(int i) &#123;
     cout &lt;&lt; &quot;整数为: &quot; &lt;&lt; i &lt;&lt; endl;
 &#125;
@@ -815,21 +967,56 @@ void print(char c[]) &#123;
 &#125;
 </code></pre>
 <h3 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h3><p>重载的运算符是带有特殊名称的函数，函数名是由关键字 operator 和其后要重载的运算符符号构成的。与其他函数一样，重载运算符有一个返回类型和一个参数列表。</p>
-<pre><code class="c++">// 重载小于运算符（ + ）
+<pre><code class="c++">// 重载二元运算符（ + ）
 class Role &#123;
     public:
         Role operator+(const Role&amp; role) &#123;
             Role newRole;
             newRole.width = this.width + role.width;
+            return newRole;
         &#125;
 &#125;
 Role r1, r2, r3;
 r1 = r2 + r3;
 
+// 关系运算符
 // 重载小于运算符（ &lt; ）
 bool operator &lt;(const Distance&amp; d)
+&#123;
+   if(feet &lt; d.feet)
+   &#123;
+        return true;
+   &#125;
+   if(feet == d.feet &amp;&amp; inches &lt; d.inches)
+   &#123;
+        return true;
+   &#125;
+   return false;
+&#125;
+if( D1 &lt; D2 )
+&#123;
+   cout &lt;&lt; &quot;D1 is less than D2 &quot; &lt;&lt; endl;
+&#125;
+
+// 赋值运算符（=）
+void operator = (const Distance&amp; D) &#123;
+    feet = D.feet;
+    inches = D.inches;
+&#125;
+
+// ([])
+int&amp; operator[](int i)
+&#123;
+      if( i &gt; SIZE )
+      &#123;
+           cout &lt;&lt; &quot;索引超过最大值&quot; &lt;&lt;endl; 
+           // 返回第一个元素
+           return arr[0];
+      &#125;
+      return arr[i];
+&#125;
 </code></pre>
-<h5 id="可重载运算符"><a href="#可重载运算符" class="headerlink" title="可重载运算符"></a>可重载运算符</h5><table>
+<h4 id="可重载运算符"><a href="#可重载运算符" class="headerlink" title="可重载运算符"></a>可重载运算符</h4><table>
 <thead>
 <tr>
 <th>双目算术运算符</th>
@@ -869,7 +1056,47 @@ bool operator &lt;(const Distance&amp; d)
 <td><strong>()</strong>(函数调用)，**-&gt;<strong>(成员访问)，</strong>,<strong>(逗号)，</strong>[]**(下标)</td>
 </tr>
 </tbody></table>
-<h4 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h4><pre><code class="c++">//设置默认值 
+<p>下面是不可重载的运算符列表：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>::</td>
+<td>.*</td>
+<td>.</td>
+<td>?:</td>
+</tr>
+</tbody></table>
+<h2 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h2><h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><p>拷贝构造函数通常用于：</p>
+<ul>
+<li>通过使用另一个同类型的对象来初始化新创建的对象。</li>
+<li>复制对象把它作为参数传递给函数。</li>
+<li>复制对象，并从函数返回这个对象。</li>
+</ul>
+<p>如果在类中没有定义拷贝构造函数，编译器会自行定义一个。</p>
+<p>如果类带有指针变量，并有动态内存分配，则它必须有一个拷贝构造函数。</p>
+<p>拷贝构造函数的最常见形式如下：</p>
+<pre><code class="c++">class Line &#123;
+    public: 
+    Line(const Line&amp; obj);
+    private:
+    int* ptr;
+&#125;
+Line::Line(const Line&amp; obj) &#123;
+    ptr = new int;
+    *ptr = *obj.ptr;
+&#125;
+int main() &#123;
+    Line line2 = line1; // 这里调用了拷贝构造函数
+&#125;
+</code></pre>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><h4 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h4><pre><code class="c++">//设置默认值 
 template &lt;typename t1=int, typename t2,,,&gt; 
 t1 ave(t1 a, t2 b) &#123;
     t1 x;
@@ -891,7 +1118,7 @@ t1 ave(t1 (&amp;ary) [count]) &#123;
 //有定义才执行
 #ifdef aa
 </code></pre>
-<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><pre><code class="c++">class Role &#123;
+<h2 id="外联"><a href="#外联" class="headerlink" title="外联"></a>外联</h2><pre><code class="c++">class Role &#123;
     private: 
         int damage;
     public: 
@@ -923,7 +1150,7 @@ void Role::set(int w, int h) &#123;
     height = h;
 &#125;
 </code></pre>
-<h4 id="外联构造"><a href="#外联构造" class="headerlink" title="外联构造"></a>外联构造</h4><pre><code class="c++">//无参构造
+<h3 id="外联构造"><a href="#外联构造" class="headerlink" title="外联构造"></a>外联构造</h3><pre><code class="c++">//无参构造
 Role::Role &#123;
     cout &lt;&lt; &quot;构造函数&quot; &lt;&lt; endl;
 &#125;
@@ -981,8 +1208,8 @@ Role::getOC();
 <p>不能使用 this 指针</p>
 <p>(在 C++ 中，每一个对象都能通过 <strong>this</strong> 指针来访问自己的地址。<strong>this</strong> 指针是所有成员函数的隐含参数。因此，在成员函数内部，它可以用来指向调用对象)</p>
 </blockquote>
-<h3 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h3><p>类的友元函数是定义在类外部，但有权访问类的所有私有（private）成员和保护（protected）成员。尽管友元函数的原型有在类的定义中出现过，但是友元函数并不是成员函数。</p>
-<h4 id="友元函数"><a href="#友元函数" class="headerlink" title="友元函数"></a>友元函数</h4><p>友元函数没有 <strong>this</strong> 指针，因为友元不是类的成员。只有成员函数才有 <strong>this</strong> 指针。</p>
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><p>类的友元函数是定义在类外部，但有权访问类的所有私有（private）成员和保护（protected）成员。尽管友元函数的原型有在类的定义中出现过，但是友元函数并不是成员函数。</p>
+<h3 id="友元函数"><a href="#友元函数" class="headerlink" title="友元函数"></a>友元函数</h3><p>友元函数没有 <strong>this</strong> 指针，因为友元不是类的成员。只有成员函数才有 <strong>this</strong> 指针。</p>
 <pre><code class="c++">class Role &#123;
     public : 
         int width;
@@ -995,7 +1222,7 @@ void print(Role role) &#123;
     cout &lt;&lt; &quot;heigth&quot; &lt;&lt; role.heigth &lt;&lt; endl;
 &#125;
 </code></pre>
-<h4 id="友元类"><a href="#友元类" class="headerlink" title="友元类"></a>友元类</h4><pre><code class="c++">//声明类 Role 的所有成员函数作为类 RoleTwo 的友元
+<h3 id="友元类"><a href="#友元类" class="headerlink" title="友元类"></a>友元类</h3><pre><code class="c++">//声明类 Role 的所有成员函数作为类 RoleTwo 的友元
 public: 
     friend class RoleTwo;
 
@@ -1014,7 +1241,7 @@ class RoleTwo &#123;
 //嵌套类定义对象
 Role::Weapon wp;
 </code></pre>
-<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承允许我们依据另一个类来定义一个类，这使得创建和维护一个应用程序变得更容易。这样做，也达到了重用代码功能和提高执行效率的效果。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承允许我们依据另一个类来定义一个类，这使得创建和维护一个应用程序变得更容易。这样做，也达到了重用代码功能和提高执行效率的效果。</p>
 <p>当创建一个类时，您不需要重新编写新的数据成员和成员函数，只需指定新建的类继承了一个已有的类的成员即可。这个已有的类称为<strong>基类</strong>，新建的类称为<strong>派生类</strong>。</p>
 <pre><code class="c++">// 基类
 class Animal &#123;
@@ -1050,12 +1277,33 @@ dog.eat();
 </ul>
 </li>
 </ul>
-<h4 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h4><p>多继承即一个子类可以有多个父类，它继承了多个父类的特性。</p>
+<h3 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h3><p>多继承即一个子类可以有多个父类，它继承了多个父类的特性。</p>
 <pre><code class="c++">// 派生类
-class Rectangle: public Shape, public PaintCost
+class ChildrenWorker : public Children,public Worker
+    
+// 派生类构造函数
+ChildrenWorker(string name,float salary,float score):Worker(salary),Children(score),m_name(name)
+    
+// 构造顺序
+// Chidren Worker ChildrenWorker
 </code></pre>
-<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p><strong>多态</strong>按字面的意思就是多种形态。当类之间存在层次结构，并且类之间是通过继承关联时，就会用到多态。</p>
-<p>C++ 多态意味着调用成员函数时，会根据调用函数的对象的类型来执行不同的函数。</p>
+<p>基类构造函数的调用顺序和它们在派生类构造函数中出现的顺序无关，而是和声明派生类时基类出现的顺序相同。</p>
+<p>多继承如果多个基类中有相同的成员变量或者成员函数，那么此时就会存在成员名字冲突的问题，如果存在名字冲突，我们在调用时，就必须显式声明需要调用的成员。</p>
+<pre><code class="c++">void info()
+&#123;
+    Worker::show();
+    Children::show();
+&#125;
+</code></pre>
+<h3 id="虚继承"><a href="#虚继承" class="headerlink" title="虚继承"></a>虚继承</h3><p>在使用多继承时，如果发生了菱形继承，那么就会出现数据冗余的问题，为了解决菱形继承出现的数据冗余的问题，C++ 提出了虚继承，虚继承使得派生类中只保留一份间接基类的成员。</p>
+<p>虚继承的目的是让某个类做出声明，承诺愿意共享它的基类。其中，这个被共享的基类就称为虚基类（Virtual Base Class），菱形继承中的顶层类 就是一个虚基类。在这种机制下，不论虚基类在继承体系中出现了多少次，在派生类中都只包含一份虚基类的成员。</p>
+<pre><code class="c++">class A&#123;&#125;
+class B: virtual public A&#123;&#125;
+class C: virtual public A&#123;&#125;
+class D: public B, public C&#123;&#125;
+</code></pre>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p><strong>多态</strong>按字面的意思就是多种形态。当类之间存在层次结构，并且类之间是通过继承关联时，就会用到多态。</p>
+<p>C++ 多态意味着调用成员函数时，会根据调用函数的对象的类型来执行不同的函数。基类指针指向基类对象时就使用基类的成员（包括 成员函数和 成员变量），指向派生类对象时就使用派生类的成员。</p>
 <pre><code class="c++">class Role &#123;
     public:
         void mission() &#123;
@@ -1087,9 +1335,9 @@ role = &amp;vip;
 role.mission();
 //主线任务
 </code></pre>
-<h4 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h4><p><strong>虚函数</strong> 是在基类中使用关键字 <strong>virtual</strong> 声明的函数。在派生类中重新定义基类中定义的虚函数时，会告诉编译器不要静态链接到该函数。</p>
+<h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><p><strong>虚函数</strong> 是在基类中使用关键字 <strong>virtual</strong> 声明的函数。在派生类中重新定义基类中定义的虚函数时，会告诉编译器不要静态链接到该函数。</p>
 <p>我们想要的是在程序中任意点可以根据所调用的对象类型来选择调用的函数，这种操作被称为<strong>动态链接</strong>，或<strong>后期绑定</strong>。</p>
-<h5 id="加入-virtual-关键字"><a href="#加入-virtual-关键字" class="headerlink" title="加入 virtual 关键字"></a>加入 virtual 关键字</h5><pre><code class="c++">virtual void mission() &#123;&#125;
+<h4 id="加入-virtual-关键字"><a href="#加入-virtual-关键字" class="headerlink" title="加入 virtual 关键字"></a>加入 virtual 关键字</h4><pre><code class="c++">virtual void mission() &#123;&#125;
 
 role = &amp;npc;
 role.mission();
@@ -1103,7 +1351,7 @@ role.mission();
 <pre><code class="c++">// pure virtual function
 virtual int mission() = 0;
 </code></pre>
-<h3 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h3><p>数据抽象是指，只向外界提供关键信息，并隐藏其后台的实现细节，即只表现必要的信息而不呈现细节。</p>
+<h2 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h2><p>数据抽象是指，只向外界提供关键信息，并隐藏其后台的实现细节，即只表现必要的信息而不呈现细节。</p>
 <p>数据抽象是一种依赖于接口和实现分离的编程（设计）技术。</p>
 <h4 id="数据抽象的好处"><a href="#数据抽象的好处" class="headerlink" title="数据抽象的好处"></a>数据抽象的好处</h4><p>数据抽象有两个重要的优势：</p>
 <ul>
@@ -1113,10 +1361,10 @@ virtual int mission() = 0;
 <p>如果只在类的私有部分定义数据成员，编写该类的作者就可以随意更改数据。如果实现发生改变，则只需要检查类的代码，看看这个改变会导致哪些影响。如果数据是公有的，则任何直接访问旧表示形式的数据成员的函数都可能受到影响。</p>
 <p>抽象把代码分离为接口和实现。所以在设计组件时，必须保持接口独立于实现，这样，如果改变底层实现，接口也将保持不变。</p>
 <p>在这种情况下，不管任何程序使用接口，接口都不会受到影响，只需要将最新的实现重新编译即可。</p>
-<h3 id="数据封装"><a href="#数据封装" class="headerlink" title="数据封装"></a>数据封装</h3><p>封装是面向对象编程中的把数据和操作数据的函数绑定在一起的一个概念，这样能避免受到外界的干扰和误用，从而确保了安全。数据封装引申出了另一个重要的 OOP 概念，即<strong>数据隐藏</strong>。</p>
+<h2 id="数据封装"><a href="#数据封装" class="headerlink" title="数据封装"></a>数据封装</h2><p>封装是面向对象编程中的把数据和操作数据的函数绑定在一起的一个概念，这样能避免受到外界的干扰和误用，从而确保了安全。数据封装引申出了另一个重要的 OOP 概念，即<strong>数据隐藏</strong>。</p>
 <p><strong>数据封装</strong>是一种把数据和操作数据的函数捆绑在一起的机制，<strong>数据抽象</strong>是一种仅向用户暴露接口而把具体的实现细节隐藏起来的机制。</p>
 <p>通过创建<strong>类</strong>来支持封装和数据隐藏（public、protected、private）。我们已经知道，类包含私有成员（private）、保护成员（protected）和公有成员（public）成员。默认情况下，在类中定义的所有项目都是私有的。</p>
-<h3 id="接口（抽象类）"><a href="#接口（抽象类）" class="headerlink" title="接口（抽象类）"></a>接口（抽象类）</h3><p>接口描述了类的行为和功能，而不需要完成类的特定实现。</p>
+<h2 id="接口（抽象类）"><a href="#接口（抽象类）" class="headerlink" title="接口（抽象类）"></a>接口（抽象类）</h2><p>接口描述了类的行为和功能，而不需要完成类的特定实现。</p>
 <p>C++ 接口是使用<strong>抽象类</strong>来实现的，抽象类与数据抽象互不混淆，数据抽象是一个把实现细节与相关的数据分离开的概念。</p>
 <p>如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。</p>
 <pre><code class="c++">class Role &#123;
@@ -1150,7 +1398,7 @@ class Vip: public Role &#123;
         &#125;
 &#125;
 </code></pre>
-<h3 id="文件和流"><a href="#文件和流" class="headerlink" title="文件和流"></a>文件和流</h3><h5 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h5><table>
+<h2 id="文件和流"><a href="#文件和流" class="headerlink" title="文件和流"></a>文件和流</h2><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><table>
 <thead>
 <tr>
 <th align="left">数据类型</th>
@@ -1174,7 +1422,7 @@ class Vip: public Role &#123;
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;fstream&gt;
 </code></pre>
-<h5 id="open-函数"><a href="#open-函数" class="headerlink" title="open()函数"></a>open()函数</h5><p>第一参数指定要打开的文件的名称和位置，第二个参数定义文件被打开的模式。</p>
+<h4 id="open-函数"><a href="#open-函数" class="headerlink" title="open()函数"></a>open()函数</h4><p>第一参数指定要打开的文件的名称和位置，第二个参数定义文件被打开的模式。</p>
 <table>
 <thead>
 <tr>
@@ -1211,10 +1459,10 @@ outfile.open(&quot;file.dat&quot;, ios::out | ios::trunc );
 <pre><code>ifstream  afile;
 afile.open(&quot;file.dat&quot;, ios::out | ios::in );
 </code></pre>
-<h4 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h4><p>当 C++ 程序终止时，它会自动关闭刷新所有流，释放所有分配的内存，并关闭所有打开的文件。</p>
+<h3 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h3><p>当 C++ 程序终止时，它会自动关闭刷新所有流，释放所有分配的内存，并关闭所有打开的文件。</p>
 <pre><code class="c++">void close();
 </code></pre>
-<h4 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h4><pre><code class="c++">char data[100];
+<h3 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h3><pre><code class="c++">char data[100];
 ofstream outfile;
 outfile.open(&quot;test.txt&quot;);
 
@@ -1222,7 +1470,7 @@ outfile.open(&quot;test.txt&quot;);
 outfile &lt;&lt; data &lt;&lt; endl;
 outfile.close();
 </code></pre>
-<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><pre><code class="c++">char data[100];
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><pre><code class="c++">char data[100];
 ofstream infile;
 infile.open(&quot;text.txt&quot;);
 
@@ -1230,7 +1478,7 @@ infile.open(&quot;text.txt&quot;);
 infile &gt;&gt; data;
 infile.close();
 </code></pre>
-<h4 id="文件位置指针"><a href="#文件位置指针" class="headerlink" title="文件位置指针"></a>文件位置指针</h4><p>文件位置指针是一个整数值，指定了从文件的起始位置到指针所在位置的字节数。</p>
+<h3 id="文件位置指针"><a href="#文件位置指针" class="headerlink" title="文件位置指针"></a>文件位置指针</h3><p>文件位置指针是一个整数值，指定了从文件的起始位置到指针所在位置的字节数。</p>
 <pre><code class="c++">/ 定位到 fileObject 的第 n 个字节（假设是 ios::beg）
 fileObject.seekg( n );
  
