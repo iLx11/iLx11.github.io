@@ -292,10 +292,10 @@ adapter speed 10000
 
 
 <h4 id="选择配置文件"><a href="#选择配置文件" class="headerlink" title="选择配置文件"></a>选择配置文件</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121449374.png" alt="image-20230213163609813"></p>
-<h4 id="则配置完成"><a href="#则配置完成" class="headerlink" title="则配置完成"></a>则配置完成</h4><h4 id="点击上传按钮"><a href="#点击上传按钮" class="headerlink" title="点击上传按钮"></a>点击上传按钮</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121449718.png" alt="image-20230213163732427"></p>
-<h4 id="用于烧录的-hex-和-bin-文件将在工程目录下生成"><a href="#用于烧录的-hex-和-bin-文件将在工程目录下生成" class="headerlink" title="用于烧录的 .hex 和 .bin 文件将在工程目录下生成"></a>用于烧录的 .hex 和 .bin 文件将在工程目录下生成</h4><h5 id="目录名："><a href="#目录名：" class="headerlink" title="目录名："></a>目录名：</h5><pre><code class="bash">cmake-build-debug-mingw
+<h4 id="则配置完成"><a href="#则配置完成" class="headerlink" title="则配置完成"></a>则配置完成</h4><h3 id="点击编译按钮"><a href="#点击编译按钮" class="headerlink" title="点击编译按钮"></a>点击编译按钮</h3><h4 id="用于烧录的-hex-和-bin-文件将在工程目录下生成，此步用于串口烧录"><a href="#用于烧录的-hex-和-bin-文件将在工程目录下生成，此步用于串口烧录" class="headerlink" title="用于烧录的 .hex 和 .bin 文件将在工程目录下生成，此步用于串口烧录"></a>用于烧录的 .hex 和 .bin 文件将在工程目录下生成，此步用于串口烧录</h4><h5 id="目录名："><a href="#目录名：" class="headerlink" title="目录名："></a>目录名：</h5><pre><code class="bash">cmake-build-debug-mingw
 </code></pre>
-<h4 id="之后就可以愉快的在舒适的-IDEA-中编码了"><a href="#之后就可以愉快的在舒适的-IDEA-中编码了" class="headerlink" title="之后就可以愉快的在舒适的 IDEA 中编码了"></a>之后就可以愉快的在舒适的 IDEA 中编码了</h4><h3 id="重定向-printf"><a href="#重定向-printf" class="headerlink" title="重定向 printf"></a>重定向 printf</h3><p>新建一个<code>retarget.h</code>文件内容如下：</p>
+<h3 id="点击上传-烧录按钮"><a href="#点击上传-烧录按钮" class="headerlink" title="点击上传/烧录按钮"></a>点击上传/烧录按钮</h3><h4 id="如果在上面配置了下载器，并连接好了板子，将会直接烧录"><a href="#如果在上面配置了下载器，并连接好了板子，将会直接烧录" class="headerlink" title="如果在上面配置了下载器，并连接好了板子，将会直接烧录"></a>如果在上面配置了下载器，并连接好了板子，将会直接烧录</h4><h3 id="增加断点后可以进行调试"><a href="#增加断点后可以进行调试" class="headerlink" title="增加断点后可以进行调试"></a>增加断点后可以进行调试</h3><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121449718.png" alt="image-20230213163732427"></p>
+<h4 id="之后就可以愉快的在舒适的-IDE-中进行编码了"><a href="#之后就可以愉快的在舒适的-IDE-中进行编码了" class="headerlink" title="之后就可以愉快的在舒适的 IDE 中进行编码了"></a>之后就可以愉快的在舒适的 IDE 中进行编码了</h4><h3 id="重定向-printf"><a href="#重定向-printf" class="headerlink" title="重定向 printf"></a>重定向 printf</h3><p>新建一个<code>retarget.h</code>文件内容如下：</p>
 <pre><code class="c">#ifndef _RETARGET_H__
 #define _RETARGET_H__
 
