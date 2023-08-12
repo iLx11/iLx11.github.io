@@ -241,7 +241,8 @@
 <p>如果有信息输出,那就是装好了</p>
 <h3 id="CLion-配置硬件开发编译环境"><a href="#CLion-配置硬件开发编译环境" class="headerlink" title="CLion 配置硬件开发编译环境"></a>CLion 配置硬件开发编译环境</h3><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121441069.png" alt="image-20230812143107205"></p>
 <h2 id="CLion-中创建-STM32-工程"><a href="#CLion-中创建-STM32-工程" class="headerlink" title="CLion 中创建 STM32 工程"></a>CLion 中创建 STM32 工程</h2><h4 id="创建一个新工程"><a href="#创建一个新工程" class="headerlink" title="创建一个新工程"></a>创建一个新工程</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121441016.png" alt="image-20230213154707455"></p>
-<h4 id="完成后点击create"><a href="#完成后点击create" class="headerlink" title="完成后点击create"></a>完成后点击create</h4><h5 id="如遇以下问题（如果安装的是新版的CLion-则不会遇到）"><a href="#如遇以下问题（如果安装的是新版的CLion-则不会遇到）" class="headerlink" title="如遇以下问题（如果安装的是新版的CLion 则不会遇到）"></a>如遇以下问题（如果安装的是新版的CLion 则不会遇到）</h5><p><img src="https://img.gejiba.com/images/552f4a051e8d1706032592e7a5ebd489.png" alt="image-20230213154844389"></p>
+<h4 id="完成后点击create"><a href="#完成后点击create" class="headerlink" title="完成后点击create"></a>完成后点击create</h4><h5 id="如遇以下问题（如果安装的是新版的CLion-则不会遇到）"><a href="#如遇以下问题（如果安装的是新版的CLion-则不会遇到）" class="headerlink" title="如遇以下问题（如果安装的是新版的CLion 则不会遇到）"></a>如遇以下问题（如果安装的是新版的CLion 则不会遇到）</h5><p>‘please install java jre xxxxxxxxx’</p>
+<p><img src="https://img.gejiba.com/images/552f4a051e8d1706032592e7a5ebd489.png" alt="image-20230213154844389"></p>
 <h5 id="解决方式："><a href="#解决方式：" class="headerlink" title="解决方式："></a>解决方式：</h5><p>删除CLion 安装目录下的jbr文件夹，将新版安装目录下的jbr文件夹拷贝进来</p>
 <p>jbr文件下载：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr11_0_13b1751.25">https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr11_0_13b1751.25</a></p>
@@ -285,13 +286,13 @@ source [find target/stm32f4x.cfg]
 adapter speed 10000
 #reset_config none
 </code></pre>
-<h3 id="编译-amp-烧录-amp-调试"><a href="#编译-amp-烧录-amp-调试" class="headerlink" title="编译 &amp;  烧录 &amp; 调试"></a>编译 &amp;  烧录 &amp; 调试</h3><p><img src="https://img.gejiba.com/images/84b2f58c277ad3a8812cc5b302badeb5.png" alt="image-20230213163258711"></p>
-<img src="https://img.gejiba.com/images/f26e115843b0f35fa4e4c05577195cb4.png" alt="image-20230213163437368" style="zoom:80%;" />
+<h3 id="编译-amp-烧录-amp-调试"><a href="#编译-amp-烧录-amp-调试" class="headerlink" title="编译 &amp;  烧录 &amp; 调试"></a>编译 &amp;  烧录 &amp; 调试</h3><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121448988.png" alt="image-20230213163258711"></p>
+<img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121448875.png" alt="image-20230213163437368" style="zoom:80%;" />
 
 
 
-<h4 id="选择配置文件"><a href="#选择配置文件" class="headerlink" title="选择配置文件"></a>选择配置文件</h4><p><img src="https://img.gejiba.com/images/c2f957a22508b3eea7b7c8787ce1e3ae.png" alt="image-20230213163609813"></p>
-<h4 id="则配置完成"><a href="#则配置完成" class="headerlink" title="则配置完成"></a>则配置完成</h4><h4 id="点击上传按钮"><a href="#点击上传按钮" class="headerlink" title="点击上传按钮"></a>点击上传按钮</h4><p><img src="https://img.gejiba.com/images/93b069d480aa417a46c685c52a95d91a.png" alt="image-20230213163732427"></p>
+<h4 id="选择配置文件"><a href="#选择配置文件" class="headerlink" title="选择配置文件"></a>选择配置文件</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121449374.png" alt="image-20230213163609813"></p>
+<h4 id="则配置完成"><a href="#则配置完成" class="headerlink" title="则配置完成"></a>则配置完成</h4><h4 id="点击上传按钮"><a href="#点击上传按钮" class="headerlink" title="点击上传按钮"></a>点击上传按钮</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121449718.png" alt="image-20230213163732427"></p>
 <h4 id="用于烧录的-hex-和-bin-文件将在工程目录下生成"><a href="#用于烧录的-hex-和-bin-文件将在工程目录下生成" class="headerlink" title="用于烧录的 .hex 和 .bin 文件将在工程目录下生成"></a>用于烧录的 .hex 和 .bin 文件将在工程目录下生成</h4><h5 id="目录名："><a href="#目录名：" class="headerlink" title="目录名："></a>目录名：</h5><pre><code class="bash">cmake-build-debug-mingw
 </code></pre>
 <h4 id="之后就可以愉快的在舒适的-IDEA-中编码了"><a href="#之后就可以愉快的在舒适的-IDEA-中编码了" class="headerlink" title="之后就可以愉快的在舒适的 IDEA 中编码了"></a>之后就可以愉快的在舒适的 IDEA 中编码了</h4><h3 id="重定向-printf"><a href="#重定向-printf" class="headerlink" title="重定向 printf"></a>重定向 printf</h3><p>新建一个<code>retarget.h</code>文件内容如下：</p>
