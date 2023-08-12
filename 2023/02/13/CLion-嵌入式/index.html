@@ -189,65 +189,80 @@
                 <hr>
                 <div class="post-md">
                     <h3 id="取代-keil-迁移到更高级的-IDE"><a href="#取代-keil-迁移到更高级的-IDE" class="headerlink" title="取代 keil 迁移到更高级的 IDE"></a>取代 keil 迁移到更高级的 IDE</h3><p>CLion 有强大的代码补全、界面风格、各种插件、流畅性等众多优点</p>
-<h5 id="基于HAL库开发为准"><a href="#基于HAL库开发为准" class="headerlink" title="基于HAL库开发为准"></a>基于<code>HAL库</code>开发为准</h5><h2 id="环境与工具"><a href="#环境与工具" class="headerlink" title="环境与工具"></a>环境与工具</h2><ul>
+<h5 id="基于HAL库开发为准"><a href="#基于HAL库开发为准" class="headerlink" title="基于HAL库开发为准"></a>基于<code>HAL库</code>开发为准</h5><h1 id="环境与工具"><a href="#环境与工具" class="headerlink" title="环境与工具"></a>环境与工具</h1><ul>
 <li>Windows 10</li>
 <li>STM32CubeMX</li>
-<li>Clion-2019</li>
+<li>Clion</li>
 <li>MinGW</li>
 <li>OpenOCD</li>
 <li>arm-none-eabi-gcc</li>
 </ul>
-<h3 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h3><p>选择低版本的cube MX， 因为6.4.0 以上的版本不再支持以SW4STM32为导出IDE，而我们后续需要以这个选项导出工程，故在选择下载时不可以下载最新的cubeMX</p>
+<h2 id="STM32CubeMX"><a href="#STM32CubeMX" class="headerlink" title="STM32CubeMX"></a>STM32CubeMX</h2><p>下载最新版即可</p>
 <p>下载链接：</p>
 <p><a target="_blank" rel="noopener" href="https://www.st.com/en/development-tools/stm32cubemx.html#get-software">https://www.st.com/en/development-tools/stm32cubemx.html#get-software</a></p>
-<p><img src="https://img.gejiba.com/images/11390c02d278d02b70ef22f6ef13bf82.png" alt="image-20230213105305017"></p>
-<h3 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h3><p>OpenOCD是用于对STM32进行下载仿真的工具，是一个开源软件包，解压到某个目录，后面会在Clion中链接这个目录</p>
+<h2 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h2><p>OpenOCD是用于对STM32进行下载仿真的工具，是一个开源软件包，解压到某个目录，后面会在Clion中链接这个目录</p>
 <p>下载地址：</p>
 <p><a href="https://link.zhihu.com/?target=http://gnutoolchains.com/arm-eabi/openocd/">https://link.zhihu.com/?target=http%3A//gnutoolchains.com/arm-eabi/openocd/</a></p>
-<h4 id="在CLion-中配置-OpenOCD"><a href="#在CLion-中配置-OpenOCD" class="headerlink" title="在CLion 中配置 OpenOCD"></a>在CLion 中配置 OpenOCD</h4><p><img src="https://img.gejiba.com/images/500efaef92164912660bf3e53860bf71.png" alt="image-20230213124855858"></p>
-<h3 id="MinGW"><a href="#MinGW" class="headerlink" title="MinGW"></a>MinGW</h3><p>Clion需要使用MinGW环境来配置工具链，安装方法如下：<br>首先去MinGW主页下载最新版本的MinGW</p>
-<p>下载链接：</p>
-<p><a href="https://link.zhihu.com/?target=https://osdn.net/projects/mingw/releases/">https://link.zhihu.com/?target=https%3A//osdn.net/projects/mingw/releases/</a></p>
-<p><img src="https://img.gejiba.com/images/bed152088bc3e365f1e91072e2fed09e.png" alt="image-20230213125233612"></p>
-<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>软件运行需要有 java 环境，尽量选择低版本的下载</p>
-<p><a target="_blank" rel="noopener" href="https://www.java.com/zh-CN/download/">https://www.java.com/zh-CN/download/</a></p>
-<p>安装时把<code>Basic Setup</code>里面的组件全部勾选（也可也去掉不需要的语言编译器比如Objective-C）。</p>
-<p>之后配置<code>系统的环境变量</code>，在Path环境变量里面添加一条，指向MinGW的<code>bin</code>文件夹</p>
-<p>验证安装是否成功：</p>
-<pre><code class="bash">gcc -v
+<h2 id="CLion"><a href="#CLion" class="headerlink" title="CLion"></a>CLion</h2><p>在官网下载 2022 / 2023 的版本即可</p>
+<p>然后在下面的网址找一个能用的激活码，翻翻评论之类的，输入 Clion  进行激活</p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/ihabhamad/3fc931475b1fcc4528ec43be6fae624e?permalink_comment_id=4620170">https://gist.github.com/ihabhamad/3fc931475b1fcc4528ec43be6fae624e?permalink_comment_id=4620170</a></p>
+<h4 id="在CLion-中配置-OpenOCD-与上一步下载的-STM32CubeMX"><a href="#在CLion-中配置-OpenOCD-与上一步下载的-STM32CubeMX" class="headerlink" title="在CLion 中配置 OpenOCD 与上一步下载的 STM32CubeMX"></a>在CLion 中配置 OpenOCD 与上一步下载的 STM32CubeMX</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121439179.png" alt="image-20230213124855858"></p>
+<h2 id="MinGW"><a href="#MinGW" class="headerlink" title="MinGW"></a>MinGW</h2><p>直接下载 MSYS2 包管理器下载 mingw64 即可，之后配置时会自动检测到。如果没有检测到的话，就手动导入包管理工具安装的目录找到 mingw64 就好。</p>
+<p>以下是安装环境的教程：</p>
+<h3 id="安装MSYS2"><a href="#安装MSYS2" class="headerlink" title="安装MSYS2"></a>安装MSYS2</h3><p>MSYS2 也是一个包管理软件，用来安装环境非常简单。推荐使用。</p>
+<p><a target="_blank" rel="noopener" href="https://www.lovestu.com/wp-content/plugins/cp-link-open/link.php?a=aHR0cHM6Ly93d3cubXN5czIub3JnLw==">https://www.msys2.org/</a></p>
+<p>进入官网，下载安装包即可。</p>
+<p><img src="https://www.lovestu.com/wp-content/uploads/2022/09/1662985763379.webp" alt="img"></p>
+<p>安装包一路下一步即可，我是安装在D盘的。</p>
+<p>进入：D:\msys64，启动msys2.exe。</p>
+<p>输入<code>pacman -Su</code> 更新一下包，一路Y即可</p>
+<p><img src="https://www.lovestu.com/wp-content/uploads/2022/09/1662985989564.webp" alt="img"></p>
+<p>第二次输入Y以后，窗口会关闭。再次打开即可。</p>
+<h3 id="安装MinGW"><a href="#安装MinGW" class="headerlink" title="安装MinGW"></a>安装MinGW</h3><p>在msys2中输入命令</p>
+<pre><code>pacman -Sy base-devel
 </code></pre>
-<p>打印出<code>版本信息</code>则为配置成功</p>
-<h3 id="arm-none-eabi-gcc"><a href="#arm-none-eabi-gcc" class="headerlink" title="arm-none-eabi-gcc"></a>arm-none-eabi-gcc</h3><p>下载链接：</p>
+<p>然后输入Y即可，稍等一会，即可安装完成。然后安装mingw环境。还是Y即可。</p>
+<pre><code> pacman -S mingw-w64-x86_64-toolchain
+</code></pre>
+<p>这样，就把所有的环境给安装下来了，非常简单。</p>
+<p>至此，需要的东西，全部都给安装下来了，可以愉快的玩耍C语言了。</p>
+<h3 id="配置平时C语言编译环境"><a href="#配置平时C语言编译环境" class="headerlink" title="配置平时C语言编译环境"></a>配置平时C语言编译环境</h3><p>和配置硬件的编译环境有区别</p>
+<p>之前安装好了MinGW，一般就在msys64的目录下，我默认在C盘，我msys64安装在D盘，所以MinGW也在D盘。</p>
+<p>有mingw64和mingw32，64位系统用mingw64就好，按照下图配置好构建工具和编译器就行。</p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121440615.webp" alt="img"></p>
+<p>然后设置CMake，默认是Debug，如果没有，手动添加就是了。这儿是可以设置多个编译器环境的，例如使用微软的MSVC，当然了，我们只安装了MinGW，用这个就好了。</p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121440539.webp" alt="img"></p>
+<h2 id="arm-none-eabi-gcc"><a href="#arm-none-eabi-gcc" class="headerlink" title="arm-none-eabi-gcc"></a>arm-none-eabi-gcc</h2><p>下载链接：</p>
 <p><a target="_blank" rel="noopener" href="https://developer.arm.com/downloads/-/gnu-rm">https://developer.arm.com/downloads/-/gnu-rm</a></p>
-<p><img src="https://img.gejiba.com/images/d021cf905002285aafbb0974f06dd6d0.png" alt="image-20230213125939109"></p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121441954.png" alt="image-20230213125939109"></p>
 <h5 id="解压后将-bin-目录配置到系统环境目录"><a href="#解压后将-bin-目录配置到系统环境目录" class="headerlink" title="解压后将 bin 目录配置到系统环境目录"></a>解压后将 bin 目录配置到系统环境目录</h5><p>cmd 输入</p>
 <pre><code class="bash">arm-none-eabi-gcc -v
 </code></pre>
 <p>如果有信息输出,那就是装好了</p>
-<h4 id="CLion-配置"><a href="#CLion-配置" class="headerlink" title="CLion 配置"></a>CLion 配置</h4><p><img src="https://img.gejiba.com/images/2c2552cc94a54348cebee25a085b80a4.png" alt="image-20230213135245131"></p>
-<h2 id="CLion-中创建-STM32-工程"><a href="#CLion-中创建-STM32-工程" class="headerlink" title="CLion 中创建 STM32 工程"></a>CLion 中创建 STM32 工程</h2><h4 id="创建一个新工程"><a href="#创建一个新工程" class="headerlink" title="创建一个新工程"></a>创建一个新工程</h4><img src="https://img.gejiba.com/images/a6802192ed70df821776df3f7a3e1226.png" alt="image-20230213154429514" style="zoom: 80%;" />
-
-
-
-<p><img src="https://img.gejiba.com/images/f3f9c04def2d10493c0a14bc58153f8d.png" alt="image-20230213154707455"></p>
-<h4 id="完成后点击create"><a href="#完成后点击create" class="headerlink" title="完成后点击create"></a>完成后点击create</h4><h5 id="如遇以下问题"><a href="#如遇以下问题" class="headerlink" title="如遇以下问题"></a>如遇以下问题</h5><p><img src="https://img.gejiba.com/images/552f4a051e8d1706032592e7a5ebd489.png" alt="image-20230213154844389"></p>
+<h3 id="CLion-配置硬件开发编译环境"><a href="#CLion-配置硬件开发编译环境" class="headerlink" title="CLion 配置硬件开发编译环境"></a>CLion 配置硬件开发编译环境</h3><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121441069.png" alt="image-20230812143107205"></p>
+<h2 id="CLion-中创建-STM32-工程"><a href="#CLion-中创建-STM32-工程" class="headerlink" title="CLion 中创建 STM32 工程"></a>CLion 中创建 STM32 工程</h2><h4 id="创建一个新工程"><a href="#创建一个新工程" class="headerlink" title="创建一个新工程"></a>创建一个新工程</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121441016.png" alt="image-20230213154707455"></p>
+<h4 id="完成后点击create"><a href="#完成后点击create" class="headerlink" title="完成后点击create"></a>完成后点击create</h4><h5 id="如遇以下问题（如果安装的是新版的CLion-则不会遇到）"><a href="#如遇以下问题（如果安装的是新版的CLion-则不会遇到）" class="headerlink" title="如遇以下问题（如果安装的是新版的CLion 则不会遇到）"></a>如遇以下问题（如果安装的是新版的CLion 则不会遇到）</h5><p><img src="https://img.gejiba.com/images/552f4a051e8d1706032592e7a5ebd489.png" alt="image-20230213154844389"></p>
 <h5 id="解决方式："><a href="#解决方式：" class="headerlink" title="解决方式："></a>解决方式：</h5><p>删除CLion 安装目录下的jbr文件夹，将新版安装目录下的jbr文件夹拷贝进来</p>
 <p>jbr文件下载：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr11_0_13b1751.25">https://github.com/JetBrains/JetBrainsRuntime/releases/tag/jbr11_0_13b1751.25</a></p>
 <p>解压后替换即可</p>
-<h4 id="点击-Open-with-STM32CubeMX"><a href="#点击-Open-with-STM32CubeMX" class="headerlink" title="点击 Open with STM32CubeMX"></a>点击 Open with STM32CubeMX</h4><p>在STM32CubeMX中做好配置</p>
-<p><img src="https://img.gejiba.com/images/2b4696bb3323b6ac1d6267836d340815.png" alt="image-20230213155253579"></p>
-<h4 id="在-stm32cubemx-中的重要配置"><a href="#在-stm32cubemx-中的重要配置" class="headerlink" title="在 stm32cubemx 中的重要配置"></a>在 stm32cubemx 中的重要配置</h4><p>（配置好板子之类的自己的需求后）</p>
-<p><img src="https://img.gejiba.com/images/abcc865cb1b8c31042be7d01a6efdf4f.png" alt="image-20230213155707849"></p>
+<h3 id="点击-Open-with-STM32CubeMX"><a href="#点击-Open-with-STM32CubeMX" class="headerlink" title="点击 Open with STM32CubeMX"></a>点击 Open with STM32CubeMX</h3><h3 id="在-stm32cubemx-中的重要配置"><a href="#在-stm32cubemx-中的重要配置" class="headerlink" title="在 stm32cubemx 中的重要配置"></a>在 stm32cubemx 中的重要配置</h3><p>（配置好板子之类的自己的需求后）</p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121444109.png" alt="image-20230213155707849"></p>
 <p>生成的代码会分开单独的源文件和头文件，否则会全部放在main.c文件，不便于整理，降低代码可读性</p>
-<p><img src="https://img.gejiba.com/images/492264ec271197de069763a5338a339c.png" alt="image-20230213155854761"></p>
-<h4 id="配置完成后点击"><a href="#配置完成后点击" class="headerlink" title="配置完成后点击"></a>配置完成后点击</h4><p><img src="https://img.gejiba.com/images/187ea567742bb7b9a5c87298684ce870.png" alt="image-20230213161311788"></p>
-<h4 id="遇到这个框点击-close"><a href="#遇到这个框点击-close" class="headerlink" title="遇到这个框点击 close"></a>遇到这个框点击 close</h4><p><img src="https://img.gejiba.com/images/bf5e40c485cacdbfc5e149c8fe9fd974.png" alt="image-20230213161401668"></p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121443989.png" alt="image-20230213155854761"></p>
+<h4 id="配置完成后点击"><a href="#配置完成后点击" class="headerlink" title="配置完成后点击"></a>配置完成后点击</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121443450.png" alt="image-20230213161311788"></p>
+<h4 id="遇到这个框点击-close"><a href="#遇到这个框点击-close" class="headerlink" title="遇到这个框点击 close"></a>遇到这个框点击 close</h4><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121444919.png" alt="image-20230213161401668"></p>
 <h4 id="之后返回-CLion"><a href="#之后返回-CLion" class="headerlink" title="之后返回 CLion"></a>之后返回 CLion</h4><p>这个是板子配置文件，我们先不选择，之后进行配置</p>
-<p><img src="https://img.gejiba.com/images/37d169f0817403bec74519ac4e6f9da2.png" alt="image-20230213161600221"></p>
-<h4 id="在工程文件夹下创建-config-目录"><a href="#在工程文件夹下创建-config-目录" class="headerlink" title="在工程文件夹下创建 config 目录"></a>在工程文件夹下创建 config 目录</h4><h4 id="config-目录下-新建命名为-stlink-cfg-的文件"><a href="#config-目录下-新建命名为-stlink-cfg-的文件" class="headerlink" title="config 目录下 新建命名为 stlink.cfg 的文件"></a>config 目录下 新建命名为 stlink.cfg 的文件</h4><h5 id="st-link-上传"><a href="#st-link-上传" class="headerlink" title="(st-link 上传)"></a>(st-link 上传)</h5><p><img src="https://img.gejiba.com/images/38333bdb431ecb468b07d50649be651b.png" alt="image-20230213163014404"></p>
-<h5 id="文件中粘贴硬件配置"><a href="#文件中粘贴硬件配置" class="headerlink" title="文件中粘贴硬件配置"></a>文件中粘贴硬件配置</h5><p>前两行设置了仿真器的类型和接口，下面几行指定了<strong>Flash大小</strong>、<strong>芯片类型</strong>、<strong>下载速度</strong>等</p>
-<pre><code class="bash"># choose st-link/j-link/dap-link etc.
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121443652.png" alt="image-20230213161600221"></p>
+<h4 id="在工程文件夹下创建-config-目录"><a href="#在工程文件夹下创建-config-目录" class="headerlink" title="在工程文件夹下创建 config 目录"></a>在工程文件夹下创建 config 目录</h4><h4 id="config-目录下-新建命名为-stlink-cfg-daplink-的文件"><a href="#config-目录下-新建命名为-stlink-cfg-daplink-的文件" class="headerlink" title="config 目录下 新建命名为  stlink.cfg/daplink  的文件"></a>config 目录下 新建命名为  stlink.cfg/daplink  的文件</h4><h5 id="文件中粘贴硬件配置"><a href="#文件中粘贴硬件配置" class="headerlink" title="文件中粘贴硬件配置"></a>文件中粘贴硬件配置</h5><p>前两行设置了仿真器的类型和接口，下面几行指定了<strong>Flash大小</strong>、<strong>芯片类型</strong>、<strong>下载速度</strong>等，如果这些参数不一样可以根据实际情况更改以下文件</p>
+<p>如果对自己的芯片不知道怎么设置，可以参考OpenOCD自带的一系列配置文件，路径在OpenOCD安装目录的<code>share\openocd\scripts</code>下：</p>
+<p>只需要关注这几个目录：</p>
+<ul>
+<li><strong>board</strong>：板卡配置，各种官方板卡</li>
+<li><strong>interface</strong>：仿真器类型配置，比如ST-Link、CMSIS-DAP等都在里面</li>
+<li><strong>target</strong>：芯片类型配置，STM32F1xx、STM32L0XX等等都在里面</li>
+</ul>
+<h5 id="stlink"><a href="#stlink" class="headerlink" title="stlink"></a>stlink</h5><pre><code class="bash"># choose st-link/j-link/dap-link etc.
 #adapter driver cmsis-dap
 #transport select swd
  
@@ -259,6 +274,17 @@ source [find target/stm32f1x.cfg]
 # download speed = 10MHz
 adapter speed 10000
 </code></pre>
+<h5 id="daplink"><a href="#daplink" class="headerlink" title="daplink"></a>daplink</h5><pre><code class="bash"># choose st-link/j-link/dap-link etc.
+source [find interface/cmsis-dap.cfg]
+transport select swd
+# 0x10000 = 64K Flash Size
+# 0x80000 = 512K Flash Size
+set FLASH_SIZE 0x20000
+source [find target/stm32f4x.cfg]
+# download speed = 10MHz
+adapter speed 10000
+#reset_config none
+</code></pre>
 <h3 id="编译-amp-烧录-amp-调试"><a href="#编译-amp-烧录-amp-调试" class="headerlink" title="编译 &amp;  烧录 &amp; 调试"></a>编译 &amp;  烧录 &amp; 调试</h3><p><img src="https://img.gejiba.com/images/84b2f58c277ad3a8812cc5b302badeb5.png" alt="image-20230213163258711"></p>
 <img src="https://img.gejiba.com/images/f26e115843b0f35fa4e4c05577195cb4.png" alt="image-20230213163437368" style="zoom:80%;" />
 
@@ -268,7 +294,136 @@ adapter speed 10000
 <h4 id="则配置完成"><a href="#则配置完成" class="headerlink" title="则配置完成"></a>则配置完成</h4><h4 id="点击上传按钮"><a href="#点击上传按钮" class="headerlink" title="点击上传按钮"></a>点击上传按钮</h4><p><img src="https://img.gejiba.com/images/93b069d480aa417a46c685c52a95d91a.png" alt="image-20230213163732427"></p>
 <h4 id="用于烧录的-hex-和-bin-文件将在工程目录下生成"><a href="#用于烧录的-hex-和-bin-文件将在工程目录下生成" class="headerlink" title="用于烧录的 .hex 和 .bin 文件将在工程目录下生成"></a>用于烧录的 .hex 和 .bin 文件将在工程目录下生成</h4><h5 id="目录名："><a href="#目录名：" class="headerlink" title="目录名："></a>目录名：</h5><pre><code class="bash">cmake-build-debug-mingw
 </code></pre>
-<h4 id="之后就可以愉快的在舒适的-IDEA-中编码了"><a href="#之后就可以愉快的在舒适的-IDEA-中编码了" class="headerlink" title="之后就可以愉快的在舒适的 IDEA 中编码了"></a>之后就可以愉快的在舒适的 IDEA 中编码了</h4>
+<h4 id="之后就可以愉快的在舒适的-IDEA-中编码了"><a href="#之后就可以愉快的在舒适的-IDEA-中编码了" class="headerlink" title="之后就可以愉快的在舒适的 IDEA 中编码了"></a>之后就可以愉快的在舒适的 IDEA 中编码了</h4><h3 id="重定向-printf"><a href="#重定向-printf" class="headerlink" title="重定向 printf"></a>重定向 printf</h3><p>新建一个<code>retarget.h</code>文件内容如下：</p>
+<pre><code class="c">#ifndef _RETARGET_H__
+#define _RETARGET_H__
+
+#include &quot;stm32f1xx_hal.h&quot;
+#include &lt;sys/stat.h&gt;
+#include &lt;stdio.h&gt;
+
+void RetargetInit(UART_HandleTypeDef *huart);
+
+int _isatty(int fd);
+
+int _write(int fd, char *ptr, int len);
+
+int _close(int fd);
+
+int _lseek(int fd, int ptr, int dir);
+
+int _read(int fd, char *ptr, int len);
+
+int _fstat(int fd, struct stat *st);
+
+#endif //#ifndef _RETARGET_H__
+</code></pre>
+<p>再新建一个<code>retarget.c</code>文件内容如下：</p>
+<pre><code class="c">#include &lt;_ansi.h&gt;
+#include &lt;_syslist.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;sys/times.h&gt;
+#include &lt;retarget.h&gt;
+#include &lt;stdint.h&gt;
+
+#if !defined(OS_USE_SEMIHOSTING)
+
+#define STDIN_FILENO  0
+#define STDOUT_FILENO 1
+#define STDERR_FILENO 2
+
+UART_HandleTypeDef *gHuart;
+
+void RetargetInit(UART_HandleTypeDef *huart) &#123;
+    gHuart = huart;
+
+    /* Disable I/O buffering for STDOUT stream, so that
+     * chars are sent out as soon as they are printed. */
+    setvbuf(stdout, NULL, _IONBF, 0);
+&#125;
+
+int _isatty(int fd) &#123;
+    if (fd &gt;= STDIN_FILENO &amp;&amp; fd &lt;= STDERR_FILENO)
+        return 1;
+
+    errno = EBADF;
+    return 0;
+&#125;
+
+int _write(int fd, char *ptr, int len) &#123;
+    HAL_StatusTypeDef hstatus;
+
+    if (fd == STDOUT_FILENO || fd == STDERR_FILENO) &#123;
+        hstatus = HAL_UART_Transmit(gHuart, (uint8_t *) ptr, len, HAL_MAX_DELAY);
+        if (hstatus == HAL_OK)
+            return len;
+        else
+            return EIO;
+    &#125;
+    errno = EBADF;
+    return -1;
+&#125;
+
+int _close(int fd) &#123;
+    if (fd &gt;= STDIN_FILENO &amp;&amp; fd &lt;= STDERR_FILENO)
+        return 0;
+
+    errno = EBADF;
+    return -1;
+&#125;
+
+int _lseek(int fd, int ptr, int dir) &#123;
+    (void) fd;
+    (void) ptr;
+    (void) dir;
+
+    errno = EBADF;
+    return -1;
+&#125;
+
+int _read(int fd, char *ptr, int len) &#123;
+    HAL_StatusTypeDef hstatus;
+
+    if (fd == STDIN_FILENO) &#123;
+        hstatus = HAL_UART_Receive(gHuart, (uint8_t *) ptr, 1, HAL_MAX_DELAY);
+        if (hstatus == HAL_OK)
+            return 1;
+        else
+            return EIO;
+    &#125;
+    errno = EBADF;
+    return -1;
+&#125;
+
+int _fstat(int fd, struct stat *st) &#123;
+    if (fd &gt;= STDIN_FILENO &amp;&amp; fd &lt;= STDERR_FILENO) &#123;
+        st-&gt;st_mode = S_IFCHR;
+        return 0;
+    &#125;
+
+    errno = EBADF;
+    return 0;
+&#125;
+
+#endif //#if !defined(OS_USE_SEMIHOSTING)
+</code></pre>
+<p>添加这两个文件到工程，更新CMake</p>
+<p>打开 cmakeLists.txt</p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121358943.png" alt="image-20230812135626077"></p>
+<p>没有路径就添加后更新cmake，已有的话就直接更新</p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202308121358618.png" alt="image-20230812135841389"></p>
+<p>编译之后会发现几个系统函数重复定义了，被重复定义的函数位于<code>Src</code>目录的<code>syscalls.c</code>文件中，我们把里面重复的几个函数删掉即可</p>
+<p>在main函数的初始化代码中添加对头文件的引用并注册重定向的串口号：</p>
+<pre><code class="text">#include &quot;retarget.h&quot;
+
+RetargetInit(&amp;huart1);
+</code></pre>
+<p>上面的修改完成之后可能会发现无法正常读取浮点数</p>
+<p>可以修改CMakeList.txt，加入下述编译选项</p>
+<pre><code class="text">set(COMMON_FLAGS &quot;-specs=nosys.specs -specs=nano.specs -u _printf_float -u _scanf_float&quot;)
+</code></pre>
+
                 </div>
 
                 <div class="menuShow">

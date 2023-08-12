@@ -755,6 +755,32 @@ while(1) &#123;
     fwrite(buffer, sizeof(char), BUFFER_SIZE, stdout);
 &#125;
 </code></pre>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><h2 id="借助开源库-TinyCThread"><a href="#借助开源库-TinyCThread" class="headerlink" title="借助开源库 TinyCThread"></a>借助开源库 <code>TinyCThread</code></h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><pre><code class="c">thrd_t new_thread;
+// 只能一个函数，且传一个参数
+int result = thrd_create(&amp;new_thread, func, arg);
+if(result == thrd_success) &#123;
+    // 创建成功
+&#125;
+// 阻塞线程
+1.thrd_sleep(&amp;(struct timespec) &#123;.tv_sec = 0, .tv_nsec = 10000000&#125;, NULL);
+
+// 接收的结果
+int res;
+2.thrd_join(new_thread, &amp;res);
+
+// 不接收结果
+thrd_detach(new_thread);
+</code></pre>
+<h3 id="线程的问题"><a href="#线程的问题" class="headerlink" title="线程的问题"></a>线程的问题</h3><ul>
+<li>对共享资源进行非原子的并发访问 （可以拆解的操作）</li>
+<li>不同线程之间的代码可见性问题  （参数对于已经执行的语句有可能不可见）</li>
+<li>线程内部代码编译时的重排序问题 （对于线程优先创建的问题）</li>
+</ul>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>(易变）修饰的变量读写可观察；禁止编译器优化读写操作</p>
+<p>解决重排序</p>
+<pre><code class="c">// 线程变量
+volatile int aa = 0;
+</code></pre>
 <h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><pre><code class="c++">//输出
 std::cout &lt;&lt; &quot;123123\n&quot;;
 //输入
