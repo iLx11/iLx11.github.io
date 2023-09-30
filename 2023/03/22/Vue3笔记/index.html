@@ -778,15 +778,20 @@ npm install pinia
 
 createApp(App).use(router).use(createPinia()).mount(&#39;#app&#39;)
 </code></pre>
-<pre><code class="ts">// stores/counter.js
-import &#123; defineStore &#125; from &#39;pinia&#39;
+<h3 id="stores-counter-js"><a href="#stores-counter-js" class="headerlink" title="stores/counter.js"></a>stores/counter.js</h3><p>第一种</p>
+<pre><code class="ts">import &#123; defineStore &#125; from &#39;pinia&#39;
 
 export const useCounterStore = defineStore(&#39;counter&#39;, &#123;
   state: () =&gt; &#123;
     return &#123; count: 0 &#125;
   &#125;,
-  // 也可以定义为
-  // state: () =&gt; (&#123; count: 0 &#125;)
+  /* 
+   * 也可以定义为
+   * state: () =&gt; (&#123; count: 0 &#125;)
+  */  
+  getters: &#123;
+    doubleCount: (state) =&gt; state.count * 2,
+  &#125;,
   actions: &#123;
     increment() &#123;
       this.count++
@@ -794,20 +799,32 @@ export const useCounterStore = defineStore(&#39;counter&#39;, &#123;
   &#125;,
 &#125;)
 </code></pre>
+<p>第二种</p>
+<pre><code class="js">import &#123; defineStore &#125; from &#39;pinia&#39;
+
+export const useCounterStore = defineStore(&#39;counter&#39;, () =&gt; &#123;
+    const count = ref(0)
+    const doubleCount = computed(() =&gt; count.value * 2)
+      const increment = () =&gt; &#123;
+        count.value++
+      &#125;
+      return &#123; count, name, doubleCount, increment &#125;
+&#125;)
+</code></pre>
 <h2 id="state的五种方式修改值"><a href="#state的五种方式修改值" class="headerlink" title="state的五种方式修改值"></a>state的五种方式修改值</h2><pre><code class="ts">state的五种方式修改值
-1.直接修改值
-    Test.current=2
-2.通过$patch修改,支持单个或多个属性修改
-    Test.$patch(&#123;current:33&#125;)
-3.$patch工厂函数方式
-    Test.$patch((state) =&gt; &#123;
-      state.current = 99;
-      state.name = &#39;范迪塞尔&#39;
-    &#125;)
-4.$state 缺点是必须修改整个对象
-    Test.$state = &#123; current: 88, name: &#39;123&#39; &#125;
-5.action
-    Test.setCurrent()
+// 1.直接修改值
+Test.current=2
+// 2.通过$patch修改,支持单个或多个属性修改
+Test.$patch(&#123;current:33&#125;)
+// 3.$patch工厂函数方式
+Test.$patch((state) =&gt; &#123;
+  state.current = 99;
+  state.name = &#39;范迪塞尔&#39;
+&#125;)
+// 4.$state 缺点是必须修改整个对象
+Test.$state = &#123; current: 88, name: &#39;123&#39; &#125;
+// 5.action
+Test.setCurrent()
 </code></pre>
 
                 </div>

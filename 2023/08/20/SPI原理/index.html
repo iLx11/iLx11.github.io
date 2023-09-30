@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                SPI原理
+            </div>
+            <div class="post-meta">
+                2023-08-20
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <p>全篇转于公司大佬 “hhh” 的笔记：</p>
+<blockquote>
+<p>i2c速度 支持400khz spi速度 最大支持<img src="https://cdn.nlark.com/yuque/__latex/e6bd78419e5a3b32c40a00383243bbcb.svg#card=math&code=F_%7Bpclk%7D&id=MazAC" alt="img">/2mz</p>
+</blockquote>
+<p><strong>SPI是一种高速的，全双工，同步的通信总线，并且在芯片的管脚上只占用四根线，</strong>节约了芯片的管脚，</p>
+<ul>
+<li>优点：支持全双工通信、通信简单、数据传输速率快；</li>
+<li>缺点：没有指定的流控制，没有应答机制确认是否接收到数据，所以跟IIC总线协议比较在数据的可靠性上有一定的缺陷。</li>
+</ul>
+<p>STM32中SPI接口的特点</p>
+<ul>
+<li><strong>3线全双工同步传输；</strong></li>
+<li><strong>8或16位传输帧格式选择；</strong></li>
+<li><strong>主或从操作，支持多主模式；</strong></li>
+<li>主模式和从模式下均可以由软件或硬件进行NSS管理：主/从操作模式的动态改变；</li>
+<li>可编程的时钟极性和相位；</li>
+<li>可编程的数据顺序，MSB在前或LSB在前；</li>
+<li><strong>可触发中断的专用发送和接收标志；</strong></li>
+<li>SPI总线忙状态标志；</li>
+<li><strong>支持可靠通信的硬件CRC；</strong></li>
+<li>可触发中断的主模式故障、过载以及CRC错误标志；</li>
+<li><strong>支持DMA功能的1字节发送和接收缓冲器：产生发送和接受请求。</strong></li>
+</ul>
+<h2 id="🔗-SPI协议"><a href="#🔗-SPI协议" class="headerlink" title="🔗 SPI协议"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E5%8D%8F%E8%AE%AE">🔗</a> SPI协议</h2><h3 id="🔗-SPI引脚说明"><a href="#🔗-SPI引脚说明" class="headerlink" title="🔗 SPI引脚说明"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E5%BC%95%E8%84%9A%E8%AF%B4%E6%98%8E">🔗</a> SPI引脚说明</h3><p><strong>SPI的通信原理很简单，它以主从方式工作，这种模式通常有一个主设备和一个或多个从设备，需要至少4根线，事实上3根也可以（单向传输时）。这四根线分别是MISO、MOSI、SCLK、CS</strong>，具体的描述见下表：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MISO</td>
+<td>主设备数据输出，从设备数据输入</td>
+</tr>
+<tr>
+<td>MOSI</td>
+<td>主设备数据输出，从设备数据输入</td>
+</tr>
+<tr>
+<td>SCLK</td>
+<td>时钟信号，主设备产生</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>片选信号，主设备控制</td>
+</tr>
+</tbody></table>
+<p><strong>CS：控制芯片是否被选中的，也就是说只有片选信号为预先规定的使能信号时（一般默认为低电位），对此芯片的操作才有效，这就允许在同一总线上连接多个SPI设备成为可能。</strong> 也就是说：当有多个从设备的时候，因为每个从设备上都有一个片选引脚接入到主设备机中，当我们的主设备和某个从设备通信时将需要将从设备对应的片选引脚电平拉低。 <img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691543789119-c8f30ff7-2b08-4f29-9e33-a6e8c9b2e0e4.png#averageHue=%23e8e8e8&clientId=u96718d7c-5ec0-4&from=paste&id=u42fb6355&originHeight=243&originWidth=643&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=ucf34520e-ba9d-4945-9e49-a65d652fad3&title=" alt="img"> <strong>MISO/MOSI/SCLK：通讯是通过数据交换完成的，这里先要知道SPI是串行通讯协议，也就是说数据是一位一位的传输的。这就是SCLK时钟线存在的原因，由SCLK提供时钟脉冲，MISO，MOSI则基于此脉冲完成数据传输。</strong>数据输出通过MOSI线，数据在时钟上升沿或下降沿时采样，同时也会有返回数据用于接受。完成一位数据传输，输入也使用同样原理。这样，在至少8次时钟信号的改变（上沿和下沿为一次），就可以完成8位数据的传输。 要注意的是：</p>
+<ul>
+<li><strong>SCLK信号线只由主设备控制，从设备不能控制信号线。同样，在一个基于SPI的设备中，至少有一个主控设备；</strong></li>
+<li><strong>在点对点的通信中，SPI接口不需要进行寻址操作</strong>，且为全双工通信，显得简单高效。在多个从设备的系统中，每个从设备需要独立的使能信号，硬件上比I2C系统要稍微复杂一些。</li>
+</ul>
+<h3 id="🔗-SPI通讯模式"><a href="#🔗-SPI通讯模式" class="headerlink" title="🔗 SPI通讯模式"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E9%80%9A%E8%AE%AF%E6%A8%A1%E5%BC%8F">🔗</a> SPI通讯模式</h3><p>SPI通信有4种不同的模式，不同的从设备可能在出厂是就是配置为某种模式，这是不能改变的；<strong>但我们的通信双方必须是工作在同一模式下，所以我们可以对我们的主设备的SPI模式进行配置，通过CPOL（时钟极性）和CPHA（时钟相位）来控制我们主设备的通信模式</strong>，具体如下： <img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691547894109-66d042c7-fc93-41d6-bc12-b7d4d8195513.png#averageHue=%23adc2e3&clientId=uccf5b65d-3856-4&from=paste&height=328&id=VXGGl&originHeight=358&originWidth=1039&originalType=binary&ratio=1&rotation=0&showTitle=false&size=162986&status=done&style=none&taskId=u85062522-a1f1-4bdf-bb95-5513af35295&title=&width=952" alt="image.png"> <strong>时钟极性CPOL是用来配置SCLK的电平出于哪种状态时是空闲态或者有效态，时钟相位CPHA是用来配置数据采样是在第几个边沿：</strong></p>
+<ul>
+<li><strong>CPOL=0，表示当SCLK=0时处于空闲态，所以有效状态就是SCLK处于高电平时；</strong></li>
+<li><strong>CPOL=1，表示当SCLK=1时处于空闲态，所以有效状态就是SCLK处于低电平时；</strong></li>
+<li><strong>CPHA=0，表示数据采样是在第1个边沿，数据发送在第2个边沿；</strong></li>
+<li><strong>CPHA=1，表示数据采样是在第2个边沿，数据发送在第1个边沿。</strong></li>
+</ul>
+<p>具体四种模式的时序图如下： <img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691543789154-f3d38dab-26ae-4f15-896c-592e25c135eb.png#averageHue=%23f3f3f3&clientId=u96718d7c-5ec0-4&from=paste&id=u6e2ba22d&originHeight=772&originWidth=688&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=udcedfd71-b3b8-4a9f-a850-12a38e78aa4&title=" alt="img"> 对于SPI的四种通讯模式，总结起来，就是：</p>
+<ul>
+<li>CPOL=0，CPHA=0：此时空闲态时，SCLK处于低电平，数据采样是在第1个边沿，也就是SCLK由低电平到高电平的跳变，所以数据采样是在上升沿；</li>
+<li>CPOL=0，CPHA=1：此时空闲态时，SCLK处于低电平，数据发送是在第1个边沿，也就是SCLK由低电平到高电平的跳变，所以数据采样是在下降沿；</li>
+<li>CPOL=1，CPHA=0：此时空闲态时，SCLK处于高电平，数据采集是在第1个边沿，也就是SCLK由高电平到低电平的跳变，所以数据采集是在下降沿；</li>
+<li>CPOL=1，CPHA=1：此时空闲态时，SCLK处于高电平，数据发送是在第1个边沿，也就是SCLK由高电平到低电平的跳变，所以数据采集是在上升沿。</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691547855895-cb683de2-3bcd-4f34-b9c4-1e2031394ba7.png#averageHue=%23c5ccc7&clientId=uccf5b65d-3856-4&from=paste&height=754&id=u77b3e351&originHeight=754&originWidth=1248&originalType=binary&ratio=1&rotation=0&showTitle=false&size=663804&status=done&style=none&taskId=u78c12c3d-b62f-40b1-b4f8-910ced11126&title=&width=1248" alt="image.png"></p>
+<h3 id="🔗-SPI内部工作机制"><a href="#🔗-SPI内部工作机制" class="headerlink" title="🔗 SPI内部工作机制"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E5%86%85%E9%83%A8%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6">🔗</a> SPI内部工作机制</h3><p>下面对照一个SPI单主机与单从机连接图，理解其内部工作机制： <img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691543788944-a345545f-1b01-40c1-8f0d-1bb38823fc5a.png#averageHue=%23f9f9f9&clientId=u96718d7c-5ec0-4&from=paste&id=uaedce4a1&originHeight=325&originWidth=703&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u3f5d25b1-4a9b-4ad3-bc04-974fa40f811&title=" alt="img"></p>
+<ul>
+<li>硬件上为4根线；</li>
+<li><strong>主机和从机都有一个串行移位寄存器，主机通过向它的SPI串行寄存器写入一个字节来发起一次传输；</strong></li>
+<li><strong>串行移位寄存器通过MOSI信号线将字节传送给从机，同时从机也将自己的串行移位寄存器中的内容通过MISO信号线返回给主机。这样，两个移位寄存器中的内容就被交换；</strong></li>
+<li><strong>外设的写操作和读操作是同步完成的。如果只进行写操作，主机只需忽略接收到的字节；反之，若主机要读取从机的一个字节，就必须发送一个空字节来引发从机的传输。</strong></li>
+</ul>
+<p>也就是说：SPI是一个环形总线结构，由CS、SCLK、MISO、MOSI构成，其时序其实很简单，主要是在SCLK的控制下，数据按照<strong>从高位到低位的方式依次移出主机寄存器和从机寄存器，并且依次移入从机寄存器和主机寄存器</strong>。当寄存器中的内容全部移出时，相当于完成了两个寄存器内容的交换。 假设主机的8位寄存器装的是待发送的数据10101010，上升沿发送、下降沿接收、高位先发送。那么第一个上升沿来的时候，主机将会通过MOSI信号线传输给从机最高位1，自身寄存器变成0101010x。同时，MISO信号线会从从机处返回一个数据给主机，那么这时寄存器为0101010MISO，这样在 8个时钟脉冲以后，两个寄存器的内容互相交换一次。这样就完成里一个SPI时序。 这个时候就会有一个疑问，或者说产生一个必然了： 为什么主机发送一个数据给从机，从机就同时通过MISO返回的一个数据给主机呢？ 解释：<strong>主机和从机的发送数据是同时完成的，两者的接收数据也是同时完成的。也就是说，当上升沿主机发送数据的时候，从机也发送了数据。</strong> 所以为了保证主从机正确通信，应使得它们的SPI具有相同的时钟极性和时钟相位。</p>
+<h2 id="🔗-STM32的SPI接口"><a href="#🔗-STM32的SPI接口" class="headerlink" title="🔗 STM32的SPI接口"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#stm32%E7%9A%84spi%E6%8E%A5%E5%8F%A3">🔗</a> STM32的SPI接口</h2><p>SPI可分为主、从两种模式，并且支持全双工模式，所以这也就导致STM32的SPI接口比较复杂。比如：配置SPI为主模式、配置SPI为从模式、配置SPI为单工通信、配置SPI为双工通信等等。</p>
+<h3 id="🔗-SPI接口的框图"><a href="#🔗-SPI接口的框图" class="headerlink" title="🔗 SPI接口的框图"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%A1%86%E5%9B%BE">🔗</a> SPI接口的框图</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691543788995-22d10171-26b0-4517-9aac-b7d239df775b.png#averageHue=%23eaeaea&clientId=u96718d7c-5ec0-4&from=paste&id=u60e7cf5c&originHeight=558&originWidth=709&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u9be25125-0cd9-429f-90c4-8b0724d58a0&title=" alt="img"></p>
+<h3 id="🔗-SPI引脚"><a href="#🔗-SPI引脚" class="headerlink" title="🔗 SPI引脚"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E5%BC%95%E8%84%9A">🔗</a> SPI引脚</h3><p>STM32的SPI接口通过4个引脚与外部器件相连，与标准的SPI协议是一致的：</p>
+<ul>
+<li>MISO：主设备输入/从设备输出引脚。该引脚在从模式下发送数据，在主模式下接收数据；</li>
+<li>MOSI：主设备输出/从设备输入引脚。该引脚在主模式下发送数据，在从模式下接收数据；</li>
+<li>SCK：串口时钟，作为主设备的输入，从设备的输入；</li>
+<li>NSS：从设备选择。这是一个可选的引脚，用来选择主/从设备。它的功能是用来作为“片选引脚”，让主设备可以单独地与特定从设备通讯，避免数据线上的冲突。</li>
+</ul>
+<p>从选择（NSS）脚管理 有2种NSS模式：</p>
+<ul>
+<li>软件NSS模式：可以通过设置SPI_CR1寄存器的SSM位来使能这种模式。在这种模式下NSS引脚可以用作它用，而内部NSS信号电平可以通过写SPI_CR1的SSI位来驱动；</li>
+<li>硬件NSS模式，分两种情况：</li>
+</ul>
+<ol>
+<li>NSS输出被使能：当STM32F10xxx工作为主SPI，并且NSS输出已经通过SPI_CR2寄存器的SSOE位使能，这时NSS引脚被拉低，所有NSS引脚与这个主SPI的NSS引脚相连并配置为硬件NSS的SPI设备，将自动变成从SPI设备。 当一个SPI设备需要发送广播数据，它必须拉低NSS信号，以通知所有其它的设备它是主设备；如果它不能拉低NSS，这意味着总线上有另外一个主设备在通信，这时将产生一个硬件失败错误；</li>
+<li>NSS输出被关闭：允许操作于多主环境。</li>
+</ol>
+<h3 id="🔗-数据帧格式"><a href="#🔗-数据帧格式" class="headerlink" title="🔗 数据帧格式"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#%E6%95%B0%E6%8D%AE%E5%B8%A7%E6%A0%BC%E5%BC%8F">🔗</a> 数据帧格式</h3><ul>
+<li>根据SPI_CR1寄存器中的LSBFIRST位，输出数据位时可以左对齐（MSB对齐标准）也可以右对齐（LSB对齐标准）。</li>
+<li>根据SPI_CR1寄存器的DFF位，每个数据帧可以是8位或是16位。所选择的数据帧格式对发送和/或接收都有效。</li>
+</ul>
+<h3 id="🔗-状态标志"><a href="#🔗-状态标志" class="headerlink" title="🔗 状态标志"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#%E7%8A%B6%E6%80%81%E6%A0%87%E5%BF%97">🔗</a> 状态标志</h3><p>应用程序通过3个状态标志可以完全监控SPI总线的状态：</p>
+<ul>
+<li>发送缓冲器空闲标志（TXE）</li>
+</ul>
+<p>此标志为1时表明发送缓冲器为空，可以写下一个待发送的数据进入缓冲器中。当写入SPI_DR时，TXE标志被清除。</p>
+<ul>
+<li>接收缓冲器非空（RXNE）</li>
+</ul>
+<p>此标志为1时表明在接收缓冲器中包含有效的接收数据。读SPI数据寄存器可以清除此标志。</p>
+<ul>
+<li>忙（Busy）标志</li>
+</ul>
+<p>BSY标志由硬件设置与清除（写入此位无效果），此标志表明SPI通信层的状态。 当它被设置为1时，表明SPI正忙于通信，但有一个例外：在主模式的双向接收模式下（MSTR=1、BDM=1并且BDOE=0），在接收期间BSY标志保持为低。 在软件要关闭SPI模块并进入停机模式(或关闭设备时钟)之前，可以使用BSY标志检测传输是否结束，这样可以避免破坏最后一次传输，因此需要严格按照下述过程执行。</p>
+<h3 id="🔗-SPI中断"><a href="#🔗-SPI中断" class="headerlink" title="🔗 SPI中断"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E4%B8%AD%E6%96%AD">🔗</a> SPI中断</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691543789025-f164fb76-f6bd-4c95-945e-b98868ae1e9a.png#averageHue=%23f2f1f1&clientId=u96718d7c-5ec0-4&from=paste&id=u1a80923f&originHeight=197&originWidth=600&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u9c19c8d8-6ec9-4b1d-92e0-6fc7d98f88e&title=" alt="img"></p>
+<h2 id="🔗-STM32的SPI引脚"><a href="#🔗-STM32的SPI引脚" class="headerlink" title="🔗 STM32的SPI引脚"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#stm32%E7%9A%84spi%E5%BC%95%E8%84%9A">🔗</a> STM32的SPI引脚</h2><h3 id="🔗-SPI引脚位置"><a href="#🔗-SPI引脚位置" class="headerlink" title="🔗 SPI引脚位置"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E5%BC%95%E8%84%9A%E4%BD%8D%E7%BD%AE">🔗</a> SPI引脚位置</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691551000512-56843479-4c5a-4ec7-8c8e-dded8d66d02d.png#averageHue=%23b0c2dc&clientId=ud29df597-7157-4&from=paste&height=276&id=uspXO&originHeight=276&originWidth=690&originalType=binary&ratio=1&rotation=0&showTitle=false&size=113117&status=done&style=none&taskId=u26bda633-21a1-44ee-a924-d11e63343a9&title=&width=690" alt="image.png"> 注：当spi3的引脚被占用时候，SWD模式烧录的话，需要提前按住Reset按键。 SPI1速度比SPI2、SPI3快</p>
+<h3 id="🔗-外设的GPIO配置"><a href="#🔗-外设的GPIO配置" class="headerlink" title="🔗 外设的GPIO配置"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#%E5%A4%96%E8%AE%BE%E7%9A%84gpio%E9%85%8D%E7%BD%AE">🔗</a> 外设的GPIO配置</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691543789436-dd233ae8-5dad-41ea-871c-a7093b26e083.png#averageHue=%23f2f1ef&clientId=u96718d7c-5ec0-4&from=paste&id=u423edbea&originHeight=381&originWidth=705&originalType=url&ratio=1&rotation=0&showTitle=false&status=done&style=none&taskId=u25f3878d-a0db-42e3-860d-9c7cf1667f0&title=" alt="img"></p>
+<h3 id="🔗-时钟控制逻辑"><a href="#🔗-时钟控制逻辑" class="headerlink" title="🔗 时钟控制逻辑"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#%E6%97%B6%E9%92%9F%E6%8E%A7%E5%88%B6%E9%80%BB%E8%BE%91">🔗</a> 时钟控制逻辑</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691551606549-0a349be9-3b22-4620-a2cc-49b902e9a6a4.png#averageHue=%23aac3e9&clientId=ud29df597-7157-4&from=paste&height=678&id=u31fc0712&originHeight=701&originWidth=1082&originalType=binary&ratio=1&rotation=0&showTitle=false&size=447485&status=done&style=none&taskId=u72291c3e-407c-41ab-8ba1-a2d6fb055fb&title=&width=1047" alt="image.png"></p>
+<h3 id="🔗-数据控制逻辑"><a href="#🔗-数据控制逻辑" class="headerlink" title="🔗 数据控制逻辑"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#%E6%95%B0%E6%8D%AE%E6%8E%A7%E5%88%B6%E9%80%BB%E8%BE%91">🔗</a> 数据控制逻辑</h3><ul>
+<li>通过写/读spi的“数据寄存器DR”把数据填充到发送缓冲区中/获取缓冲区的内容。</li>
+<li>其中数据帧长度可以通过控制寄存器CR1的“DFF”配置成8位或者16位；配置“LSBFIRST”可以选择MSB还是LSB</li>
+</ul>
+<h3 id="🔗-过程概览"><a href="#🔗-过程概览" class="headerlink" title="🔗 过程概览"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#%E8%BF%87%E7%A8%8B%E6%A6%82%E8%A7%88">🔗</a> 过程概览</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/2896791/1691553314249-a2ad2bd9-7f78-498c-84ad-032c607a4682.png#averageHue=%23d4d09f&clientId=ud29df597-7157-4&from=paste&height=468&id=u2b439f49&originHeight=734&originWidth=1271&originalType=binary&ratio=1&rotation=0&showTitle=false&size=539584&status=done&style=none&taskId=u1f28517e-1a6a-4035-ae84-095962de2d3&title=&width=811" alt="image.png"></p>
+<h2 id="🔗-SPI相关配置库函数"><a href="#🔗-SPI相关配置库函数" class="headerlink" title="🔗 SPI相关配置库函数"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%BA%93%E5%87%BD%E6%95%B0">🔗</a> SPI相关配置库函数</h2><ul>
+<li>1个初始化函数</li>
+</ul>
+<pre><code class="c">void SPI_Init(SPI_TypeDef* SPIx, SPI_InitTypeDef* SPI_InitStruct);
+</code></pre>
+<p>作用：初始化SPI的相关参数，比如方向（全双工）、主从模式、数据大小、CPOL、CPHA、片选软件模式、预分频系数等。</p>
+<ul>
+<li>3个使能函数</li>
+</ul>
+<pre><code class="c">void SPI_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState);
+void SPI_I2S_ITConfig(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT, FunctionalState NewState);
+void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState);
+</code></pre>
+<p>作用：使能SPI接口；使能SPI中断；使能SPI的DMA功能。</p>
+<ul>
+<li>2个数据传输函数</li>
+</ul>
+<pre><code class="c">void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data);
+uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx);
+</code></pre>
+<p>作用：分别用于SPI传输数据、接收数据。</p>
+<ul>
+<li>4个状态位函数</li>
+</ul>
+<pre><code class="c">FlagStatus SPI_I2S_GetFlagStatus(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG);
+void SPI_I2S_ClearFlag(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG);
+ITStatus SPI_I2S_GetITStatus(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT);
+void SPI_I2S_ClearITPendingBit(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT);
+</code></pre>
+<p>作用：前两者用于获得和清除SPI的各种状态位；后两者则针对SPI的中断标志位。</p>
+<h2 id="🔗-SPI一般步骤"><a href="#🔗-SPI一般步骤" class="headerlink" title="🔗 SPI一般步骤"></a><a target="_blank" rel="noopener" href="https://codeup.aliyun.com/5ee89d26b88b559999ecee2c/deepspace/daptkey/blob/master/SPI.md#spi%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4">🔗</a> SPI一般步骤</h2><p>实验目标：利用SPI2进行初始化等操作。</p>
+<ul>
+<li>配置相关引脚的复用功能，使能SPIx时钟。调用函数：void GPIO_Init()；</li>
+<li><strong>初始化SPIx，设置SPIx工作模式。调用函数：void SPI_Init()；</strong></li>
+<li><strong>使能SPIx。调用函数：void SPI_Cmd()；</strong></li>
+<li><strong>SPI传输数据。调用函数：void SPI_I2S_SendData()；uint16_t SPI_I2S_ReceiveData()；</strong></li>
+<li><strong>查看SPI传输状态。调用函数：SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE)。</strong></li>
+<li>下面按照这个一般步骤来进行一个简单的SPI程序：</li>
+</ul>
+<pre><code class="c">void SPI2_Init(void)
+&#123;
+     GPIO_InitTypeDef GPIO_InitStructure;
+  SPI_InitTypeDef  SPI_InitStructure;
+    RCC_APB2PeriphClockCmd(    RCC_APB2Periph_GPIOB, ENABLE );//PORTB时钟使能 
+    RCC_APB1PeriphClockCmd(    RCC_APB1Periph_SPI2,  ENABLE );//SPI2时钟使能     
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;  //PB13/14/15复用推挽输出 
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOB, &amp;GPIO_InitStructure);//初始化GPIOB
+     GPIO_SetBits(GPIOB,GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);  //PB13/14/15上拉
+    SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;  //设置SPI单向或者双向的数据模式:SPI设置为双线双向全双工
+    SPI_InitStructure.SPI_Mode = SPI_Mode_Master;        //设置SPI工作模式:设置为主SPI
+    SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;        //设置SPI的数据大小:SPI发送接收8位帧结构
+    SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;        //串行同步时钟的空闲状态为高电平
+    SPI_InitStructure.SPI_CPHA = SPI_CPHA_2Edge;    //串行同步时钟的第二个跳变沿（上升或下降）数据被采样
+    SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;        //NSS信号由硬件（NSS管脚）还是软件（使用SSI位）管理:内部NSS信号有SSI位控制
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_256;        //定义波特率预分频的值:波特率预分频值为256
+    SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;    //指定数据传输从MSB位还是LSB位开始:数据传输从MSB位开始
+    SPI_InitStructure.SPI_CRCPolynomial = 7;    //CRC值计算的多项式
+    SPI_Init(SPI2, &amp;SPI_InitStructure);  //根据SPI_InitStruct中指定的参数初始化外设SPIx寄存器
+    SPI_Cmd(SPI2, ENABLE); //使能SPI外设
+    SPI2_ReadWriteByte(0xff);//启动传输         
+&#125;   
+
+//SPI 速度设置函数
+//SpeedSet:
+//SPI_BaudRatePrescaler_2   2分频   
+
+//SPI_BaudRatePrescaler_8   8分频   
+
+//SPI_BaudRatePrescaler_16  16分频  
+
+//SPI_BaudRatePrescaler_256 256分频 
+
+void SPI2_SetSpeed(u8 SPI_BaudRatePrescaler)
+
+&#123;
+  assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_BaudRatePrescaler));
+
+    SPI2-&gt;CR1&amp;=0XFFC7;
+    SPI2-&gt;CR1|=SPI_BaudRatePrescaler;    //设置SPI2速度 
+    SPI_Cmd(SPI2,ENABLE); 
+&#125; 
+//SPIx 读写一个字节
+//TxData:要写入的字节
+//返回值:读取到的字节
+u8 SPI2_ReadWriteByte(u8 TxData)
+&#123;        
+
+    u8 retry=0;                     
+    while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) //检查指定的SPI标志位设置与否:发送缓存空标志位
+        &#123;
+        retry++;
+        if(retry&gt;200)return 0;
+        &#125;              
+
+    SPI_I2S_SendData(SPI2, TxData); //通过外设SPIx发送一个数据
+    retry=0;
+    while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) //检查指定的SPI标志位设置与否:接受缓存非空标志位
+        &#123;
+        retry++;
+        if(retry&gt;200)return 0;
+        &#125;                                  
+    return SPI_I2S_ReceiveData(SPI2); //返回通过SPIx最近接收的数据
+</code></pre>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
