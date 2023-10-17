@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                ELECTRON+VUE
+            </div>
+            <div class="post-meta">
+                2023-10-17
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h1 id="ELECTRON-VUE"><a href="#ELECTRON-VUE" class="headerlink" title="ELECTRON+VUE"></a>ELECTRON+VUE</h1><h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><h2 id="创建-vue3-项目"><a href="#创建-vue3-项目" class="headerlink" title="创建 vue3 项目"></a>创建 vue3 项目</h2><pre><code class="bash">npm create vite@latest
+
+# -- Vue
+# -- Customize with create-vue
+# -- Typecript -&gt; Yes
+# -- JSX Support -&gt; No
+# -- Router xxxx -&gt; Yes
+# -- Pinia -&gt; Yes
+# -- Vitest xxxx -&gt; No
+# -- End ot End -&gt; No
+# -- ESlint -&gt; Yes
+# -- Prettier -&gt; Yes
+
+cd &lt;project-name&gt;
+
+npm install
+npm run dev
+</code></pre>
+<h2 id="加入-electron"><a href="#加入-electron" class="headerlink" title="加入 electron"></a>加入 electron</h2><pre><code class="bash">npm install electron --save-dev
+</code></pre>
+<h2 id="新建-electron-main-目录"><a href="#新建-electron-main-目录" class="headerlink" title="新建 electron / main 目录"></a>新建 electron / main 目录</h2><h3 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h3><pre><code class="jsx">const &#123; app, protocol, BrowserWindow, globalShortcut &#125; = require(&#39;electron&#39;)
+// 需在当前文件内开头引入 Node.js 的 &#39;path&#39; 模块
+const path = require(&#39;path&#39;)
+ 
+app.commandLine.appendSwitch(&quot;--ignore-certificate-errors&quot;, &quot;true&quot;);
+// Scheme must be registered before the app is ready
+protocol.registerSchemesAsPrivileged([
+    &#123; scheme: &quot;app&quot;, privileges: &#123; secure: true, standard: true &#125; &#125;
+]);
+ 
+const createWindow = () =&gt; &#123;
+    const win = new BrowserWindow(&#123;
+        minWidth: 960,
+        minHeight: 540,
+        width: 960,
+        height: 540,
+        //窗口是否在屏幕居中. 默认值为 false
+        center: true,
+        //设置为 false 时可以创建一个无边框窗口 默认值为 true。
+        frame: false,
+        //窗口是否在创建时显示。 默认值为 true。
+        show: true,
+        webPreferences: &#123;
+            nodeIntegration: true,
+            nodeIntegrationInWorker: true,
+            preload: path.join(__dirname, &#39;preload.js&#39;),
+            webSecurity: false,
+        &#125;
+    &#125;)
+    win.setMenu(null)
+    if (app.isPackaged) &#123;
+        win.loadURL(`file://$&#123;path.join(__dirname, &#39;../dist/index.html&#39;)&#125;`)
+    &#125; else &#123;
+        win.loadURL(&#39;http://127.0.0.1:5173/&#39;)
+                // 如果显示白屏则使用下面的地址
+        // win.loadURL(&#39;http://localhost:5173/&#39;)
+        win.webContents.openDevTools()
+    &#125;
+    globalShortcut.register(&quot;CommandOrControl+Shift+i&quot;, function () &#123;
+        win.webContents.openDevTools();
+    &#125;);
+ 
+&#125;
+ 
+app.whenReady().then(() =&gt; &#123;
+ 
+    createWindow()
+ 
+    app.on(&#39;activate&#39;, () =&gt; &#123;
+        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    &#125;)
+&#125;)
+ 
+app.on(&#39;window-all-closed&#39;, () =&gt; &#123;
+    if (process.platform !== &#39;darwin&#39;) app.quit()
+&#125;)
+</code></pre>
+<h3 id="preload-js"><a href="#preload-js" class="headerlink" title="preload.js"></a>preload.js</h3><pre><code class="jsx">const &#123; contextBridge, ipcRenderer &#125; = require(&#39;electron&#39;)
+
+// 最小化
+const minimizeWindow = () =&gt; &#123;
+  ipcRenderer.send(&#39;window-min&#39;)
+&#125;
+
+// 最大化
+const maximizeWindow = () =&gt; &#123;
+  ipcRenderer.send(&#39;window-max&#39;)
+&#125;
+
+// 关闭窗口
+const closeWindow = () =&gt; &#123;
+  ipcRenderer.send(&#39;window-close&#39;)
+&#125;
+
+// 裁剪图片
+const resizeImage = async (resizeWidth, resizeHeight, editorPicData) =&gt; &#123;
+  const data = await ipcRenderer.invoke(&#39;pic-data-editor&#39;, resizeWidth, resizeHeight, editorPicData)
+  return data
+&#125;
+
+// 生成数据
+const generateResultArray = async ( picData, configArray0,  configArray1, configArray2, configArray3) =&gt; &#123;
+  const data = ipcRenderer.invoke(&#39;pic-data-parse&#39;, picData, configArray0,  configArray1, configArray2, configArray3)
+  return data
+&#125;
+
+contextBridge.exposeInMainWorld(&#39;myApi&#39;, &#123;
+  minimizeWindow,
+  maximizeWindow,
+  closeWindow,
+  resizeImage,
+  generateResultArray
+&#125;)
+// 所有的 Node.js API接口 都可以在 preload 进程中被调用.
+// 它拥有与Chrome扩展一样的沙盒。
+window.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; &#123;
+  const replaceText = (selector, text) =&gt; &#123;
+    const element = document.getElementById(selector)
+    if (element) element.innerText = text
+  &#125;
+
+  for (const dependency of [&#39;chrome&#39;, &#39;node&#39;, &#39;electron&#39;]) &#123;
+    replaceText(`$&#123;dependency&#125;-version`, process.versions[dependency])
+  &#125;
+&#125;)
+</code></pre>
+<h3 id="在-package-json-引入-electron-的入口文件-main-js"><a href="#在-package-json-引入-electron-的入口文件-main-js" class="headerlink" title="在 package.json 引入 electron 的入口文件 main.js"></a>在 package.json 引入 electron 的入口文件 main.js</h3><pre><code class="json">&quot;name&quot;: &quot;xxxxxx&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;private&quot;: true,
+&quot;main&quot;: &quot;electron/main/main.js&quot;,
+&quot;author&quot;: &quot;iLx1&quot;,
+&quot;description&quot;: &quot;xxxxxxxx&quot;,
+&quot;scripts&quot;: &#123;
+    &quot;start&quot;: &quot;vite | electron .&quot;,
+    &quot;dev&quot;: &quot;vite&quot;,
+    &quot;build&quot;: &quot;run-p type-check \&quot;build-only &#123;@&#125;\&quot; --&quot;,
+    &quot;preview&quot;: &quot;vite preview&quot;,
+    &quot;build-only&quot;: &quot;vite build&quot;,
+    &quot;type-check&quot;: &quot;vue-tsc --noEmit -p tsconfig.app.json --composite false&quot;,
+    &quot;electron:build&quot;: &quot;vite build &amp;&amp; electron-builder&quot;
+&#125;,
+......
+</code></pre>
+<p>执行下面命令看显示的效果</p>
+<pre><code class="shell">pnpm start / npm run start
+</code></pre>
+<h2 id="创建-electron-controller"><a href="#创建-electron-controller" class="headerlink" title="创建 electron/controller"></a>创建 electron/controller</h2><h3 id="窗口工具的监听与执行"><a href="#窗口工具的监听与执行" class="headerlink" title="窗口工具的监听与执行"></a>窗口工具的监听与执行</h3><p>electron/controller/windowControl.js</p>
+<pre><code class="js">const &#123; ipcMain, BrowserWindow &#125; = require(&#39;electron&#39;)
+// 最小化
+ipcMain.on(&#39;window-min&#39;, event =&gt; &#123;
+  const webContent = event.sender
+  const win = BrowserWindow.fromWebContents(webContent)
+  win.minimize()
+&#125;)
+
+// 最大化
+ipcMain.on(&#39;window-max&#39;, event =&gt; &#123;
+  const webContent = event.sender
+  const win = BrowserWindow.fromWebContents(webContent)
+  if (win.isMaximized()) &#123;
+    win.restore()
+  &#125; else &#123;
+    win.maximize()
+  &#125;
+&#125;)
+
+// 关闭
+ipcMain.on(&#39;window-close&#39;, event =&gt; &#123;
+  const webContent = event.sender
+  const win = BrowserWindow.fromWebContents(webContent)
+  win.close()
+&#125;)
+</code></pre>
+<h3 id="在-main-js-入口文件中引入进行监听"><a href="#在-main-js-入口文件中引入进行监听" class="headerlink" title="在 main.js 入口文件中引入进行监听"></a>在 main.js 入口文件中引入进行监听</h3><p>main.js</p>
+<pre><code class="js">require(&#39;../controller/windowControl.js&#39;)
+</code></pre>
+<h3 id="系统托盘"><a href="#系统托盘" class="headerlink" title="系统托盘"></a>系统托盘</h3><p>electron/controller/tray.js</p>
+<pre><code class="js">// 创建系统托盘
+const &#123; Tray, Menu &#125; = require(&#39;electron&#39;)
+// const &#123; ipcRenderer &#125; = require(&#39;electron&#39;)
+const path = require(&#39;path&#39;)
+
+const createTray = (app, win) =&gt; &#123;
+  let tray = new Tray(path.join(__dirname, &#39;../public/favicon.ico&#39;))
+  // if (process.env.NODE_ENV === &#39;development&#39;) &#123;
+  // tray = new Tray(path.join(__dirname, &#39;../public/favicon.ico&#39;))
+  // &#125; else &#123;
+  // tray = new Tray(path.join(path.dirname(app.getPath(&#39;exe&#39;)), &#39;/resources/public/logo.ico&#39;))
+  // &#125;
+  tray.setToolTip(&#39;xxxxx&#39;) // 鼠标放在托盘图标上的提示信息
+  tray.on(&#39;click&#39;, (e) =&gt; &#123;
+    if (e.shiftKey) &#123;
+      app.quit()
+    &#125; else &#123;
+      win.show()
+    &#125;
+  &#125;)
+  tray.setContextMenu(
+    Menu.buildFromTemplate([
+      &#123;
+        label: &#39;退出&#39;,
+        click: () =&gt; &#123;
+          app.quit()
+        &#125;
+      &#125;
+    ])
+  )
+&#125;
+module.exports = createTray
+</code></pre>
+<p>main.js</p>
+<pre><code class="js">require(&#39;../controller/tray.js&#39;)
+
+const createWindow = () =&gt; &#123;
+    ...
+    createTray(app, win)
+&#125;
+</code></pre>
+<h2 id="基础开发"><a href="#基础开发" class="headerlink" title="基础开发"></a>基础开发</h2><h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/app">https://www.electronjs.org/zh/docs/latest/api/app</a></p>
+<h1 id="electron打包"><a href="#electron打包" class="headerlink" title="electron打包"></a>electron打包</h1><p>安装electron打包开发依赖</p>
+<blockquote>
+<p>最新版本：npm install –save-dev electron-builder</p>
+<p>指定版本：npm install –save-dev <a href="mailto:&#x65;&#108;&#101;&#99;&#116;&#x72;&#111;&#x6e;&#45;&#x62;&#117;&#x69;&#108;&#100;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;">&#x65;&#108;&#101;&#99;&#116;&#x72;&#111;&#x6e;&#45;&#x62;&#117;&#x69;&#108;&#100;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;</a></p>
+</blockquote>
+<h3 id="package-json-中配置"><a href="#package-json-中配置" class="headerlink" title="package.json 中配置"></a>package.json 中配置</h3><pre><code class="json">&quot;build&quot;: &#123;
+    &quot;appId&quot;: &quot;com.xxxxx.xxxx&quot;,//包名  
+    &quot;productName&quot;: &quot;xxxxxx&quot;, //项目名 这也是生成的exe文件的前缀名
+    &quot;asar&quot;: false,
+    &quot;copyright&quot;: &quot;Copyright © 2022 electron&quot;,//版权  信息
+    &quot;publish&quot;: &#123;
+      &quot;provider&quot;: &quot;github&quot;,// 服务器提供商 也可以是GitHub等等
+      &quot;url&quot;: &quot;&quot;// 服务器地址
+      &quot;owner&quot;: &quot;iLx11&quot;,
+      &quot;repo&quot;: &quot;screen-go&quot;
+    &#125;,
+    &quot;directories&quot;: &#123; // 输出文件夹
+      &quot;output&quot;: &quot;dist_electron/&quot;
+    &#125;,
+    &quot;extraResources&quot;: [
+      &#123;
+        &quot;from&quot;: &quot;./public&quot;,
+        &quot;to&quot;: &quot;./public&quot;
+      &#125;
+    ],
+    &quot;files&quot;: [ // 打包的electron需要包含的文件,一般就是与electron的有关的打包进去
+      &quot;./dist&quot;, // vue 打包文件
+      &quot;./electron&quot; // electron 主文件
+    ],
+    &quot;mac&quot;: &#123;
+      &quot;artifactName&quot;: &quot;$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;&quot;,
+      &quot;target&quot;: [
+        &quot;dmg&quot;
+      ]
+    &#125;,
+    &quot;win&quot;: &#123;
+      &quot;icon&quot;: &quot;public/favicon.ico&quot;,
+      &quot;target&quot;: [
+        &#123;
+          &quot;target&quot;: &quot;nsis&quot;,
+          &quot;arch&quot;: [
+            &quot;ia32&quot;
+          ]
+        &#125;
+      ],
+      &quot;artifactName&quot;: &quot;$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;&quot;
+    &#125;,
+    &quot;nsis&quot;: &#123;
+      &quot;oneClick&quot;: false,// 是否一键安装
+      &quot;perMachine&quot;: false,
+      &quot;allowToChangeInstallationDirectory&quot;: true,// 允许修改安装目录
+      &quot;deleteAppDataOnUninstall&quot;: false,
+      &quot;installerIcon&quot;: &quot;public/favicon.ico&quot;,// 安装图标
+      &quot;uninstallerIcon&quot;: &quot;public/favicon.ico&quot;,// 创建桌面图标
+      &quot;createDesktopShortcut&quot;: true,// 创建桌面图标
+      &quot;createStartMenuShortcut&quot;: true,// 创建开始菜单图标
+      &quot;shortcutName&quot;: &quot;xxxxx&quot; // 图标名称
+    &#125;,
+    &quot;releaseInfo&quot;: &#123;
+      &quot;releaseNotes&quot;: &quot;版本更新的具体内容&quot;
+    &#125;
+  &#125;
+</code></pre>
+<h3 id="执行打包"><a href="#执行打包" class="headerlink" title="执行打包"></a>执行打包</h3><pre><code class="shell">pnpm electron:build / npm run electron:build
+</code></pre>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43239880/article/details/129563632?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_43239880/article/details/129563632?spm=1001.2014.3001.5501</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/tutorial/ipc">https://www.electronjs.org/zh/docs/latest/tutorial/ipc</a></p>
+<h1 id="问题与解决"><a href="#问题与解决" class="headerlink" title="问题与解决"></a>问题与解决</h1><p>electron 打包_桌面端框架Electron使用问题整理和总结</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39607450/article/details/110647391">https://blog.csdn.net/weixin_39607450/article/details/110647391</a></p>
+<p>vue3+vite assets动态引入图片的三种方法及解决打包后图片路径错误不显示的问题</p>
+<p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/278408.htm">https://www.jb51.net/article/278408.htm</a></p>
+<p>vite Some chunks are larger than 500 kBs after minification. Consider: - Using dynamic import()</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45284938/article/details/129707796">https://blog.csdn.net/qq_45284938/article/details/129707796</a></p>
+<p>Electron报错Unable to load preload script</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/s5s5s5s5s/article/details/127493590">https://blog.csdn.net/s5s5s5s5s/article/details/127493590</a></p>
+<p>【Electron】require和contextBridge导致的contextIsolation相悖问题</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41568995/article/details/120352394">https://blog.csdn.net/weixin_41568995/article/details/120352394</a></p>
+<p>异步功能+ await + setTimeout的组合</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/sof/171603">https://cloud.tencent.com/developer/ask/sof/171603</a></p>
+<p>Electron+Vite渲染进程无法import内置模块的问题</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/540056695">https://zhuanlan.zhihu.com/p/540056695</a></p>
+<p>Error: Module “crypto“ has been externalized for browser compatibility and cannot be accessed in …</p>
+<p><a target="_blank" rel="noopener" href="https://codeantenna.com/a/prLQN2PBl9">https://codeantenna.com/a/prLQN2PBl9</a></p>
+<p>解决electron中出现Uncaught ReferenceError: require is not defined</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_53033364/article/details/131669218">https://blog.csdn.net/weixin_53033364/article/details/131669218</a></p>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
