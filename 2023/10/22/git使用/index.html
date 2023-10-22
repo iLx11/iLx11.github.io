@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo post-header-logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                git使用
+            </div>
+            <div class="post-meta">
+                2023-10-22
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><p>基本使用</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/576368060">https://zhuanlan.zhihu.com/p/576368060</a></p>
+<p>两个速查表</p>
+<p><a target="_blank" rel="noopener" href="https://cheatography.com/milefashi/cheat-sheets/git-cheatssheet/">https://cheatography.com/milefashi/cheat-sheets/git-cheatssheet/</a></p>
+<p><a target="_blank" rel="noopener" href="https://cheatography.com/itsellej/cheat-sheets/git-commands/">https://cheatography.com/itsellej/cheat-sheets/git-commands/</a></p>
+<h2 id="生成-SSH-key-步骤"><a href="#生成-SSH-key-步骤" class="headerlink" title="生成 SSH key 步骤"></a>生成 SSH key 步骤</h2><p>GitHub 官网上注册一个账号，然后桌面右键选择 Git Bash Here，进行账号配置，命</p>
+<pre><code class="bash"># 配置用户名(&quot;username&quot;是自己GitHub上的用户名)
+$ git config --global user.name &quot;username&quot;
+# 配置邮箱(&quot;username@email.com&quot;是注册GitHub账号时所用的邮箱)
+$ git config --global user.email &quot;username@email.com&quot;
+</code></pre>
+<ul>
+<li>执行完成上述命令以后，查看是否配置成功。如果成功，会显示所配置的用户名和邮箱，命令：</li>
+</ul>
+<pre><code>$ git config --global --list
+</code></pre>
+<ul>
+<li>检查电脑是否已经有 SSH key，在 Git Bash Here 中输入命令：</li>
+</ul>
+<pre><code class="bash"># 这两个命令就是检查是否已经存在 id_rsa（私钥） 或 id_dsa.pub（公钥） 文件
+$ cd ~/.ssh
+
+*# 输完上边命令回车*
+$ ls
+</code></pre>
+<ul>
+<li>执行以下命令生成 ssh-key</li>
+</ul>
+<pre><code class="bash">*# 生成 ssh，ssh-keygen 命令中间无空格*
+$ ssh-keygen -t rsa
+</code></pre>
+<ul>
+<li>运行上面那条命令后会让你输入一个文件名，用于保存刚才生成的 SSH key 代码，遇到下边命令直接按回车就可以：</li>
+</ul>
+<pre><code class="bash">Generating public/private rsa key pair.
+*# Enter file in which to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]*
+</code></pre>
+<ul>
+<li>接着又会提示你输入两次密码（该密码是你 push 文件的时候要输入的密码，而不是 GitHub 管理者的密码），可以不输入密码，直接按回车。那么 push 的时候就不需要输入密码，直接提交到 GitHub 上了</li>
+</ul>
+<pre><code class="bash">Enter passphrase **(**empty **for** no passphrase**)**: 
+*# Enter same passphrase again:*
+</code></pre>
+<ul>
+<li>然后会有如下代码提示，这说明 SSH key 已经创建成功，下一步只需要添加到 GitHub 的 SSH key 上就可以，生成成功后，会有如图3.3所示的：</li>
+</ul>
+<pre><code class="bash">Your identification has been saved in /c/Users/you/.ssh/id_rsa.
+*# Your public key has been saved in /c/Users/you/.ssh/id_rsa.pub.# The key fingerprint is:# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db username@email.com*
+</code></pre>
+<h1 id="一个新仓库"><a href="#一个新仓库" class="headerlink" title="一个新仓库"></a>一个新仓库</h1><h2 id="本地三步走"><a href="#本地三步走" class="headerlink" title="本地三步走"></a>本地三步走</h2><pre><code class="bash">git init
+
+# git add &lt;file-name&gt;
+git add . 
+
+git commit -m &quot;frist_commit&quot;
+</code></pre>
+<h2 id="远程两步走"><a href="#远程两步走" class="headerlink" title="远程两步走"></a>远程两步走</h2><pre><code class="bash"># origin -&gt; remote name
+git remote add origin git@github.com:iLx11/git-test.git
+
+# &#39;-u&#39; 为首次提交，之后提交就不加了
+git push -u origin master
+</code></pre>
+<h2 id="测试一个新功能"><a href="#测试一个新功能" class="headerlink" title="测试一个新功能"></a>测试一个新功能</h2><pre><code class="bash"># 添加分支，当然也可以直接在主分支里写，如果是自己的项目
+git branch main
+
+# 切换到此分支
+git checkout/switch main
+
+# 之后与本地三步走的流程一致
+</code></pre>
+<p>将新分支推送到远程仓库</p>
+<pre><code class="bash">git push &lt;remote-name&gt;  main
+</code></pre>
+<p>在 github 上也会出现一个新的分支，与主分支完全分开</p>
+<p>可以用合起来的命令完成创建并转到分支</p>
+<pre><code class="bash">git checkout -b main
+</code></pre>
+<p>合并其他分支到主分支，但是当前分支一点要在主分支上</p>
+<pre><code class="bash">git checkout master
+
+# master 分支中
+git merge main
+</code></pre>
+<h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><pre><code class="bash"># 看所有提交的版本
+git log
+
+# 恢复指定的版本，但不删除已经提交的几个版本，和工作区的未提交的代码
+git reset --soft
+
+# 恢复指定的版本，删除此版本之后已经提交过的版本，但不删除工作区
+git reset --mixed
+
+# 恢复指定的版本，并删除此版本之后已经提交过的版本，并删除工作区的代码
+git reset --hard (谨慎）
+</code></pre>
+<h2 id="参考、学习或二次开发-github-上心仪的项目"><a href="#参考、学习或二次开发-github-上心仪的项目" class="headerlink" title="参考、学习或二次开发 github 上心仪的项目"></a>参考、学习或二次开发 github 上心仪的项目</h2><p>在项目的页面找到 code 按钮，点击后可以看见最上面的 clone，然后复制下面的链接，https 或 ssh 都可以</p>
+<pre><code class="bash"># 然后在本地找一个稳重的文件夹里打开 git-bash
+git clone &lt;上面复制的网址&gt;
+
+# 然后就可以自由学习了
+</code></pre>
+<h2 id="多端开发同一项目"><a href="#多端开发同一项目" class="headerlink" title="多端开发同一项目"></a>多端开发同一项目</h2><p>首先在 github 上需要添加不同端 ssh 以实现在不同端开发并提交代码</p>
+<p>任意一端开发完之后，正常走本地三部和远程两部流程</p>
+<p>另一端要开发时，github 上的代码已经更新，所以需要同步一下</p>
+<pre><code class="bash"># 也就是所谓的把代码‘拉’下来了
+git pull &lt;origin-name&gt; master (看具体需要哪个分支）
+
+# 如果遇到没有更改的话
+git log
+
+git reset --hard xxxxxx
+</code></pre>
+<h2 id="一个项目同步到不同的远程仓库"><a href="#一个项目同步到不同的远程仓库" class="headerlink" title="一个项目同步到不同的远程仓库"></a>一个项目同步到不同的远程仓库</h2><p>这个意思是把一个项目放到多个不同的远程仓库，像除了 github 之外的 gitee， coding， 阿里云之类的代码管理平台</p>
+<pre><code class="bash"># 也就是远程两步走的流程走很多次，然后每次换个名字
+git remote add github xxxxxxxx
+git remote add gitee xxxxxxxx
+...
+
+# 然后看一下已经添加的所有的远程仓库
+git remote -v
+
+git push &lt;remote-name&gt; master
+</code></pre>
+<p>同步多个远程仓库</p>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
