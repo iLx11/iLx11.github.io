@@ -168,7 +168,7 @@
                 
                     <div class="post-header">
     <div class="themePage2">Light</div>
-    <a class="logo" href="/">iLx1</a>
+    <a class="logo post-header-logo" href="/">iLx1</a>
     <a class="go-home" href="/">
         <svg width="8" height="14" viewBox="0 0 8 14">
             <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
@@ -188,7 +188,8 @@
             
                 <hr>
                 <div class="post-md">
-                    <h1 id="ELECTRON-VUE"><a href="#ELECTRON-VUE" class="headerlink" title="ELECTRON+VUE"></a>ELECTRON+VUE</h1><h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><h2 id="创建-vue3-项目"><a href="#创建-vue3-项目" class="headerlink" title="创建 vue3 项目"></a>创建 vue3 项目</h2><pre><code class="bash">npm create vite@latest
+                    <h1 id="ELECTRON-VUE"><a href="#ELECTRON-VUE" class="headerlink" title="ELECTRON+VUE"></a>ELECTRON+VUE</h1><h3 id="项目模板"><a href="#项目模板" class="headerlink" title="项目模板"></a>项目模板</h3><p><a target="_blank" rel="noopener" href="https://github.com/iLx11/electron-vue3-template">https://github.com/iLx11/electron-vue3-template</a></p>
+<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><h2 id="创建-vue3-项目-vite"><a href="#创建-vue3-项目-vite" class="headerlink" title="创建 vue3 项目(vite)"></a>创建 vue3 项目(vite)</h2><pre><code class="bash">npm create vite@latest
 
 # -- Vue
 # -- Customize with create-vue
@@ -208,7 +209,8 @@ npm run dev
 </code></pre>
 <h2 id="加入-electron"><a href="#加入-electron" class="headerlink" title="加入 electron"></a>加入 electron</h2><pre><code class="bash">npm install electron --save-dev
 </code></pre>
-<h2 id="新建-electron-main-目录"><a href="#新建-electron-main-目录" class="headerlink" title="新建 electron / main 目录"></a>新建 electron / main 目录</h2><h3 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h3><pre><code class="jsx">const &#123; app, protocol, BrowserWindow, globalShortcut &#125; = require(&#39;electron&#39;)
+<h2 id="新建-electron-main-目录"><a href="#新建-electron-main-目录" class="headerlink" title="新建 electron / main 目录"></a>新建 electron / main 目录</h2><h3 id="electron-main-main-js"><a href="#electron-main-main-js" class="headerlink" title="electron / main/main.js"></a>electron / main/main.js</h3><p>electron 的入口文件，创建主窗口并监听事件</p>
+<pre><code class="jsx">const &#123; app, protocol, BrowserWindow, globalShortcut &#125; = require(&#39;electron&#39;)
 // 需在当前文件内开头引入 Node.js 的 &#39;path&#39; 模块
 const path = require(&#39;path&#39;)
  
@@ -242,7 +244,7 @@ const createWindow = () =&gt; &#123;
         win.loadURL(`file://$&#123;path.join(__dirname, &#39;../dist/index.html&#39;)&#125;`)
     &#125; else &#123;
         win.loadURL(&#39;http://127.0.0.1:5173/&#39;)
-                // 如果显示白屏则使用下面的地址
+        // 如果显示白屏则使用下面的地址
         // win.loadURL(&#39;http://localhost:5173/&#39;)
         win.webContents.openDevTools()
     &#125;
@@ -265,7 +267,8 @@ app.on(&#39;window-all-closed&#39;, () =&gt; &#123;
     if (process.platform !== &#39;darwin&#39;) app.quit()
 &#125;)
 </code></pre>
-<h3 id="preload-js"><a href="#preload-js" class="headerlink" title="preload.js"></a>preload.js</h3><pre><code class="jsx">const &#123; contextBridge, ipcRenderer &#125; = require(&#39;electron&#39;)
+<h3 id="electron-main-preload-js"><a href="#electron-main-preload-js" class="headerlink" title="electron / main/preload.js"></a>electron / main/preload.js</h3><p>渲染进程与主进程以此文件为媒介进行交流</p>
+<pre><code class="jsx">const &#123; contextBridge, ipcRenderer &#125; = require(&#39;electron&#39;)
 
 // 最小化
 const minimizeWindow = () =&gt; &#123;
@@ -317,7 +320,7 @@ window.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; &#123;
 <h3 id="在-package-json-引入-electron-的入口文件-main-js"><a href="#在-package-json-引入-electron-的入口文件-main-js" class="headerlink" title="在 package.json 引入 electron 的入口文件 main.js"></a>在 package.json 引入 electron 的入口文件 main.js</h3><pre><code class="json">&quot;name&quot;: &quot;xxxxxx&quot;,
 &quot;version&quot;: &quot;1.0.0&quot;,
 &quot;private&quot;: true,
-&quot;main&quot;: &quot;electron/main/main.js&quot;,
+&quot;main&quot;: &quot;electron/main/main.js&quot;, // here
 &quot;author&quot;: &quot;iLx1&quot;,
 &quot;description&quot;: &quot;xxxxxxxx&quot;,
 &quot;scripts&quot;: &#123;
@@ -410,7 +413,7 @@ const createWindow = () =&gt; &#123;
 <h1 id="electron打包"><a href="#electron打包" class="headerlink" title="electron打包"></a>electron打包</h1><p>安装electron打包开发依赖</p>
 <blockquote>
 <p>最新版本：npm install –save-dev electron-builder</p>
-<p>指定版本：npm install –save-dev <a href="mailto:&#x65;&#108;&#101;&#99;&#116;&#x72;&#111;&#x6e;&#45;&#x62;&#117;&#x69;&#108;&#100;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;">&#x65;&#108;&#101;&#99;&#116;&#x72;&#111;&#x6e;&#45;&#x62;&#117;&#x69;&#108;&#100;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;</a></p>
+<p>指定版本：npm install –save-dev <a href="mailto:&#x65;&#108;&#x65;&#x63;&#x74;&#x72;&#x6f;&#110;&#45;&#98;&#117;&#x69;&#x6c;&#x64;&#101;&#x72;&#64;&#x32;&#x33;&#46;&#54;&#46;&#x30;">&#x65;&#108;&#x65;&#x63;&#x74;&#x72;&#x6f;&#110;&#45;&#98;&#117;&#x69;&#x6c;&#x64;&#101;&#x72;&#64;&#x32;&#x33;&#46;&#54;&#46;&#x30;</a></p>
 </blockquote>
 <h3 id="package-json-中配置"><a href="#package-json-中配置" class="headerlink" title="package.json 中配置"></a>package.json 中配置</h3><pre><code class="json">&quot;build&quot;: &#123;
     &quot;appId&quot;: &quot;com.xxxxx.xxxx&quot;,//包名  
@@ -474,24 +477,155 @@ const createWindow = () =&gt; &#123;
 </code></pre>
 <h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43239880/article/details/129563632?spm=1001.2014.3001.5501">https://blog.csdn.net/weixin_43239880/article/details/129563632?spm=1001.2014.3001.5501</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/tutorial/ipc">https://www.electronjs.org/zh/docs/latest/tutorial/ipc</a></p>
-<h1 id="问题与解决"><a href="#问题与解决" class="headerlink" title="问题与解决"></a>问题与解决</h1><p>electron 打包_桌面端框架Electron使用问题整理和总结</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39607450/article/details/110647391">https://blog.csdn.net/weixin_39607450/article/details/110647391</a></p>
-<p>vue3+vite assets动态引入图片的三种方法及解决打包后图片路径错误不显示的问题</p>
-<p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/278408.htm">https://www.jb51.net/article/278408.htm</a></p>
-<p>vite Some chunks are larger than 500 kBs after minification. Consider: - Using dynamic import()</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45284938/article/details/129707796">https://blog.csdn.net/qq_45284938/article/details/129707796</a></p>
-<p>Electron报错Unable to load preload script</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/s5s5s5s5s/article/details/127493590">https://blog.csdn.net/s5s5s5s5s/article/details/127493590</a></p>
-<p>【Electron】require和contextBridge导致的contextIsolation相悖问题</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41568995/article/details/120352394">https://blog.csdn.net/weixin_41568995/article/details/120352394</a></p>
-<p>异步功能+ await + setTimeout的组合</p>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/sof/171603">https://cloud.tencent.com/developer/ask/sof/171603</a></p>
-<p>Electron+Vite渲染进程无法import内置模块的问题</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/540056695">https://zhuanlan.zhihu.com/p/540056695</a></p>
-<p>Error: Module “crypto“ has been externalized for browser compatibility and cannot be accessed in …</p>
-<p><a target="_blank" rel="noopener" href="https://codeantenna.com/a/prLQN2PBl9">https://codeantenna.com/a/prLQN2PBl9</a></p>
-<p>解决electron中出现Uncaught ReferenceError: require is not defined</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_53033364/article/details/131669218">https://blog.csdn.net/weixin_53033364/article/details/131669218</a></p>
+<ol>
+<li>主进程向渲染进程通讯</li>
+</ol>
+<ul>
+<li>主进程使用 <code>win.webContents.send</code> 发送消息</li>
+<li>渲染进程使用 <code>ipcRenderer.on</code> 接收消息</li>
+</ul>
+<ol start="2">
+<li>渲染进程向主进程通信</li>
+</ol>
+<ul>
+<li><ul>
+<li>渲染进程使用 <code>ipcRenderer.send</code> 或者 <code>ipcRenderer.invoke</code> 发送消息</li>
+<li>主进程使用 <code>ipcMain.on</code>或者<code>ipcMain.handle</code> 接收消息</li>
+</ul>
+</li>
+</ul>
+<h1 id="问题与解决"><a href="#问题与解决" class="headerlink" title="问题与解决"></a>问题与解决</h1><h4 id="electron-打包-桌面端框架Electron使用问题整理和总结"><a href="#electron-打包-桌面端框架Electron使用问题整理和总结" class="headerlink" title="electron 打包_桌面端框架Electron使用问题整理和总结"></a>electron 打包_桌面端框架Electron使用问题整理和总结</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_39607450/article/details/110647391">https://blog.csdn.net/weixin_39607450/article/details/110647391</a></p>
+<p>-</p>
+<h4 id="vue3-vite-assets动态引入图片的三种方法及解决打包后图片路径错误不显示的问题"><a href="#vue3-vite-assets动态引入图片的三种方法及解决打包后图片路径错误不显示的问题" class="headerlink" title="vue3+vite assets动态引入图片的三种方法及解决打包后图片路径错误不显示的问题"></a>vue3+vite assets动态引入图片的三种方法及解决打包后图片路径错误不显示的问题</h4><p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/278408.htm">https://www.jb51.net/article/278408.htm</a></p>
+<p>content:</p>
+<p>vite官方文档的解释：<a target="_blank" rel="noopener" href="https://vitejs.bootcss.com/guide/assets.html">https://vitejs.bootcss.com/guide/assets.html</a> </p>
+<p>我们看到实际上我们不希望资源文件被webpack编译<strong>可以把图片放到public 目录会更省事，不管是开发环境还是生产环境，可以始终以根目录保持图片路径的一致</strong>，这点跟webpack是一致的</p>
+<h5 id="第一种方式（适用于处理单个链接的资源文件）"><a href="#第一种方式（适用于处理单个链接的资源文件）" class="headerlink" title="第一种方式（适用于处理单个链接的资源文件）"></a>第一种方式（适用于处理单个链接的资源文件）</h5><pre><code class="js">import homeIcon from &#39;@/assets/images/home/home_icon.png&#39;
+&lt;img :src=&quot;homeIcon&quot;/&gt;
+</code></pre>
+<h5 id="第二种方式（适用于处理多个链接的资源文件）"><a href="#第二种方式（适用于处理多个链接的资源文件）" class="headerlink" title="第二种方式（适用于处理多个链接的资源文件）"></a>第二种方式（适用于处理多个链接的资源文件）</h5><p><strong>推荐，这种方式传入的变量可以动态传入文件路径！！</strong></p>
+<p><a href="https://links.jianshu.com/go?to=https://link.zhihu.com/?target=https://cn.vitejs.dev/guide/assets.html%23new-url-url-import-meta-url">静态资源处理 | Vite 官方中文文档</a><br>new URL() + import.meta.url</p>
+<p><strong>这里我们假设：</strong><br>工具文件目录： <code>src/util/pub-use.ts</code><br>pub-use.ts</p>
+<pre><code>// 获取assets静态资源export defaultconst getAssetsFile = (url: string) =&gt; &#123;  returnnewURL(`../assets/images/$&#123;url&#125;`, import.meta.url).href&#125;
+</code></pre>
+<p>使用</p>
+<pre><code>import usePub from &#39;@/util/public-use&#39;setup () &#123; const Pub = usePub() const getAssetsFile = Pub.getAssetsFile return&#123; getAssetsFile &#125;&#125;
+</code></pre>
+<p>可以包含文件路径</p>
+<pre><code>&lt;img :src=&quot;getAssetsFile(&#39;/home/home_icon.png&#39;)&quot;/&gt;
+</code></pre>
+<h5 id="第三种方式（适用于处理多个链接的资源文件）"><a href="#第三种方式（适用于处理多个链接的资源文件）" class="headerlink" title="第三种方式（适用于处理多个链接的资源文件）"></a>第三种方式（适用于处理多个链接的资源文件）</h5><p><strong>不推荐，这种方式引入的文件必须指定到具体文件夹路径，传入的变量中只能为文件名，不能包含文件路径</strong></p>
+<p>使用vite的<code>import.meta.glob</code>或<code>import.meta.globEager</code>，两者的区别是前者懒加载资源，后者直接引入。</p>
+<p><strong>这里我们假设：</strong><br>工具文件目录： <code>src/util/pub-use.ts</code><br>pub-use.ts</p>
+<pre><code class="js">// 获取assets静态资源
+export defaultconst getAssetsHomeFile = (url: string) =&gt; &#123;  
+    const path = `../assets/images/home/$&#123;url&#125;`;  
+    const modules = import.meta.globEager(&quot;../assets/images/home/*&quot;);  
+    return modules[path].default;
+&#125;
+</code></pre>
+<p>使用</p>
+<pre><code class="js">import usePub from &#39;@/util/public-use&#39;
+setup () &#123; 
+    const Pub = usePub() 
+    const getAssetsHomeFile = Pub.getAssetsHomeFile  
+    return&#123; getAssetsHomeFile &#125;
+&#125;
+</code></pre>
+<p>不能包含文件路径</p>
+<pre><code class="html">&lt;img :src=&quot;getAssetsHomeFile(&#39;home_icon.png&#39;)&quot;/&gt;
+</code></pre>
+<h5 id="补充：如果是背景图片引入的方式（一定要使用相对路径）"><a href="#补充：如果是背景图片引入的方式（一定要使用相对路径）" class="headerlink" title="补充：如果是背景图片引入的方式（一定要使用相对路径）"></a>补充：如果是背景图片引入的方式（一定要使用相对路径）</h5><pre><code class="css">.imgText &#123; background-image: url(&#39;../../assets/images/1462466500644.jpg&#39;);&#125;
+</code></pre>
+<p>-</p>
+<h4 id="vite-Some-chunks-are-larger-than-500-kBs-after-minification-Consider-Using-dynamic-import"><a href="#vite-Some-chunks-are-larger-than-500-kBs-after-minification-Consider-Using-dynamic-import" class="headerlink" title="vite Some chunks are larger than 500 kBs after minification. Consider: - Using dynamic import()"></a>vite Some chunks are larger than 500 kBs after minification. Consider: - Using dynamic import()</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45284938/article/details/129707796">https://blog.csdn.net/qq_45284938/article/details/129707796</a></p>
+<p>vite.config:</p>
+<pre><code class="js">outDir: BUILD_DIR, // 指定打包文件的输出目录
+emptyOutDir: true,  // 打包时先清空上一次构建生成的目录
+</code></pre>
+<p>完整 build：</p>
+<pre><code class="json"> build: &#123;
+    outDir: BUILD_DIR,
+    sourcemap: false,
+    minify: &#39;terser&#39;,
+    chunkSizeWarningLimit: 1500,
+    emptyOutDir: true,
+    terserOptions: &#123;
+      compress: &#123;
+        drop_console: true,
+        drop_debugger: true
+      &#125;
+    &#125;,
+    rollupOptions: &#123;
+      output: &#123;
+        manualChunks(id) &#123;
+          if (id.includes(&#39;node_modules&#39;)) &#123;
+            return id.toString().split(&#39;node_modules/&#39;)[1].split(&#39;/&#39;)[0].toString();
+          &#125;
+        &#125;,
+        chunkFileNames: (chunkInfo) =&gt; &#123;
+          const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split(&#39;/&#39;) : [];
+          const fileName = facadeModuleId[facadeModuleId.length - 2] || &#39;[name]&#39;;
+          return `js/$&#123;fileName&#125;/[name].[hash].js`;
+        &#125;
+      &#125;
+    &#125;
+  &#125;,
+</code></pre>
+<p>-</p>
+<h4 id="Electron报错Unable-to-load-preload-script"><a href="#Electron报错Unable-to-load-preload-script" class="headerlink" title="Electron报错Unable to load preload script"></a>Electron报错Unable to load preload script</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/s5s5s5s5s/article/details/127493590">https://blog.csdn.net/s5s5s5s5s/article/details/127493590</a></p>
+<p>preload 文件有错，或许是代码次序问题，暴露的函数要在定义之后</p>
+<p>-</p>
+<h4 id="【Electron】require和contextBridge导致的contextIsolation相悖问题"><a href="#【Electron】require和contextBridge导致的contextIsolation相悖问题" class="headerlink" title="【Electron】require和contextBridge导致的contextIsolation相悖问题"></a>【Electron】require和contextBridge导致的contextIsolation相悖问题</h4><h4 id="amp-amp-解决electron中出现Uncaught-ReferenceError-require-is-not-defined"><a href="#amp-amp-解决electron中出现Uncaught-ReferenceError-require-is-not-defined" class="headerlink" title="&amp;&amp; 解决electron中出现Uncaught ReferenceError: require is not defined"></a>&amp;&amp; 解决electron中出现Uncaught ReferenceError: require is not defined</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41568995/article/details/120352394">https://blog.csdn.net/weixin_41568995/article/details/120352394</a></p>
+<pre><code class="js">webPreferences: &#123;
+    // 版本默认不支持 node，使用需添加
+    nodeIntegration:true,
+    // 不使用 contextBridge API 
+    contextIsolation: false,
+    enableRemoteModule: true,
+    preload: path.join(__dirname, &#39;preload.js&#39;)
+&#125;
+</code></pre>
+<p>-</p>
+<h4 id="异步功能-await-setTimeout的组合"><a href="#异步功能-await-setTimeout的组合" class="headerlink" title="异步功能+ await + setTimeout的组合"></a>异步功能+ await + setTimeout的组合</h4><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/sof/171603">https://cloud.tencent.com/developer/ask/sof/171603</a></p>
+<pre><code class="js">function timeout(ms) &#123;
+    return new Promise(resolve =&gt; setTimeout(resolve, ms));
+&#125;
+async function sleep(fn, ...args) &#123;
+    await timeout(3000);
+    return fn(...args);
+&#125;
+</code></pre>
+<p>或简短</p>
+<pre><code class="js"> await new Promise(resolve =&gt; setTimeout(resolve, 1000));
+</code></pre>
+<p>-</p>
+<h4 id="Electron-Vite渲染进程无法import内置模块的问题"><a href="#Electron-Vite渲染进程无法import内置模块的问题" class="headerlink" title="Electron+Vite渲染进程无法import内置模块的问题"></a>Electron+Vite渲染进程无法import内置模块的问题</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/540056695">https://zhuanlan.zhihu.com/p/540056695</a></p>
+<p>使用 <code>optimizer</code>  插件</p>
+<p>不推荐，主进程与渲染进程分开好一点</p>
+<pre><code class="js">//vite.config.ts
+import &#123; defineConfig &#125; from &quot;vite&quot;;
+import optimizer from &quot;vite-plugin-optimizer&quot;;
+let getReplacer = () =&gt; &#123;
+  let externalModels = [&quot;electron&quot;, &quot;os&quot;, &quot;fs&quot;, &quot;path&quot;, &quot;events&quot;, &quot;child_process&quot;, &quot;crypto&quot;, &quot;http&quot;, &quot;buffer&quot;, &quot;url&quot;, &quot;better-sqlite3&quot;, &quot;knex&quot;];
+  let result = &#123;&#125;;
+  for (let item of externalModels) &#123;
+    result[item] = () =&gt; (&#123;
+      find: new RegExp(`^$&#123;item&#125;$`),
+      code: `const $&#123;item&#125; = require(&#39;$&#123;item&#125;&#39;);export &#123; $&#123;item&#125; as default &#125;`,
+    &#125;);
+  &#125;
+  return result;
+&#125;;
+export default defineConfig(&#123;
+  plugins: [optimizer(getReplacer())],
+&#125;);
+</code></pre>
+<p>-</p>
+<h4 id="Error-Module-“crypto“-has-been-externalized-for-browser-compatibility-and-cannot-be-accessed-in-…"><a href="#Error-Module-“crypto“-has-been-externalized-for-browser-compatibility-and-cannot-be-accessed-in-…" class="headerlink" title="Error: Module “crypto“ has been externalized for browser compatibility and cannot be accessed in …"></a>Error: Module “crypto“ has been externalized for browser compatibility and cannot be accessed in …</h4><p><a target="_blank" rel="noopener" href="https://codeantenna.com/a/prLQN2PBl9">https://codeantenna.com/a/prLQN2PBl9</a></p>
+<p>使用vite构建项目的时候需要用到crypto进行加密出现的错误。问题出在vite本身使用了crypto，我们如果通过npm i crypto -S会导致vite构建时报错。</p>
+<p>换个库或者是使用上面的方法</p>
+<p>-</p>
 
                 </div>
 

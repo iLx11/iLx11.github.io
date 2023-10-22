@@ -11,10 +11,10 @@
     --line-2: #ddd;
     --bg-color-1: rgba(255, 255, 255, 0.7);
     --bg-color-2: rgba(255, 255, 255, 1);
-    --bg-color-3: rgba(255, 255, 255, 0.86);
+    --bg-color-3: rgba(253, 253, 253);
     --bg-color-4: rgb(239, 237, 241);
     --bg-color-5: rgb(246, 246, 246);
-    --bg-color-6: rgb(229, 229, 229);
+    --bg-color-6: rgb(232, 232, 235);
     --bgshadow1: 3px 4px 12px 3px rgba(111, 109, 133, 0.2);
     --bgshadow2: 3px 4px 12px 3px rgba(111, 109, 133, 0.09);
     --bgshadow3: #e8e8e8;
@@ -192,7 +192,7 @@ body {
     position: relative;
     z-index: 66;
     animation: move .7s ease;
-    box-shadow: 0 0 0 1.6px rgba(51, 51, 51, 0.5);
+    box-shadow: 0 0 0 1.6px rgba(51, 51, 51, 0.3);
     background: var(--bg-color-6);
     padding: 1em 1em;
     overflow: hidden !important;
@@ -755,6 +755,11 @@ body {
     font-family: "orb";
     z-index: 66;
     margin-top: 1em;
+    /* transform: translateX(30px); */
+}
+
+.post-header-logo {
+    margin-left: 25px;
 }
 
 .logo text {
@@ -795,7 +800,7 @@ body {
 .tools .toolContent {
     width: 11em;
     height: 2.3em;
-    border: 0.8px solid var(--font-color-4);
+    box-shadow: 0 0 0 0.5px var(--font-color-4);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -882,6 +887,7 @@ body {
 ------------------------------------------------------ */
 
 .post-header {
+    height: 30px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -899,26 +905,35 @@ body {
     height: 1em;
     position: absolute;
     right: 3em;
-    top: 0.4em;
+    top: 0.7em;
     cursor: pointer;
 }
 
 .post-header .go-home {
-    padding: 10px 15px 8px;
-    border-radius: 18px;
+    /* padding: 10px 15px 8px; */
+    /* width: 60px; */
+    width: 23%;
+    height: 60px;
+    padding: 3em;
+    border-radius: 19px;
     background: #fff;
     border: 1px solid #eee;
-    margin: 8px 0;
+    /* margin: 8px 0; */
     transition: background ease-in-out .5s;
-    position: fixed;
-    bottom: 3em;
+    position: absolute;
+    bottom: 10px;
+    left: 13px;
     z-index: 99;
-    background: rgba(51, 51, 51, 0.5);
+    background: rgba(133, 144, 148, 0.5);
     padding: 0.9em 1.2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .post-header .go-home:hover {
-    background: var(--bg-color-1-1);
+    background: rgba(133, 144, 148, 0.1);
+    /* background: var(--bg-color-1-1); */
     transition: background ease-in-out .5s;
 }
 
@@ -928,8 +943,8 @@ body {
 }
 
 .post-header .go-home:hover svg {
-    transform: translateX(-4px);
-    transition: transform ease-in-out .5s;
+    transform: translateX(-115px);
+    transition: transform ease-out .4s;
 }
 
 
@@ -1246,8 +1261,8 @@ body {
     justify-content: flex-start;
     align-content: center;
     position: absolute;
-    left: 5%;
-    bottom: -24px;
+    left: 6%;
+    bottom: 0px;
     z-index: 66;
 }
 
