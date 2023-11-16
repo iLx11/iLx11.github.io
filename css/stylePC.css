@@ -1067,6 +1067,7 @@ body {
 .post {
     width: 31.5%;
     height: 42%;
+    max-height: 200px;
     padding: 0.6em;
     position: relative;
     margin-bottom: 23px;

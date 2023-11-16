@@ -738,6 +738,24 @@ uint8_t USBD_CUSTOM_HID_FUNC_SendReport(USBD_HandleTypeDef  *pdev,
 </code></pre>
 <p>在 .h 中声明</p>
 <p>对于接口2的功能，需要通过这个新建的发送函数</p>
+<h1 id="USB-接收"><a href="#USB-接收" class="headerlink" title="USB 接收"></a>USB 接收</h1><p><code>usbd_custom_hid_if.c</code> 文件</p>
+<p><code>CUSTOM_HID_OutEvent_FS</code>函数</p>
+<p>编写回调函数，执行在用户自己定义的  USB 逻辑文件中</p>
+<pre><code class="javascript">static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state)
+&#123;
+  /* USER CODE BEGIN 6 */
+      // 第一参数是USB句柄，第二个参数的是接收的末端地址；要获取发送的数据长度的话就把第二个参数改为发送末端地址即可
+    uint8_t len = USBD_GetRxCount(&amp;hUsbDeviceFS, CUSTOM_HID_EPOUT_ADDR); 
+      // 定义一个指向USBD_CUSTOM_HID_HandleTypeDef结构体的指针
+    USBD_CUSTOM_HID_HandleTypeDef* hid_handle;
+      // 得到USB接收数据的储存地址
+    hid_handle = (USBD_CUSTOM_HID_HandleTypeDef *)hUsbDeviceFS.pClassData;
+    // 执行接收回调
+    receive_data_from_upper(hid_handle, len);
+    return (USBD_OK);
+  /* USER CODE END 6 */
+&#125;
+</code></pre>
 
                 </div>
 
