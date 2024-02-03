@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo post-header-logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                C++笔记
+            </div>
+            <div class="post-meta">
+                2022-11-18
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><pre><code class="c++">//输出
+std::cout &lt;&lt; &quot;123123\n&quot;;
+//输入
+unsigned int aa;
+std::cin &gt;&gt; aa
+
+//系统        
+system(&quot;cls/ shutdown /a/ pause &quot;);
+
+//定义变量
+int year&#123; 12 &#125;
+</code></pre>
+<h5 id="强制转换"><a href="#强制转换" class="headerlink" title="强制转换"></a>强制转换</h5><pre><code class="c++">static_cast&lt;int&gt;
+//(int) c
+</code></pre>
+<h5 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h5><pre><code class="c++">enum class EquipLv: int &#123;
+    normal = 10,
+    high,
+    rare
+&#125;;
+EquipLv weapon1 (EquipLv::normal);
+EquipLv weapon2 (EquipLv::rare);
+</code></pre>
+<h5 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h5><pre><code class="c++">using namespace std;
+//之后不用使用std
+/
+using std::cin/cout;
+</code></pre>
+<pre><code class="c++">namespace Game &#123;
+    int HP&#123; 1000 &#125;;
+    namespace Weapon &#123;
+        int damage&#123; 3000 &#125;
+    &#125;
+&#125;
+//使用时 ‘::’ 限定符
+int c = Game::Weapon::HP;
+//不能放在函数体内
+</code></pre>
+<p>if 与 switch 中的临时变量</p>
+<pre><code class="c++">//17语法
+if(int a, b, c; 条件)
+
+switch(int a, b; 条件)
+</code></pre>
+<h5 id="获取键盘输入"><a href="#获取键盘输入" class="headerlink" title="获取键盘输入"></a>获取键盘输入</h5><pre><code class="c++">#include &lt;coion.h&gt;
+
+_getch();
+</code></pre>
+<h5 id="填充"><a href="#填充" class="headerlink" title="填充"></a>填充</h5><pre><code class="c++">#include &lt;iomanip&gt;
+
+std::cout &lt;&lt; std::setfill(&#39;0&#39;);
+std::cout &lt;&lt; std::setw(3) &lt;&lt; xx
+</code></pre>
+<h5 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a>遍历数组</h5><pre><code class="c++">for(int aa : 数组);
+</code></pre>
+<h5 id="定义数组"><a href="#定义数组" class="headerlink" title="定义数组"></a>定义数组</h5><pre><code class="c++">#include &lt;array&gt;
+//较为安全的定义数组
+std::array&lt;int, 3&gt; shu&#123;1, 2, 3&#125;;
+//填充
+shu.fill(23);
+//元素个数
+shu.size();
+//访问成员
+shu.at(2)
+    
+//向量
+std::vector&lt;int&gt; studentId;
+//动态添加一个元素
+studentId.push_back(9600);
+studentId.clear();
+//判断是否为空
+studentId.empty();
+</code></pre>
+<h5 id="判断一段程序是由c编译还是由c-编译程序编译的？"><a href="#判断一段程序是由c编译还是由c-编译程序编译的？" class="headerlink" title="判断一段程序是由c编译还是由c++编译程序编译的？"></a>判断一段程序是由c编译还是由c++编译程序编译的？</h5><pre><code class="cpp">#ifdef __cplusplus
+    cout &lt;&lt; &quot;c++&quot;;
+#else
+    printf(&quot;c&quot;);
+#endif
+</code></pre>
+<h3 id="动态内存分配"><a href="#动态内存分配" class="headerlink" title="动态内存分配"></a>动态内存分配</h3><pre><code class="c++">int * pa = (int *) malloc(4);
+//
+int * pa = new int[5];
+
+pa = (int *) realloc(pa, 8);
+
+//内存释放
+free(pa);
+//释放new分配的内存
+delete[] pa;
+</code></pre>
+<h5 id="风险："><a href="#风险：" class="headerlink" title="风险："></a>风险：</h5><p>碎片化的内存</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>不能改变其他引用</p>
+<pre><code class="c++">int a&#123;500&#125;;
+int &amp; la&#123;a&#125;;
+int &amp; lla&#123;a&#125;;
+</code></pre>
+<p>数组引用</p>
+<pre><code class="c++">int a[100];
+int (&amp;b)[100] = a
+</code></pre>
+<h4 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h4><pre><code class="c++">std::unique_ptr&lt;类型&gt; intPtr&#123;&#125;;
+//
+std::unique_ptr&lt;类型&gt; intPtr&#123;std::make_unique&lt;int []&gt;(5 &gt;个数) &#125;;
+
+//释放内存,地址清零
+intPtr.reset();
+</code></pre>
+<p>共享指针</p>
+<pre><code class="c++">std::share_ptr&lt;类型&gt; intPtr&#123;&#125;;
+</code></pre>
+<p>安全的C语言输入</p>
+<pre><code class="c++">char str[0xff]
+wscanf_s(&quot;%s&quot;, wstr, 可接受最大字符值);
+</code></pre>
+<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><pre><code class="c++">typedef struct Role &#123;
+    int HP;
+&#125;* PRole, * ARole;
+
+Role user;
+PRole puser = &amp;user;
+//
+PRole puesr = new Role;
+//使用
+puser-&gt;HP;
+</code></pre>
+<h4 id="union"><a href="#union" class="headerlink" title="union"></a>union</h4><pre><code class="c++">union USER &#123;
+    short sHp;
+    int nHp;
+&#125;
+</code></pre>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><pre><code class="c++">//截取起始位置， 个数
+std::string str&#123;&quot;sdfsjd 123&quot;,1 ,3&#125;;
+using std::string;
+str.length();
+
+//复制，（个数， ‘字符’）
+std::string str(6, &#39;a&#39;);
+
+//拼接
+str.append(&quot;234&quot;);
+//截取
+str.substr(1);/ str.substr(1, 3);
+//比较
+str.compare(&quot;123&quot;);/ str.compare(1, 3, &quot;123&quot;);
+//查找/反向为 rfind
+str.find(&quot;123&quot;);/ str.find(&quot;123&quot;, 1, 3);
+
+//未找到返回 std:string::npos int返回 -1
+
+//插入
+str.insert(位置, &quot;123&quot;);
+//insert(位置, “123”, 截取起始, 截取长度);
+str.insert(位置, 个数, &#39;8&#39;); // 插入字符
+
+//替换 长度
+str.replace(1, 3, &quot;123&quot;);
+
+//删除，清除
+str.erase(); / str.clear();
+</code></pre>
+<p>计算中文字符长度</p>
+<pre><code class="c++">if(str[i] &lt; 0) i++;
+count += 1;
+</code></pre>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><pre><code class="c++">//传递引用参数  
+bool act(const Role&amp; Acter)
+//默认参数, 放在最后
+int add(int a, int b = 100)
+</code></pre>
+<h5 id="不定量参数"><a href="#不定量参数" class="headerlink" title="不定量参数"></a>不定量参数</h5><pre><code class="c++">int Average(int count, ...) &#123;
+    char * arg;
+    //存储
+    va_start(arg, count);
+    //依次读取
+    int x = va_arg(arg, int);
+    //释放
+    va_end(arg);
+&#125;
+</code></pre>
+<h4 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h4><p>声明函数指针<code>类型</code></p>
+<pre><code class="c++">int Add(int a, int b) &#123;
+    return a + b;
+&#125;
+
+typedef char(*pfAdd) (int, int);
+//
+using pFAdd = char (*) (int, int);
+
+pfAdd pAdd = (pfAdd) Add;
+</code></pre>
+<p>声明函数指针</p>
+<pre><code class="c++">int (*pxAdd) (int, int) = Add;
+
+pxAdd(100, 100);
+</code></pre>
+<h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><h3 id="struct-与-class-区别"><a href="#struct-与-class-区别" class="headerlink" title="struct 与 class 区别"></a>struct 与 class 区别</h3><p>C++ 中的 struct 可以包含成员函数，也能继承，也可以实现多态。</p>
+<p>但在 C++ 中，使用 class 时，类中的成员默认都是 <code>private</code> 属性的，而使用 struct 时，结构体中的成员默认都是 public 属性的。class 继承默认是 private 继承，而 struct 继承默认是 public 继承。</p>
+<p>C++ 中的 class 可以使用模板，而 struct 不能使用模板。</p>
+<h2 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h2><h3 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h3><p>在同一个作用域内，可以声明几个功能类似的同名函数，但是这些同名函数的形式参数（指参数的个数、类型或者顺序）必须不同。不能仅通过返回类型的不同来重载函数。</p>
+<pre><code class="c++">void print(int i) &#123;
+    cout &lt;&lt; &quot;整数为: &quot; &lt;&lt; i &lt;&lt; endl;
+&#125;
+ 
+void print(double  f) &#123;
+    cout &lt;&lt; &quot;浮点数为: &quot; &lt;&lt; f &lt;&lt; endl;
+&#125;
+ 
+void print(char c[]) &#123;
+    cout &lt;&lt; &quot;字符串为: &quot; &lt;&lt; c &lt;&lt; endl;
+&#125;
+</code></pre>
+<h3 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h3><p>重载的运算符是带有特殊名称的函数，函数名是由关键字 operator 和其后要重载的运算符符号构成的。与其他函数一样，重载运算符有一个返回类型和一个参数列表。</p>
+<pre><code class="c++">// 重载二元运算符（ + ）
+class Role &#123;
+    public:
+        Role operator+(const Role&amp; role) &#123;
+            Role newRole;
+            newRole.width = this.width + role.width;
+            return newRole;
+        &#125;
+&#125;
+Role r1, r2, r3;
+r1 = r2 + r3;
+
+// 关系运算符
+// 重载小于运算符（ &lt; ）
+bool operator &lt;(const Distance&amp; d)
+&#123;
+   if(feet &lt; d.feet)
+   &#123;
+        return true;
+   &#125;
+   if(feet == d.feet &amp;&amp; inches &lt; d.inches)
+   &#123;
+        return true;
+   &#125;
+   return false;
+&#125;
+if( D1 &lt; D2 )
+&#123;
+   cout &lt;&lt; &quot;D1 is less than D2 &quot; &lt;&lt; endl;
+&#125;
+
+// 赋值运算符（=）
+void operator = (const Distance&amp; D) &#123;
+    feet = D.feet;
+    inches = D.inches;
+&#125;
+
+// ([])
+int&amp; operator[](int i)
+&#123;
+      if( i &gt; SIZE )
+      &#123;
+           cout &lt;&lt; &quot;索引超过最大值&quot; &lt;&lt;endl; 
+           // 返回第一个元素
+           return arr[0];
+      &#125;
+      return arr[i];
+&#125;
+</code></pre>
+<h4 id="可重载运算符"><a href="#可重载运算符" class="headerlink" title="可重载运算符"></a>可重载运算符</h4><table>
+<thead>
+<tr>
+<th>双目算术运算符</th>
+<th>+ (加)，-(减)，*(乘)，/(除)，% (取模)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关系运算符</td>
+<td>==(等于)，!= (不等于)，&lt; (小于)，&gt; (大于)，&lt;=(小于等于)，&gt;=(大于等于)</td>
+</tr>
+<tr>
+<td>逻辑运算符</td>
+<td>||(逻辑或)，&amp;&amp;(逻辑与)，!(逻辑非)</td>
+</tr>
+<tr>
+<td>单目运算符</td>
+<td>+ (正)，-(负)，*(指针)，&amp;(取地址)</td>
+</tr>
+<tr>
+<td>自增自减运算符</td>
+<td>++(自增)，–(自减)</td>
+</tr>
+<tr>
+<td>位运算符</td>
+<td>| (按位或)，&amp; (按位与)，~(按位取反)，^(按位异或),，&lt;&lt; (左移)，&gt;&gt;(右移)</td>
+</tr>
+<tr>
+<td>赋值运算符</td>
+<td>=, +=, -=, *=, /= , % = , &amp;=, |=, ^=, &lt;&lt;=, &gt;&gt;=</td>
+</tr>
+<tr>
+<td>空间申请与释放</td>
+<td>new, delete, new[ ] , delete[]</td>
+</tr>
+<tr>
+<td>其他运算符</td>
+<td><strong>()</strong>(函数调用)，**-&gt;<strong>(成员访问)，</strong>,<strong>(逗号)，</strong>[]**(下标)</td>
+</tr>
+</tbody></table>
+<p>下面是不可重载的运算符列表：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>::</td>
+<td>.*</td>
+<td>.</td>
+<td>?:</td>
+</tr>
+</tbody></table>
+<h2 id="构造"><a href="#构造" class="headerlink" title="构造"></a>构造</h2><h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><p>拷贝构造函数通常用于：</p>
+<ul>
+<li>通过使用另一个同类型的对象来初始化新创建的对象。</li>
+<li>复制对象把它作为参数传递给函数。</li>
+<li>复制对象，并从函数返回这个对象。</li>
+</ul>
+<p>如果在类中没有定义拷贝构造函数，编译器会自行定义一个。</p>
+<p>如果类带有指针变量，并有动态内存分配，则它必须有一个拷贝构造函数。</p>
+<p>拷贝构造函数的最常见形式如下：</p>
+<pre><code class="c++">class Line &#123;
+    public: 
+    Line(const Line&amp; obj);
+    private:
+    int* ptr;
+&#125;
+Line::Line(const Line&amp; obj) &#123;
+    ptr = new int;
+    *ptr = *obj.ptr;
+&#125;
+int main() &#123;
+    Line line2 = line1; // 这里调用了拷贝构造函数
+&#125;
+</code></pre>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><h4 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h4><pre><code class="c++">//设置默认值 
+template &lt;typename t1=int, typename t2,,,&gt; 
+t1 ave(t1 a, t2 b) &#123;
+    t1 x;
+    t2 *px;
+    return (a + b)/2;
+&#125;
+//指定类型
+ave &lt;int, float&gt; (123, 123); 
+
+//模板参数
+template &lt;typename t1, short count&gt;
+t1 ave(t1 (&amp;ary) [count]) &#123;
+    for (int i = 0; i &lt; count; i++)
+&#125;
+</code></pre>
+<p>头文件</p>
+<pre><code class="c++">//多次引用只生效一次
+#pragma once
+//有定义才执行
+#ifdef aa
+</code></pre>
+<h2 id="外联"><a href="#外联" class="headerlink" title="外联"></a>外联</h2><pre><code class="c++">class Role &#123;
+    private: 
+        int damage;
+    public: 
+        int hp;
+        void act();
+        void init() &#123;
+            hp = 1;
+        &#125;
+   //构造函数
+   Role() &#123;
+       cout &lt;&lt; &quot;构造&quot;;
+   &#125;
+   //默认构造
+    ROLE() = default;
+&#125;
+
+//定义对象
+Role role;
+</code></pre>
+<h3 id="外联成员函数"><a href="#外联成员函数" class="headerlink" title="外联成员函数"></a>外联成员函数</h3><pre><code class="c++">class Role &#123;
+    public :
+        int width;
+        int height;
+        //成员函数声明
+        void set(int w, int h);
+&#125;
+void Role::set(int w, int h) &#123;
+    width = w;
+    height = h;
+&#125;
+</code></pre>
+<h3 id="外联构造"><a href="#外联构造" class="headerlink" title="外联构造"></a>外联构造</h3><pre><code class="c++">//无参构造
+Role::Role &#123;
+    cout &lt;&lt; &quot;构造函数&quot; &lt;&lt; endl;
+&#125;
+//有参构造
+Role::Role(int w, int h) &#123;
+    width = w;
+    height = h;
+    cout &lt;&lt; &quot;有参构造&quot; &lt;&lt; endl;
+&#125;
+</code></pre>
+<h4 id="成员初始化列表构造"><a href="#成员初始化列表构造" class="headerlink" title="成员初始化列表构造"></a>成员初始化列表构造</h4><blockquote>
+<p>效率更高</p>
+<p>在某些情况下，只能用这种方式进行初始化</p>
+</blockquote>
+<pre><code class="c++">Role::Role(int _w, int _h): width&#123;w&#125;, heigth&#123;h&#125; &#123;
+    cout &lt;&lt; &quot;有参构造&quot; &lt;&lt; endl;
+&#125;
+</code></pre>
+<h5 id="禁止类型转换"><a href="#禁止类型转换" class="headerlink" title="禁止类型转换"></a>禁止类型转换</h5><pre><code class="c++">explicit Role() &#123;&#125;
+</code></pre>
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><p>类的<strong>析构函数</strong>是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行。</p>
+<p>析构函数在类的生命结束时，自动调用，若没有则会添加一个空的析构函数，且只能有一个</p>
+<pre><code class="c++">//默认析构函数
+~Role = default;
+
+Role::~Role(void) &#123;
+    cout &lt;&lt; &quot;对象已被删除&quot; &lt;&lt; endl;
+&#125;
+</code></pre>
+<h4 id="指向类的指针"><a href="#指向类的指针" class="headerlink" title="指向类的指针"></a>指向类的指针</h4><pre><code class="c++">//定义类指针
+Role* ptrRole;
+//访问成员
+ptrRole-&gt;print();
+</code></pre>
+<h3 id="Static-静态成员函数"><a href="#Static-静态成员函数" class="headerlink" title="Static 静态成员函数"></a>Static 静态成员函数</h3><p>当我们声明类的成员为静态时，这意味着无论创建多少个类的对象，静态成员都只有一个副本。</p>
+<pre><code class="c++">class Role &#123;
+    public:
+        static int objectCount;
+&#125;
+</code></pre>
+<h5 id="初始化静态成员"><a href="#初始化静态成员" class="headerlink" title="初始化静态成员"></a>初始化静态成员</h5><pre><code class="c++">int Role::objectCount = 0;
+</code></pre>
+<h5 id="访问静态成员"><a href="#访问静态成员" class="headerlink" title="访问静态成员"></a>访问静态成员</h5><pre><code class="c++">Role::objectCount
+    
+//通过函数访问
+static int getOC() &#123;
+    return objectCount;
+&#125;
+Role::getOC();
+</code></pre>
+<blockquote>
+<p>没有创建实例，都可以访问静态成员函数</p>
+<p>静态成员函数不能访问非静态成员变量</p>
+<p>不能是 const</p>
+<p>不能使用 this 指针</p>
+<p>(在 C++ 中，每一个对象都能通过 <strong>this</strong> 指针来访问自己的地址。<strong>this</strong> 指针是所有成员函数的隐含参数。因此，在成员函数内部，它可以用来指向调用对象)</p>
+</blockquote>
+<h2 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h2><p>类的友元函数是定义在类外部，但有权访问类的所有私有（private）成员和保护（protected）成员。尽管友元函数的原型有在类的定义中出现过，但是友元函数并不是成员函数。</p>
+<h3 id="友元函数"><a href="#友元函数" class="headerlink" title="友元函数"></a>友元函数</h3><p>友元函数没有 <strong>this</strong> 指针，因为友元不是类的成员。只有成员函数才有 <strong>this</strong> 指针。</p>
+<pre><code class="c++">class Role &#123;
+    public : 
+        int width;
+        int height;
+        friend void print(Role role);
+&#125;
+//友元函数并不属于 Role 类
+void print(Role role) &#123;
+    cout &lt;&lt; &quot;width&quot; &lt;&lt; role.width &lt;&lt; endl;
+    cout &lt;&lt; &quot;heigth&quot; &lt;&lt; role.heigth &lt;&lt; endl;
+&#125;
+</code></pre>
+<h3 id="友元类"><a href="#友元类" class="headerlink" title="友元类"></a>友元类</h3><pre><code class="c++">//声明类 Role 的所有成员函数作为类 RoleTwo 的友元
+public: 
+    friend class RoleTwo;
+
+class RoleTwo &#123;
+    public:
+        void print(Role role) &#123;
+            cout &lt;&lt; role.width &lt;&lt; endl;
+        &#125;
+&#125;
+</code></pre>
+<h3 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h3><pre><code class="c++">class Role &#123;
+    class Weapon &#123;
+        int lv;
+    &#125;
+&#125;
+//嵌套类定义对象
+Role::Weapon wp;
+</code></pre>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>继承允许我们依据另一个类来定义一个类，这使得创建和维护一个应用程序变得更容易。这样做，也达到了重用代码功能和提高执行效率的效果。</p>
+<p>当创建一个类时，您不需要重新编写新的数据成员和成员函数，只需指定新建的类继承了一个已有的类的成员即可。这个已有的类称为<strong>基类</strong>，新建的类称为<strong>派生类</strong>。</p>
+<pre><code class="c++">// 基类
+class Animal &#123;
+    // eat() 函数
+    // sleep() 函数
+&#125;;
+
+//派生类
+class Dog : public Animal &#123;
+    // bark() 函数
+&#125;;
+
+Dog dog;
+dog.eat();
+</code></pre>
+<blockquote>
+<p>派生类可以访问基类中所有的非私有成员。</p>
+<p>因此基类成员如果不想被派生类的成员函数访问，则应在基类中声明为 private。</p>
+</blockquote>
+<p>一个派生类继承了所有的基类方法，但下列情况除外：</p>
+<ul>
+<li><p>基类的构造函数、析构函数和拷贝构造函数。</p>
+</li>
+<li><p>基类的重载运算符。</p>
+</li>
+<li><p>基类的友元函数。</p>
+<h5 id="继承类型"><a href="#继承类型" class="headerlink" title="继承类型"></a>继承类型</h5><p>当一个类派生自基类，该基类可以被继承为 <strong>public、protected</strong> 或 <strong>private</strong> 几种类型。继承类型是通过上面讲解的访问修饰符 access-specifier 来指定的。</p>
+<p>我们几乎不使用 <strong>protected</strong> 或 <strong>private</strong> 继承，通常使用 <strong>public</strong> 继承。当使用不同类型的继承时，遵循以下几个规则：</p>
+<ul>
+<li><strong>公有继承（public）：</strong>当一个类派生自<strong>公有</strong>基类时，基类的<strong>公有</strong>成员也是派生类的<strong>公有</strong>成员，基类的<strong>保护</strong>成员也是派生类的<strong>保护</strong>成员，基类的<strong>私有</strong>成员不能直接被派生类访问，但是可以通过调用基类的<strong>公有</strong>和<strong>保护</strong>成员来访问。</li>
+<li><strong>保护继承（protected）：</strong> 当一个类派生自<strong>保护</strong>基类时，基类的<strong>公有</strong>和<strong>保护</strong>成员将成为派生类的<strong>保护</strong>成员。</li>
+<li><strong>私有继承（private）：</strong>当一个类派生自<strong>私有</strong>基类时，基类的<strong>公有</strong>和<strong>保护</strong>成员将成为派生类的<strong>私有</strong>成员。</li>
+</ul>
+</li>
+</ul>
+<h3 id="多继承"><a href="#多继承" class="headerlink" title="多继承"></a>多继承</h3><p>多继承即一个子类可以有多个父类，它继承了多个父类的特性。</p>
+<pre><code class="c++">// 派生类
+class ChildrenWorker : public Children,public Worker
+    
+// 派生类构造函数
+ChildrenWorker(string name,float salary,float score):Worker(salary),Children(score),m_name(name)
+    
+// 构造顺序
+// Chidren Worker ChildrenWorker
+</code></pre>
+<p>基类构造函数的调用顺序和它们在派生类构造函数中出现的顺序无关，而是和声明派生类时基类出现的顺序相同。</p>
+<p>多继承如果多个基类中有相同的成员变量或者成员函数，那么此时就会存在成员名字冲突的问题，如果存在名字冲突，我们在调用时，就必须显式声明需要调用的成员。</p>
+<pre><code class="c++">void info()
+&#123;
+    Worker::show();
+    Children::show();
+&#125;
+</code></pre>
+<h3 id="虚继承"><a href="#虚继承" class="headerlink" title="虚继承"></a>虚继承</h3><p>在使用多继承时，如果发生了菱形继承，那么就会出现数据冗余的问题，为了解决菱形继承出现的数据冗余的问题，C++ 提出了虚继承，虚继承使得派生类中只保留一份间接基类的成员。</p>
+<p>虚继承的目的是让某个类做出声明，承诺愿意共享它的基类。其中，这个被共享的基类就称为虚基类（Virtual Base Class），菱形继承中的顶层类 就是一个虚基类。在这种机制下，不论虚基类在继承体系中出现了多少次，在派生类中都只包含一份虚基类的成员。</p>
+<pre><code class="c++">class A&#123;&#125;
+class B: virtual public A&#123;&#125;
+class C: virtual public A&#123;&#125;
+class D: public B, public C&#123;&#125;
+</code></pre>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p><strong>多态</strong>按字面的意思就是多种形态。当类之间存在层次结构，并且类之间是通过继承关联时，就会用到多态。</p>
+<p>C++ 多态意味着调用成员函数时，会根据调用函数的对象的类型来执行不同的函数。基类指针指向基类对象时就使用基类的成员（包括 成员函数和 成员变量），指向派生类对象时就使用派生类的成员。</p>
+<pre><code class="c++">class Role &#123;
+    public:
+        void mission() &#123;
+            cout &lt;&lt; &quot;主线任务&quot;;
+        &#125;
+&#125;
+class Npc: public Role &#123;
+    public:
+        void mission() &#123;
+            cout &lt;&lt; &quot;支线任务&quot;;
+        &#125;
+&#125;
+class Vip: public Role &#123;
+    public:
+        void mission() &#123;
+            cout &lt;&lt; &quot;个人任务&quot;;
+        &#125;
+&#125;
+Role* role;
+Npc npc;
+vip vip;
+</code></pre>
+<p>这就是静态多态<strong>，或</strong>静态链接** - 函数调用在程序执行前就准备好了。有时候这也被称为<strong>早绑定</strong>，因为 mission() 函数在程序编译期间就已经设置好了。</p>
+<pre><code class="c++">role = &amp;npc;
+role.mission();
+//主线任务
+
+role = &amp;vip;
+role.mission();
+//主线任务
+</code></pre>
+<h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><p><strong>虚函数</strong> 是在基类中使用关键字 <strong>virtual</strong> 声明的函数。在派生类中重新定义基类中定义的虚函数时，会告诉编译器不要静态链接到该函数。</p>
+<p>我们想要的是在程序中任意点可以根据所调用的对象类型来选择调用的函数，这种操作被称为<strong>动态链接</strong>，或<strong>后期绑定</strong>。</p>
+<h4 id="加入-virtual-关键字"><a href="#加入-virtual-关键字" class="headerlink" title="加入 virtual 关键字"></a>加入 virtual 关键字</h4><pre><code class="c++">virtual void mission() &#123;&#125;
+
+role = &amp;npc;
+role.mission();
+//支线任务
+
+role = &amp;vip;
+role.mission();
+//个人任务
+</code></pre>
+<h4 id="纯虚函数"><a href="#纯虚函数" class="headerlink" title="纯虚函数"></a>纯虚函数</h4><p>您可能想要在基类中定义虚函数，以便在派生类中重新定义该函数更好地适用于对象，但是您在基类中又不能对虚函数给出有意义的实现，这个时候就会用到纯虚函数。</p>
+<pre><code class="c++">// pure virtual function
+virtual int mission() = 0;
+</code></pre>
+<h2 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h2><p>数据抽象是指，只向外界提供关键信息，并隐藏其后台的实现细节，即只表现必要的信息而不呈现细节。</p>
+<p>数据抽象是一种依赖于接口和实现分离的编程（设计）技术。</p>
+<h4 id="数据抽象的好处"><a href="#数据抽象的好处" class="headerlink" title="数据抽象的好处"></a>数据抽象的好处</h4><p>数据抽象有两个重要的优势：</p>
+<ul>
+<li>类的内部受到保护，不会因无意的用户级错误导致对象状态受损。</li>
+<li>类实现可能随着时间的推移而发生变化，以便应对不断变化的需求，或者应对那些要求不改变用户级代码的错误报告。</li>
+</ul>
+<p>如果只在类的私有部分定义数据成员，编写该类的作者就可以随意更改数据。如果实现发生改变，则只需要检查类的代码，看看这个改变会导致哪些影响。如果数据是公有的，则任何直接访问旧表示形式的数据成员的函数都可能受到影响。</p>
+<p>抽象把代码分离为接口和实现。所以在设计组件时，必须保持接口独立于实现，这样，如果改变底层实现，接口也将保持不变。</p>
+<p>在这种情况下，不管任何程序使用接口，接口都不会受到影响，只需要将最新的实现重新编译即可。</p>
+<h2 id="数据封装"><a href="#数据封装" class="headerlink" title="数据封装"></a>数据封装</h2><p>封装是面向对象编程中的把数据和操作数据的函数绑定在一起的一个概念，这样能避免受到外界的干扰和误用，从而确保了安全。数据封装引申出了另一个重要的 OOP 概念，即<strong>数据隐藏</strong>。</p>
+<p><strong>数据封装</strong>是一种把数据和操作数据的函数捆绑在一起的机制，<strong>数据抽象</strong>是一种仅向用户暴露接口而把具体的实现细节隐藏起来的机制。</p>
+<p>通过创建<strong>类</strong>来支持封装和数据隐藏（public、protected、private）。我们已经知道，类包含私有成员（private）、保护成员（protected）和公有成员（public）成员。默认情况下，在类中定义的所有项目都是私有的。</p>
+<h2 id="接口（抽象类）"><a href="#接口（抽象类）" class="headerlink" title="接口（抽象类）"></a>接口（抽象类）</h2><p>接口描述了类的行为和功能，而不需要完成类的特定实现。</p>
+<p>C++ 接口是使用<strong>抽象类</strong>来实现的，抽象类与数据抽象互不混淆，数据抽象是一个把实现细节与相关的数据分离开的概念。</p>
+<p>如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。</p>
+<pre><code class="c++">class Role &#123;
+    public:
+        //纯虚函数
+        virtual void mission() = 0;
+        void setWidth(int w) &#123;
+            width = w;
+        &#125;
+        void setHeigth(int h) &#123;
+            height = h;
+        &#125;
+    protected:
+        int width;
+        int height;
+&#125;
+class Npc: public Role &#123;
+    public:
+        //重写纯虚函数
+        void mission() &#123;
+            cout &lt;&lt; &quot;支线任务&quot;;
+            cout &lt;&lt; width * heigth;
+        &#125;
+&#125;
+class Vip: public Role &#123;
+    public:
+        //重写纯虚函数
+        void mission() &#123;
+            cout &lt;&lt; &quot;个人任务&quot;;
+            cout &lt;&lt; width * heigth;
+        &#125;
+&#125;
+</code></pre>
+<h2 id="文件和流"><a href="#文件和流" class="headerlink" title="文件和流"></a>文件和流</h2><h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ofstream</td>
+<td align="left">该数据类型表示输出文件流，用于创建文件并向文件写入信息。</td>
+</tr>
+<tr>
+<td align="left">ifstream</td>
+<td align="left">该数据类型表示输入文件流，用于从文件读取信息。</td>
+</tr>
+<tr>
+<td align="left">fstream</td>
+<td align="left">该数据类型通常表示文件流，且同时具有 ofstream 和 ifstream 两种功能，这意味着它可以创建文件，向文件写入信息，从文件读取信息。</td>
+</tr>
+</tbody></table>
+<p>要在 C++ 中进行文件处理，必须在 C++ 源代码文件中包含头文件</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+</code></pre>
+<h4 id="open-函数"><a href="#open-函数" class="headerlink" title="open()函数"></a>open()函数</h4><p>第一参数指定要打开的文件的名称和位置，第二个参数定义文件被打开的模式。</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式标志</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ios::app</td>
+<td align="left">追加模式。所有写入都追加到文件末尾。</td>
+</tr>
+<tr>
+<td align="left">ios::ate</td>
+<td align="left">文件打开后定位到文件末尾。</td>
+</tr>
+<tr>
+<td align="left">ios::in</td>
+<td align="left">打开文件用于读取。</td>
+</tr>
+<tr>
+<td align="left">ios::out</td>
+<td align="left">打开文件用于写入。</td>
+</tr>
+<tr>
+<td align="left">ios::trunc</td>
+<td align="left">如果该文件已经存在，其内容将在打开文件之前被截断，即把文件长度设为 0。</td>
+</tr>
+</tbody></table>
+<p>您可以把以上两种或两种以上的模式结合使用。例如，如果您想要以写入模式打开文件，并希望截断文件，以防文件已存在，那么您可以使用下面的语法：</p>
+<pre><code>ofstream outfile;
+outfile.open(&quot;file.dat&quot;, ios::out | ios::trunc );
+</code></pre>
+<p>类似地，您如果想要打开一个文件用于读写，可以使用下面的语法：</p>
+<pre><code>ifstream  afile;
+afile.open(&quot;file.dat&quot;, ios::out | ios::in );
+</code></pre>
+<h3 id="关闭文件"><a href="#关闭文件" class="headerlink" title="关闭文件"></a>关闭文件</h3><p>当 C++ 程序终止时，它会自动关闭刷新所有流，释放所有分配的内存，并关闭所有打开的文件。</p>
+<pre><code class="c++">void close();
+</code></pre>
+<h3 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h3><pre><code class="c++">char data[100];
+ofstream outfile;
+outfile.open(&quot;test.txt&quot;);
+
+//写入操作
+outfile &lt;&lt; data &lt;&lt; endl;
+outfile.close();
+</code></pre>
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3><pre><code class="c++">char data[100];
+ofstream infile;
+infile.open(&quot;text.txt&quot;);
+
+//读取文件操作，存在data中
+infile &gt;&gt; data;
+infile.close();
+</code></pre>
+<h3 id="文件位置指针"><a href="#文件位置指针" class="headerlink" title="文件位置指针"></a>文件位置指针</h3><p>文件位置指针是一个整数值，指定了从文件的起始位置到指针所在位置的字节数。</p>
+<pre><code class="c++">/ 定位到 fileObject 的第 n 个字节（假设是 ios::beg）
+fileObject.seekg( n );
+ 
+// 把文件的读指针从 fileObject 当前位置向后移 n 个字节
+fileObject.seekg( n, ios::cur );
+ 
+// 把文件的读指针从 fileObject 末尾往回移 n 个字节
+fileObject.seekg( n, ios::end );
+ 
+// 定位到 fileObject 的末尾
+fileObject.seekg( 0, ios::end );
+</code></pre>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
