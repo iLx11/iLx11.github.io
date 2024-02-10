@@ -1086,6 +1086,10 @@ setInterval(() =&gt; &#123;
     let diskLayout = await si.diskLayout()
 &#125;)
 </code></pre>
+<h1 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h1><h2 id="生成图标"><a href="#生成图标" class="headerlink" title="生成图标"></a>生成图标</h2><h3 id="安装包"><a href="#安装包" class="headerlink" title="安装包"></a>安装包</h3><pre><code class="shell">pnpm i electron-icon-builder --dev
+</code></pre>
+<h3 id="在-package-json-中配置"><a href="#在-package-json-中配置" class="headerlink" title="在 package.json 中配置"></a>在 package.json 中配置</h3><pre><code class="json">&quot;build-icon&quot;: &quot;electron-icon-builder --input=./public/icon.png --output=build --flatten&quot;
+</code></pre>
 <h1 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h1><h2 id="窗口记录"><a href="#窗口记录" class="headerlink" title="窗口记录"></a>窗口记录</h2><pre><code class="js">setState() &#123;
     let win = remote.getCurrentWindow();
     // 返回 Rectangle 对象，包含窗口在屏幕上的坐标和大小
@@ -1096,7 +1100,7 @@ setInterval(() =&gt; &#123;
 <h1 id="electron打包"><a href="#electron打包" class="headerlink" title="electron打包"></a>electron打包</h1><p>安装electron打包开发依赖</p>
 <blockquote>
 <p>最新版本：npm install –save-dev electron-builder</p>
-<p>指定版本：npm install –save-dev <a href="mailto:&#101;&#x6c;&#x65;&#x63;&#116;&#114;&#111;&#110;&#x2d;&#98;&#117;&#x69;&#x6c;&#x64;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;">&#101;&#x6c;&#x65;&#x63;&#116;&#114;&#111;&#110;&#x2d;&#98;&#117;&#x69;&#x6c;&#x64;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;</a></p>
+<p>指定版本：npm install –save-dev <a href="mailto:&#x65;&#108;&#101;&#x63;&#116;&#x72;&#111;&#x6e;&#45;&#98;&#x75;&#x69;&#x6c;&#x64;&#101;&#114;&#64;&#x32;&#x33;&#46;&#54;&#x2e;&#x30;">&#x65;&#108;&#101;&#x63;&#116;&#x72;&#111;&#x6e;&#45;&#98;&#x75;&#x69;&#x6c;&#x64;&#101;&#114;&#64;&#x32;&#x33;&#46;&#54;&#x2e;&#x30;</a></p>
 </blockquote>
 <h3 id="package-json-中配置"><a href="#package-json-中配置" class="headerlink" title="package.json 中配置"></a>package.json 中配置</h3><pre><code class="json">&quot;build&quot;: &#123;
     &quot;appId&quot;: &quot;com.xxxxx.xxxx&quot;,//包名  
