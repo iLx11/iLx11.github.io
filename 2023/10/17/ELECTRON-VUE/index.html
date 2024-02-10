@@ -717,6 +717,375 @@ setInterval(() =&gt; &#123;
     &#125;
 &#125;,600)
 </code></pre>
+<h3 id="响应事件"><a href="#响应事件" class="headerlink" title="响应事件"></a>响应事件</h3><pre><code class="js">// double-click right-click
+tray.on(&#39;click&#39;, () =&gt; &#123;
+    win.show()
+&#125;)
+</code></pre>
+<h3 id="托盘注册菜单"><a href="#托盘注册菜单" class="headerlink" title="托盘注册菜单"></a>托盘注册菜单</h3><pre><code class="js">let &#123;Tray, Menu&#125; = require(&#39;electron&#39;)
+let menu = Menu.buildFromTemplate([
+    &#123;
+        click() &#123;
+            win.show()
+        &#125;,
+        label: &#39;显示窗口&#39;,
+        type: &#39;normal&#39;
+    &#125;,
+    &#123;
+        click() &#123;
+            app.quit()
+        &#125;,
+        label: &#39;退出应用&#39;,
+        type: &#39;normal&#39;
+    &#125;
+&#125;])
+tray.setContextMenu(menu)
+</code></pre>
+<h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><h3 id="剪切板写入文本和-HTML"><a href="#剪切板写入文本和-HTML" class="headerlink" title="剪切板写入文本和 HTML"></a>剪切板写入文本和 HTML</h3><pre><code class="js">let &#123;clipboard&#125; = require(&quot;electron&quot;)
+
+clipboard.writeText(&quot;你好&quot;)
+clipboard.writeHTML(&quot;&lt;h1&gt;你好&lt;/h1&gt;&quot;)
+</code></pre>
+<h3 id="图片写入剪切板"><a href="#图片写入剪切板" class="headerlink" title="图片写入剪切板"></a>图片写入剪切板</h3><pre><code class="js">let path = require(&quot;path&quot;)
+let &#123;clipboard, nativeImage&#125; = require(&quot;electron&quot;)
+
+let imgPath = path.join(__static, &quot;icon.png&quot;)
+let img = nativeImage.createFromPath(imgPath)
+clipboard.writeImage(img)
+</code></pre>
+<h3 id="清除剪切板的数据"><a href="#清除剪切板的数据" class="headerlink" title="清除剪切板的数据"></a>清除剪切板的数据</h3><pre><code class="js">clipboard.clear()
+</code></pre>
+<h3 id="剪切板读取文本和-HTML"><a href="#剪切板读取文本和-HTML" class="headerlink" title="剪切板读取文本和 HTML"></a>剪切板读取文本和 HTML</h3><pre><code class="js">clipboard.readText()
+clipboard.readHTML()
+</code></pre>
+<h3 id="读取显示剪切板的图片"><a href="#读取显示剪切板的图片" class="headerlink" title="读取显示剪切板的图片"></a>读取显示剪切板的图片</h3><pre><code class="js">let img = clipboard.readImage()
+let dataUrl = img.toDataURL()
+let imgDom = document.createElement(&#39;img&#39;)
+imgDom.src = dataUrl
+document.body.appendChild(imgDom)
+</code></pre>
+<h3 id="剪切板如果是文件"><a href="#剪切板如果是文件" class="headerlink" title="剪切板如果是文件"></a>剪切板如果是文件</h3><p>可以获取文件路径</p>
+<pre><code class="js">// win
+let filePath = clipboard.readBuffer(&#39;FileNameW&#39;).toString(&#39;ucs2&#39;)
+filePath = filePath.replace(RegExp(String.fromCharCode(0), &#39;g&#39;), &#39;&#39;)
+// mac
+var filePath = clipboard.read(&#39;public.file-url&#39;).replace(&#39;file://&#39;, &#39;&#39;)
+</code></pre>
+<p>或者借助 <code>clipboard-files</code>  Node.js 模块</p>
+<pre><code class="js">const clipboard = require(&#39;clipboard-files&#39;)
+let fileNames = clipboard.readFiles()
+</code></pre>
+<h2 id="系统通知"><a href="#系统通知" class="headerlink" title="系统通知"></a>系统通知</h2><h3 id="HTML-API-发送系统通知"><a href="#HTML-API-发送系统通知" class="headerlink" title="HTML API 发送系统通知"></a>HTML API 发送系统通知</h3><p>首先需要获取用户授权，在渲染进程中可以不需要授权，直接创建实例</p>
+<pre><code class="js">Notification.requestPermission(function(status) &#123;
+    if(status === &quot;granted&quot;) &#123;
+        let notification = new Notification(&#39;新的信息&#39;, &#123;
+            body: &#39;消息内容&#39;
+        &#125;)
+    &#125; else &#123;
+        // 拒绝授权
+    &#125;
+&#125;)
+</code></pre>
+<p>如果点击通知就会触发</p>
+<pre><code class="js">notification.onclick = function() &#123;
+    console.log(&#39;xxx&#39;)
+&#125;
+</code></pre>
+<h3 id="主进程发送系统通知"><a href="#主进程发送系统通知" class="headerlink" title="主进程发送系统通知"></a>主进程发送系统通知</h3><p>可以多次调用显示同样通知，click 事件不能用 onclick 注册</p>
+<pre><code class="js">const &#123;Notification&#125; = require(&quot;electron&quot;).remote
+
+let notification = new Notification(&#123;
+    title: &quot;消息&quot;,
+       body: &quot;消息正文&quot;
+&#125;)
+notification.show()
+notification.on(&quot;click&quot;, () =&gt; &#123;
+    console.log(&quot;点击了消息&quot;)
+&#125;)
+</code></pre>
+<h2 id="使用默认应用打开文件"><a href="#使用默认应用打开文件" class="headerlink" title="使用默认应用打开文件"></a>使用默认应用打开文件</h2><pre><code class="js">const &#123;shell&#125; = require(&quot;electron&quot;)
+
+// 打开 URL 链接
+shell.openExternal(&quot;http://xxx&quot;)
+</code></pre>
+<h3 id="word-文档或其他系统注册默认程序的文件"><a href="#word-文档或其他系统注册默认程序的文件" class="headerlink" title="word 文档或其他系统注册默认程序的文件"></a>word 文档或其他系统注册默认程序的文件</h3><p>是一个同步方法，可能会阻塞执行</p>
+<pre><code class="js">let openFlag = shell.openItem(&quot;D:\\xxx\\xxx.docx&quot;)
+</code></pre>
+<h3 id="把文件移入垃圾箱"><a href="#把文件移入垃圾箱" class="headerlink" title="把文件移入垃圾箱"></a>把文件移入垃圾箱</h3><pre><code class="js">let delFlag = shell.moveItemToTrash(&quot;D:\\xx\\&quot;)
+</code></pre>
+<h2 id="接受拖拽到窗口的文件"><a href="#接受拖拽到窗口的文件" class="headerlink" title="接受拖拽到窗口的文件"></a>接受拖拽到窗口的文件</h2><h3 id="HTML5-API"><a href="#HTML5-API" class="headerlink" title="HTML5 API"></a>HTML5 API</h3><pre><code class="js">document.addEventListener(&#39;dragover&#39;, ev =&gt; &#123;
+    // 保证 drop 事件正确触发
+    ev.preventDefault()
+&#125;)
+document.addEventListener(&#39;drop&#39;, ev =&gt; &#123;
+    // File 数组
+    console.log(ev.dataTransfer.files)
+    ev.preventDefault()
+&#125;)
+</code></pre>
+<h4 id="读取拖拽的文件"><a href="#读取拖拽的文件" class="headerlink" title="读取拖拽的文件"></a>读取拖拽的文件</h4><pre><code class="js">let fr = new FileReader()
+fr.onload = () =&gt; &#123;
+    var buffer = new Buffer.from(fr.result)
+    fs.writeFile(newFilePath, buffer, err =&gt; &#123;
+        // 保存
+    &#125;)
+&#125;
+fr.readAsArrayBuffer(fileObj)
+// fr.readAsText() -&gt; 文本方式
+// fr.readAsDataURL() -&gt; base64
+// fr.readAsBinaryString() -&gt; 二进制
+</code></pre>
+<h2 id="最近打开的文件"><a href="#最近打开的文件" class="headerlink" title="最近打开的文件"></a>最近打开的文件</h2><h3 id="API-实现功能"><a href="#API-实现功能" class="headerlink" title="API 实现功能"></a>API 实现功能</h3><pre><code class="js">app.addRecentDocument(&#39;C:\XXX\XXX&#39;)
+</code></pre>
+<h3 id="清空最近打开的文件列表"><a href="#清空最近打开的文件列表" class="headerlink" title="清空最近打开的文件列表"></a>清空最近打开的文件列表</h3><pre><code class="js">app.clearRecentDocuments();
+</code></pre>
+<h1 id="通信"><a href="#通信" class="headerlink" title="通信"></a>通信</h1><h2 id="与-Web-服务器通信"><a href="#与-Web-服务器通信" class="headerlink" title="与 Web 服务器通信"></a>与 Web 服务器通信</h2><h3 id="禁用同源实现跨域"><a href="#禁用同源实现跨域" class="headerlink" title="禁用同源实现跨域"></a>禁用同源实现跨域</h3><p>Node.js 访问</p>
+<pre><code class="js">let https = require(&quot;https&quot;)
+
+let url = &quot;https://xxxxx&quot;
+https.get(url, res =&gt; &#123;
+    let html = &quot;&quot;
+    res.on(&quot;data&quot;, data =&gt; (html += data))
+    res.on(&quot;end&quot;, () =&gt; console.log(html))
+&#125;)
+</code></pre>
+<h4 id="渲染层访问需要禁用同源"><a href="#渲染层访问需要禁用同源" class="headerlink" title="渲染层访问需要禁用同源"></a>渲染层访问需要禁用同源</h4><pre><code class="js">webSecurity: false
+</code></pre>
+<h2 id="使用-WebSocket-通信"><a href="#使用-WebSocket-通信" class="headerlink" title="使用 WebSocket 通信"></a>使用 WebSocket 通信</h2><h3 id="webSocket-客户端"><a href="#webSocket-客户端" class="headerlink" title="webSocket 客户端"></a>webSocket 客户端</h3><pre><code class="js">let websocket = new WebSocket(&quot;ws://localhost:8000/&quot;)
+// 打开时触发
+websocket.onopen = function(evt) 
+// 关闭时触发
+websocket.onclose
+// 收到消息
+websocket.onmessage
+// 产生异常
+websocket.onerror
+// 发送数据
+websocket.send(&quot;xxxx&quot;)
+// 关闭连接
+websocket.close()
+</code></pre>
+<h2 id="与系统其他应用通信"><a href="#与系统其他应用通信" class="headerlink" title="与系统其他应用通信"></a>与系统其他应用通信</h2><h3 id="Electron-应用与其他应用通信"><a href="#Electron-应用与其他应用通信" class="headerlink" title="Electron 应用与其他应用通信"></a>Electron 应用与其他应用通信</h3><p>IPC 命名管道技术，包含服务端和客户端，可以持久连接双向通信</p>
+<p>如果有第三方程序需要发送数据，可以在 Electron 创建命名管道服务端接收数据</p>
+<pre><code class="js">let net = require(&#39;net&#39;)
+let PIPE_PATH = &quot;\\\\.\\ pipe\\ mypipe&quot;
+let server = net.createServer(function(conn) &#123;
+    conn.on(&#39;data&#39;, d =&gt; console.log(`接收到数据: $&#123;d.toString()&#125;`))
+    conn.on(&#39;end&#39;, () =&gt; console.log(&quot;客户端已关闭连接&quot;))
+    conn.write(&#39;建立连接后，发送信息&#39;)
+&#125;)
+server.on(&#39;close&#39;, () =&gt; console.log(&#39;服务关闭&#39;))
+server.listen(PIPE_PATH, () =&gt; console.log(&quot;服务启动，正在监听&quot;))
+</code></pre>
+<p>客户端</p>
+<pre><code class="js">let net = require(&#39;net&#39;)
+let PIPE_PATH = &quot;\\\\.\\ pipe\\ mypipe&quot;
+let client = net.connect(PIPE_PATH, () =&gt; &#123;
+    console.log(&quot;连接成功&quot;)
+    client.write(&quot;第一个数据包&quot;)
+&#125;)
+client.on(&quot;data&quot;, d =&gt; &#123;
+    console.log(&quot;接收数据 -&gt; &quot;, d)
+    client.end(&quot;最后的消息，发完就关闭&quot;)
+&#125;)
+client.on(&quot;end&quot;, () =&gt; console.log(&quot;服务端关闭了连接&quot;))
+</code></pre>
+<h2 id="网页与-Electron-通信"><a href="#网页与-Electron-通信" class="headerlink" title="网页与 Electron 通信"></a>网页与 Electron 通信</h2><h3 id="建立-Web-服务器"><a href="#建立-Web-服务器" class="headerlink" title="建立 Web 服务器"></a>建立 Web 服务器</h3><pre><code class="js">var http = require(&#39;http&#39;)
+
+let server = http.createServer((request, reponse) =&gt; &#123;
+    if(request.url == &quot;/electron&quot;) &#123;
+        let jsonString = &#39;&#39;
+        request.on(&#39;data&#39;, data =&gt; jsonString += data)
+        request.on(&#39;end&#39;, () =&gt; &#123;
+            let post = JSON.parse(jsonString)
+            // 业务逻辑
+            response.writeHead(200, &#123;
+                &quot;Content-Type&quot;: &quot;text/html&quot;,
+                &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;
+            &#125;)
+            let result = JSON.stringify(&#123;
+                &quot;ok&quot;: true,
+                &quot;msg&quot;: &quot;请求成功&quot;
+            &#125;)
+            reponse.end(result)
+        &#125;)
+        return 
+    &#125;
+&#125;)
+server.on(&quot;error&quot;, err =&gt; &#123;
+    // 可以发给渲染进程
+&#125;)
+server.listen(9416)
+
+
+// 如果设置 listen(0)，需要获取具体监听的端口
+server.on(&#39;listening&#39;, () =&gt; &#123;
+    console.log(server.address().port)
+&#125;)
+</code></pre>
+<h1 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h1><p>Electron 可以自由使用操作硬件设备的能力，且默认有硬件的访问权限</p>
+<h2 id="屏幕"><a href="#屏幕" class="headerlink" title="屏幕"></a>屏幕</h2><h3 id="获取扩展屏幕"><a href="#获取扩展屏幕" class="headerlink" title="获取扩展屏幕"></a>获取扩展屏幕</h3><p>获取主显示信息</p>
+<pre><code class="js">let remote = require(&quot;electron&quot;).remote
+
+let mainScreen = remote.screen.getPrimaryDisplay()
+console.log(mainScreen)
+</code></pre>
+<p>控制窗口显示在外接显示器上</p>
+<pre><code class="js">let &#123;screen&#125; require(&#39;electron&#39;)
+
+let displays = screen.getAllDisplays()
+let externalDisplay = displays.find(display =&gt; &#123;
+    // 判断是否为外接屏幕
+    return display.bounds.x !== 0 || diplay.bounds.y !== 0
+&#125;)
+if(externalDisplay) )&#123;
+    win = new BrowserWindow(&#123;
+        x: externalDisplay.bounds.x + 50,
+        y: externalDisplay.bounds.y + 50,
+        webPreferences: &#123;
+            nodeIntegration: true
+        &#125;
+    &#125;)
+    win.loadURL(&#39;https://xx&#39;)
+&#125;
+</code></pre>
+<h3 id="打开系统软件盘"><a href="#打开系统软件盘" class="headerlink" title="打开系统软件盘"></a>打开系统软件盘</h3><pre><code class="js">const exec = require(&quot;child_process&quot;).exec
+exec(&quot;osk.exe&quot;)
+</code></pre>
+<h2 id="音视频设置"><a href="#音视频设置" class="headerlink" title="音视频设置"></a>音视频设置</h2><h3 id="摄像头和麦克风"><a href="#摄像头和麦克风" class="headerlink" title="摄像头和麦克风"></a>摄像头和麦克风</h3><pre><code class="js">let option = &#123;
+    audio: true,
+    video: true
+&#125;
+let mediaStream = await navigator.mediaDevices.getUserMedia(option)
+let viode = document.querySelector(&quot;video&quot;)
+video.srcObject = mediaStream
+video.onloadedmetadata = function(e) &#123;
+    video.play()
+&#125;
+</code></pre>
+<h3 id="可以对摄像头进行设置"><a href="#可以对摄像头进行设置" class="headerlink" title="可以对摄像头进行设置"></a>可以对摄像头进行设置</h3><pre><code class="js">// 设置视频的大小
+video: &#123;widht: xxx, height: xxx&#125;
+// 取设备前置摄像头
+video: &#123;facingMode: &quot;user&quot;&#125;
+// 后置摄像头
+video: &#123;facingMode: &quot;environment&quot;&#125;
+</code></pre>
+<h3 id="所有摄像头的基本信息"><a href="#所有摄像头的基本信息" class="headerlink" title="所有摄像头的基本信息"></a>所有摄像头的基本信息</h3><p>获取数组中包含视频和音频设备信息</p>
+<pre><code class="js">let devices = await navigator.mediaDevices.enumerateDevices()
+</code></pre>
+<h3 id="指定设备"><a href="#指定设备" class="headerlink" title="指定设备"></a>指定设备</h3><p>此方法如果配置的设备不可用，将会随机返回可用设备</p>
+<pre><code class="js">video: &#123;deviceId: myPreferencedCameraDeviceId&#125;
+</code></pre>
+<p>可以指定，不可用则会抛出异常</p>
+<pre><code class="js">video: &#123;deviceId: &#123;exect: myPreferencedCameraDeviceId&#125; &#125;
+</code></pre>
+<h2 id="录屏"><a href="#录屏" class="headerlink" title="录屏"></a>录屏</h2><h3 id="获取桌面应用的屏幕视频流"><a href="#获取桌面应用的屏幕视频流" class="headerlink" title="获取桌面应用的屏幕视频流"></a>获取桌面应用的屏幕视频流</h3><pre><code class="js">const &#123;desktopCapturer&#125; = require(&quot;electron&quot;)
+
+let sources = await desktopCapturer.getSources(&#123;
+    types: [&quot;window&quot;, &quot;screen&quot;]
+&#125;)
+let target = sources.find(v =&gt; v.name == &quot;微信&quot;)
+let mediaStream = await navigator.mediaDevices.getUserMedia(&#123;
+    audio: false,
+    video: &#123;
+        mandatory: &#123;
+            chromeMediaSource: &quot;desktop&quot;,
+            chromeMediaSourceId: target.id
+        &#125;
+    &#125;
+&#125;)
+var video = document.querySelector(&quot;video&quot;)
+video.srcObject = mediaStream
+video.onloadedmetadata = function(e) &#123;
+    video.play()
+&#125;
+</code></pre>
+<h2 id="电源"><a href="#电源" class="headerlink" title="电源"></a>电源</h2><h3 id="基本状态"><a href="#基本状态" class="headerlink" title="基本状态"></a>基本状态</h3><ul>
+<li><strong>charging</strong> -&gt; 正在充电时值为 true</li>
+<li><strong>chargingTime</strong> -&gt; 距离电池充满还剩多少时间，如果是 0 则表示充满</li>
+<li><strong>dischargingTime</strong> -&gt; 电池用完时间</li>
+<li><strong>level</strong> -&gt; 充电水平</li>
+</ul>
+<pre><code class="js">let batteryManager = await navigator.getBattery()
+</code></pre>
+<h3 id="可控事件"><a href="#可控事件" class="headerlink" title="可控事件"></a>可控事件</h3><ul>
+<li><strong>onchargingchange</strong></li>
+<li><strong>onchargingtimechanged</strong></li>
+<li><strong>ondischargingtimechanged</strong></li>
+<li><strong>onlevelchange</strong></li>
+</ul>
+<h2 id="监控系统挂起与锁屏事件"><a href="#监控系统挂起与锁屏事件" class="headerlink" title="监控系统挂起与锁屏事件"></a>监控系统挂起与锁屏事件</h2><pre><code class="js">const &#123;powerMonitor&#125; = require(&quot;electron&quot;).remote
+
+powerMonitor.on(&quot;suspend&quot;, () =&gt; &#123;
+    console.log(&quot;sys is going to sleep&quot;)
+&#125;)
+powerMonitor.on(&quot;resume&quot;, () =&gt; &#123;
+    console.log(&quot;sys is going to wakeup&quot;)
+&#125;)
+</code></pre>
+<h3 id="锁屏与解锁"><a href="#锁屏与解锁" class="headerlink" title="锁屏与解锁"></a>锁屏与解锁</h3><pre><code class="js">powerMonitor.on(&quot;lock-screen&quot;, () =&gt; &#123;
+    console.log(&quot;sys is lock screen&quot;)
+&#125;)
+powerMonitor.on(&quot;unlock-screen&quot;, () =&gt; &#123;
+    console.log(&quot;sys is unlock screen&quot;)
+&#125;)
+</code></pre>
+<h3 id="阻止系统锁屏"><a href="#阻止系统锁屏" class="headerlink" title="阻止系统锁屏"></a>阻止系统锁屏</h3><pre><code class="js">const &#123;powerSaveBlocker&#125; = require(&quot;electron&quot;)
+
+// 阻止锁屏
+cosnt id = powerSaveBlocker.start(&quot;prevent-display-sleep&quot;)
+
+// 取消阻止
+powerSaveBlocker.stop(id)
+
+// 判断是否阻止
+powerSaveBlocker.isStarted(id)
+</code></pre>
+<h2 id="导出-PDF"><a href="#导出-PDF" class="headerlink" title="导出 PDF"></a>导出 PDF</h2><h3 id="导出页面内容"><a href="#导出页面内容" class="headerlink" title="导出页面内容"></a>导出页面内容</h3><pre><code class="js">let &#123;remote&#125; = require(&quot;electron&quot;)
+let path = require(&quot;path&quot;)
+
+let webContents = remote.getCurrentWebContents()
+let data = await webContents.printToPDF(&#123;&#125;)
+let filePath = path.join(__static, &quot;xxx.pdf&quot;)
+fs.writeFile(filePath, data, err =&gt; &#123;
+    id(err) throw err
+    console.log(&quot;保存成功&quot;)
+&#125;)
+</code></pre>
+<h3 id="可以打开文件存储对话框"><a href="#可以打开文件存储对话框" class="headerlink" title="可以打开文件存储对话框"></a>可以打开文件存储对话框</h3><pre><code class="js">let pathObj = await remote.dialog.showSaveDialog(&#123;
+    title: &quot;保存 PDF&quot;,
+    filters: [&#123;name: &quot;pdf&quot;, extensions: [&quot;pdf&quot;]&#125;]
+&#125;)
+if(pathObj.cancled) return 
+fs.writeFile(pathObj.filePath, data, err =&gt; &#123;
+    if(err) throw err
+    console.log(&quot;保存成功&quot;)
+&#125;)
+</code></pre>
+<h2 id="硬件信息"><a href="#硬件信息" class="headerlink" title="硬件信息"></a>硬件信息</h2><h3 id="获取目标平台硬件信息"><a href="#获取目标平台硬件信息" class="headerlink" title="获取目标平台硬件信息"></a>获取目标平台硬件信息</h3><h4 id="Electron-API"><a href="#Electron-API" class="headerlink" title="Electron  API"></a>Electron  API</h4><pre><code class="js">// 内存使用量
+let memoryUseage = process.getSystemMemoryInfo()
+
+// CPU 使用情况
+let cpuUseage = process.getCPUUseage()
+
+// 每次调用是取本次与上次的评价值，所以用定时器读取
+setInterval(() =&gt; &#123;
+    cpuUseage = process.getCPUUseage()
+    console.log(cpuUseage)
+&#125;)
+</code></pre>
+<h3 id="systeminformation-包"><a href="#systeminformation-包" class="headerlink" title="systeminformation 包"></a>systeminformation 包</h3><pre><code class="js">let si = require(&#39;systeminformation&#39;)
+(async function() &#123;
+    // cpu 信息
+    let cpuInfo = await si.cpu()
+    // 内存信息
+    let memInfo = await si.mem()
+    // 网卡信息
+    let networkInterfaces = await si.networkInterfaces()
+    // 获取磁盘信息
+    let diskLayout = await si.diskLayout()
+&#125;)
+</code></pre>
 <h1 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h1><h2 id="窗口记录"><a href="#窗口记录" class="headerlink" title="窗口记录"></a>窗口记录</h2><pre><code class="js">setState() &#123;
     let win = remote.getCurrentWindow();
     // 返回 Rectangle 对象，包含窗口在屏幕上的坐标和大小
@@ -727,7 +1096,7 @@ setInterval(() =&gt; &#123;
 <h1 id="electron打包"><a href="#electron打包" class="headerlink" title="electron打包"></a>electron打包</h1><p>安装electron打包开发依赖</p>
 <blockquote>
 <p>最新版本：npm install –save-dev electron-builder</p>
-<p>指定版本：npm install –save-dev <a href="mailto:&#101;&#108;&#101;&#99;&#116;&#114;&#111;&#110;&#45;&#x62;&#117;&#105;&#108;&#100;&#101;&#114;&#64;&#50;&#51;&#x2e;&#x36;&#x2e;&#x30;">&#101;&#108;&#101;&#99;&#116;&#114;&#111;&#110;&#45;&#x62;&#117;&#105;&#108;&#100;&#101;&#114;&#64;&#50;&#51;&#x2e;&#x36;&#x2e;&#x30;</a></p>
+<p>指定版本：npm install –save-dev <a href="mailto:&#101;&#x6c;&#x65;&#x63;&#116;&#114;&#111;&#110;&#x2d;&#98;&#117;&#x69;&#x6c;&#x64;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;">&#101;&#x6c;&#x65;&#x63;&#116;&#114;&#111;&#110;&#x2d;&#98;&#117;&#x69;&#x6c;&#x64;&#x65;&#x72;&#64;&#x32;&#x33;&#46;&#x36;&#x2e;&#48;</a></p>
 </blockquote>
 <h3 id="package-json-中配置"><a href="#package-json-中配置" class="headerlink" title="package.json 中配置"></a>package.json 中配置</h3><pre><code class="json">&quot;build&quot;: &#123;
     &quot;appId&quot;: &quot;com.xxxxx.xxxx&quot;,//包名  
