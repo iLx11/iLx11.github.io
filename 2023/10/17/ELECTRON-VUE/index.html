@@ -180,7 +180,7 @@
     <div class="post-main">
         
             <div class="post-main-title">
-                ELECTRON+VUE
+                electron_vue
             </div>
             <div class="post-meta">
                 2023-10-17
@@ -411,7 +411,57 @@ const createWindow = () =&gt; &#123;
     createTray(app, win)
 &#125;
 </code></pre>
-<h1 id="基础开发"><a href="#基础开发" class="headerlink" title="基础开发"></a>基础开发</h1><h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/app">https://www.electronjs.org/zh/docs/latest/api/app</a></p>
+<h1 id="vite-plugin-electron-构建"><a href="#vite-plugin-electron-构建" class="headerlink" title="vite-plugin-electron 构建"></a>vite-plugin-electron 构建</h1><p>该包集成了<code>Vite</code>和<code>Electron</code>，比如使用它之后可以让我们方便的在渲染进程中使用<code>Node API</code>或者<code>Electron API</code>，或者 vite 热更新 electron</p>
+<p>详细使用用法可以去官网学习：<a href="https://link.juejin.cn/?target=https://link.zhihu.com/?target=https://github.com/electron-vite/vite-plugin-electron">vite-plugin-electron</a>。</p>
+<h3 id="下载插件"><a href="#下载插件" class="headerlink" title="下载插件"></a>下载插件</h3><pre><code class="bash">npm install vite-plugin-electron -D
+</code></pre>
+<h3 id="将-main-文件与-preload-文件修改为-ts-后缀"><a href="#将-main-文件与-preload-文件修改为-ts-后缀" class="headerlink" title="将 main 文件与 preload 文件修改为 ts  后缀"></a>将 main 文件与 preload 文件修改为 <code>ts</code>  后缀</h3><h3 id="配置-vite-config-ts"><a href="#配置-vite-config-ts" class="headerlink" title="配置 vite.config.ts"></a>配置 <code>vite.config.ts</code></h3><pre><code class="tsx">import electron from &#39;vite-plugin-electron&#39;
+
+plugins: [
+    // optimizer(getReplacer()),
+    vue(), 
+    electron(&#123;
+      main:&#123;
+        // 入口文件的路径
+        entry: &quot;electron/main/main.ts&quot;,
+        vite: &#123;
+          build: &#123;
+            // 将入口文件转为 js 后输出到指定目录
+            outDir: &quot;appDir/main&quot;
+          &#125;
+        &#125;
+      &#125;,
+      preload: &#123;
+        // 预加载文件的绝对路径 
+        input: path.join(__dirname, &quot;./electron/main/preload.ts&quot;), // 预加载文件
+        vite: &#123;
+          build: &#123;
+            // 将预加载文件转为 js 后输出到指定目录
+            outDir: &quot;appDir/preload&quot;
+          &#125;
+        &#125;
+      &#125;
+    &#125;)
+  ],
+</code></pre>
+<h3 id="配置-package-json"><a href="#配置-package-json" class="headerlink" title="配置 package.json"></a>配置 <code>package.json</code></h3><pre><code class="json">&#123;
+  &quot;name&quot;: &quot;app-name&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;private&quot;: true,
+  &quot;main&quot;: &quot;appDir/main/main.js&quot;,
+  &quot;author&quot;: &quot;iLx1&quot;,
+  &quot;description&quot;: &quot;description&quot;,
+   ...
+    
+    &quot;files&quot;: [
+        &quot;./dist&quot;,
+        &quot;./electron&quot;,
+        // 入口文件与预加载文件输出的目录
+        &quot;./appDir&quot;
+    ],
+&#125;
+</code></pre>
+<h3 id="在-main-中通过-import-来导入开发的不同模块"><a href="#在-main-中通过-import-来导入开发的不同模块" class="headerlink" title="在 main 中通过 import 来导入开发的不同模块"></a>在 main 中通过 import 来导入开发的不同模块</h3><h1 id="基础开发"><a href="#基础开发" class="headerlink" title="基础开发"></a>基础开发</h1><h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><p><a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/app">https://www.electronjs.org/zh/docs/latest/api/app</a></p>
 <h2 id="点击穿透透明区域"><a href="#点击穿透透明区域" class="headerlink" title="点击穿透透明区域"></a>点击穿透透明区域</h2><p>setIgnoreMouseEvents 可以使窗口忽略窗口内的所有鼠标事件</p>
 <p>设置以下参数，只有点击会穿透窗口，鼠标移动则会正常触发</p>
 <pre><code class="js">setIgnoreMouseEvents(true, &#123;forward: true&#125;)
@@ -1100,7 +1150,7 @@ setInterval(() =&gt; &#123;
 <h1 id="electron打包"><a href="#electron打包" class="headerlink" title="electron打包"></a>electron打包</h1><p>安装electron打包开发依赖</p>
 <blockquote>
 <p>最新版本：npm install –save-dev electron-builder</p>
-<p>指定版本：npm install –save-dev <a href="mailto:&#x65;&#108;&#101;&#x63;&#116;&#x72;&#111;&#x6e;&#45;&#98;&#x75;&#x69;&#x6c;&#x64;&#101;&#114;&#64;&#x32;&#x33;&#46;&#54;&#x2e;&#x30;">&#x65;&#108;&#101;&#x63;&#116;&#x72;&#111;&#x6e;&#45;&#98;&#x75;&#x69;&#x6c;&#x64;&#101;&#114;&#64;&#x32;&#x33;&#46;&#54;&#x2e;&#x30;</a></p>
+<p>指定版本：npm install –save-dev <a href="mailto:&#101;&#108;&#x65;&#x63;&#116;&#114;&#111;&#x6e;&#x2d;&#98;&#x75;&#x69;&#108;&#x64;&#x65;&#114;&#x40;&#50;&#x33;&#46;&#54;&#46;&#48;">&#101;&#108;&#x65;&#x63;&#116;&#114;&#111;&#x6e;&#x2d;&#98;&#x75;&#x69;&#108;&#x64;&#x65;&#114;&#x40;&#50;&#x33;&#46;&#54;&#46;&#48;</a></p>
 </blockquote>
 <h3 id="package-json-中配置"><a href="#package-json-中配置" class="headerlink" title="package.json 中配置"></a>package.json 中配置</h3><pre><code class="json">&quot;build&quot;: &#123;
     &quot;appId&quot;: &quot;com.xxxxx.xxxx&quot;,//包名  

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <link rel="stylesheet" media="screen and (max-width:700px)" href="/css/style.css" type="text/css" />
+    <link rel="stylesheet" media="screen and (min-width:700px)" href="/css/stylePC.css" type="text/css" />
+    <link rel="stylesheet" href="/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="/css/markdown.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fonts.css" type="text/css" />
+
+    <title>
+        iLx1 |
+            
+    </title>
+    <!-- 
+<link rel="stylesheet" href="/css/reset.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/markdown.css">
+ -->
+    <!-- 
+<link rel="stylesheet" href="/css/fonts.css">
+ -->
+<meta name="generator" content="Hexo 5.4.2"></head>
+    <style>
+        /*页面加载开始*/
+        .load {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 35em;
+            z-index: 999;
+        }
+
+        .loader {
+            --path: #323641;
+            --dot: #6a95bd;
+            --duration: 1.5s;
+            width: 55px;
+            height: 55px;
+            align-items: center;
+            justify-items: center;
+            position: relative;
+        }
+        .h-mes {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .h-mes span {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        }
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg polygon {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+        #noWait {
+            color: rgba(51,51,51, 0.4);
+            margin-top: 3em;
+            cursor: pointer;
+            display: none;
+        }
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
+            }
+
+            100% {
+                stroke-dashoffset: 221;
+            }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+
+        }
+    </style>
+
+    <body>
+        <!-- 页面加载效果 -->
+        <div class="load">
+            <div class="loader triangle">
+                <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72"></polygon>
+                </svg>
+            </div>
+            <div class="h-mes">
+                <span id="chs">" 请稍等一会... "</span>
+                <span>Please wait for a long time</span>
+                <span id="noWait"><我不等啦！></span>
+            </div>
+        </div>
+        
+        <!-- 页面加载结束 -->
+        <div class="backg"></div>
+        <div class="paper">
+            <div class="paper-main">
+                
+                
+                <!-- <div class="bgimg"></div> -->
+                <div class="cover"></div>
+                <!-- <div class="bgimgB"></div> -->
+                
+                    <div class="post-header">
+    <div class="themePage2">Light</div>
+    <a class="logo post-header-logo" href="/">iLx1</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                        
+                                    <section class="post-struction">
+    <div class="post-main">
+        
+            <div class="post-main-title">
+                Electron窗口
+            </div>
+            <div class="post-meta">
+                2024-02-18
+            </div>
+            
+                <hr>
+                <div class="post-md">
+                    <h2 id="创建接口"><a href="#创建接口" class="headerlink" title="创建接口"></a>创建接口</h2><h3 id="electron-interface-IWindowConfig-ts"><a href="#electron-interface-IWindowConfig-ts" class="headerlink" title="electron/interface/IWindowConfig.ts"></a>electron/interface/IWindowConfig.ts</h3><pre><code class="tsx">export default interface IWindowConfig &#123;
+  id: number | null
+  title: string
+  width: number | null
+  height: number | null
+  minWidth: number | null
+  minHeight: number | null
+  route: string
+  resizable: boolean
+  maximize: boolean
+  backgroundColor: string
+  data: object | null
+  isMultiWindow: boolean
+  isMainWin: boolean
+  parentId: number | null
+  modal: boolean
+&#125;
+</code></pre>
+<h3 id="electron-interface-IWindowOption-ts"><a href="#electron-interface-IWindowOption-ts" class="headerlink" title="electron/interface/IWindowOption.ts"></a>electron/interface/IWindowOption.ts</h3><pre><code class="tsx">import &#123; BrowserWindow &#125; from &#39;electron&#39;
+
+export default interface IWindowOption &#123;
+  width: number
+  height: number
+  maxWidth: number
+  maxHeight: number
+  minWidth: number
+  minHeight: number
+  center: boolean
+  transparent: boolean
+  backgroundColor: string
+  autoHideMenuBar: boolean
+  resizable: boolean
+  minimizable: boolean
+  maximizable: boolean
+  frame: boolean
+  show: boolean
+  parent?: BrowserWindow
+  modal: boolean
+  webPreferences: &#123;
+    contextIsolation: boolean //上下文隔离
+    nodeIntegration: boolean //启用 Node 集成（是否完整的支持 node）
+    webSecurity: boolean
+    preload: string
+  &#125;
+&#125;
+</code></pre>
+<h2 id="创建窗口类"><a href="#创建窗口类" class="headerlink" title="创建窗口类"></a>创建窗口类</h2><h3 id="electron-controller-createWindow-ts"><a href="#electron-controller-createWindow-ts" class="headerlink" title="electron/controller/createWindow.ts"></a>electron/controller/createWindow.ts</h3><pre><code class="tsx">import &#123; app, BrowserWindow, globalShortcut, IpcMainEvent, ipcMain &#125; from &#39;electron&#39;
+import IWindowOption from &#39;../interface/IWindowOption&#39;
+import IWindowConfig from &#39;../interface/IWindowConfig&#39;
+import &#123; join &#125; from &#39;path&#39;
+const path = require(&#39;path&#39;)
+
+// 窗口记录数组
+interface IGroup &#123;
+  [index: number]: &#123;
+    windowId: number
+    route: string
+  &#125;
+&#125;
+
+export default class CreateWindow &#123;
+  // 路由与主窗口标识
+  private public static group: IGroup = []
+  // 记录主窗口
+  private static main: BrowserWindow | null | undefined = null
+  // 窗口配置项
+  private defaultConfig: IWindowConfig
+  // 窗口默认配置
+  private defaultOptions: IWindowOption
+
+  constructor() &#123;
+    this.defaultConfig = &#123;
+      id: null, //唯一 id
+      title: &#39;&#39;, //窗口标题
+      width: null, //宽度
+      height: null, //高度
+      minWidth: null, //最小宽度
+      minHeight: null, //最小高度
+      route: &#39;&#39;, // 页面路由 URL &#39;/manage?id=123&#39;
+      resizable: true, //是否支持调整窗口大小
+      maximize: false, //是否最大化
+      backgroundColor: &#39;#eee&#39;, //窗口背景色
+      data: null, //数据
+      isMultiWindow: false, //是否支持多开窗口 (如果为 false，当窗体存在，再次创建不会新建一个窗体 只 focus 显示即可，，如果为 true，即使窗体存在，也可以新建一个)
+      isMainWin: false, //是否主窗口创建父子窗口 --(当为 true 时会替代当前主窗口)
+      parentId: null, //父窗口 id   子窗口永远显示在父窗口顶部 【父窗口可以操作】
+      modal: true //模态窗口 -- 模态窗口是禁用父窗口的子窗口，创建模态窗口必须设置 parent 和 modal 选项 【父窗口不能操作】
+    &#125;
+    this.defaultOptions = &#123;
+      width: 900,
+      height: 700,
+      //窗口是否在屏幕居中. 默认值为 false
+      center: true,
+      //设置为 false 时可以创建一个无边框窗口 默认值为 true。
+      frame: false,
+      //窗口是否在创建时显示。 默认值为 true。
+      show: true,
+      transparent: true,
+      maxWidth: null,
+      maxHeight: null,
+      minWidth: 688,
+      minHeight: 560,
+      backgroundColor: &#39;rgba(0,0,0,0)&#39;,
+      autoHideMenuBar: true,
+      resizable: true,
+      minimizable: true,
+      maximizable: true,
+      /* 
+        【父窗口不能操作】
+         模态窗口 -- 模态窗口是禁用父窗口的子窗口，创
+         建模态窗口必须设置 parent 和 modal 选项
+      */
+      modal: true,
+      parent: null,
+      webPreferences: &#123;
+        // nodeIntegration: true,
+        contextIsolation: true,
+        // nodeIntegrationInWorker: true,
+        webSecurity: false,
+        // sandbox: false,
+        nodeIntegration: true,
+        preload: path.join(__dirname, &#39;../preload/preload.js&#39;)
+      &#125;
+    &#125;
+  &#125;
+
+  // 根据 id 的窗口
+  public getWindowById = (id: number): any =&gt; &#123;
+    return BrowserWindow.fromId(id)
+  &#125;
+
+  // 创建窗口
+  public createWindow(configurations: object, options: object) &#123;
+    // console.info(CreateWindow.group)
+    // 判断是否有页面
+    let windowId: number = 0
+    if (
+      CreateWindow.group.some((o: object, i: number) =&gt; &#123;
+        windowId = i
+        return o.route === configurations.route
+      &#125;)
+    ) &#123;
+      console.info(&#39;window is already created&#39;)
+      this.getWindowById(windowId + 1)?.blur()
+      return
+    &#125;
+    // 传递的配置与默认配置创建新的对象
+    let windowConfig = Object.assign(&#123;&#125;, this.defaultConfig, configurations)
+    // 传递的选项与默认选项创建新的对象
+    let windowOptions = Object.assign(&#123;&#125;, this.defaultOptions, options)
+    // 设定其他窗口的父窗口
+    if (!windowConfig.isMainWin &amp;&amp; CreateWindow.main) &#123;
+      windowOptions.parent = CreateWindow.main
+    &#125;
+    // 创建窗口
+    let win = new BrowserWindow(windowOptions)
+    console.log(&#39;window id:&#39; + win.id)
+    // 记录路由与窗口 id
+    CreateWindow.group[win.id - 1] = &#123;
+      windowId: win.id,
+      route: windowConfig.route
+    &#125;
+
+    // 是否最大化
+    if (windowConfig.maximize &amp;&amp; windowConfig.resizable) &#123;
+      win.maximize()
+    &#125;
+    // 是否主窗口
+    if (windowConfig.isMainWin) &#123;
+      if (CreateWindow.main) &#123;
+        console.info(&#39;main window already created&#39;)
+        delete CreateWindow.group[0]
+        CreateWindow.main.close()
+      &#125;
+      // 记录主窗口
+      CreateWindow.main = win
+    &#125;
+    // 窗口被清除之后，清除存储
+    win.on(&#39;close&#39;, () =&gt; &#123;
+      CreateWindow.group.forEach((o, i) =&gt; &#123;
+        if(this.getWindowById(o.windowId) == win)
+          delete CreateWindow.group[i]
+        if(win == this.main)
+          app.quit()
+      &#125;);
+      win.setOpacity(0)
+    &#125;)
+
+    // 加载页面
+    let winURL: string
+    if (app.isPackaged) &#123;
+      // winURL = windowConfig.route ? `app://../../dist/index.html` : `file://$&#123;path.join(__dirname, &#39;../../dist/index.html&#39;)&#125;`
+      win.loadFile(join(__dirname, &#39;../../dist/index.html&#39;), &#123; hash: windowConfig.route &#125;)
+    &#125; else &#123;
+      winURL = windowConfig.route ? `http://localhost:$&#123;process.env[&#39;VITE_DEV_SERVER_PORT&#39;]&#125;/#$&#123;windowConfig.route&#125;` : `http://localhost:$&#123;process.env[&#39;VITE_DEV_SERVER_PORT&#39;]&#125;/#`
+      win.loadURL(winURL)
+    &#125;
+    console.info(&#39;new window address -&gt; &#39;, winURL)
+    win.setMenu(null)
+    // 设置路由
+    win.webContents.openDevTools()
+    win.on(&#39;hide&#39;, () =&gt; win.webContents.closeDevTools())
+    // 全局快捷键注册
+    globalShortcut.register(&#39;CommandOrControl+Shift+i&#39;, function () &#123;
+      win.webContents.openDevTools()
+    &#125;)
+    win.once(&#39;ready-to-show&#39;, () =&gt; &#123;
+      win.show()
+    &#125;)
+  &#125;
+&#125;
+</code></pre>
+<h2 id="preload-添加方法"><a href="#preload-添加方法" class="headerlink" title="preload 添加方法"></a>preload 添加方法</h2><h3 id="electron-main-preload-ts"><a href="#electron-main-preload-ts" class="headerlink" title="electron/main/preload.ts"></a>electron/main/preload.ts</h3><pre><code class="tsx">// 打开新窗口
+const createNewWindow = (optionObj: object, configObj: object) =&gt; &#123;
+  ipcRenderer.send(&#39;window-create&#39;, optionObj, configObj)
+&#125;
+
+contextBridge.exposeInMainWorld(&#39;myApi&#39;, &#123;
+  createNewWindow
+&#125;)
+</code></pre>
+<h2 id="修改-main-入口文件"><a href="#修改-main-入口文件" class="headerlink" title="修改 main 入口文件"></a>修改 main 入口文件</h2><h3 id="electron-main-main-ts"><a href="#electron-main-main-ts" class="headerlink" title="electron/main/main.ts"></a>electron/main/main.ts</h3><pre><code class="tsx">const &#123; app, protocol, BrowserWindow, ipcMain &#125; = require(&#39;electron&#39;)
+// 需在当前文件内开头引入 Node.js 的 &#39;path&#39; 模块
+const path = require(&#39;path&#39;)
+
+import &#123; windowControlListener &#125; from &#39;../controller/windowControl&#39;
+import CreateWindow from &#39;../controller/createWindow&#39;
+
+// 窗口监听
+windowControlListener()
+
+// 创建其他窗口
+ipcMain.on(&#39;window-create&#39;, (event, optionObj: object, configObj: object) =&gt; &#123;
+  let cw = new CreateWindow()
+  cw.createWindow(optionObj, configObj)
+&#125;)
+
+// 创建主窗口
+const createMainWindow = async () =&gt; &#123;
+  let mainW = new CreateWindow()
+  mainW.createWindow(&#123;
+    route: &#39;/home&#39;,
+    isMainWin: true,
+  &#125;, &#123;
+    width: 900,
+    height: 700
+  &#125;)
+&#125;
+
+app.commandLine.appendSwitch(&#39;--ignore-certificate-errors&#39;, &#39;true&#39;)
+// Scheme must be registered before the app is ready
+protocol.registerSchemesAsPrivileged([&#123; scheme: &#39;app&#39;, privileges: &#123; secure: true, standard: true &#125; &#125;])
+
+app.whenReady().then(() =&gt; &#123;
+  // 创建窗口
+  createMainWindow()
+  app.on(&#39;activate&#39;, () =&gt; &#123;
+    if (BrowserWindow.getAllWindows().length === 0) createMainWindow()
+  &#125;)
+&#125;)
+
+// 关闭所有窗口
+app.on(&#39;window-all-closed&#39;, () =&gt; &#123;
+  if (process.platform !== &#39;darwin&#39;) app.quit()
+&#125;)
+</code></pre>
+<h2 id="渲染层调用"><a href="#渲染层调用" class="headerlink" title="渲染层调用"></a>渲染层调用</h2><pre><code class="tsx">const win = window as any
+
+const createWindow = () =&gt; &#123;
+  win.myApi.createNewWindow(
+    &#123;
+      route: &#39;/child&#39;
+    &#125;,
+    &#123;
+      width: 500,
+      height: 500
+    &#125;
+  )
+&#125;
+</code></pre>
+
+                </div>
+
+                <div class="menuShow">
+                    <svg t="1663413277234" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2403" width="24" height="24">
+                        <path
+                            d="M640 192H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM960 544H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h736c17.7 0 32 14.3 32 32s-14.3 32-32 32zM640 896H224c-17.7 0-32-14.3-32-32s14.3-32 32-32h416c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 192H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 544H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 896H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h32c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                            fill="#707070" p-id="2404" data-spm-anchor-id="a313x.7781069.0.i0" class="selected"></path>
+                    </svg>
+                </div>
+                <div class="top">
+                    <svg width="8" height="14" viewBox="0 0 8 14">
+                        <path d="M7 1L1 7l6 6" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+    </div>
+    <div class="menu">
+        <ul>
+        </ul>
+    </div>
+</section>
+<script src="/js/nav.js"></script>
+<!-- 
+<script src="/js/nav.js"></script>
+ -->
+                                        <div class="footer">
+    <span>Copyright © 2022 iLx1</span>
+</div>
+
+<link rel="stylesheet" href="/css/nord.css" type="text/css" />
+<script src="/js/highlight.min.js"></script>
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+<!-- 
+<link rel="stylesheet" href="/css/nord.css">
+
+    
+<script src="/js/highlight.min.js"></script>
+
+        
+<script src="/js/highlightjs-line-numbers.js"></script>
+ -->
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+            </div>
+        </div>
+        <script>
+            const loader = document.querySelector('.load');
+            const paper = document.querySelector('.paper');
+            const ch_span = document.querySelector('.load .h-mes>#chs');
+            const no_wait = document.querySelector('.load #noWait');
+    
+            const ch_array = ['" 或许再等一会.. "', '" 等待是为了更好的阅读体验 "', '" 就快加载完了 "', '" 还差一点... "', '" 感谢你的坚持 ! "']
+            let i = 0, j = 0;
+            var show_main = setInterval(() => {
+                ch_span.innerHTML = ch_array[i];
+                i > 3 ? i = 0 : i ++;
+                j > 1 ? no_wait.style.display = 'block' : j ++;
+            }, 1800);
+            // console.log(23542365)
+            window.addEventListener('load',showMain);
+            no_wait.addEventListener('click', showMain);
+    
+            function showMain() {
+                loader.style.display = 'none';
+                paper.style.display = 'block';
+                show_main = null;
+                clearInterval(show_main);
+                console.log(1)
+            }
+        </script>
+    </body>
+</html>
