@@ -1147,10 +1147,78 @@ setInterval(() =&gt; &#123;
     let isMaxsize = win.isMaximized();
 &#125;
 </code></pre>
+<h2 id="窗口间通信"><a href="#窗口间通信" class="headerlink" title="窗口间通信"></a>窗口间通信</h2><h3 id="解决不同窗口间，-pinia-store-不同步问题"><a href="#解决不同窗口间，-pinia-store-不同步问题" class="headerlink" title="解决不同窗口间， pinia store 不同步问题"></a>解决不同窗口间， pinia store 不同步问题</h3><h3 id="主进程转发"><a href="#主进程转发" class="headerlink" title="主进程转发"></a>主进程转发</h3><pre><code class="ts">// pinia
+ipcMain.on(&#39;store-set&#39;, (event, objData) =&gt; &#123;
+  // 遍历窗口发送
+  for(const cur of BrowserWindow.getAllWindows()) &#123;
+    if(cur != BrowserWindow.fromWebContents(event.sender)) &#123;
+      cur.webContents.send(&#39;store-get&#39;, objData)
+    &#125;
+  &#125;
+&#125;)
+</code></pre>
+<h3 id="预加载设置通信与监听"><a href="#预加载设置通信与监听" class="headerlink" title="预加载设置通信与监听"></a>预加载设置通信与监听</h3><pre><code class="ts">// Pinia store 设置主动更改同步
+const setConfigStore = (obj: object) =&gt; &#123;
+  // console.log(obj)
+  ipcRenderer.send(&#39;store-set&#39;, obj)
+&#125;
+
+contextBridge.exposeInMainWorld(&#39;myApi&#39;, &#123;
+  setConfigStore,
+  // Pinia store 设置被动同步监听
+  storeChangeListen: (callbacka) =&gt;
+    ipcRenderer.on(&#39;store-get&#39;, (event, data) =&gt; &#123;
+      callbacka(data)
+    &#125;)
+&#125;)
+</code></pre>
+<h3 id="窗口组件中使用"><a href="#窗口组件中使用" class="headerlink" title="窗口组件中使用"></a>窗口组件中使用</h3><pre><code class="ts">// 窗口 1
+onMounted(() =&gt; &#123;
+  // 主页面监听
+  win.myApi.storeChangeListen((objData: object) =&gt; &#123;
+    console.info(&#39;homePage listening&#39;, objData)
+    // 有 get 属性
+    if (objData.get) &#123;
+      let storeValue = objData.get
+      let tempObj: object = &#123;&#125;
+      tempObj[storeValue] = configStore[storeValue]
+      // 发送其他窗口同步
+      win.myApi.setConfigStore(tempObj)
+      return
+    &#125;
+    try &#123;
+      // 同步信息
+      const keys = Object.keys(objData)
+      for (let key of keys) &#123;
+        // 设置对应 store 的值
+        configStore[`set$&#123;key.replace(key.charAt(0), key.charAt(0).toUpperCase())&#125;`](objData[key])
+      &#125;
+    &#125; catch (error) &#123;
+      console.error(error)
+    &#125;
+  &#125;)
+&#125;)
+
+// 窗口 2 获取窗口 1 的 store
+onMounted(() =&gt; &#123;
+  win.myApi.storeChangeListen((objData: object) =&gt; &#123;
+    console.info(&#39;keyConfigPage listening&#39;)
+    const keys = Object.keys(objData)
+    for(let key of keys) &#123;
+      // 设置对应 store 的
+      configStore[`set$&#123;key.replace(key.charAt(0), key.charAt(0).toUpperCase())&#125;`](objData[key])
+    &#125;
+  &#125;)
+  // 获取 配置的索引
+  win.myApi.setConfigStore(&#123;
+    get: &#39;configIndex&#39;
+  &#125;)
+&#125;)
+</code></pre>
 <h1 id="electron打包"><a href="#electron打包" class="headerlink" title="electron打包"></a>electron打包</h1><p>安装electron打包开发依赖</p>
 <blockquote>
 <p>最新版本：npm install –save-dev electron-builder</p>
-<p>指定版本：npm install –save-dev <a href="mailto:&#x65;&#x6c;&#101;&#99;&#x74;&#x72;&#111;&#x6e;&#45;&#98;&#x75;&#x69;&#x6c;&#100;&#101;&#x72;&#64;&#50;&#x33;&#x2e;&#x36;&#x2e;&#x30;">&#x65;&#x6c;&#101;&#99;&#x74;&#x72;&#111;&#x6e;&#45;&#98;&#x75;&#x69;&#x6c;&#100;&#101;&#x72;&#64;&#50;&#x33;&#x2e;&#x36;&#x2e;&#x30;</a></p>
+<p>指定版本：npm install –save-dev <a href="mailto:&#101;&#x6c;&#x65;&#99;&#x74;&#x72;&#x6f;&#110;&#45;&#x62;&#x75;&#105;&#x6c;&#x64;&#x65;&#114;&#64;&#x32;&#51;&#46;&#54;&#46;&#48;">&#101;&#x6c;&#x65;&#99;&#x74;&#x72;&#x6f;&#110;&#45;&#x62;&#x75;&#105;&#x6c;&#x64;&#x65;&#114;&#64;&#x32;&#51;&#46;&#54;&#46;&#48;</a></p>
 </blockquote>
 <h3 id="package-json-中配置"><a href="#package-json-中配置" class="headerlink" title="package.json 中配置"></a>package.json 中配置</h3><pre><code class="json">&quot;build&quot;: &#123;
     &quot;appId&quot;: &quot;com.xxxxx.xxxx&quot;,//包名  
