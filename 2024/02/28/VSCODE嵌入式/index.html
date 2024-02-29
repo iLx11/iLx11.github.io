@@ -180,7 +180,7 @@
     <div class="post-main">
         
             <div class="post-main-title">
-                VSCODE嵌入式
+                VSCode嵌入式
             </div>
             <div class="post-meta">
                 2024-02-28
@@ -188,7 +188,7 @@
             
                 <hr>
                 <div class="post-md">
-                    <h1 id="使用-Vscode-开发嵌入式"><a href="#使用-Vscode-开发嵌入式" class="headerlink" title="使用 Vscode 开发嵌入式"></a>使用 Vscode 开发嵌入式</h1><p>因为是开源的，所以不用寻找激活码或者破解，非常方便、高效，还可以同时配置 esp32 开发环境，或者开发纯软件</p>
+                    <h1 id="使用-VSCode-开发嵌入式"><a href="#使用-VSCode-开发嵌入式" class="headerlink" title="使用 VSCode 开发嵌入式"></a>使用 VSCode 开发嵌入式</h1><p>因为是开源的，所以不用寻找激活码或者破解，非常方便、高效，还可以同时配置 esp32 开发环境，或者开发纯软件</p>
 <h1 id="环境与工具"><a href="#环境与工具" class="headerlink" title="环境与工具"></a>环境与工具</h1><ul>
 <li>Windows 10</li>
 <li>STM32CubeMX</li>
@@ -203,26 +203,43 @@
 <h2 id="OpenOCD"><a href="#OpenOCD" class="headerlink" title="OpenOCD"></a>OpenOCD</h2><p>OpenOCD是用于对STM32进行下载仿真的工具，是一个开源软件包，解压到某个目录，后面会在Clion中链接这个目录</p>
 <p>下载地址：</p>
 <p><a href="https://link.zhihu.com/?target=http://gnutoolchains.com/arm-eabi/openocd/">https://link.zhihu.com/?target=http%3A//gnutoolchains.com/arm-eabi/openocd/</a></p>
-<h3 id="下载完成之后将-bin-目录添加到系统环境变量中"><a href="#下载完成之后将-bin-目录添加到系统环境变量中" class="headerlink" title="下载完成之后将 bin 目录添加到系统环境变量中"></a>下载完成之后将 bin 目录添加到系统环境变量中</h3><p>右键 “此电脑” -》 “属性” -》找到 “高级系统设置” -》 “环境变量” -》”系统变量” -》”path”双击 -》”新建”</p>
+<p>下载完成之后将 bin 目录添加到系统环境变量中</p>
+<p>右键 “此电脑” -》 “属性” -》找到 “高级系统设置” -》 “环境变量” -》”系统变量” -》”path”双击 -》”新建”</p>
 <h2 id="vscode"><a href="#vscode" class="headerlink" title="vscode"></a>vscode</h2><p>下载地址：</p>
 <p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/Download">https://code.visualstudio.com/Download</a></p>
-<h3 id="同样把-vscode-的安装-bin-目录添加到系统环境变量中"><a href="#同样把-vscode-的安装-bin-目录添加到系统环境变量中" class="headerlink" title="同样把 vscode 的安装 bin 目录添加到系统环境变量中"></a>同样把 vscode 的安装 bin 目录添加到系统环境变量中</h3><h2 id="MinGW"><a href="#MinGW" class="headerlink" title="MinGW"></a>MinGW</h2><h3 id="具体参考我的另一篇文章，”CLion-嵌入式”"><a href="#具体参考我的另一篇文章，”CLion-嵌入式”" class="headerlink" title="具体参考我的另一篇文章，”CLion 嵌入式”"></a>具体参考我的另一篇文章，”CLion 嵌入式”</h3><h3 id="下载完成之后将mingw64-bin-目录添加到系统环境变量中"><a href="#下载完成之后将mingw64-bin-目录添加到系统环境变量中" class="headerlink" title="下载完成之后将mingw64/bin 目录添加到系统环境变量中"></a>下载完成之后将<code>mingw64/bin</code> 目录添加到系统环境变量中</h3><h2 id="arm-none-eabi-gcc"><a href="#arm-none-eabi-gcc" class="headerlink" title="arm-none-eabi-gcc"></a>arm-none-eabi-gcc</h2><p>下载链接：</p>
+<p>同样把 vscode 的安装 bin 目录添加到系统环境变量中</p>
+<h2 id="MinGW"><a href="#MinGW" class="headerlink" title="MinGW"></a>MinGW</h2><p>具体参考我的另一篇文章，”CLion 嵌入式”</p>
+<p>下载完成之后将<code>mingw64/bin</code> 目录添加到系统环境变量中</p>
+<h2 id="arm-none-eabi-gcc"><a href="#arm-none-eabi-gcc" class="headerlink" title="arm-none-eabi-gcc"></a>arm-none-eabi-gcc</h2><p>下载链接：</p>
 <p><a target="_blank" rel="noopener" href="https://developer.arm.com/downloads/-/gnu-rm">https://developer.arm.com/downloads/-/gnu-rm</a></p>
-<h3 id="解压后将-bin目录添加到系统环境变量中"><a href="#解压后将-bin目录添加到系统环境变量中" class="headerlink" title="解压后将 bin目录添加到系统环境变量中"></a>解压后将 bin目录添加到系统环境变量中</h3><h2 id="所有环境配置完成之后"><a href="#所有环境配置完成之后" class="headerlink" title="所有环境配置完成之后"></a>所有环境配置完成之后</h2><h3 id="打开-cmd-依次输入，如果都有信息输出则为配置成功"><a href="#打开-cmd-依次输入，如果都有信息输出则为配置成功" class="headerlink" title="打开 cmd 依次输入，如果都有信息输出则为配置成功"></a>打开 cmd 依次输入，如果都有信息输出则为配置成功</h3><pre><code class="shell">mingw32-make -v
+<p>解压后将 bin目录添加到系统环境变量中</p>
+<h2 id="所有环境配置完成之后"><a href="#所有环境配置完成之后" class="headerlink" title="所有环境配置完成之后"></a>所有环境配置完成之后</h2><p>打开 cmd 依次输入，如果都有信息输出则为配置成功</p>
+<pre><code class="shell">mingw32-make -v
 arm-none-eabi-gcc -v
 openocd -v
 </code></pre>
-<h1 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h1><h3 id="打开-cubeMX-配置好板子之后"><a href="#打开-cubeMX-配置好板子之后" class="headerlink" title="打开 cubeMX 配置好板子之后"></a>打开 cubeMX 配置好板子之后</h3><h3 id="工程管理Toolchain-IDE-选择-Makefile-就可以"><a href="#工程管理Toolchain-IDE-选择-Makefile-就可以" class="headerlink" title="工程管理Toolchain/IDE 选择 Makefile 就可以"></a>工程管理<code>Toolchain/IDE</code> 选择 Makefile 就可以</h3><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202402282303760.png" alt="image-20240228230322221"></p>
-<h4 id="在生成的工程文件夹中，打开终端-cmd-，输入"><a href="#在生成的工程文件夹中，打开终端-cmd-，输入" class="headerlink" title="在生成的工程文件夹中，打开终端 cmd ，输入"></a>在生成的工程文件夹中，打开终端 cmd ，输入</h4><pre><code class="shell">code .
+<h1 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h1><p>打开 cubeMX 配置好板子之后</p>
+<p>工程管理<code>Toolchain/IDE</code> 选择 Makefile 就可以</p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202402282303760.png" alt="image-20240228230322221"></p>
+<p>在生成的工程文件夹中，打开终端 cmd ，输入</p>
+<pre><code class="shell">code .
 </code></pre>
-<h4 id="表示用-vscode-打开，如果报错说明-vscode-没有正确添加到系统目录中，也可以拖动打开"><a href="#表示用-vscode-打开，如果报错说明-vscode-没有正确添加到系统目录中，也可以拖动打开" class="headerlink" title="表示用 vscode 打开，如果报错说明 vscode 没有正确添加到系统目录中，也可以拖动打开"></a>表示用 vscode 打开，如果报错说明 vscode 没有正确添加到系统目录中，也可以拖动打开</h4><h3 id="在终端中输入，就可以对工程进行编译"><a href="#在终端中输入，就可以对工程进行编译" class="headerlink" title="在终端中输入，就可以对工程进行编译"></a>在终端中输入，就可以对工程进行编译</h3><pre><code class="shell">mingw32-make
+<p>表示用 vscode 打开，如果报错说明 vscode 没有正确添加到系统目录中，也可以拖动打开</p>
+<p>在终端中输入，就可以对工程进行编译</p>
+<pre><code class="shell">mingw32-make
 </code></pre>
-<h3 id="如果没有问题会显示下面的输出，并在工程文件夹中生成-build-目录"><a href="#如果没有问题会显示下面的输出，并在工程文件夹中生成-build-目录" class="headerlink" title="如果没有问题会显示下面的输出，并在工程文件夹中生成 build 目录"></a>如果没有问题会显示下面的输出，并在工程文件夹中生成 <code>build</code> 目录</h3><h3 id="以及-elf-、hex-bin-文件"><a href="#以及-elf-、hex-bin-文件" class="headerlink" title="以及 elf 、hex\bin 文件"></a>以及 <code>elf</code> 、<code>hex\bin</code> 文件</h3><p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202402282307284.png" alt="image-20240228230742853"></p>
+<p>如果没有问题会显示下面的输出，并在工程文件夹中生成 <code>build</code> 目录</p>
+<p>以及 <code>elf</code> 、<code>hex\bin</code> 文件</p>
+<p><img src="https://picr.oss-cn-qingdao.aliyuncs.com/img/202402282307284.png" alt="image-20240228230742853"></p>
 <h2 id="下载到硬件"><a href="#下载到硬件" class="headerlink" title="下载到硬件"></a>下载到硬件</h2><h3 id="如果是-DapLink"><a href="#如果是-DapLink" class="headerlink" title="如果是 DapLink"></a>如果是 DapLink</h3><pre><code class="shell">openocd -f interface/cmsis-dap.cfg -f target/stm32f1x.cfg -c &quot;program build/&lt;工程名&gt;.elf verify reset exit&quot;
 </code></pre>
 <h3 id="如果是-ST-Link"><a href="#如果是-ST-Link" class="headerlink" title="如果是 ST-Link"></a>如果是 ST-Link</h3><pre><code class="shell">openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c &quot;program build/&lt;工程名&gt;.elf verify reset exit&quot;
 </code></pre>
-<h4 id="其中-stm32f1x-cfg-可以在-openocd-安装目录-share-openocd-scripts-target，中找到适合自己的板子进行更换"><a href="#其中-stm32f1x-cfg-可以在-openocd-安装目录-share-openocd-scripts-target，中找到适合自己的板子进行更换" class="headerlink" title="其中 stm32f1x.cfg 可以在 openocd 安装目录 share/openocd/scripts/target，中找到适合自己的板子进行更换"></a>其中 <code>stm32f1x.cfg</code> 可以在 openocd 安装目录 <code>share/openocd/scripts/target</code>，中找到适合自己的板子进行更换</h4><h4 id="lt-工程名-gt-表示需要替换成自己的工程名"><a href="#lt-工程名-gt-表示需要替换成自己的工程名" class="headerlink" title="&lt;工程名&gt; 表示需要替换成自己的工程名"></a><code>&lt;工程名&gt;</code> 表示需要替换成自己的工程名</h4><h2 id="配置任务"><a href="#配置任务" class="headerlink" title="配置任务"></a>配置任务</h2><h3 id="如果是输入命令行的方式编译和下载非常的不方便，所以需要在-vscode-中创建任务，我们只执行任务就可以了"><a href="#如果是输入命令行的方式编译和下载非常的不方便，所以需要在-vscode-中创建任务，我们只执行任务就可以了" class="headerlink" title="如果是输入命令行的方式编译和下载非常的不方便，所以需要在 vscode 中创建任务，我们只执行任务就可以了"></a>如果是输入命令行的方式编译和下载非常的不方便，所以需要在 vscode 中创建任务，我们只执行任务就可以了</h3><h4 id="点击终端-gt-配置任务-gt-创建-打开-task-json"><a href="#点击终端-gt-配置任务-gt-创建-打开-task-json" class="headerlink" title="点击终端-&gt;配置任务-&gt;创建 / 打开 task.json"></a>点击终端-&gt;配置任务-&gt;创建 / 打开 task.json</h4><h4 id="以后的开发只需要把这个文件复制到-vscode目录下就可以"><a href="#以后的开发只需要把这个文件复制到-vscode目录下就可以" class="headerlink" title="以后的开发只需要把这个文件复制到 .vscode目录下就可以"></a>以后的开发只需要把这个文件复制到 <code>.vscode</code>目录下就可以</h4><pre><code class="json">&#123;
+<p>其中 <code>stm32f1x.cfg</code> 可以在 openocd 安装目录 <code>share/openocd/scripts/target</code>，中找到适合自己的板子进行更换</p>
+<p><code>&lt;工程名&gt;</code> 表示需要替换成自己的工程名</p>
+<h2 id="配置任务"><a href="#配置任务" class="headerlink" title="配置任务"></a>配置任务</h2><p>如果是输入命令行的方式编译和下载非常的不方便，所以需要在 vscode 中创建任务，我们只执行任务就可以了</p>
+<p>点击终端-&gt;配置任务-&gt;创建 / 打开 task.json</p>
+<h5 id="以后的开发只需要把这个文件复制到-vscode目录下就可以"><a href="#以后的开发只需要把这个文件复制到-vscode目录下就可以" class="headerlink" title="以后的开发只需要把这个文件复制到 .vscode目录下就可以"></a>以后的开发只需要把这个文件复制到 <code>.vscode</code>目录下就可以</h5><pre><code class="json">&#123;
   // See https://go.microsoft.com/fwlink/?LinkId=733558
   // for the documentation about the tasks.json format
   &quot;version&quot;: &quot;2.0.0&quot;,
@@ -297,7 +314,8 @@ openocd -v
   ]
 &#125;
 </code></pre>
-<h3 id="熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改"><a href="#熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改" class="headerlink" title="熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改"></a>熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改</h3><h3 id="运行任务时："><a href="#运行任务时：" class="headerlink" title="运行任务时："></a>运行任务时：</h3><h4 id="点击终端-gt-运行任务-gt-build-download"><a href="#点击终端-gt-运行任务-gt-build-download" class="headerlink" title="点击终端 -&gt; 运行任务 -&gt; build / download"></a>点击终端 -&gt; 运行任务 -&gt; build / download</h4><h2 id="调试程序"><a href="#调试程序" class="headerlink" title="调试程序"></a>调试程序</h2><p>编译和下载完成之后就可以进一步调试了</p>
+<h4 id="熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改"><a href="#熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改" class="headerlink" title="熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改"></a>熟悉的命令行就变成配置内容，并且填写在这个文件中了，然后可以找到对应位置修改</h4><h3 id="运行任务时："><a href="#运行任务时：" class="headerlink" title="运行任务时："></a>运行任务时：</h3><p>点击终端 -&gt; 运行任务 -&gt; build / download</p>
+<h2 id="调试程序"><a href="#调试程序" class="headerlink" title="调试程序"></a>调试程序</h2><p>编译和下载完成之后就可以进一步调试了</p>
 <h4 id="点击左边工具栏有虫子的图标-》运行和调试-》-创建launch-json文件-》选择cortex-debug"><a href="#点击左边工具栏有虫子的图标-》运行和调试-》-创建launch-json文件-》选择cortex-debug" class="headerlink" title="点击左边工具栏有虫子的图标 -》运行和调试 -》 创建launch.json文件 -》选择cortex-debug"></a>点击左边工具栏有虫子的图标 -》运行和调试 -》 创建launch.json文件 -》选择cortex-debug</h4><p>默认会创建一个jlink的配置</p>
 <h3 id="替换为"><a href="#替换为" class="headerlink" title="替换为"></a>替换为</h3><pre><code class="json">&#123;
     &quot;version&quot;: &quot;0.2.0&quot;,
@@ -323,9 +341,11 @@ openocd -v
     ]
 &#125;
 </code></pre>
-<h3 id="按下-F5-进入调试"><a href="#按下-F5-进入调试" class="headerlink" title="按下 F5 进入调试"></a>按下 F5 进入调试</h3><h2 id="printf-重定向"><a href="#printf-重定向" class="headerlink" title="printf 重定向"></a>printf 重定向</h2><h3 id="使串口支持-printf-和-fprintf（可选）"><a href="#使串口支持-printf-和-fprintf（可选）" class="headerlink" title="使串口支持 printf 和 fprintf（可选）"></a>使串口支持 printf 和 fprintf（可选）</h3><h4 id="在makefile的145行左右，添加以下代码"><a href="#在makefile的145行左右，添加以下代码" class="headerlink" title="在makefile的145行左右，添加以下代码"></a>在makefile的145行左右，添加以下代码</h4><pre><code class="c">-u_printf_float -u_fprintf_float 
+<h3 id="按下-F5-进入调试"><a href="#按下-F5-进入调试" class="headerlink" title="按下 F5 进入调试"></a>按下 F5 进入调试</h3><h2 id="printf-重定向"><a href="#printf-重定向" class="headerlink" title="printf 重定向"></a>printf 重定向</h2><h3 id="使串口支持-printf-和-fprintf（可选）"><a href="#使串口支持-printf-和-fprintf（可选）" class="headerlink" title="使串口支持 printf 和 fprintf（可选）"></a>使串口支持 printf 和 fprintf（可选）</h3><p>在makefile的145行左右，添加以下代码</p>
+<pre><code class="c">-u_printf_float -u_fprintf_float 
 </code></pre>
-<h3 id="重写函数"><a href="#重写函数" class="headerlink" title="重写函数"></a>重写函数</h3><pre><code class="c">//printf的重定向
+<p>重写函数</p>
+<pre><code class="c">//printf的重定向
 //1、使用printf一定要加\n
 //2、使用时 包含stdio.h
 //3、makefile 145h 加-u_printf_float以支持输出浮点数 printf输出到设备
